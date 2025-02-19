@@ -1,5 +1,6 @@
 package fr.acth2.mod;
 
+import fr.acth2.mod.items.ModItems;
 import fr.acth2.mod.proxy.ClientProxy;
 import fr.acth2.mod.proxy.CommonProxy;
 import fr.acth2.mod.utils.References;
@@ -19,6 +20,7 @@ public class Main {
 
     public Main() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        ModItems.register(modEventBus);
         modEventBus.addListener(this::setup);
     }
 

@@ -5,6 +5,7 @@ import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.passive.GolemEntity;
+import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -14,11 +15,11 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.core.PlayState;
 
-public class EntityExample extends GolemEntity implements IAnimatable {
+public class EntityExample extends IronGolemEntity implements IAnimatable {
 
     private final AnimationFactory factory = new AnimationFactory(this);
 
-    public EntityExample(EntityType<? extends GolemEntity
+    public EntityExample(EntityType<? extends IronGolemEntity
             > type, World worldIn) {
         super(type, worldIn);
     }
@@ -45,6 +46,7 @@ public class EntityExample extends GolemEntity implements IAnimatable {
                     new AnimationBuilder().addAnimation("animation.example_entity.attack", true)
             );
         }
+
         return PlayState.CONTINUE;
     }
 

@@ -1,4 +1,4 @@
-package fr.acth2.mod.items;
+package fr.acth2.mod.init;
 
 import fr.acth2.mod.utils.References;
 import net.minecraft.item.Item;

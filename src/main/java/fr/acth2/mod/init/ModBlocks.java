@@ -1,4 +1,4 @@
-package fr.acth2.mod.blocks;
+package fr.acth2.mod.init;
 
 import fr.acth2.mod.utils.References;
 import net.minecraft.block.AbstractBlock;

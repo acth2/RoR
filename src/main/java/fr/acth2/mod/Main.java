@@ -1,7 +1,8 @@
 package fr.acth2.mod;
 
-import fr.acth2.mod.blocks.ModBlocks;
-import fr.acth2.mod.items.ModItems;
+import fr.acth2.mod.init.ModBlocks;
+import fr.acth2.mod.init.ModEntities;
+import fr.acth2.mod.init.ModItems;
 import fr.acth2.mod.proxy.ClientProxy;
 import fr.acth2.mod.proxy.CommonProxy;
 import fr.acth2.mod.utils.References;
@@ -23,10 +24,11 @@ public class Main {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
+        ModEntities.ENTITY_TYPES.register(modEventBus);
         modEventBus.addListener(this::setup);
     }
 
-    private void setup(final FMLCommonSetupEvent event) {
+    private void setup(FMLCommonSetupEvent event) {
         proxy.setup();
     }
 }

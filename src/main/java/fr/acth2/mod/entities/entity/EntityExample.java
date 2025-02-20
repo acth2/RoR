@@ -22,7 +22,8 @@ public class EntityExample extends GolemEntity implements IAnimatable {
 
     private final AnimationFactory factory = new AnimationFactory(this);
 
-    public EntityExample(EntityType<? extends GolemEntity> type, World worldIn) {
+    public EntityExample(EntityType<? extends GolemEntity
+            > type, World worldIn) {
         super(type, worldIn);
     }
 

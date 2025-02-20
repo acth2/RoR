@@ -2,14 +2,10 @@ package fr.acth2.mod.entities.entity;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.monster.EndermiteEntity;
-import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.world.World;
-import org.w3c.dom.Attr;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
 import software.bernie.geckolib3.core.controller.AnimationController;

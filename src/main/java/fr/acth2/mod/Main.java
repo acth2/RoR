@@ -9,14 +9,8 @@ import fr.acth2.mod.init.ModItems;
 import fr.acth2.mod.proxy.ClientProxy;
 import fr.acth2.mod.proxy.CommonProxy;
 import fr.acth2.mod.utils.References;
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.WorldGenRegistries;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraftforge.client.event.GuiScreenEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -44,6 +38,7 @@ public class Main {
         event.enqueueWork(() -> {
             Registry.register(Registry.CHUNK_GENERATOR, new ResourceLocation(References.MODID, "example_generator"), ExampleGenerator.CODEC);
         });
+
         proxy.setup();
     }
 

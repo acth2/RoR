@@ -13,7 +13,13 @@ public class ModEntitySpawnEvents {
 
     @SubscribeEvent
     public static void onBiomeLoading(BiomeLoadingEvent event) {
-        event.getSpawns().getSpawner(EntityClassification.CREATURE)
-                .add(new MobSpawnInfo.Spawners(ModEntities.ENTITY_EXAMPLE.get(), 100, 1, 3));
+        //Example mob - Only in ED
+        if (event.getName() != null && event.getName().getNamespace().equals("ror") &&
+                event.getName().toString().equals("ed")) {
+            event.getSpawns().getSpawner(EntityClassification.CREATURE)
+                    .add(new MobSpawnInfo.Spawners(ModEntities.ENTITY_EXAMPLE.get(), 100, 1, 3));
+        }
+
+
     }
 }

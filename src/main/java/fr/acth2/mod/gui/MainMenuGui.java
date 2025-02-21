@@ -1,6 +1,7 @@
 package fr.acth2.mod.gui;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import fr.acth2.mod.gui.common.SmartButton;
 import fr.acth2.mod.gui.common.DiscordButton;
 import fr.acth2.mod.gui.common.GithubButton;
 import fr.acth2.mod.gui.common.LogoButton;
@@ -17,7 +18,6 @@ import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.text.StringTextComponent;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class MainMenuGui extends Screen {
@@ -134,15 +134,26 @@ public class MainMenuGui extends Screen {
         }
     }
 
+
     private void removeDiaryWidgets() {
-        Iterator<net.minecraft.client.gui.widget.Widget> iterator = this.buttons.iterator();
-        while (iterator.hasNext()) {
-            net.minecraft.client.gui.widget.Widget widget = iterator.next();
-            if (diaryEntryButtons.contains(widget) || widget == prevPageButton || widget == nextPageButton) {
-                iterator.remove();
-            }
+        for (Button btn : diaryEntryButtons) {
+            btn.active = false;
+            btn.visible = false;
+        }
+        this.buttons.removeAll(diaryEntryButtons);
+
+        if (prevPageButton != null) {
+            prevPageButton.active = false;
+            prevPageButton.visible = false;
+            this.buttons.remove(prevPageButton);
+        }
+        if (nextPageButton != null) {
+            nextPageButton.active = false;
+            nextPageButton.visible = false;
+            this.buttons.remove(nextPageButton);
         }
     }
+
 
     private void updateTabVisibility() {
         discordButton.visible = (currentTab == 2);
@@ -179,7 +190,6 @@ public class MainMenuGui extends Screen {
                 drawCenteredString(matrixStack, this.font, "Content for SKILLS", this.width / 2, contentY, 0xFFFFFF);
                 break;
             case 1:
-                drawCenteredString(matrixStack, this.font, "Diary of Modded Kills", this.width / 2, contentY - 20, 0xFFFFFF);
                 if (currentDiaryEntry != null) {
                     int popupWidth = 200;
                     int popupHeight = 150;
@@ -197,7 +207,7 @@ public class MainMenuGui extends Screen {
 
                     if (currentDiaryEntry.getMonsterType() != null) {
                         Entity renderEntity = currentDiaryEntry.getMonsterType().create(Minecraft.getInstance().level);
-                        if (renderEntity != null && renderEntity instanceof LivingEntity) {
+                        if (renderEntity instanceof LivingEntity) {
                             int modelX = popupX + popupWidth / 2;
                             int modelY = popupY + popupHeight - 20;
                             int modelScale = 30;

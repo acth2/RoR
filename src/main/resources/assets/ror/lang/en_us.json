@@ -2,6 +2,8 @@
   "item.ror.example_item": "Test",
   "block.ror.example_block": "Test Block",
   "entity.ror.entity_example": "Entity Example",
+  "entity.ror.lsot_caver":  "Lost Caver",
+  "entity.ror.hopper": "Hopper",
   "key.ror.mm": "Main menu",
   "key.categories.ror": "Ruins of Realms"
 }

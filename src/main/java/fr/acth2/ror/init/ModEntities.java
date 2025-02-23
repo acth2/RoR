@@ -25,19 +25,19 @@ public class ModEntities {
 
     public static final RegistryObject<EntityType<EntityLostCaver>> LOST_CAVER = ENTITY_TYPES.register("lost_caver", () ->
             EntityType.Builder.<EntityLostCaver>of(EntityLostCaver::new, EntityClassification.MONSTER)
-                    .sized(0.6F, 2.6F)
+                    .sized(1.2F, 3.4F)
                     .build("lost_caver")
     );
 
     public static final RegistryObject<EntityType<EntityHopper>> HOPPER = ENTITY_TYPES.register("hopper", () ->
             EntityType.Builder.<EntityHopper>of(EntityHopper::new, EntityClassification.CREATURE)
-                    .sized(0.9F, 0.75F)
+                    .sized(2.3F, 2F)
                     .build("hopper")
     );
 
     public static final RegistryObject<EntityType<EntityRustedCore>> RUSTED_CORE = ENTITY_TYPES.register("rusted_core", () ->
             EntityType.Builder.<EntityRustedCore>of(EntityRustedCore::new, EntityClassification.CREATURE)
-                    .sized(0.9F, 0.75F)
+                    .sized(1.2F, 4F)
                     .build("rusted_core")
     );
 

@@ -8,6 +8,6 @@ import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 public class RustedCoreRenderer extends GeoEntityRenderer<EntityRustedCore> {
     public RustedCoreRenderer(EntityRendererManager manager) {
         super(manager, new RustedCoreModel());
-        this.shadowRadius = 1.5f;
+        this.shadowRadius = 1.0f;
     }
 }

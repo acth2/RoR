@@ -19,10 +19,9 @@ import java.util.Random;
 @Mod.EventBusSubscriber(modid = References.MODID)
 public class NightMonsterSpawnerSubscriber {
 
-    // Spawning frequency
     private static final int SPAWN_INTERVAL_TICKS = 600;
-    private static final int ATTEMPTS_PER_PLAYER = 1;
-    private static final double SPAWN_CHANCE = 0.80;
+    private static final int ATTEMPTS_PER_PLAYER = 2;
+    private static final double SPAWN_CHANCE = 2.50;
     private static final int SPAWN_RADIUS_MIN = 8;
     private static final int SPAWN_RADIUS_MAX = 24;
     private static final int REQUIRED_MAX_LIGHT = 7;

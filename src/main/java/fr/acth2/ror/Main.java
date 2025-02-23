@@ -1,7 +1,5 @@
 package fr.acth2.ror;
 
-import fr.acth2.ror.dimension.example.ExampleGenerator;
-import fr.acth2.ror.entities.entity.lc.EntityLostCaver;
 import fr.acth2.ror.init.ModBlocks;
 import fr.acth2.ror.init.ModDimensions;
 import fr.acth2.ror.init.ModEntities;
@@ -9,10 +7,6 @@ import fr.acth2.ror.init.ModItems;
 import fr.acth2.ror.proxy.ClientProxy;
 import fr.acth2.ror.proxy.CommonProxy;
 import fr.acth2.ror.utils.References;
-import net.minecraft.entity.EntitySpawnPlacementRegistry;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;

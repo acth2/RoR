@@ -8,6 +8,6 @@ import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 public class LostCaverRenderer extends GeoEntityRenderer<EntityLostCaver> {
     public LostCaverRenderer(EntityRendererManager manager) {
         super(manager, new LostCaverModel());
-        this.shadowRadius = 1.5f;
+        this.shadowRadius = 0.9f;
     }
 }

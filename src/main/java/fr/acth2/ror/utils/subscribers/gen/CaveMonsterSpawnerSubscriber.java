@@ -22,10 +22,10 @@ public class CaveMonsterSpawnerSubscriber {
 
     private static final int SPAWN_INTERVAL_TICKS = 600;
     private static final int ATTEMPTS_PER_PLAYER = 1;
-    private static final double SPAWN_CHANCE = 0.80;
+    private static final double SPAWN_CHANCE = 0.95;
 
-    private static final int SPAWN_RADIUS_MIN = 8;
-    private static final int SPAWN_RADIUS_MAX = 24;
+    private static final int SPAWN_RADIUS_MIN = 4;
+    private static final int SPAWN_RADIUS_MAX = 50;
 
     private static final int CAVE_MAX_Y = 55;
     private static final int REQUIRED_MAX_LIGHT = 7;

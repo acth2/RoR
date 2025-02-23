@@ -8,6 +8,6 @@ import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 public class HopperRenderer extends GeoEntityRenderer<EntityHopper> {
     public HopperRenderer(EntityRendererManager manager) {
         super(manager, new HopperModel());
-        this.shadowRadius = 1.5f;
+        this.shadowRadius = 1.0f;
     }
 }

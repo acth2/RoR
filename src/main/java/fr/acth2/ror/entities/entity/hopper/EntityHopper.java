@@ -23,6 +23,7 @@ public class EntityHopper extends HopperEntity implements IAnimatable {
     public EntityHopper(EntityType<? extends HopperEntity
             > type, World worldIn) {
         super(type, worldIn);
+        this.setGlowing(true);
     }
 
     @Override
@@ -37,7 +38,6 @@ public class EntityHopper extends HopperEntity implements IAnimatable {
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        this.setGlowing(true);
         if (!isAttacking()) {
             if (!stopEveryAnimations) {
                 if (event.isMoving()) {

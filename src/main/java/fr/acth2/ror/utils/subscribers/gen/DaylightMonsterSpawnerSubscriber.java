@@ -23,10 +23,10 @@ public class DaylightMonsterSpawnerSubscriber {
 
     private static final int SPAWN_INTERVAL_TICKS = 600;
     private static final int ATTEMPTS_PER_PLAYER = 1;
-    private static final double SPAWN_CHANCE = 0.80;
+    private static final double SPAWN_CHANCE = 1.25;
 
     private static final int SPAWN_RADIUS_MIN = 8;
-    private static final int SPAWN_RADIUS_MAX = 24;
+    private static final int SPAWN_RADIUS_MAX = 32;
 
     public static final List<RegistryObject<? extends EntityType<? extends LivingEntity>>> mobListLV1
             = new ArrayList<>();

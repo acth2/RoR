@@ -18,6 +18,7 @@ public class EntityLostCaver extends LostCaverEntity implements IAnimatable {
     public EntityLostCaver(EntityType<? extends LostCaverEntity
             > type, World worldIn) {
         super(type, worldIn);
+        this.setGlowing(true);
     }
 
     @Override
@@ -28,7 +29,6 @@ public class EntityLostCaver extends LostCaverEntity implements IAnimatable {
 
 
     private <E extends IAnimatable> PlayState defaultPredicate(AnimationEvent<E> event) {
-        setGlowing(true);
         if (!isAttacking()) {
             if (event.isMoving()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.lc.walk", true));

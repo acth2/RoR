@@ -14,6 +14,7 @@ import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
@@ -21,6 +22,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import org.w3c.dom.Attr;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -87,18 +89,6 @@ public class HopperEntity extends MonsterEntity {
         return false;
     }
 
-    public static boolean canSpawnInDaySurface(
-            EntityType<? extends HopperEntity> type,
-            IServerWorld world,
-            SpawnReason reason,
-            BlockPos pos,
-            Random random
-    ) {
-        return true;
-    }
-
-
-
     @Override
     public void setGlowing(boolean p_184195_1_) {
         super.setGlowing(p_184195_1_);
@@ -107,7 +97,8 @@ public class HopperEntity extends MonsterEntity {
     public static AttributeModifierMap.MutableAttribute createAttributes() {
         return MobEntity.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 20.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.50D)
+                .add(Attributes.MOVEMENT_SPEED, 0.25D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.0D)
                 .add(Attributes.ATTACK_DAMAGE, 6.0D);
     }
 }

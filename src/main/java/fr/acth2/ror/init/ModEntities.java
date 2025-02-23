@@ -4,7 +4,9 @@ import fr.acth2.ror.entities.constructors.lc.LostCaverEntity;
 import fr.acth2.ror.entities.entity.EntityExample;
 import fr.acth2.ror.entities.entity.hopper.EntityHopper;
 import fr.acth2.ror.entities.entity.lc.EntityLostCaver;
+import fr.acth2.ror.entities.entity.rc.EntityRustedCore;
 import fr.acth2.ror.utils.References;
+import fr.acth2.ror.utils.subscribers.DaylightMonsterSpawnerSubscriber;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
@@ -34,7 +36,16 @@ public class ModEntities {
                     .build("hopper")
     );
 
+    public static final RegistryObject<EntityType<EntityRustedCore>> RUSTED_CORE = ENTITY_TYPES.register("rusted_core", () ->
+            EntityType.Builder.<EntityRustedCore>of(EntityRustedCore::new, EntityClassification.CREATURE)
+                    .sized(0.9F, 0.75F)
+                    .build("rusted_core")
+    );
+
     public static void register(IEventBus modEventBus) {
         ModEntities.ENTITY_TYPES.register(modEventBus);
+
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(ModEntities.HOPPER);
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(RUSTED_CORE);
     }
 }

@@ -3,6 +3,7 @@ package fr.acth2.ror.utils.subscribers;
 import fr.acth2.ror.entities.renderer.EntityExampleRenderer;
 import fr.acth2.ror.entities.renderer.hopper.HopperRenderer;
 import fr.acth2.ror.entities.renderer.lc.LostCaverRenderer;
+import fr.acth2.ror.entities.renderer.rc.RustedCoreRenderer;
 import fr.acth2.ror.init.ModEntities;
 import fr.acth2.ror.utils.References;
 import net.minecraftforge.api.distmarker.Dist;
@@ -21,5 +22,6 @@ public class ClientEventSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.ENTITY_EXAMPLE.get(), EntityExampleRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.LOST_CAVER.get(), LostCaverRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.HOPPER.get(), HopperRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.RUSTED_CORE.get(), RustedCoreRenderer::new);
     }
 }

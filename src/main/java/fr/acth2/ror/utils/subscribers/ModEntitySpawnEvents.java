@@ -20,6 +20,11 @@ public class ModEntitySpawnEvents {
         }
 
         if (event.getCategory() != Biome.Category.NETHER && event.getCategory() != Biome.Category.THEEND) {
+            event.getSpawns().getSpawner(EntityClassification.MONSTER)
+                    .add(new MobSpawnInfo.Spawners(ModEntities.RUSTED_CORE.get(), 25, 0, 1));
+        }
+
+        if (event.getCategory() != Biome.Category.NETHER && event.getCategory() != Biome.Category.THEEND) {
             event.getSpawns().getSpawner(EntityClassification.CREATURE)
                     .add(new MobSpawnInfo.Spawners(ModEntities.HOPPER.get(), 1000, 1, 1));
         }

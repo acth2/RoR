@@ -1,27 +1,35 @@
 package fr.acth2.ror.utils.subscribers;
 
+import fr.acth2.ror.entities.entity.hopper.EntityHopper;
 import fr.acth2.ror.init.ModEntities;
 import fr.acth2.ror.utils.References;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.Difficulty;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.TickEvent.WorldTickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 @Mod.EventBusSubscriber(modid = References.MODID)
-public class DaylightMonsterSpawnerSubscriber  {
-    private static final int SPAWN_INTERVAL_TICKS = 1200;
+public class DaylightMonsterSpawnerSubscriber {
+
+    private static final int SPAWN_INTERVAL_TICKS = 600;
     private static final int ATTEMPTS_PER_PLAYER = 1;
-    private static final double SPAWN_CHANCE = 0.20;
+    private static final double SPAWN_CHANCE = 0.80;
 
     private static final int SPAWN_RADIUS_MIN = 8;
     private static final int SPAWN_RADIUS_MAX = 24;
+
+    public static final List<RegistryObject<? extends EntityType<? extends LivingEntity>>> mobListLV1
+            = new ArrayList<>();
 
     private static int tickCounter = 0;
 
@@ -55,7 +63,6 @@ public class DaylightMonsterSpawnerSubscriber  {
             return;
         }
 
-
         int dx = random.nextInt(SPAWN_RADIUS_MAX - SPAWN_RADIUS_MIN + 1) + SPAWN_RADIUS_MIN;
         int dz = random.nextInt(SPAWN_RADIUS_MAX - SPAWN_RADIUS_MIN + 1) + SPAWN_RADIUS_MIN;
 
@@ -70,7 +77,7 @@ public class DaylightMonsterSpawnerSubscriber  {
         if (!isDaytime(world)) return;
         if (!hasBrightLight(world, spawnPos, 8)) return;
 
-        spawnHopper(world, spawnPos);
+        trySpawnPlayerLevelEntity(world, spawnPos);
     }
 
     private static BlockPos findSpawnHeight(ServerWorld world, BlockPos basePos) {
@@ -97,13 +104,16 @@ public class DaylightMonsterSpawnerSubscriber  {
         return (light >= minLight);
     }
 
-    private static void spawnHopper(ServerWorld world, BlockPos pos) {
-        net.minecraft.entity.EntityType<fr.acth2.ror.entities.entity.hopper.EntityHopper> hopperEntityType = ModEntities.HOPPER.get();
-        fr.acth2.ror.entities.entity.hopper.EntityHopper hopper = hopperEntityType.create(world);
-        if (hopper == null) return;
+    private static void trySpawnPlayerLevelEntity(ServerWorld world, BlockPos pos) {
+        RegistryObject<? extends EntityType<? extends LivingEntity>> chosenRegObj =
+                mobListLV1.get(world.random.nextInt(mobListLV1.size()));
 
-        hopper.moveTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5,
+        EntityType<? extends LivingEntity> chosenEntityType = chosenRegObj.get();
+        LivingEntity chosenEntity = chosenEntityType.create(world);
+        if (chosenEntity == null) return;
+
+        chosenEntity.moveTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5,
                 world.random.nextFloat() * 360F, 0);
-        world.addFreshEntityWithPassengers(hopper);
+        world.addFreshEntityWithPassengers(chosenEntity);
     }
 }

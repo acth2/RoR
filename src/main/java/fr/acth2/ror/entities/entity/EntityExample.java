@@ -1,10 +1,14 @@
 package fr.acth2.ror.entities.entity;
 
 import fr.acth2.ror.entities.constructors.ExampleEntity;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.passive.IronGolemEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.Explosion;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -28,6 +32,11 @@ public class EntityExample extends ExampleEntity implements IAnimatable {
     public void registerControllers(AnimationData data) {
         AnimationController<EntityExample> controller = new AnimationController<>(this, "controller", 0, this::predicate);
         data.addAnimationController(controller);
+    }
+
+    @Override
+    public boolean shouldBlockExplode(Explosion p_174816_1_, IBlockReader p_174816_2_, BlockPos p_174816_3_, BlockState p_174816_4_, float p_174816_5_) {
+        return false;
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
@@ -63,12 +72,5 @@ public class EntityExample extends ExampleEntity implements IAnimatable {
     @Override
     public AnimationFactory getFactory() {
         return factory;
-    }
-
-    public static AttributeModifierMap.MutableAttribute createAttributes() {
-        return MobEntity.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 20.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.25D)
-                .add(Attributes.ATTACK_DAMAGE, 3.0D);
     }
 }

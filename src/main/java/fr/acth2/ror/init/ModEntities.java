@@ -1,15 +1,14 @@
 package fr.acth2.ror.init;
 
-import fr.acth2.ror.entities.constructors.lc.LostCaverEntity;
 import fr.acth2.ror.entities.entity.EntityExample;
 import fr.acth2.ror.entities.entity.hopper.EntityHopper;
 import fr.acth2.ror.entities.entity.lc.EntityLostCaver;
 import fr.acth2.ror.entities.entity.rc.EntityRustedCore;
 import fr.acth2.ror.utils.References;
-import fr.acth2.ror.utils.subscribers.DaylightMonsterSpawnerSubscriber;
+import fr.acth2.ror.utils.subscribers.gen.CaveMonsterSpawnerSubscriber;
+import fr.acth2.ror.utils.subscribers.gen.DaylightMonsterSpawnerSubscriber;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -45,7 +44,14 @@ public class ModEntities {
     public static void register(IEventBus modEventBus) {
         ModEntities.ENTITY_TYPES.register(modEventBus);
 
-        DaylightMonsterSpawnerSubscriber.mobListLV1.add(ModEntities.HOPPER);
+        // DAY MONSTER GENERATION
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(HOPPER);
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(RUSTED_CORE);
+
+        // NIGHT MONSTER GENERATION
+        //
+
+        // CAVE MONSTER GENERATION
+        CaveMonsterSpawnerSubscriber.mobListLV1.add(LOST_CAVER);
     }
 }

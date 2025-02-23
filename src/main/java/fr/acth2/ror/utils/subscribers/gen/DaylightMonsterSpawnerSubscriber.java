@@ -1,4 +1,4 @@
-package fr.acth2.ror.utils.subscribers;
+package fr.acth2.ror.utils.subscribers.gen;
 
 import fr.acth2.ror.entities.entity.hopper.EntityHopper;
 import fr.acth2.ror.init.ModEntities;

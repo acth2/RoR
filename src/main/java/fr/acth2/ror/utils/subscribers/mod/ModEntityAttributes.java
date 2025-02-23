@@ -1,4 +1,4 @@
-package fr.acth2.ror.utils.subscribers;
+package fr.acth2.ror.utils.subscribers.mod;
 
 import fr.acth2.ror.entities.constructors.ExampleEntity;
 import fr.acth2.ror.entities.constructors.hopper.HopperEntity;

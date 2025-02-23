@@ -1,4 +1,4 @@
-package fr.acth2.ror.utils.subscribers;
+package fr.acth2.ror.utils.subscribers.mod;
 
 import fr.acth2.ror.entities.entity.EntityExample;
 import fr.acth2.ror.gui.diary.DiaryEntry;

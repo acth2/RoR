@@ -79,20 +79,6 @@ public class LostCaverEntity extends MonsterEntity {
         return false;
     }
 
-    public static boolean canSpawnInCave(EntityType<? extends LostCaverEntity> type, IWorld world, SpawnReason reason, BlockPos pos, Random random) {
-        for (PlayerEntity players : world.players()) {
-            if (!(players.level.dimension() == World.OVERWORLD)) return false;
-        }
-
-        if (pos.getY() > 50) {
-            return false;
-        }
-        if (world.getLightEmission(pos) > 7) {
-            return false;
-        }
-        return true;
-    }
-
     @Override
     public void setGlowing(boolean p_184195_1_) {
         super.setGlowing(p_184195_1_);

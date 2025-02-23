@@ -1,4 +1,4 @@
-package fr.acth2.ror.utils.subscribers;
+package fr.acth2.ror.utils.subscribers.client;
 
 import fr.acth2.ror.entities.renderer.EntityExampleRenderer;
 import fr.acth2.ror.entities.renderer.hopper.HopperRenderer;

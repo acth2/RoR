@@ -1,4 +1,4 @@
-package fr.acth2.ror.utils.subscribers;
+package fr.acth2.ror.utils.subscribers.client;
 
 import fr.acth2.ror.gui.MainMenuGui;
 import fr.acth2.ror.init.ModKeyBindings;

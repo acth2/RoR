@@ -3,6 +3,7 @@ package fr.acth2.ror;
 import fr.acth2.ror.dimension.example.ExampleGenerator;
 import fr.acth2.ror.entities.entity.lc.EntityLostCaver;
 import fr.acth2.ror.init.ModBlocks;
+import fr.acth2.ror.init.ModDimensions;
 import fr.acth2.ror.init.ModEntities;
 import fr.acth2.ror.init.ModItems;
 import fr.acth2.ror.proxy.ClientProxy;
@@ -38,21 +39,8 @@ public class Main {
     }
 
     private void setup(FMLCommonSetupEvent event) {
-        event.enqueueWork(() -> {
-            Registry.register(Registry.CHUNK_GENERATOR,
-                    new ResourceLocation(References.MODID, "example_generator"),
-                    ExampleGenerator.CODEC
-            );
-        });
+        ModDimensions.register(event);
 
-        event.enqueueWork(() -> {
-            EntitySpawnPlacementRegistry.register(
-                    ModEntities.LOST_CAVER.get(),
-                    EntitySpawnPlacementRegistry.PlacementType.ON_GROUND,
-                    Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-                    EntityLostCaver::canSpawnInCave
-            );
-        });
         proxy.setup();
     }
 }

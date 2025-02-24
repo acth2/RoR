@@ -4,6 +4,7 @@ import fr.acth2.ror.entities.entity.EntityExample;
 import fr.acth2.ror.entities.entity.hopper.EntityHopper;
 import fr.acth2.ror.entities.entity.lc.EntityLostCaver;
 import fr.acth2.ror.entities.entity.rc.EntityRustedCore;
+import fr.acth2.ror.entities.entity.wicked.EntityWicked;
 import fr.acth2.ror.utils.References;
 import fr.acth2.ror.utils.subscribers.gen.CaveMonsterSpawnerSubscriber;
 import fr.acth2.ror.utils.subscribers.gen.DaylightMonsterSpawnerSubscriber;
@@ -31,14 +32,20 @@ public class ModEntities {
 
     public static final RegistryObject<EntityType<EntityHopper>> HOPPER = ENTITY_TYPES.register("hopper", () ->
             EntityType.Builder.<EntityHopper>of(EntityHopper::new, EntityClassification.CREATURE)
-                    .sized(2.3F, 2F)
+                    .sized(1.6F, 2F)
                     .build("hopper")
     );
 
     public static final RegistryObject<EntityType<EntityRustedCore>> RUSTED_CORE = ENTITY_TYPES.register("rusted_core", () ->
             EntityType.Builder.<EntityRustedCore>of(EntityRustedCore::new, EntityClassification.CREATURE)
-                    .sized(1.2F, 4F)
+                    .sized(1.0F, 4F)
                     .build("rusted_core")
+    );
+
+    public static final RegistryObject<EntityType<EntityWicked>> WICKED = ENTITY_TYPES.register("wicked", () ->
+            EntityType.Builder.<EntityWicked>of(EntityWicked::new, EntityClassification.CREATURE)
+                    .sized(0.6F, 2.8F)
+                    .build("wicked")
     );
 
     public static void register(IEventBus modEventBus) {
@@ -53,5 +60,6 @@ public class ModEntities {
 
         // CAVE MONSTER GENERATION
         CaveMonsterSpawnerSubscriber.mobListLV1.add(LOST_CAVER);
+        CaveMonsterSpawnerSubscriber.mobListLV1.add(WICKED);
     }
 }

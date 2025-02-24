@@ -21,7 +21,7 @@ public class NightMonsterSpawnerSubscriber {
 
     private static final int SPAWN_INTERVAL_TICKS = 600;
     private static final int ATTEMPTS_PER_PLAYER = 2;
-    private static final double SPAWN_CHANCE = 2.50;
+    private static final double SPAWN_CHANCE = 2.75;
     private static final int SPAWN_RADIUS_MIN = 8;
     private static final int SPAWN_RADIUS_MAX = 24;
     private static final int REQUIRED_MAX_LIGHT = 7;

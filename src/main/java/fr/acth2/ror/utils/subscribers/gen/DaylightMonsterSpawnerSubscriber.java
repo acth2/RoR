@@ -3,6 +3,8 @@ package fr.acth2.ror.utils.subscribers.gen;
 import fr.acth2.ror.entities.entity.hopper.EntityHopper;
 import fr.acth2.ror.init.ModEntities;
 import fr.acth2.ror.utils.References;
+import fr.acth2.ror.utils.subscribers.gen.utils.MobSpawnData;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -28,8 +30,7 @@ public class DaylightMonsterSpawnerSubscriber {
     private static final int SPAWN_RADIUS_MIN = 8;
     private static final int SPAWN_RADIUS_MAX = 32;
 
-    public static final List<RegistryObject<? extends EntityType<? extends LivingEntity>>> mobListLV1
-            = new ArrayList<>();
+    public static final List<MobSpawnData> mobListLV1 = new ArrayList<>();
 
     private static int tickCounter = 0;
 
@@ -105,10 +106,14 @@ public class DaylightMonsterSpawnerSubscriber {
     }
 
     private static void trySpawnPlayerLevelEntity(ServerWorld world, BlockPos pos) {
-        RegistryObject<? extends EntityType<? extends LivingEntity>> chosenRegObj =
-                mobListLV1.get(world.random.nextInt(mobListLV1.size()));
+        MobSpawnData chosenMobData = mobListLV1.get(world.random.nextInt(mobListLV1.size()));
 
-        EntityType<? extends LivingEntity> chosenEntityType = chosenRegObj.get();
+        BlockPos belowPos = pos.below();
+        if (chosenMobData.getRequiredBlock() != null && world.getBlockState(belowPos).getBlock() != chosenMobData.getRequiredBlock()) {
+            return;
+        }
+
+        EntityType<? extends LivingEntity> chosenEntityType = (EntityType<? extends LivingEntity>) chosenMobData.getEntityType();
         LivingEntity chosenEntity = chosenEntityType.create(world);
         if (chosenEntity == null) return;
 
@@ -116,4 +121,5 @@ public class DaylightMonsterSpawnerSubscriber {
                 world.random.nextFloat() * 360F, 0);
         world.addFreshEntityWithPassengers(chosenEntity);
     }
+
 }

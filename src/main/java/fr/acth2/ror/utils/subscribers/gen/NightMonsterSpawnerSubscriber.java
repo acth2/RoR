@@ -1,6 +1,7 @@
 package fr.acth2.ror.utils.subscribers.gen;
 
 import fr.acth2.ror.utils.References;
+import fr.acth2.ror.utils.subscribers.gen.utils.MobSpawnData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -9,7 +10,6 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.TickEvent.WorldTickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.ArrayList;
@@ -26,8 +26,7 @@ public class NightMonsterSpawnerSubscriber {
     private static final int SPAWN_RADIUS_MAX = 24;
     private static final int REQUIRED_MAX_LIGHT = 7;
 
-    public static final List<RegistryObject<? extends EntityType<? extends LivingEntity>>> mobListLV1
-            = new ArrayList<>();
+    public static final List<MobSpawnData> mobListLV1 = new ArrayList<>();
 
     private static int tickCounter = 0;
 
@@ -74,7 +73,8 @@ public class NightMonsterSpawnerSubscriber {
         if (!isNighttime(world)) return;
 
         if (!isDarkEnough(world, spawnPos, REQUIRED_MAX_LIGHT)) return;
-        spawnNightMob(world, spawnPos);
+
+        trySpawnPlayerLevelEntity(world, spawnPos);
     }
 
     private static BlockPos findSurfaceSpawnPos(ServerWorld world, BlockPos basePos) {
@@ -101,13 +101,17 @@ public class NightMonsterSpawnerSubscriber {
         return (light <= maxLight);
     }
 
-    private static void spawnNightMob(ServerWorld world, BlockPos pos) {
+    private static void trySpawnPlayerLevelEntity(ServerWorld world, BlockPos pos) {
         if (mobListLV1.isEmpty()) return;
 
-        RegistryObject<? extends EntityType<? extends LivingEntity>> chosenRegObj =
-                mobListLV1.get(world.random.nextInt(mobListLV1.size()));
+        MobSpawnData chosenMobData = mobListLV1.get(world.random.nextInt(mobListLV1.size()));
 
-        EntityType<? extends LivingEntity> chosenEntityType = chosenRegObj.get();
+        if (chosenMobData.getRequiredBlock() != null &&
+                world.getBlockState(pos.below()).getBlock() != chosenMobData.getRequiredBlock()) {
+            return;
+        }
+
+        EntityType<? extends LivingEntity> chosenEntityType = (EntityType<? extends LivingEntity>) chosenMobData.getEntityType();
         LivingEntity chosenEntity = chosenEntityType.create(world);
         if (chosenEntity == null) return;
 

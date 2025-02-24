@@ -1,30 +1,28 @@
-package fr.acth2.ror.entities.constructors.wicked;
+package fr.acth2.ror.entities.constructors.clucker;
 
 
-import net.minecraft.advancements.criterion.MobEffectsPredicate;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.merchant.villager.AbstractVillagerEntity;
 import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.monster.ZombieEntity;
-import net.minecraft.entity.monster.ZombifiedPiglinEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
-import net.minecraft.entity.passive.TurtleEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
+import org.w3c.dom.Attr;
 
 import javax.annotation.Nullable;
 
-public class WickedEntity extends MonsterEntity {
+public class CluckerEntity extends MonsterEntity {
 
-    public WickedEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
+    public CluckerEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
         this.setGlowing(true);
     }
@@ -43,7 +41,7 @@ public class WickedEntity extends MonsterEntity {
     }
 
     protected void addBehaviourGoals() {
-        this.goalSelector.addGoal(7, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
+        this.goalSelector.addGoal(4, new SwimGoal(this));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolemEntity.class, true));
     }
 
@@ -85,7 +83,7 @@ public class WickedEntity extends MonsterEntity {
     public boolean doHurtTarget(Entity target) {
         boolean flag = super.doHurtTarget(target);
         if (flag && target instanceof LivingEntity) {
-            ((LivingEntity) target).addEffect(new EffectInstance(Effects.BLINDNESS, 75, 0));
+            ((LivingEntity) target).addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 75, 3));
         }
         return flag;
     }
@@ -93,8 +91,10 @@ public class WickedEntity extends MonsterEntity {
     public static AttributeModifierMap.MutableAttribute createAttributes() {
         return MobEntity.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 15.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.23D)
-                .add(Attributes.ATTACK_DAMAGE, 5.0D);
+                .add(Attributes.MOVEMENT_SPEED, 0.30D)
+                .add(Attributes.ATTACK_DAMAGE, 5.0D)
+                .add(Attributes.ATTACK_KNOCKBACK, 14.0D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 7.0D);
     }
 
 }

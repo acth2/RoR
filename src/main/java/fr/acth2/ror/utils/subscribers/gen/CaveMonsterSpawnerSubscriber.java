@@ -1,7 +1,7 @@
 package fr.acth2.ror.utils.subscribers.gen;
 
-import fr.acth2.ror.init.ModEntities;
 import fr.acth2.ror.utils.References;
+import fr.acth2.ror.utils.subscribers.gen.utils.MobSpawnData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -10,7 +10,6 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.TickEvent.WorldTickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.ArrayList;
@@ -20,18 +19,15 @@ import java.util.Random;
 @Mod.EventBusSubscriber(modid = References.MODID)
 public class CaveMonsterSpawnerSubscriber {
 
-    private static final int SPAWN_INTERVAL_TICKS = 600;
-    private static final int ATTEMPTS_PER_PLAYER = 3;
-    private static final double SPAWN_CHANCE = 1.15;
-
+    private static final int SPAWN_INTERVAL_TICKS = 1;
+    private static final int ATTEMPTS_PER_PLAYER = 100;
+    private static final double SPAWN_CHANCE = 100000.75;
     private static final int SPAWN_RADIUS_MIN = 4;
     private static final int SPAWN_RADIUS_MAX = 50;
-
     private static final int CAVE_MAX_Y = 55;
     private static final int REQUIRED_MAX_LIGHT = 7;
 
-    public static final List<RegistryObject<? extends EntityType<? extends LivingEntity>>> mobListLV1
-            = new ArrayList<>();
+    public static final List<MobSpawnData> mobListLV1 = new ArrayList<>();
 
     private static int tickCounter = 0;
 
@@ -72,13 +68,11 @@ public class CaveMonsterSpawnerSubscriber {
 
         BlockPos playerPos = player.blockPosition();
         BlockPos basePos = playerPos.offset(dx, 0, dz);
-
         BlockPos spawnPos = findCaveSpawnPos(world, basePos);
         if (spawnPos == null) return;
 
-        if (!isDarkEnough(world, spawnPos, REQUIRED_MAX_LIGHT)) {
-            return;
-        }
+        if (!isDarkEnough(world, spawnPos, REQUIRED_MAX_LIGHT)) return;
+
         trySpawnPlayerLevelEntity(world, spawnPos);
     }
 
@@ -107,10 +101,14 @@ public class CaveMonsterSpawnerSubscriber {
     private static void trySpawnPlayerLevelEntity(ServerWorld world, BlockPos pos) {
         if (mobListLV1.isEmpty()) return;
 
-        RegistryObject<? extends EntityType<? extends LivingEntity>> chosenRegObj =
-                mobListLV1.get(world.random.nextInt(mobListLV1.size()));
+        MobSpawnData chosenMobData = mobListLV1.get(world.random.nextInt(mobListLV1.size()));
 
-        EntityType<? extends LivingEntity> chosenEntityType = chosenRegObj.get();
+        BlockPos belowPos = pos.below();
+        if (chosenMobData.getRequiredBlock() != null && world.getBlockState(belowPos).getBlock() != chosenMobData.getRequiredBlock()) {
+            return;
+        }
+
+        EntityType<? extends LivingEntity> chosenEntityType = (EntityType<? extends LivingEntity>) chosenMobData.getEntityType();
         LivingEntity chosenEntity = chosenEntityType.create(world);
         if (chosenEntity == null) return;
 
@@ -118,8 +116,7 @@ public class CaveMonsterSpawnerSubscriber {
                 pos.getX() + 0.5,
                 pos.getY(),
                 pos.getZ() + 0.5,
-                world.random.nextFloat() * 360F,
-                0
+                world.random.nextFloat() * 360F, 0
         );
         world.addFreshEntityWithPassengers(chosenEntity);
     }

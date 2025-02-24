@@ -1,6 +1,7 @@
 package fr.acth2.ror.utils.subscribers.client;
 
 import fr.acth2.ror.entities.renderer.EntityExampleRenderer;
+import fr.acth2.ror.entities.renderer.clucker.CluckerRenderer;
 import fr.acth2.ror.entities.renderer.hopper.HopperRenderer;
 import fr.acth2.ror.entities.renderer.lc.LostCaverRenderer;
 import fr.acth2.ror.entities.renderer.rc.RustedCoreRenderer;
@@ -25,5 +26,6 @@ public class ClientEventSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.HOPPER.get(), HopperRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.RUSTED_CORE.get(), RustedCoreRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.WICKED.get(), WickedRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.CLUCKER.get(), CluckerRenderer::new);
     }
 }

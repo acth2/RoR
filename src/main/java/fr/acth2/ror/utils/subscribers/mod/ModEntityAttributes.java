@@ -1,14 +1,13 @@
 package fr.acth2.ror.utils.subscribers.mod;
 
 import fr.acth2.ror.entities.constructors.ExampleEntity;
+import fr.acth2.ror.entities.constructors.clucker.CluckerEntity;
 import fr.acth2.ror.entities.constructors.hopper.HopperEntity;
 import fr.acth2.ror.entities.constructors.lc.LostCaverEntity;
 import fr.acth2.ror.entities.constructors.rc.RustedCoreEntity;
 import fr.acth2.ror.entities.constructors.wicked.WickedEntity;
-import fr.acth2.ror.entities.entity.EntityExample;
 import fr.acth2.ror.init.ModEntities;
 import fr.acth2.ror.utils.References;
-import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -23,5 +22,6 @@ public class ModEntityAttributes {
         event.put(ModEntities.HOPPER.get(), HopperEntity.createAttributes().build());
         event.put(ModEntities.RUSTED_CORE.get(), RustedCoreEntity.createAttributes().build());
         event.put(ModEntities.WICKED.get(), WickedEntity.createAttributes().build());
+        event.put(ModEntities.CLUCKER.get(), CluckerEntity.createAttributes().build());
     }
 }

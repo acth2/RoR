@@ -7,8 +7,9 @@ import fr.acth2.ror.entities.entity.lc.EntityLostCaver;
 import fr.acth2.ror.entities.entity.rc.EntityRustedCore;
 import fr.acth2.ror.entities.entity.wicked.EntityWicked;
 import fr.acth2.ror.utils.References;
-import fr.acth2.ror.utils.subscribers.gen.CaveMonsterSpawnerSubscriber;
-import fr.acth2.ror.utils.subscribers.gen.DaylightMonsterSpawnerSubscriber;
+import fr.acth2.ror.utils.subscribers.gen.overworld.CaveMonsterSpawnerSubscriber;
+import fr.acth2.ror.utils.subscribers.gen.overworld.DaylightMonsterSpawnerSubscriber;
+import fr.acth2.ror.utils.subscribers.gen.overworld.NightMonsterSpawnerSubscriber;
 import fr.acth2.ror.utils.subscribers.gen.utils.MobSpawnData;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
@@ -35,7 +36,7 @@ public class ModEntities {
 
     public static final RegistryObject<EntityType<EntityHopper>> HOPPER = ENTITY_TYPES.register("hopper", () ->
             EntityType.Builder.<EntityHopper>of(EntityHopper::new, EntityClassification.CREATURE)
-                    .sized(1.6F, 2F)
+                    .sized(0.9F, 1.3F)
                     .build("hopper")
     );
 
@@ -63,13 +64,13 @@ public class ModEntities {
         // DAY MONSTER GENERATION
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(HOPPER, 45, null));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(RUSTED_CORE, 25, Blocks.GRASS_BLOCK));
-        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CLUCKER, 85, Blocks.SAND));
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CLUCKER, 100, Blocks.SAND));
 
         // NIGHT MONSTER GENERATION
-        //
+        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CLUCKER, 100, Blocks.SAND));
 
         // CAVE MONSTER GENERATION
-        CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(LOST_CAVER, 50, Blocks.STONE));
+        CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(LOST_CAVER, 25, Blocks.STONE));
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WICKED, 100, Blocks.STONE));
     }
 }

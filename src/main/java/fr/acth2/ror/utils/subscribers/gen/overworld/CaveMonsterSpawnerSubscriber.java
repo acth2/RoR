@@ -1,4 +1,4 @@
-package fr.acth2.ror.utils.subscribers.gen;
+package fr.acth2.ror.utils.subscribers.gen.overworld;
 
 import fr.acth2.ror.utils.References;
 import fr.acth2.ror.utils.subscribers.gen.utils.MobSpawnData;
@@ -19,9 +19,9 @@ import java.util.Random;
 @Mod.EventBusSubscriber(modid = References.MODID)
 public class CaveMonsterSpawnerSubscriber {
 
-    private static final int SPAWN_INTERVAL_TICKS = 1;
-    private static final int ATTEMPTS_PER_PLAYER = 100;
-    private static final double SPAWN_CHANCE = 100000.75;
+    private static final int SPAWN_INTERVAL_TICKS = 250;
+    private static final int ATTEMPTS_PER_PLAYER = 4;
+    private static final double SPAWN_CHANCE = 3.75;
     private static final int SPAWN_RADIUS_MIN = 4;
     private static final int SPAWN_RADIUS_MAX = 50;
     private static final int CAVE_MAX_Y = 55;

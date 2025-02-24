@@ -1,4 +1,4 @@
-package fr.acth2.ror.utils.subscribers.gen;
+package fr.acth2.ror.utils.subscribers.gen.overworld;
 
 import fr.acth2.ror.utils.References;
 import fr.acth2.ror.utils.subscribers.gen.utils.MobSpawnData;
@@ -19,9 +19,9 @@ import java.util.Random;
 @Mod.EventBusSubscriber(modid = References.MODID)
 public class NightMonsterSpawnerSubscriber {
 
-    private static final int SPAWN_INTERVAL_TICKS = 600;
-    private static final int ATTEMPTS_PER_PLAYER = 2;
-    private static final double SPAWN_CHANCE = 2.75;
+    private static final int SPAWN_INTERVAL_TICKS = 100;
+    private static final int ATTEMPTS_PER_PLAYER = 3;
+    private static final double SPAWN_CHANCE = 4.75;
     private static final int SPAWN_RADIUS_MIN = 8;
     private static final int SPAWN_RADIUS_MAX = 24;
     private static final int REQUIRED_MAX_LIGHT = 7;

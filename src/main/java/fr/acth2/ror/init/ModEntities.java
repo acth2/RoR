@@ -2,6 +2,7 @@ package fr.acth2.ror.init;
 
 import fr.acth2.ror.entities.entity.EntityExample;
 import fr.acth2.ror.entities.entity.clucker.EntityClucker;
+import fr.acth2.ror.entities.entity.curser.EntityCurser;
 import fr.acth2.ror.entities.entity.hopper.EntityHopper;
 import fr.acth2.ror.entities.entity.lc.EntityLostCaver;
 import fr.acth2.ror.entities.entity.rc.EntityRustedCore;
@@ -58,6 +59,12 @@ public class ModEntities {
                     .build("clucker")
     );
 
+    public static final RegistryObject<EntityType<EntityCurser>> CURSER = ENTITY_TYPES.register("curser", () ->
+            EntityType.Builder.<EntityCurser>of(EntityCurser::new, EntityClassification.CREATURE)
+                    .sized(0.6F, 2.8F)
+                    .build("curser")
+    );
+
     public static void register(IEventBus modEventBus) {
         ModEntities.ENTITY_TYPES.register(modEventBus);
 
@@ -68,6 +75,7 @@ public class ModEntities {
 
         // NIGHT MONSTER GENERATION
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CLUCKER, 100, Blocks.SAND));
+        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CURSER, 25, null));
 
         // CAVE MONSTER GENERATION
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(LOST_CAVER, 25, Blocks.STONE));

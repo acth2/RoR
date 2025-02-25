@@ -2,6 +2,7 @@ package fr.acth2.ror.utils.subscribers.mod;
 
 import fr.acth2.ror.entities.constructors.ExampleEntity;
 import fr.acth2.ror.entities.constructors.clucker.CluckerEntity;
+import fr.acth2.ror.entities.constructors.curser.CurserEntity;
 import fr.acth2.ror.entities.constructors.hopper.HopperEntity;
 import fr.acth2.ror.entities.constructors.lc.LostCaverEntity;
 import fr.acth2.ror.entities.constructors.rc.RustedCoreEntity;
@@ -23,5 +24,6 @@ public class ModEntityAttributes {
         event.put(ModEntities.RUSTED_CORE.get(), RustedCoreEntity.createAttributes().build());
         event.put(ModEntities.WICKED.get(), WickedEntity.createAttributes().build());
         event.put(ModEntities.CLUCKER.get(), CluckerEntity.createAttributes().build());
+        event.put(ModEntities.CURSER.get(), CurserEntity.createAttributes().build());
     }
 }

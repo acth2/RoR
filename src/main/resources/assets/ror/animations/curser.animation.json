@@ -1,0 +1,39 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.curser.idle": {
+			"loop": true
+		},
+		"animation.curser.rumble": {
+			"loop": true,
+			"animation_length": 2,
+			"bones": {
+				"entity": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, "math.sin(query.anim_time * 1200) * 6"]
+						},
+						"0.5": {
+							"vector": ["math.sin(query.anim_time * 120) * 6", 0, "math.cos(query.anim_time * 100) * 4"]
+						},
+						"1.125": {
+							"vector": [0, 0, "math.sin(query.anim_time * 1200) * 6"]
+						},
+						"2.0": {
+							"vector": ["query.target_x_rotation", "query.target_y_rotation", 0]
+						}
+					},
+					"position": {
+						"vector": [0, "math.sin(query.anim_time * 90) * 1", 0]
+					}
+				},
+				"activated": {
+					"position": {
+						"vector": [0, 0, -2]
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

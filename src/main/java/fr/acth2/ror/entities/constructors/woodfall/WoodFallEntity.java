@@ -1,6 +1,5 @@
-package fr.acth2.ror.entities.constructors.lc;
+package fr.acth2.ror.entities.constructors.woodfall;
 
-import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
@@ -12,28 +11,25 @@ import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
-import java.util.Random;
 
+public class WoodFallEntity extends MonsterEntity {
 
-public class LostCaverEntity extends MonsterEntity {
-
-    protected LostCaverEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
+    protected WoodFallEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
+        this.setGlowing(true);
     }
 
     @Override
     public CreatureAttribute getMobType() {
-        return CreatureAttribute.UNDEFINED;
+        return CreatureAttribute.ARTHROPOD;
     }
 
     protected void registerGoals() {
@@ -54,20 +50,27 @@ public class LostCaverEntity extends MonsterEntity {
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolemEntity.class, true));
     }
 
+    @Override
+    public boolean checkSpawnRules(IWorld p_213380_1_, SpawnReason p_213380_2_) {
+        return super.checkSpawnRules(p_213380_1_, p_213380_2_)
+                || true;
+    }
+
     public boolean causeFallDamage(float p_225503_1_, float p_225503_2_) {
-        return false;
+        return true;
     }
 
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return ModSoundEvents.LOSTCAVER_AMBIENT.get();
+        return null;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-        return ModSoundEvents.LOSTCAVER_HIT.get();
+        return super.getHurtSound(p_184601_1_);
     }
+
     @Override
     protected SoundEvent getDeathSound() {
         return super.getDeathSound();
@@ -90,7 +93,8 @@ public class LostCaverEntity extends MonsterEntity {
     public static AttributeModifierMap.MutableAttribute createAttributes() {
         return MobEntity.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 20.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.15D)
-                .add(Attributes.ATTACK_DAMAGE, 6.0D);
+                .add(Attributes.MOVEMENT_SPEED, 0.25D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.0D)
+                .add(Attributes.ATTACK_DAMAGE, 3.0D);
     }
 }

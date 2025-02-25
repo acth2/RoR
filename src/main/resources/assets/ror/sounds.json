@@ -1,0 +1,44 @@
+{
+  "curser_hit": {
+    "category": "hostile",
+    "subtitle": "ror.curser_hit",
+    "sounds": [
+      "ror:curser_hit"
+    ]
+  },
+  "curser_ambient": {
+    "category": "hostile",
+    "subtitle": "ror.curser_ambient",
+    "sounds": [
+      "ror:curser_ambient"
+    ]
+  },
+  "wicked_hit": {
+    "category": "hostile",
+    "subtitle": "ror.wicked_hit",
+    "sounds": [
+      "ror:wicked_hit"
+    ]
+  },
+  "wicked_ambient": {
+    "category": "hostile",
+    "subtitle": "ror.wicked_ambient",
+    "sounds": [
+      "ror:wicked_ambient"
+    ]
+  },
+  "lc_hit": {
+    "category": "hostile",
+    "subtitle": "ror.lc_hit",
+    "sounds": [
+      "ror:lc_hit"
+    ]
+  },
+  "lc_ambient": {
+    "category": "hostile",
+    "subtitle": "ror.lc_ambient",
+    "sounds": [
+      "ror:lc_ambient"
+    ]
+  }
+}

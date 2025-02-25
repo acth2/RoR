@@ -1,5 +1,6 @@
 package fr.acth2.ror.entities.constructors.curser;
 
+import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
@@ -57,21 +58,17 @@ public class CurserEntity extends MonsterEntity {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return null;
-    }
-
-    @Override
-    protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-        return super.getHurtSound(p_184601_1_);
+        return ModSoundEvents.CURSER_AMBIENT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return super.getDeathSound();
+        return ModSoundEvents.CURSER_HIT.get();
     }
 
+
     public int getAmbientSoundInterval() {
-        return 120;
+        return 60;
     }
 
     @Override

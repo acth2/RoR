@@ -1,12 +1,10 @@
 package fr.acth2.ror;
 
-import fr.acth2.ror.init.ModBlocks;
-import fr.acth2.ror.init.ModDimensions;
-import fr.acth2.ror.init.ModEntities;
-import fr.acth2.ror.init.ModItems;
+import fr.acth2.ror.init.*;
 import fr.acth2.ror.proxy.ClientProxy;
 import fr.acth2.ror.proxy.CommonProxy;
 import fr.acth2.ror.utils.References;
+import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -29,6 +27,7 @@ public class Main {
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModEntities.register(modEventBus);
+        ModSoundEvents.register(modEventBus);
         modEventBus.addListener(this::setup);
     }
 

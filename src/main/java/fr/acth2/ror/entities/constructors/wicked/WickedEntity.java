@@ -1,6 +1,7 @@
 package fr.acth2.ror.entities.constructors.wicked;
 
 
+import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
 import net.minecraft.advancements.criterion.MobEffectsPredicate;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -54,21 +55,16 @@ public class WickedEntity extends MonsterEntity {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return null;
+        return ModSoundEvents.WICKED_AMBIENT.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-        return super.getHurtSound(p_184601_1_);
-    }
-
-    @Override
-    protected SoundEvent getDeathSound() {
-        return super.getDeathSound();
+        return ModSoundEvents.WICKED_HIT.get();
     }
 
     public int getAmbientSoundInterval() {
-        return 120;
+        return 60;
     }
 
     @Override

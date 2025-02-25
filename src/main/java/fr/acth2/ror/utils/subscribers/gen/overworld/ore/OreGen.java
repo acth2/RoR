@@ -15,21 +15,21 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.function.Supplier;
 
-@Mod.EventBusSubscriber(modid = References.MODID)
+@Mod.EventBusSubscriber(modid = References.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class OreGen {
-
-    private static final ConfiguredFeature<?, ?> CUSTOM_ORE = Feature.ORE
-            .configured(new OreFeatureConfig(
-                    OreFeatureConfig.FillerBlockType.NATURAL_STONE,
-                    ModBlocks.EXAMPLE_BLOCK.get().defaultBlockState(),
-                    32
-            ))
-            .decorated(Placement.RANGE.configured(new TopSolidRangeConfig(5, 0, 16)))
-            .squared()
-            .count(10);
 
     @SubscribeEvent
     public static void onBiomeLoad(BiomeLoadingEvent event) {
-        event.getGeneration().addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, CUSTOM_ORE);
+        ConfiguredFeature<?, ?> infraniumOre = Feature.ORE
+                .configured(new OreFeatureConfig(
+                        OreFeatureConfig.FillerBlockType.NATURAL_STONE,
+                        ModBlocks.INFRANIUM_ORE.get().defaultBlockState(),
+                        4
+                ))
+                .decorated(Placement.RANGE.configured(new TopSolidRangeConfig(5, 0, 16)))
+                .squared()
+                .count(8);
+
+        event.getGeneration().addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, infraniumOre);
     }
 }

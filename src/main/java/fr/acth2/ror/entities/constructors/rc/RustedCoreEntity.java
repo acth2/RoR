@@ -1,6 +1,8 @@
 package fr.acth2.ror.entities.constructors.rc;
 
 import fr.acth2.ror.entities.constructors.lc.LostCaverEntity;
+import fr.acth2.ror.gui.coins.CoinsManager;
+import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -13,9 +15,11 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Mod;
 
 import javax.annotation.Nullable;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class RustedCoreEntity extends CreeperEntity implements IChargeableMob {
 
@@ -43,29 +47,37 @@ public class RustedCoreEntity extends CreeperEntity implements IChargeableMob {
         this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
     }
 
-
     public boolean causeFallDamage(float p_225503_1_, float p_225503_2_) {
         return false;
+    }
+
+    private static AtomicBoolean giveCoinsOnce = new AtomicBoolean(true);
+    @Override
+    public void tick() {
+        if (isDeadOrDying() && giveCoinsOnce.getAndSet(false)) {
+            CoinsManager.addCoins(100);
+        }
+        super.tick();
     }
 
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return null;
+        return ModSoundEvents.RUSTEDCORE_AMBIENT.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-        return super.getHurtSound(p_184601_1_);
+        return ModSoundEvents.RUSTEDCORE_HIT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return super.getDeathSound();
+        return ModSoundEvents.RUSTEDCORE_DIE.get();
     }
 
     public int getAmbientSoundInterval() {
-        return 120;
+        return 30;
     }
 
     @Override

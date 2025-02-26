@@ -1,5 +1,6 @@
 package fr.acth2.ror.entities.constructors.lc;
 
+import fr.acth2.ror.gui.coins.CoinsManager;
 import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.EntityType;
@@ -23,6 +24,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 
 public class LostCaverEntity extends MonsterEntity {
@@ -56,6 +58,15 @@ public class LostCaverEntity extends MonsterEntity {
 
     public boolean causeFallDamage(float p_225503_1_, float p_225503_2_) {
         return false;
+    }
+
+    private static AtomicBoolean giveCoinsOnce = new AtomicBoolean(true);
+    @Override
+    public void tick() {
+        if (isDeadOrDying() && giveCoinsOnce.getAndSet(false)) {
+            CoinsManager.addCoins(150);
+        }
+        super.tick();
     }
 
     @Nullable

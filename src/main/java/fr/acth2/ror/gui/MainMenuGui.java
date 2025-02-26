@@ -1,6 +1,8 @@
 package fr.acth2.ror.gui;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import fr.acth2.ror.Main;
+import fr.acth2.ror.gui.coins.CoinsManager;
 import fr.acth2.ror.gui.common.DiscordButton;
 import fr.acth2.ror.gui.common.GithubButton;
 import fr.acth2.ror.gui.common.LogoButton;
@@ -14,6 +16,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.IReorderingProcessor;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 
 import java.util.ArrayList;
@@ -40,6 +43,7 @@ public class MainMenuGui extends Screen {
         super(new StringTextComponent("Ruins of Realms"));
         this.player = player;
         DiaryManager.loadDiary();
+        CoinsManager.loadCoins();
     }
 
     @Override
@@ -82,6 +86,10 @@ public class MainMenuGui extends Screen {
         if (currentTab == 1) {
             initDiaryEntries();
         }
+    }
+
+    public static int getCurrentPlayerCoins() {
+        return CoinsManager.getCoins();
     }
 
     private void initDiaryEntries() {
@@ -186,7 +194,17 @@ public class MainMenuGui extends Screen {
         int contentY = 80;
         switch (currentTab) {
             case 0:
-                drawCenteredString(matrixStack, this.font, "Content for SKILLS", this.width / 2, contentY, 0xFFFFFF);
+                int coinsLogoX = 27;
+                int coinsLogoY = this.height - 14;
+
+                int coinIconSize = 16;
+                int coinX = coinsLogoX - coinIconSize - 3;
+                int coinY = coinsLogoY - 2;
+
+                this.minecraft.getTextureManager().bind(new ResourceLocation("ror", "textures/gui/coin.png"));
+                blit(matrixStack, coinX, coinY - 5, 0, 0, coinIconSize, coinIconSize, coinIconSize, coinIconSize);
+
+                drawString(matrixStack, this.font, getCurrentPlayerCoins() + " COINS", coinX + 16, coinY, 0xFFFFFF);
                 break;
             case 1:
                 if (currentDiaryEntry != null) {

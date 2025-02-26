@@ -1,6 +1,8 @@
 package fr.acth2.ror.entities.constructors.hopper;
 
 import fr.acth2.ror.entities.constructors.lc.LostCaverEntity;
+import fr.acth2.ror.gui.coins.CoinsManager;
+import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
 import net.minecraft.block.AirBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.CreatureAttribute;
@@ -27,6 +29,7 @@ import org.w3c.dom.Attr;
 
 import javax.annotation.Nullable;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class HopperEntity extends MonsterEntity {
 
@@ -42,6 +45,15 @@ public class HopperEntity extends MonsterEntity {
     protected void registerGoals() {
         this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 8.0F));
         this.addBehaviourGoals();
+    }
+
+    private static AtomicBoolean giveCoinsOnce = new AtomicBoolean(true);
+    @Override
+    public void tick() {
+        if (isDeadOrDying() && giveCoinsOnce.getAndSet(false)) {
+            CoinsManager.addCoins(120);
+        }
+        super.tick();
     }
 
     protected void addBehaviourGoals() {
@@ -70,19 +82,18 @@ public class HopperEntity extends MonsterEntity {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return null;
+        return ModSoundEvents.HOPPER_AMBIENT.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-        return super.getHurtSound(p_184601_1_);
+        return ModSoundEvents.HOPPER_HIT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return super.getDeathSound();
+        return ModSoundEvents.HOPPER_DIE.get();
     }
-
     public int getAmbientSoundInterval() {
         return 120;
     }

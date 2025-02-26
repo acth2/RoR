@@ -1,6 +1,7 @@
 package fr.acth2.ror.entities.constructors.wicked;
 
 
+import fr.acth2.ror.gui.coins.CoinsManager;
 import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
 import net.minecraft.advancements.criterion.MobEffectsPredicate;
 import net.minecraft.entity.*;
@@ -22,6 +23,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class WickedEntity extends MonsterEntity {
 
@@ -48,6 +50,14 @@ public class WickedEntity extends MonsterEntity {
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolemEntity.class, true));
     }
 
+    private static AtomicBoolean giveCoinsOnce = new AtomicBoolean(true);
+    @Override
+    public void tick() {
+        if (isDeadOrDying() && giveCoinsOnce.getAndSet(false)) {
+            CoinsManager.addCoins(150);
+        }
+        super.tick();
+    }
     public boolean causeFallDamage(float p_225503_1_, float p_225503_2_) {
         return true;
     }

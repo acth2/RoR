@@ -1,5 +1,6 @@
 package fr.acth2.ror.entities.constructors.curser;
 
+import fr.acth2.ror.gui.coins.CoinsManager;
 import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.EntityType;
@@ -20,6 +21,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CurserEntity extends MonsterEntity {
 
@@ -41,14 +43,20 @@ public class CurserEntity extends MonsterEntity {
 
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
+
     }
 
+    private static AtomicBoolean giveCoinsOnce = new AtomicBoolean(true);
     @Override
     public void tick() {
-        super.tick();
-        if (this.isSunBurnTick()) {
-            this.setSecondsOnFire(8);
+        if (isDeadOrDying() && giveCoinsOnce.getAndSet(false)) {
+            CoinsManager.addCoins(50);
         }
+        super.tick();
+    }
+    @Override
+    public boolean isDeadOrDying() {
+        return super.isDeadOrDying();
     }
 
     public boolean causeFallDamage(float p_225503_1_, float p_225503_2_) {

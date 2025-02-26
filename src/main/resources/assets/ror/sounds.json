@@ -54,5 +54,75 @@
     "sounds": [
       "ror:lc_die"
     ]
+  },
+  "clucker_hit": {
+    "category": "hostile",
+    "subtitle": "ror.clucker_hit",
+    "sounds": [
+      "ror:clucker_hit"
+    ]
+  },
+  "clucker_ambient": {
+    "category": "hostile",
+    "subtitle": "ror.clucker_ambient",
+    "sounds": [
+      "ror:clucker_ambient"
+    ]
+  },
+  "clucker_die": {
+    "category": "hostile",
+    "subtitle": "ror.clucker_die",
+    "sounds": [
+      "ror:clucker_die"
+    ]
+  },
+  "hopper_hit": {
+    "category": "hostile",
+    "subtitle": "ror.hopper_hit",
+    "sounds": [
+      "ror:hopper_hit"
+    ]
+  },
+  "hopper_ambient": {
+    "category": "hostile",
+    "subtitle": "ror.hopper_ambient",
+    "sounds": [
+      "ror:hopper_ambient"
+    ]
+  },
+  "hopper_die": {
+    "category": "hostile",
+    "subtitle": "ror.hopper_die",
+    "sounds": [
+      "ror:hopper_die"
+    ]
+  },
+  "rc_die": {
+    "category": "hostile",
+    "subtitle": "ror.rc_die",
+    "sounds": [
+      "ror:rc_die"
+    ]
+  },
+  "rc_hit": {
+    "category": "hostile",
+    "subtitle": "ror.rc_hit",
+    "sounds": [
+      "ror:rc_hit"
+    ]
+  },
+  "rc_ambient": {
+    "category": "hostile",
+    "subtitle": "ror.rc_ambient",
+    "sounds": [
+      "ror:rc_ambient"
+    ]
+  },
+  "rc_explode": {
+    "category": "hostile",
+    "subtitle": "ror.rc_explode",
+    "sounds": [
+      "ror:rc_explode"
+    ]
   }
 }

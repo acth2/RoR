@@ -37,6 +37,36 @@ public class ModSoundEvents {
 
     public static final RegistryObject<SoundEvent> LOSTCAVER_DIE =
             registerSoundEvent("lc_die");
+
+    public static final RegistryObject<SoundEvent> CLUCKER_HIT =
+            registerSoundEvent("clucker_hit");
+
+    public static final RegistryObject<SoundEvent> CLUCKER_AMBIENT =
+            registerSoundEvent("clucker_ambient");
+
+    public static final RegistryObject<SoundEvent> CLUCKER_DIE =
+            registerSoundEvent("clucker_die");
+
+    public static final RegistryObject<SoundEvent> HOPPER_HIT =
+            registerSoundEvent("hopper_hit");
+
+    public static final RegistryObject<SoundEvent> HOPPER_AMBIENT =
+            registerSoundEvent("hopper_ambient");
+
+    public static final RegistryObject<SoundEvent> HOPPER_DIE =
+            registerSoundEvent("hopper_die");
+
+    public static final RegistryObject<SoundEvent> RUSTEDCORE_HIT =
+            registerSoundEvent("rc_hit");
+
+    public static final RegistryObject<SoundEvent> RUSTEDCORE_AMBIENT =
+            registerSoundEvent("rc_ambient");
+
+    public static final RegistryObject<SoundEvent> RUSTEDCORE_DIE =
+            registerSoundEvent("rc_die");
+
+    public static final RegistryObject<SoundEvent> RUSTEDCORE_EXPLODE =
+            registerSoundEvent("rc_explode");
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         return SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(References.MODID, name)));
     }

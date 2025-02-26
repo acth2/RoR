@@ -1,5 +1,6 @@
 package fr.acth2.ror.entities.constructors;
 
+import fr.acth2.ror.gui.coins.CoinsManager;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
@@ -16,6 +17,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ExampleEntity extends MonsterEntity {
 
@@ -46,6 +48,15 @@ public class ExampleEntity extends MonsterEntity {
 
     public boolean causeFallDamage(float p_225503_1_, float p_225503_2_) {
         return false;
+    }
+
+    private static AtomicBoolean giveCoinsOnce = new AtomicBoolean(true);
+    @Override
+    public void tick() {
+        if (isDeadOrDying() && giveCoinsOnce.getAndSet(false)) {
+            CoinsManager.addCoins(1);
+        }
+        super.tick();
     }
 
     @Nullable

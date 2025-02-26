@@ -10,6 +10,6 @@ import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 public class WoodFallRenderer extends GeoEntityRenderer<EntityWoodFall> {
     public WoodFallRenderer(EntityRendererManager manager) {
         super(manager, new WoodFallModel());
-        this.shadowRadius = 1.0f;
+        this.shadowRadius = 0.35f;
     }
 }

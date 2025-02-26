@@ -3,6 +3,7 @@ package fr.acth2.ror.entities.entity.rc;
 import fr.acth2.ror.entities.constructors.ExampleEntity;
 import fr.acth2.ror.entities.constructors.rc.RustedCoreEntity;
 import fr.acth2.ror.entities.entity.EntityExample;
+import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.SpawnReason;
@@ -42,6 +43,7 @@ public class EntityRustedCore extends RustedCoreEntity implements IAnimatable {
                     new AnimationBuilder().addAnimation("animation.rc.idle", true)
             );
         } else {
+            this.playSound(ModSoundEvents.RUSTEDCORE_EXPLODE.get(), 2.0F, 1.0F);
             event.getController().setAnimation(
                     new AnimationBuilder().addAnimation("animation.rc.explode", false)
             );

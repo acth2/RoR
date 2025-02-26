@@ -1,5 +1,6 @@
 package fr.acth2.ror.entities.constructors.woodfall;
 
+import fr.acth2.ror.gui.coins.CoinsManager;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
@@ -19,6 +20,7 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class WoodFallEntity extends MonsterEntity {
 
@@ -54,6 +56,15 @@ public class WoodFallEntity extends MonsterEntity {
     public boolean checkSpawnRules(IWorld p_213380_1_, SpawnReason p_213380_2_) {
         return super.checkSpawnRules(p_213380_1_, p_213380_2_)
                 || true;
+    }
+
+    private static AtomicBoolean giveCoinsOnce = new AtomicBoolean(true);
+    @Override
+    public void tick() {
+        if (isDeadOrDying() && giveCoinsOnce.getAndSet(false)) {
+            CoinsManager.addCoins(100);
+        }
+        super.tick();
     }
 
     public boolean causeFallDamage(float p_225503_1_, float p_225503_2_) {

@@ -96,13 +96,21 @@ public class CurserEntity extends MonsterEntity {
                 .add(Attributes.ATTACK_DAMAGE, 0.0D);
     }
 
+    private static final AtomicBoolean isCursingOnce = new AtomicBoolean(true);
     public boolean isPlayerWithin10Blocks() {
         for (PlayerEntity player : this.level.players()) {
             if (this.distanceTo(player) <= 10.0D) {
                 this.setGlowing(true);
-                player.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 75, 1));
-                player.addEffect(new EffectInstance(Effects.WEAKNESS, 75, 1));
+                if (isCursingOnce.getAndSet(false)) {
+                    player.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 75, 1));
+                    player.addEffect(new EffectInstance(Effects.WEAKNESS, 75, 1));
+                }
                 return true;
+            }else if (this.distanceTo(player) <= 09.0D) {
+                isCursingOnce.set(true);
+                this.setGlowing(false);
+                player.removeEffect(Effects.WEAKNESS);
+                player.removeEffect(Effects.MOVEMENT_SLOWDOWN);
             }
         }
         return false;

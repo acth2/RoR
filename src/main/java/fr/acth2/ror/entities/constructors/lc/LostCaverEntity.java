@@ -68,13 +68,14 @@ public class LostCaverEntity extends MonsterEntity {
     protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
         return ModSoundEvents.LOSTCAVER_HIT.get();
     }
+
     @Override
     protected SoundEvent getDeathSound() {
-        return super.getDeathSound();
+        return ModSoundEvents.LOSTCAVER_DIE.get();
     }
 
     public int getAmbientSoundInterval() {
-        return 120;
+        return 60;
     }
 
     @Override

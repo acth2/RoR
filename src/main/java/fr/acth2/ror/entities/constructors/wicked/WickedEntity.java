@@ -63,6 +63,11 @@ public class WickedEntity extends MonsterEntity {
         return ModSoundEvents.WICKED_HIT.get();
     }
 
+    @Override
+    protected SoundEvent getDeathSound() {
+        return ModSoundEvents.WICKED_DIE.get();
+    }
+
     public int getAmbientSoundInterval() {
         return 60;
     }

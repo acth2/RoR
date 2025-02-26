@@ -27,6 +27,13 @@
       "ror:wicked_ambient"
     ]
   },
+  "wicked_die": {
+  "category": "hostile",
+  "subtitle": "ror.wicked_die",
+  "sounds": [
+    "ror:wicked_die"
+  ]
+},
   "lc_hit": {
     "category": "hostile",
     "subtitle": "ror.lc_hit",
@@ -39,6 +46,13 @@
     "subtitle": "ror.lc_ambient",
     "sounds": [
       "ror:lc_ambient"
+    ]
+  },
+  "lc_die": {
+    "category": "hostile",
+    "subtitle": "ror.lc_die",
+    "sounds": [
+      "ror:lc_die"
     ]
   }
 }

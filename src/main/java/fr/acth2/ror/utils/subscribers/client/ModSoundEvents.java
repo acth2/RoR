@@ -26,12 +26,17 @@ public class ModSoundEvents {
 
     public static final RegistryObject<SoundEvent> WICKED_AMBIENT =
             registerSoundEvent("wicked_ambient");
+    public static final RegistryObject<SoundEvent> WICKED_DIE =
+            registerSoundEvent("wicked_die");
 
     public static final RegistryObject<SoundEvent> LOSTCAVER_HIT =
             registerSoundEvent("lc_hit");
 
     public static final RegistryObject<SoundEvent> LOSTCAVER_AMBIENT =
             registerSoundEvent("lc_ambient");
+
+    public static final RegistryObject<SoundEvent> LOSTCAVER_DIE =
+            registerSoundEvent("lc_die");
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         return SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(References.MODID, name)));
     }

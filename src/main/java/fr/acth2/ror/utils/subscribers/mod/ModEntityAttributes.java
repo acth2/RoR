@@ -6,6 +6,7 @@ import fr.acth2.ror.entities.constructors.curser.CurserEntity;
 import fr.acth2.ror.entities.constructors.hopper.HopperEntity;
 import fr.acth2.ror.entities.constructors.lc.LostCaverEntity;
 import fr.acth2.ror.entities.constructors.rc.RustedCoreEntity;
+import fr.acth2.ror.entities.constructors.traveler.TravelerEntity;
 import fr.acth2.ror.entities.constructors.wicked.WickedEntity;
 import fr.acth2.ror.entities.constructors.woodfall.WoodFallEntity;
 import fr.acth2.ror.entities.constructors.ws.WoodSpiritEntity;
@@ -29,5 +30,6 @@ public class ModEntityAttributes {
         event.put(ModEntities.CURSER.get(), CurserEntity.createAttributes().build());
         event.put(ModEntities.WOODFALL.get(), WoodFallEntity.createAttributes().build());
         event.put(ModEntities.WOOD_SPIRIT.get(), WoodSpiritEntity.createAttributes().build());
+        event.put(ModEntities.TRAVELER.get(), TravelerEntity.createAttributes().build());
     }
 }

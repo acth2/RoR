@@ -1,6 +1,7 @@
 package fr.acth2.ror.utils.subscribers.gen.overworld;
 
 import fr.acth2.ror.entities.entity.hopper.EntityHopper;
+import fr.acth2.ror.gui.coins.CoinsManager;
 import fr.acth2.ror.init.ModEntities;
 import fr.acth2.ror.utils.References;
 import fr.acth2.ror.utils.subscribers.gen.utils.MobSpawnData;
@@ -21,10 +22,10 @@ import java.util.List;
 import java.util.Random;
 
 @Mod.EventBusSubscriber(modid = References.MODID)
-public class DaylightMonsterSpawnerSubscriber {
+public class NPCSpawnSubscriber {
 
-    private static final int SPAWN_INTERVAL_TICKS = 200;
-    private static final int ATTEMPTS_PER_PLAYER = 2;
+    private static final int SPAWN_INTERVAL_TICKS = 12000;
+    private static final int ATTEMPTS_PER_PLAYER = 1;
     private static final double SPAWN_CHANCE = 2.45;
 
     private static final int SPAWN_RADIUS_MIN = 8;
@@ -75,9 +76,6 @@ public class DaylightMonsterSpawnerSubscriber {
         BlockPos spawnPos = findSpawnHeight(world, basePos);
         if (spawnPos == null) return;
 
-        if (!isDaytime(world)) return;
-        if (!hasBrightLight(world, spawnPos, 8)) return;
-
         trySpawnPlayerLevelEntity(world, spawnPos);
     }
 
@@ -95,31 +93,23 @@ public class DaylightMonsterSpawnerSubscriber {
         return null;
     }
 
-    private static boolean isDaytime(ServerWorld world) {
-        long dayTime = world.getDayTime() % 24000;
-        return dayTime < 12500;
-    }
-
-    private static boolean hasBrightLight(ServerWorld world, BlockPos pos, int minLight) {
-        int light = world.getMaxLocalRawBrightness(pos);
-        return (light >= minLight);
-    }
-
     private static void trySpawnPlayerLevelEntity(ServerWorld world, BlockPos pos) {
-        MobSpawnData chosenMobData = mobListLV1.get(world.random.nextInt(mobListLV1.size()));
+        if (CoinsManager.getCoins() <= 2500) {
+            MobSpawnData chosenMobData = mobListLV1.get(world.random.nextInt(mobListLV1.size()));
 
-        BlockPos belowPos = pos.below();
-        if (chosenMobData.getRequiredBlock() != null && world.getBlockState(belowPos).getBlock() != chosenMobData.getRequiredBlock()) {
-            return;
+            BlockPos belowPos = pos.below();
+            if (chosenMobData.getRequiredBlock() != null && world.getBlockState(belowPos).getBlock() != chosenMobData.getRequiredBlock()) {
+                return;
+            }
+
+            EntityType<? extends LivingEntity> chosenEntityType = (EntityType<? extends LivingEntity>) chosenMobData.getEntityType();
+            LivingEntity chosenEntity = chosenEntityType.create(world);
+            if (chosenEntity == null) return;
+
+            chosenEntity.moveTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5,
+                    world.random.nextFloat() * 360F, 0);
+            world.addFreshEntityWithPassengers(chosenEntity);
         }
-
-        EntityType<? extends LivingEntity> chosenEntityType = (EntityType<? extends LivingEntity>) chosenMobData.getEntityType();
-        LivingEntity chosenEntity = chosenEntityType.create(world);
-        if (chosenEntity == null) return;
-
-        chosenEntity.moveTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5,
-                world.random.nextFloat() * 360F, 0);
-        world.addFreshEntityWithPassengers(chosenEntity);
     }
 
 }

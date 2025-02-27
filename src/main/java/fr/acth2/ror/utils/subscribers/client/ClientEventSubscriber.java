@@ -6,6 +6,7 @@ import fr.acth2.ror.entities.renderer.curser.CurserRenderer;
 import fr.acth2.ror.entities.renderer.hopper.HopperRenderer;
 import fr.acth2.ror.entities.renderer.lc.LostCaverRenderer;
 import fr.acth2.ror.entities.renderer.rc.RustedCoreRenderer;
+import fr.acth2.ror.entities.renderer.traveler.TravelerRenderer;
 import fr.acth2.ror.entities.renderer.wicked.WickedRenderer;
 import fr.acth2.ror.entities.renderer.woodfall.WoodFallRenderer;
 import fr.acth2.ror.entities.renderer.ws.WoodSpiritRenderer;
@@ -33,5 +34,6 @@ public class ClientEventSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.CURSER.get(), CurserRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.WOODFALL.get(), WoodFallRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.WOOD_SPIRIT.get(), WoodSpiritRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.TRAVELER.get(), TravelerRenderer::new);
     }
 }

@@ -6,12 +6,14 @@ import fr.acth2.ror.entities.entity.curser.EntityCurser;
 import fr.acth2.ror.entities.entity.hopper.EntityHopper;
 import fr.acth2.ror.entities.entity.lc.EntityLostCaver;
 import fr.acth2.ror.entities.entity.rc.EntityRustedCore;
+import fr.acth2.ror.entities.entity.traveler.EntityTraveler;
 import fr.acth2.ror.entities.entity.wicked.EntityWicked;
 import fr.acth2.ror.entities.entity.woodfall.EntityWoodFall;
 import fr.acth2.ror.entities.entity.ws.EntityWoodSpirit;
 import fr.acth2.ror.utils.References;
 import fr.acth2.ror.utils.subscribers.gen.overworld.CaveMonsterSpawnerSubscriber;
 import fr.acth2.ror.utils.subscribers.gen.overworld.DaylightMonsterSpawnerSubscriber;
+import fr.acth2.ror.utils.subscribers.gen.overworld.NPCSpawnSubscriber;
 import fr.acth2.ror.utils.subscribers.gen.overworld.NightMonsterSpawnerSubscriber;
 import fr.acth2.ror.utils.subscribers.gen.utils.MobSpawnData;
 import net.minecraft.block.Block;
@@ -80,6 +82,12 @@ public class ModEntities {
                     .build("wood_spirit")
     );
 
+    public static final RegistryObject<EntityType<EntityTraveler>> TRAVELER = ENTITY_TYPES.register("traveler", () ->
+            EntityType.Builder.<EntityTraveler>of(EntityTraveler::new, EntityClassification.CREATURE)
+                    .sized(2.0F, 2F)
+                    .build("traveler")
+    );
+
     public static void register(IEventBus modEventBus) {
         ModEntities.ENTITY_TYPES.register(modEventBus);
 
@@ -102,5 +110,8 @@ public class ModEntities {
         // CAVE MONSTER GENERATION
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(LOST_CAVER, 25, Blocks.STONE));
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WICKED, 100, Blocks.STONE));
+
+        // NPC CREATURE GENERATION
+        NPCSpawnSubscriber.mobListLV1.add(new MobSpawnData(TRAVELER, 50, null));
     }
 }

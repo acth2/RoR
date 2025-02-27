@@ -8,6 +8,7 @@ import fr.acth2.ror.entities.constructors.lc.LostCaverEntity;
 import fr.acth2.ror.entities.constructors.rc.RustedCoreEntity;
 import fr.acth2.ror.entities.constructors.wicked.WickedEntity;
 import fr.acth2.ror.entities.constructors.woodfall.WoodFallEntity;
+import fr.acth2.ror.entities.constructors.ws.WoodSpiritEntity;
 import fr.acth2.ror.init.ModEntities;
 import fr.acth2.ror.utils.References;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -27,5 +28,6 @@ public class ModEntityAttributes {
         event.put(ModEntities.CLUCKER.get(), CluckerEntity.createAttributes().build());
         event.put(ModEntities.CURSER.get(), CurserEntity.createAttributes().build());
         event.put(ModEntities.WOODFALL.get(), WoodFallEntity.createAttributes().build());
+        event.put(ModEntities.WOOD_SPIRIT.get(), WoodSpiritEntity.createAttributes().build());
     }
 }

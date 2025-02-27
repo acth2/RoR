@@ -8,6 +8,7 @@ import fr.acth2.ror.entities.entity.lc.EntityLostCaver;
 import fr.acth2.ror.entities.entity.rc.EntityRustedCore;
 import fr.acth2.ror.entities.entity.wicked.EntityWicked;
 import fr.acth2.ror.entities.entity.woodfall.EntityWoodFall;
+import fr.acth2.ror.entities.entity.ws.EntityWoodSpirit;
 import fr.acth2.ror.utils.References;
 import fr.acth2.ror.utils.subscribers.gen.overworld.CaveMonsterSpawnerSubscriber;
 import fr.acth2.ror.utils.subscribers.gen.overworld.DaylightMonsterSpawnerSubscriber;
@@ -73,12 +74,19 @@ public class ModEntities {
                     .build("woodfall")
     );
 
+    public static final RegistryObject<EntityType<EntityWoodSpirit>> WOOD_SPIRIT = ENTITY_TYPES.register("wood_spirit", () ->
+            EntityType.Builder.<EntityWoodSpirit>of(EntityWoodSpirit::new, EntityClassification.CREATURE)
+                    .sized(1.0F, 4F)
+                    .build("wood_spirit")
+    );
+
     public static void register(IEventBus modEventBus) {
         ModEntities.ENTITY_TYPES.register(modEventBus);
 
         // DAY MONSTER GENERATION
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(HOPPER, 45, null));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(RUSTED_CORE, 25, Blocks.GRASS_BLOCK));
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOOD_SPIRIT, 1, Blocks.GRASS_BLOCK));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CLUCKER, 100, Blocks.SAND));
 
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL, 300, Blocks.VINE));

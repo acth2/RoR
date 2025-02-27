@@ -124,5 +124,26 @@
     "sounds": [
       "ror:rc_explode"
     ]
+  },
+  "ws_hit": {
+    "category": "hostile",
+    "subtitle": "ror.ws_hit",
+    "sounds": [
+      "ror:ws_hit"
+    ]
+  },
+  "ws_ambient": {
+    "category": "hostile",
+    "subtitle": "ror.ws_ambient",
+    "sounds": [
+      "ror:ws_ambient"
+    ]
+  },
+  "ws_die": {
+    "category": "hostile",
+    "subtitle": "ror.ws_die",
+    "sounds": [
+      "ror:ws_die"
+    ]
   }
 }

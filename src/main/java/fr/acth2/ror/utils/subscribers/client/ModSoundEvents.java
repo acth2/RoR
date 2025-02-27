@@ -67,6 +67,15 @@ public class ModSoundEvents {
 
     public static final RegistryObject<SoundEvent> RUSTEDCORE_EXPLODE =
             registerSoundEvent("rc_explode");
+
+    public static final RegistryObject<SoundEvent> WOODSPIRIT_AMBIENT =
+            registerSoundEvent("ws_ambient");
+
+    public static final RegistryObject<SoundEvent> WOODSPIRIT_DIE =
+            registerSoundEvent("ws_die");
+
+    public static final RegistryObject<SoundEvent> WOODSPIRIT_HIT =
+            registerSoundEvent("ws_hit");
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         return SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(References.MODID, name)));
     }

@@ -8,6 +8,7 @@ import fr.acth2.ror.entities.renderer.lc.LostCaverRenderer;
 import fr.acth2.ror.entities.renderer.rc.RustedCoreRenderer;
 import fr.acth2.ror.entities.renderer.wicked.WickedRenderer;
 import fr.acth2.ror.entities.renderer.woodfall.WoodFallRenderer;
+import fr.acth2.ror.entities.renderer.ws.WoodSpiritRenderer;
 import fr.acth2.ror.init.ModEntities;
 import fr.acth2.ror.utils.References;
 import net.minecraftforge.api.distmarker.Dist;
@@ -31,5 +32,6 @@ public class ClientEventSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.CLUCKER.get(), CluckerRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.CURSER.get(), CurserRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.WOODFALL.get(), WoodFallRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.WOOD_SPIRIT.get(), WoodSpiritRenderer::new);
     }
 }

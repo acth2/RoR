@@ -1,6 +1,7 @@
 {
   "item.ror.example_item": "Test",
   "block.ror.example_block": "Test Block",
+  "block.ror.infranium_ore": "Infranium Ore",
   "entity.ror.entity_example": "Entity Example",
   "entity.ror.lost_caver":  "Lost Caver",
   "entity.ror.hopper": "Hopper",
@@ -8,6 +9,8 @@
   "entity.ror.wicked": "Wicked",
   "entity.ror.clucker": "Clucker",
   "entity.ror.curser": "Curser",
+  "entity.ror.woodfall": "Wood Fall",
+  "entity.ror.wood_spirit": "Wood Spirit",
   "key.ror.mm": "Main menu",
   "key.categories.ror": "Ruins of Realms"
 }

@@ -1,6 +1,8 @@
 package fr.acth2.ror.entities.constructors.traveler;
 
+import fr.acth2.ror.gui.npc.traveler.TravelerSpeech;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
@@ -9,8 +11,11 @@ import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 
@@ -74,13 +79,22 @@ public class TravelerEntity extends MonsterEntity {
                 atomicFinalPayload.set(true);
 
                 this.remove();
+                this.kill();
             }
         }
 
         return super.hurt(source, amount);
     }
 
+    @Override
+    public ActionResultType interactAt(PlayerEntity player, Vector3d p_184199_2_, Hand hand) {
+        if (!this.level.isClientSide) {
+            return ActionResultType.SUCCESS;
+        }
 
+        Minecraft.getInstance().setScreen(new TravelerSpeech(player));
+        return ActionResultType.SUCCESS;
+    }
 
     @Override
     public int getLastHurtByMobTimestamp() {

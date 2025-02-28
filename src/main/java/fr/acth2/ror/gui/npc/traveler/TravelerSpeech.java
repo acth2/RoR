@@ -2,75 +2,69 @@ package fr.acth2.ror.gui.npc.traveler;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import fr.acth2.ror.gui.coins.CoinsManager;
-import fr.acth2.ror.gui.npc.common.DialogueEntry;
+import net.minecraft.block.Blocks;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
-
-import java.util.Arrays;
+import net.minecraft.world.World;
 
 public class TravelerSpeech extends Screen {
 
     private final PlayerEntity player;
-    private DialogueEntry currentDialogue;
-    public TravelerSpeech(PlayerEntity player) {
+    private final World world;
+    private final BlockPos markerPos = new BlockPos(0, -5, 0);
+    private boolean showAfterShopDialogue = false;
+    private String npcText;
+    private String[] playerResponses;
+
+    public TravelerSpeech(PlayerEntity player, boolean comingFromShop) {
         super(new StringTextComponent("Ruins of Realms"));
         this.player = player;
+        this.world = player.level;
         CoinsManager.loadCoins();
-        defineDialogs();
-    }
 
-    private void defineDialogs() {
-        DialogueEntry response2 = new DialogueEntry(
-                "Glad to hear that!",
-                Arrays.asList("Goodbye"),
-                Arrays.asList()
-        );
-
-        DialogueEntry response1 = new DialogueEntry(
-                "That's unfortunate...",
-                Arrays.asList("Goodbye"),
-                Arrays.asList()
-        );
-
-        currentDialogue = new DialogueEntry(
-                "Hello, traveler. How are you?",
-                Arrays.asList("I'm good.", "Not great..."),
-                Arrays.asList(response2, response1)
-        );
+        if (comingFromShop && world.getBlockState(markerPos).isAir()) {
+            this.npcText = "I hope the shop had what you needed.";
+            this.playerResponses = new String[]{"Thank you!", "Goodbye"};
+            showAfterShopDialogue = true;
+        } else {
+            this.npcText = "Hello, traveler. Searching items?";
+            this.playerResponses = new String[]{"Open shop", "Goodbye"};
+        }
     }
 
     @Override
     protected void init() {
         this.buttons.clear();
-        int yStart = this.height - (this.height / 3) + 30;
+        int dialogueHeight = this.height / 3;
+        int yStart = this.height - dialogueHeight + 30;
         int buttonHeight = 20;
         int buttonSpacing = 8;
 
-        for (int i = 0; i < currentDialogue.getPlayerResponses().size(); i++) {
+        for (int i = 0; i < playerResponses.length; i++) {
             int yPos = yStart + (i * (buttonHeight + buttonSpacing));
             int index = i;
-
             this.addButton(new Button(this.width / 2 - 75, yPos, 150, buttonHeight,
-                    new StringTextComponent(currentDialogue.getPlayerResponses().get(i)),
+                    new StringTextComponent(playerResponses[i]),
                     button -> selectResponse(index)
             ));
         }
     }
 
     private void selectResponse(int index) {
-        DialogueEntry next = currentDialogue.getNextEntry(index);
-        if (next != null) {
-            currentDialogue = next;
-            this.init();
-        } else {
+        if (showAfterShopDialogue) {
+            world.setBlock(markerPos, Blocks.BEDROCK.defaultBlockState(), 3);
             this.onClose();
+        } else {
+            if (index == 0) {
+                Minecraft.getInstance().setScreen(new TravelerShopScreen(player));
+            } else {
+                this.onClose();
+            }
         }
-    }
-
-    public static int getCurrentPlayerCoins() {
-        return CoinsManager.getCoins();
     }
 
     @Override
@@ -80,10 +74,10 @@ public class TravelerSpeech extends Screen {
         int dialogueHeight = screenHeight / 3;
 
         fill(matrixStack, 0, screenHeight - dialogueHeight, screenWidth, screenHeight, 0xAA000000);
-        drawCenteredString(matrixStack, this.font, currentDialogue.getNpcText(), this.width / 2, screenHeight - dialogueHeight + 10, 0xFFFFFF);
-
+        drawCenteredString(matrixStack, this.font, npcText, this.width / 2, screenHeight - dialogueHeight + 10, 0xFFFFFF);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
     }
+
     @Override
     public boolean isPauseScreen() {
         return false;

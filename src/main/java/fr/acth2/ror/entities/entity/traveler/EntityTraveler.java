@@ -45,12 +45,12 @@ public class EntityTraveler extends TravelerEntity implements IAnimatable {
             double playerX = player.getX();
 
             if (playerX < entityX) {
-                event.getController().setAnimation(new AnimationBuilder().playAndHold("animation.traveler.left"));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.traveler.left", true));
             } else {
-                event.getController().setAnimation(new AnimationBuilder().playAndHold("animation.traveler.right"));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.traveler.right", true));
             }
         } else {
-            event.getController().setAnimation(new AnimationBuilder().playAndHold("animation.traveler.idle"));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.traveler.idle", true));
         }
 
         return PlayState.CONTINUE;

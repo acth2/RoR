@@ -92,7 +92,7 @@ public class TravelerEntity extends MonsterEntity {
             return ActionResultType.SUCCESS;
         }
 
-        Minecraft.getInstance().setScreen(new TravelerSpeech(player));
+        Minecraft.getInstance().setScreen(new TravelerSpeech(player, false));
         return ActionResultType.SUCCESS;
     }
 

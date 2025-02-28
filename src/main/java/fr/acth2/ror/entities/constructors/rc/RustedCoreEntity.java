@@ -54,9 +54,6 @@ public class RustedCoreEntity extends CreeperEntity implements IChargeableMob {
     private static AtomicBoolean giveCoinsOnce = new AtomicBoolean(true);
     @Override
     public void tick() {
-        if (isDeadOrDying() && giveCoinsOnce.getAndSet(false)) {
-            CoinsManager.addCoins(100);
-        }
         super.tick();
     }
 

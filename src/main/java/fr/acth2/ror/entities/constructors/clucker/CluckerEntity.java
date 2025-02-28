@@ -74,9 +74,6 @@ public class CluckerEntity extends MonsterEntity {
     private static AtomicBoolean giveCoinsOnce = new AtomicBoolean(true);
     @Override
     public void tick() {
-        if (isDeadOrDying() && giveCoinsOnce.getAndSet(false)) {
-            CoinsManager.addCoins(75);
-        }
         super.tick();
     }
 

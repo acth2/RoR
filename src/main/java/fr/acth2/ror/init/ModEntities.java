@@ -102,7 +102,8 @@ public class ModEntities {
 
         // NIGHT MONSTER GENERATION
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CLUCKER, 100, Blocks.SAND));
-        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CURSER, 1, Blocks.SAND));
+        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CURSER, 1, Blocks.RED_SAND));
+        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CURSER, 1, Blocks.TERRACOTTA));
 
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL, 500, Blocks.VINE));
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL, 500, Blocks.LILY_PAD));

@@ -1,5 +1,6 @@
 {
   "item.ror.example_item": "Test",
+  "item.ror.realms_vessel": "Realms Vessel",
   "block.ror.example_block": "Test Block",
   "block.ror.infranium_ore": "Infranium Ore",
   "entity.ror.entity_example": "Entity Example",

@@ -53,9 +53,6 @@ public class WickedEntity extends MonsterEntity {
     private static AtomicBoolean giveCoinsOnce = new AtomicBoolean(true);
     @Override
     public void tick() {
-        if (isDeadOrDying() && giveCoinsOnce.getAndSet(false)) {
-            CoinsManager.addCoins(150);
-        }
         super.tick();
     }
     public boolean causeFallDamage(float p_225503_1_, float p_225503_2_) {

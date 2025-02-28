@@ -79,7 +79,6 @@ public class TravelerEntity extends MonsterEntity {
                 atomicFinalPayload.set(true);
 
                 this.remove();
-                this.kill();
             }
         }
 
@@ -92,7 +91,7 @@ public class TravelerEntity extends MonsterEntity {
             return ActionResultType.SUCCESS;
         }
 
-        Minecraft.getInstance().setScreen(new TravelerSpeech(player, false));
+        Minecraft.getInstance().setScreen(new TravelerSpeech(player));
         return ActionResultType.SUCCESS;
     }
 

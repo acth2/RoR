@@ -61,4 +61,8 @@ public class CoinsManager {
     public static int getCoins() {
         return playerCoins;
     }
+
+    public static boolean hasLeastCoins(int howMany) {
+        return playerCoins >= howMany;
+    }
 }

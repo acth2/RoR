@@ -76,6 +76,15 @@ public class ModSoundEvents {
 
     public static final RegistryObject<SoundEvent> WOODSPIRIT_HIT =
             registerSoundEvent("ws_hit");
+
+    public static final RegistryObject<SoundEvent> WOODFALL_HIT =
+            registerSoundEvent("wf_hit");
+
+    public static final RegistryObject<SoundEvent> WOODFALL_AMBIENT =
+            registerSoundEvent("wf_ambient");
+
+    public static final RegistryObject<SoundEvent> WOODFALL_DIE =
+            registerSoundEvent("wf_die");
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         return SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(References.MODID, name)));
     }

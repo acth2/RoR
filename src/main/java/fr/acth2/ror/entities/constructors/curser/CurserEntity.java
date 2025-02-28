@@ -49,9 +49,6 @@ public class CurserEntity extends MonsterEntity {
     private static AtomicBoolean giveCoinsOnce = new AtomicBoolean(true);
     @Override
     public void tick() {
-        if (isDeadOrDying() && giveCoinsOnce.getAndSet(false)) {
-            CoinsManager.addCoins(50);
-        }
         super.tick();
     }
     @Override

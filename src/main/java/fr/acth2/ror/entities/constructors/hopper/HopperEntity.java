@@ -50,9 +50,6 @@ public class HopperEntity extends MonsterEntity {
     private static AtomicBoolean giveCoinsOnce = new AtomicBoolean(true);
     @Override
     public void tick() {
-        if (isDeadOrDying() && giveCoinsOnce.getAndSet(false)) {
-            CoinsManager.addCoins(120);
-        }
         super.tick();
     }
 

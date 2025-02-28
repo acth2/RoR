@@ -73,9 +73,6 @@ public class WoodSpiritEntity extends MonsterEntity {
 
     @Override
     public void tick() {
-        if (isDeadOrDying() && giveCoinsOnce.getAndSet(false)) {
-            CoinsManager.addCoins(375);
-        }
         super.tick();
     }
 

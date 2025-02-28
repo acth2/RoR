@@ -51,7 +51,7 @@ public class TravelerShopScreen  extends Screen {
 
     @Override
     public void onClose() {
-        Minecraft.getInstance().setScreen(new TravelerSpeech(player, true));
+        Minecraft.getInstance().setScreen(new TravelerSpeech(player));
     }
 
     @Override

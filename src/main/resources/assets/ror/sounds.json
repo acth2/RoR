@@ -145,5 +145,26 @@
     "sounds": [
       "ror:ws_die"
     ]
+  },
+  "wf_die": {
+    "category": "hostile",
+    "subtitle": "ror.wf_die",
+    "sounds": [
+      "ror:wf_die"
+    ]
+  },
+  "wf_hit": {
+    "category": "hostile",
+    "subtitle": "ror.wf_hit",
+    "sounds": [
+      "ror:wf_hit"
+    ]
+  },
+  "wf_ambient": {
+    "category": "hostile",
+    "subtitle": "ror.wf_ambient",
+    "sounds": [
+      "ror:wf_ambient"
+    ]
   }
 }

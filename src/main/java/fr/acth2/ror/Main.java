@@ -1,5 +1,6 @@
 package fr.acth2.ror;
 
+import fr.acth2.ror.gui.coins.CoinsManager;
 import fr.acth2.ror.init.*;
 import fr.acth2.ror.proxy.ClientProxy;
 import fr.acth2.ror.proxy.CommonProxy;
@@ -28,6 +29,7 @@ public class Main {
         ModBlocks.register(modEventBus);
         ModEntities.register(modEventBus);
         ModSoundEvents.register(modEventBus);
+        CoinsManager.loadCoins();
         modEventBus.addListener(this::setup);
     }
 

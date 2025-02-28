@@ -7,33 +7,25 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 
 public class TravelerSpeech extends Screen {
 
-    private final PlayerEntity player;
-    private final World world;
-    private final BlockPos markerPos = new BlockPos(0, -5, 0);
+    private PlayerEntity player;
     private boolean showAfterShopDialogue = false;
     private String npcText;
     private String[] playerResponses;
 
-    public TravelerSpeech(PlayerEntity player, boolean comingFromShop) {
+    public TravelerSpeech(PlayerEntity player) {
         super(new StringTextComponent("Ruins of Realms"));
         this.player = player;
-        this.world = player.level;
         CoinsManager.loadCoins();
-
-        if (comingFromShop && world.getBlockState(markerPos).isAir()) {
-            this.npcText = "I hope the shop had what you needed.";
-            this.playerResponses = new String[]{"Thank you!", "Goodbye"};
-            showAfterShopDialogue = true;
-        } else {
-            this.npcText = "Hello, traveler. Searching items?";
-            this.playerResponses = new String[]{"Open shop", "Goodbye"};
-        }
+        this.npcText = "Hello, traveler. Searching items?";
+        this.playerResponses = new String[]{"Open shop", "No"};
     }
 
     @Override
@@ -56,7 +48,6 @@ public class TravelerSpeech extends Screen {
 
     private void selectResponse(int index) {
         if (showAfterShopDialogue) {
-            world.setBlock(markerPos, Blocks.BEDROCK.defaultBlockState(), 3);
             this.onClose();
         } else {
             if (index == 0) {

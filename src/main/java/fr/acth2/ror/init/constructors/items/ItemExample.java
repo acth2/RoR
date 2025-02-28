@@ -1,4 +1,4 @@
-package fr.acth2.ror.item;
+package fr.acth2.ror.init.constructors.items;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;

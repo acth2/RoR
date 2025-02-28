@@ -44,41 +44,37 @@ public class TravelerEntity extends MonsterEntity {
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
-        hurtCounter++;
+        if (source.getEntity() instanceof PlayerEntity) {
+            hurtCounter++;
 
-        if (hurtCounter == 1 && atomicFirstPayload.getAndSet(false)) {
-            PlayerEntity player = (PlayerEntity) source.getEntity();
-            player.sendMessage(ITextComponent.nullToEmpty("[TRAVELER]: Mh?"), player.getUUID());
-        }
-
-        if (hurtCounter == 2 && atomicSecondPayload.getAndSet(false)) {
-            PlayerEntity player = (PlayerEntity) source.getEntity();
-            player.sendMessage(ITextComponent.nullToEmpty("[TRAVELER]: Stop that!"), player.getUUID());
-        }
-
-        if (hurtCounter == 3 && atomicThirdPayload.getAndSet(false)) {
-            PlayerEntity player = (PlayerEntity) source.getEntity();
-            player.sendMessage(ITextComponent.nullToEmpty("[TRAVELER]: What is wrong with you? Stop!"), player.getUUID());
-        }
-
-        if (hurtCounter > 3 && atomicFinalPayload.getAndSet(false)) {
-            PlayerEntity player = (PlayerEntity) source.getEntity();
-            player.sendMessage(ITextComponent.nullToEmpty("[TRAVELER]: That is too much."), player.getUUID());
-
-            for (int i = 0; i < 10; i++) {
-                double x = this.getX() + (this.random.nextDouble() - 0.5D) * 0.5D;
-                double y = this.getY() + (this.random.nextDouble() - 0.5D) * 0.5D;
-                double z = this.getZ() + (this.random.nextDouble() - 0.5D) * 0.5D;
-                this.level.addParticle(ParticleTypes.ANGRY_VILLAGER, x, y, z, 5, 5, 5);
+            if (hurtCounter == 2 && atomicFirstPayload.getAndSet(false)) {
+                source.getEntity().sendMessage(ITextComponent.nullToEmpty("[TRAVELER]: Mh?"), source.getEntity().getUUID());
             }
 
-            hurtCounter = 0;
-            atomicFirstPayload.set(true);
-            atomicSecondPayload.set(true);
-            atomicThirdPayload.set(true);
-            atomicFinalPayload.set(true);
+            if (hurtCounter == 4 && atomicSecondPayload.getAndSet(false)) {
+                source.getEntity().sendMessage(ITextComponent.nullToEmpty("[TRAVELER]: Stop that!"), source.getEntity().getUUID());
+            }
 
-            this.remove();
+            if (hurtCounter == 6 && atomicThirdPayload.getAndSet(false)) {
+                source.getEntity().sendMessage(ITextComponent.nullToEmpty("[TRAVELER]: What is wrong with you? Stop!"), source.getEntity().getUUID());
+            }
+
+            if (hurtCounter > 8 && atomicFinalPayload.getAndSet(false)) {
+                for (int i = 0; i < 10; i++) {
+                    double x = this.getX() + (this.random.nextDouble() - 0.5D) * 0.5D;
+                    double y = this.getY() + (this.random.nextDouble() - 0.5D) * 0.5D;
+                    double z = this.getZ() + (this.random.nextDouble() - 0.5D) * 0.5D;
+                    this.level.addParticle(ParticleTypes.ANGRY_VILLAGER, x, y, z, 5, 5, 5);
+                }
+
+                hurtCounter = 0;
+                atomicFirstPayload.set(true);
+                atomicSecondPayload.set(true);
+                atomicThirdPayload.set(true);
+                atomicFinalPayload.set(true);
+
+                this.remove();
+            }
         }
 
         return super.hurt(source, amount);

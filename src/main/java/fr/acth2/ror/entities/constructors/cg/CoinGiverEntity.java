@@ -1,7 +1,9 @@
-package fr.acth2.ror.entities.constructors;
+package fr.acth2.ror.entities.constructors.cg;
 
 import fr.acth2.ror.gui.coins.CoinsManager;
+import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
 import net.minecraft.entity.CreatureAttribute;
+import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -19,31 +21,15 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class ExampleEntity extends MonsterEntity {
+public class CoinGiverEntity extends CreatureEntity {
 
-    protected ExampleEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
+    protected CoinGiverEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
     @Override
     public CreatureAttribute getMobType() {
         return CreatureAttribute.UNDEFINED;
-    }
-
-    protected void registerGoals() {
-        this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 8.0F));
-        this.addBehaviourGoals();
-    }
-
-    protected void addBehaviourGoals() {
-        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, false) {
-        });
-
-        this.goalSelector.addGoal(7, new WaterAvoidingRandomWalkingGoal(this, 1.0D) {
-        });
-
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal(this, PlayerEntity.class, true) {
-        });
     }
 
     public boolean causeFallDamage(float p_225503_1_, float p_225503_2_) {
@@ -58,21 +44,16 @@ public class ExampleEntity extends MonsterEntity {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return null;
-    }
-
-    @Override
-    protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-        return super.getHurtSound(p_184601_1_);
+        return ModSoundEvents.COINGIVER_AMBIENT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return super.getDeathSound();
+        return ModSoundEvents.COINGIVER_DIE.get();
     }
 
     public int getAmbientSoundInterval() {
-        return 120;
+        return 60;
     }
 
     @Override
@@ -88,7 +69,7 @@ public class ExampleEntity extends MonsterEntity {
     public static AttributeModifierMap.MutableAttribute createAttributes() {
         return MobEntity.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 1.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.15D)
+                .add(Attributes.MOVEMENT_SPEED, 0.00D)
                 .add(Attributes.ATTACK_DAMAGE, 0.0D);
     }
 }

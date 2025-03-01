@@ -1,0 +1,131 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.coin_giver.idle": {
+			"loop": true,
+			"animation_length": 1.5,
+			"bones": {
+				"bone": {
+					"rotation": {
+						"0.0": {
+							"vector": [-75, 0, 0]
+						},
+						"0.25": {
+							"vector": [-107.5, 0, 0],
+							"easing": "easeOutBack"
+						},
+						"0.5": {
+							"vector": [-75, 0, 0],
+							"easing": "easeOutBack"
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 1, -8]
+						},
+						"0.25": {
+							"vector": [0, 3, -8],
+							"easing": "easeOutBack"
+						},
+						"0.5": {
+							"vector": [0, 1, -8],
+							"easing": "easeOutBack"
+						}
+					}
+				},
+				"bone2": {
+					"rotation": {
+						"0.0": {
+							"vector": [-75, 0, 0]
+						},
+						"0.25": {
+							"vector": [-107.5, 0, 0],
+							"easing": "easeOutBack"
+						},
+						"0.5": {
+							"vector": [-75, 0, 0],
+							"easing": "easeOutBack"
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 1, -8]
+						},
+						"0.25": {
+							"vector": [0, 3, -8],
+							"easing": "easeOutBack"
+						},
+						"0.5": {
+							"vector": [0, 1, -8],
+							"easing": "easeOutBack"
+						}
+					}
+				},
+				"bone3": {
+					"position": {
+						"vector": [0, -3, 0]
+					}
+				},
+				"bone4": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.25": {
+							"vector": [25, 0, 0]
+						},
+						"0.5": {
+							"vector": [-10, 0, 0]
+						},
+						"0.75": {
+							"vector": [0, 0, 0]
+						}
+					},
+					"position": {
+						"vector": [0, -3, 0]
+					}
+				},
+				"bone5": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.25": {
+							"vector": [-25, 0, 0]
+						},
+						"0.5": {
+							"vector": [25, 0, 0]
+						},
+						"0.75": {
+							"vector": [0, 0, 0]
+						}
+					},
+					"position": {
+						"vector": [0, -3, 0]
+					}
+				},
+				"bone6": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.75": {
+							"vector": [0, -2.5, 0]
+						},
+						"1.5": {
+							"vector": [0, 0, 0]
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, -3, 0]
+						},
+						"1.5": {
+							"vector": [0, -3, 0]
+						}
+					}
+				}
+			}
+		}
+	}
+}

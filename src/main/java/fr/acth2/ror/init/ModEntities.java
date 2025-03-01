@@ -1,6 +1,7 @@
 package fr.acth2.ror.init;
 
 import fr.acth2.ror.entities.entity.EntityExample;
+import fr.acth2.ror.entities.entity.cg.EntityCoinGiver;
 import fr.acth2.ror.entities.entity.clucker.EntityClucker;
 import fr.acth2.ror.entities.entity.curser.EntityCurser;
 import fr.acth2.ror.entities.entity.hopper.EntityHopper;
@@ -11,10 +12,7 @@ import fr.acth2.ror.entities.entity.wicked.EntityWicked;
 import fr.acth2.ror.entities.entity.woodfall.EntityWoodFall;
 import fr.acth2.ror.entities.entity.ws.EntityWoodSpirit;
 import fr.acth2.ror.utils.References;
-import fr.acth2.ror.utils.subscribers.gen.overworld.CaveMonsterSpawnerSubscriber;
-import fr.acth2.ror.utils.subscribers.gen.overworld.DaylightMonsterSpawnerSubscriber;
-import fr.acth2.ror.utils.subscribers.gen.overworld.NPCSpawnSubscriber;
-import fr.acth2.ror.utils.subscribers.gen.overworld.NightMonsterSpawnerSubscriber;
+import fr.acth2.ror.utils.subscribers.gen.overworld.*;
 import fr.acth2.ror.utils.subscribers.gen.utils.MobSpawnData;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -88,8 +86,16 @@ public class ModEntities {
                     .build("traveler")
     );
 
+    public static final RegistryObject<EntityType<EntityCoinGiver>> COIN_GIVER = ENTITY_TYPES.register("coin_giver", () ->
+            EntityType.Builder.<EntityCoinGiver>of(EntityCoinGiver::new, EntityClassification.CREATURE)
+                    .sized(0.25F, 0.25F)
+                    .build("coin_giver")
+    );
+
     public static void register(IEventBus modEventBus) {
         ModEntities.ENTITY_TYPES.register(modEventBus);
+
+        // OVERWORLD
 
         // DAY MONSTER GENERATION
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(HOPPER, 45, null));
@@ -114,5 +120,8 @@ public class ModEntities {
 
         // NPC CREATURE GENERATION
         NPCSpawnSubscriber.mobListLV1.add(new MobSpawnData(TRAVELER, 50, null));
+
+        // BUFFS GENERATION
+        BuffsSpawnSubscriber.mobListLV1.add(new MobSpawnData(COIN_GIVER, 50, null));
     }
 }

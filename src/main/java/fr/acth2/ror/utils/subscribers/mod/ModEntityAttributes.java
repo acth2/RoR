@@ -1,6 +1,7 @@
 package fr.acth2.ror.utils.subscribers.mod;
 
 import fr.acth2.ror.entities.constructors.ExampleEntity;
+import fr.acth2.ror.entities.constructors.cg.CoinGiverEntity;
 import fr.acth2.ror.entities.constructors.clucker.CluckerEntity;
 import fr.acth2.ror.entities.constructors.curser.CurserEntity;
 import fr.acth2.ror.entities.constructors.hopper.HopperEntity;
@@ -31,5 +32,6 @@ public class ModEntityAttributes {
         event.put(ModEntities.WOODFALL.get(), WoodFallEntity.createAttributes().build());
         event.put(ModEntities.WOOD_SPIRIT.get(), WoodSpiritEntity.createAttributes().build());
         event.put(ModEntities.TRAVELER.get(), TravelerEntity.createAttributes().build());
+        event.put(ModEntities.COIN_GIVER.get(), CoinGiverEntity.createAttributes().build());
     }
 }

@@ -1,6 +1,7 @@
 package fr.acth2.ror.utils.subscribers.client;
 
 import fr.acth2.ror.entities.renderer.EntityExampleRenderer;
+import fr.acth2.ror.entities.renderer.cg.CoinGiverRenderer;
 import fr.acth2.ror.entities.renderer.clucker.CluckerRenderer;
 import fr.acth2.ror.entities.renderer.curser.CurserRenderer;
 import fr.acth2.ror.entities.renderer.hopper.HopperRenderer;
@@ -35,5 +36,6 @@ public class ClientEventSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.WOODFALL.get(), WoodFallRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.WOOD_SPIRIT.get(), WoodSpiritRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.TRAVELER.get(), TravelerRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.COIN_GIVER.get(), CoinGiverRenderer::new);
     }
 }

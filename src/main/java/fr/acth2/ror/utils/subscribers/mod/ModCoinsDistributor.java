@@ -1,6 +1,7 @@
 package fr.acth2.ror.utils.subscribers.mod;
 
 import fr.acth2.ror.entities.constructors.ExampleEntity;
+import fr.acth2.ror.entities.constructors.cg.CoinGiverEntity;
 import fr.acth2.ror.entities.constructors.clucker.CluckerEntity;
 import fr.acth2.ror.entities.constructors.curser.CurserEntity;
 import fr.acth2.ror.entities.constructors.hopper.HopperEntity;
@@ -19,6 +20,7 @@ import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -84,8 +86,13 @@ public class ModCoinsDistributor {
                     CoinsManager.addCoins(70);
                     break;
 
+                case "CoinGiver":
+                    event.getSource().getEntity().sendMessage(ITextComponent.nullToEmpty("+1000 Coins"), event.getSource().getEntity().getUUID());
+                    CoinsManager.addCoins(1000);
+                    break;
+
                 default:
-                    CoinsManager.addCoins(1);
+                    CoinsManager.addCoins(5);
                     break;
             }
         }
@@ -122,6 +129,8 @@ public class ModCoinsDistributor {
             return "WoodSpirit";
         } else if (entity instanceof ExampleEntity) {
             return "ExampleEntity";
+        } else if (entity instanceof CoinGiverEntity) {
+            return "CoinGiver";
         }
 
         return "Unknown";

@@ -166,5 +166,19 @@
     "sounds": [
       "ror:wf_ambient"
     ]
+  },
+  "cg_die": {
+  "category": "hostile",
+  "subtitle": "ror.cg_die",
+  "sounds": [
+    "ror:cg_die"
+  ]
+},
+  "cg_ambient": {
+    "category": "hostile",
+    "subtitle": "ror.cg_ambient",
+    "sounds": [
+      "ror:cg_hit"
+    ]
   }
 }

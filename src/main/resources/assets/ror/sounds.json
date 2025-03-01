@@ -178,7 +178,7 @@
     "category": "hostile",
     "subtitle": "ror.cg_ambient",
     "sounds": [
-      "ror:cg_hit"
+      "ror:cg_ambient"
     ]
   }
 }

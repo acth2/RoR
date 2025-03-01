@@ -24,20 +24,12 @@ import java.util.Random;
 @Mod.EventBusSubscriber(modid = References.MODID)
 public class NPCSpawnSubscriber {
 
-    private static int SPAWN_INTERVAL_TICKS = 12000;
-    private static int ATTEMPTS_PER_PLAYER = 1;
-    private static double SPAWN_CHANCE = 2.45;
+    public static int SPAWN_INTERVAL_TICKS = 12000;
+    public static int ATTEMPTS_PER_PLAYER = 1;
+    public static double SPAWN_CHANCE = 2.45;
 
     private static final int SPAWN_RADIUS_MIN = 8;
     private static final int SPAWN_RADIUS_MAX = 32;
-
-    static {
-        if (CoinsManager.hasLeastCoins(10000)) {
-            SPAWN_INTERVAL_TICKS = 1000;
-            ATTEMPTS_PER_PLAYER = 3;
-            SPAWN_CHANCE = 3.0D;
-        }
-    }
 
     public static final List<MobSpawnData> mobListLV1 = new ArrayList<>();
     private static int tickCounter = 0;

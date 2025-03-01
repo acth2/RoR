@@ -23,10 +23,19 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import static fr.acth2.ror.utils.subscribers.gen.overworld.NPCSpawnSubscriber.*;
+
 @Mod.EventBusSubscriber(modid = References.MODID)
 public class ModCoinsDistributor {
     @SubscribeEvent
     public static void onEntityDeath(LivingDeathEvent event) {
+
+        if (CoinsManager.hasLeastCoins(1500)) {
+            SPAWN_INTERVAL_TICKS = 1000;
+            ATTEMPTS_PER_PLAYER = 3;
+            SPAWN_CHANCE = 3.0D;
+        }
+
         if (event.getSource().getEntity() instanceof PlayerEntity) {
             String entityType = getEntityType((LivingEntity) event.getEntity());
 

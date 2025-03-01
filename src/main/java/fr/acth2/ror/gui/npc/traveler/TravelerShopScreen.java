@@ -2,56 +2,33 @@ package fr.acth2.ror.gui.npc.traveler;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import fr.acth2.ror.gui.coins.CoinsManager;
+import fr.acth2.ror.init.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.text.StringTextComponent;
 
-public class TravelerShopScreen  extends Screen {
+import java.util.ArrayList;
+import java.util.List;
+
+public class TravelerShopScreen extends Screen {
 
     private final PlayerEntity player;
+    private final List<ShopItem> shopItems = new ArrayList<>();
+    private final int itemSize = 32;
 
     public TravelerShopScreen(PlayerEntity player) {
         super(new StringTextComponent("Shop"));
         CoinsManager.loadCoins();
         this.player = player;
-    }
 
-    @Override
-    protected void init() {
-        int buttonWidth = 150;
-        int buttonHeight = 20;
-        int yStart = this.height / 4;
-
-        addButton(new Button(this.width / 2 - buttonWidth / 2, yStart, buttonWidth, buttonHeight,
-                new StringTextComponent("Buy Sword - 100 Coins"), button -> purchaseItem(100)));
-
-        addButton(new Button(this.width / 2 - buttonWidth / 2, yStart + 30, buttonWidth, buttonHeight,
-                new StringTextComponent("Buy Armor - 250 Coins"), button -> purchaseItem(250)));
-
-        addButton(new Button(this.width / 2 - buttonWidth / 2, yStart + 60, buttonWidth, buttonHeight,
-                new StringTextComponent("Buy Potion - 50 Coins"), button -> purchaseItem(50)));
-
-        addButton(new Button(this.width / 2 - 50, this.height - 40, 100, 20,
-                new StringTextComponent("Close Shop"), button -> onClose()));
-    }
-
-    private void purchaseItem(int cost) {
-        int currentCoins = CoinsManager.getCoins();
-
-        if (currentCoins >= cost) {
-            CoinsManager.removeCoins(cost);
-            player.sendMessage(new StringTextComponent("Purchased item for " + cost + " coins!"), player.getUUID());
-        } else {
-            player.sendMessage(new StringTextComponent("Not enough coins!"), player.getUUID());
-            onClose();
-        }
-    }
-
-    @Override
-    public void onClose() {
-        Minecraft.getInstance().setScreen(new TravelerSpeech(player));
+        shopItems.add(new ShopItem(new ItemStack(ModItems.REALMS_VESSEL.get()), 2500));
+        shopItems.add(new ShopItem(new ItemStack(Items.COOKED_BEEF), 10));
+        shopItems.add(new ShopItem(new ItemStack(Items.POTION), 25));
+        shopItems.add(new ShopItem(new ItemStack(Items.BOOK), 1));
     }
 
     @Override
@@ -61,11 +38,76 @@ public class TravelerShopScreen  extends Screen {
         drawCenteredString(matrixStack, this.font, this.title.getString(), this.width / 2, 15, 0xFFFFFF);
         drawCenteredString(matrixStack, this.font, "Coins: " + CoinsManager.getCoins(), this.width / 2, 35, 0xFFFFD700);
 
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
+
+        int totalWidth = shopItems.size() * (itemSize + 10) - 20;
+        int startX = (this.width - totalWidth) / 2;
+        int startY = this.height / 3;
+
+        for (int i = 0; i < shopItems.size(); i++) {
+            ShopItem shopItem = shopItems.get(i);
+            int x = startX + i * (itemSize + 10);
+            int y = startY;
+
+            drawCenteredString(matrixStack, this.font, String.valueOf(shopItem.cost), x + 8, y - 12, 0xFFFFFF);
+            itemRenderer.renderGuiItem(shopItem.stack, x, y);
+
+            if (mouseX >= x && mouseX <= x + itemSize && mouseY >= y && mouseY <= y + itemSize) {
+                renderTooltip(matrixStack, shopItem.stack, mouseX, mouseY);
+            }
+        }
+
+        drawCenteredString(matrixStack, this.font, "Click an item to buy!", this.width / 2, startY + 60, 0xFFFFA500);
+        drawCenteredString(matrixStack, this.font, "[ESC] to exit", this.width / 2, this.height - 20, 0xAAAAAA);
+    }
+
+
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        int startX = (this.width - (shopItems.size() * (itemSize + 10))) / 2;
+        int startY = this.height / 3;
+
+        for (int i = 0; i < shopItems.size(); i++) {
+            int x = startX + i * (itemSize + 10);
+            int y = startY;
+
+            if (mouseX >= x && mouseX <= x + itemSize && mouseY >= y && mouseY <= y + itemSize) {
+                purchaseItem(shopItems.get(i));
+                return true;
+            }
+        }
+        return super.mouseClicked(mouseX, mouseY, button);
+    }
+
+    private void purchaseItem(ShopItem shopItem) {
+        int currentCoins = CoinsManager.getCoins();
+
+        if (currentCoins >= shopItem.cost) {
+            CoinsManager.removeCoins(shopItem.cost);
+
+            if (!player.inventory.add(shopItem.stack.copy())) {
+                player.drop(shopItem.stack.copy(), false);
+            }
+
+            player.sendMessage(new StringTextComponent("Purchased " + shopItem.stack.getHoverName().getString() + " for " + shopItem.cost + " coins!"), player.getUUID());
+        } else {
+            player.sendMessage(new StringTextComponent("Not enough coins!"), player.getUUID());
+        }
     }
 
     @Override
     public boolean isPauseScreen() {
         return false;
+    }
+
+    private static class ShopItem {
+        final ItemStack stack;
+        final int cost;
+
+        ShopItem(ItemStack stack, int cost) {
+            this.stack = stack;
+            this.cost = cost;
+        }
     }
 }

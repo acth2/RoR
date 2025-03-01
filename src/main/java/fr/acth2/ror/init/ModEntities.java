@@ -88,7 +88,7 @@ public class ModEntities {
 
     public static final RegistryObject<EntityType<EntityCoinGiver>> COIN_GIVER = ENTITY_TYPES.register("coin_giver", () ->
             EntityType.Builder.<EntityCoinGiver>of(EntityCoinGiver::new, EntityClassification.CREATURE)
-                    .sized(0.25F, 0.25F)
+                    .sized(0.55F, 0.75F)
                     .build("coin_giver")
     );
 

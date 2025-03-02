@@ -23,7 +23,6 @@ public class TravelerSpeech extends Screen {
     public TravelerSpeech(PlayerEntity player) {
         super(new StringTextComponent("Ruins of Realms"));
         this.player = player;
-        CoinsManager.loadCoins();
         this.npcText = "Hello, traveler. Searching items?";
         this.playerResponses = new String[]{"Open shop", "No"};
     }

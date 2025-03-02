@@ -29,11 +29,11 @@ public class Main {
         ModBlocks.register(modEventBus);
         ModEntities.register(modEventBus);
         ModSoundEvents.register(modEventBus);
-        CoinsManager.loadCoins();
         modEventBus.addListener(this::setup);
     }
 
     private void setup(FMLCommonSetupEvent event) {
+        ModNetworkHandler.registerPackets();
         ModDimensions.register(event);
 
         proxy.setup();

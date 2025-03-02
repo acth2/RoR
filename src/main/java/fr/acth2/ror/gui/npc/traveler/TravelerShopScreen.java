@@ -3,12 +3,17 @@ package fr.acth2.ror.gui.npc.traveler;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import fr.acth2.ror.gui.coins.CoinsManager;
 import fr.acth2.ror.init.ModItems;
+import fr.acth2.ror.init.ModNetworkHandler;
+import fr.acth2.ror.network.coins.SyncCoinsPacket;
+import fr.acth2.ror.network.traveler.PurchaseItemPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.StringTextComponent;
 
 import java.util.ArrayList;
@@ -22,7 +27,6 @@ public class TravelerShopScreen extends Screen {
 
     public TravelerShopScreen(PlayerEntity player) {
         super(new StringTextComponent("Shop"));
-        CoinsManager.loadCoins();
         this.player = player;
 
         shopItems.add(new ShopItem(new ItemStack(ModItems.REALMS_VESSEL.get()), 2500));
@@ -32,11 +36,31 @@ public class TravelerShopScreen extends Screen {
     }
 
     @Override
+    public void init() {
+        super.init();
+        if (player instanceof ServerPlayerEntity) {
+            CoinsManager.syncCoins((ServerPlayerEntity) player);
+            triggerCoinSync();
+        }
+    }
+
+    private void triggerCoinSync() {
+        if (!player.level.isClientSide && player instanceof ServerPlayerEntity) {
+            CoinsManager.addCoins((ServerPlayerEntity) player, 0);
+        }
+    }
+
+    @Override
     public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         fill(matrixStack, 0, 0, this.width, this.height, 0xFF202020);
 
         drawCenteredString(matrixStack, this.font, this.title.getString(), this.width / 2, 15, 0xFFFFFF);
-        drawCenteredString(matrixStack, this.font, "Coins: " + CoinsManager.getCoins(), this.width / 2, 35, 0xFFFFD700);
+        int displayCoins = player.level.isClientSide ?
+                CoinsManager.getClientCoins() :
+                CoinsManager.getCoins((ServerPlayerEntity) player);
+
+        drawCenteredString(matrixStack, this.font, "Coins: " + displayCoins,
+                this.width / 2, 35, 0xFFFFD700);
 
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
 
@@ -73,27 +97,14 @@ public class TravelerShopScreen extends Screen {
             int y = startY;
 
             if (mouseX >= x && mouseX <= x + itemSize && mouseY >= y && mouseY <= y + itemSize) {
-                purchaseItem(shopItems.get(i));
+                ShopItem shopItem = shopItems.get(i);
+
+                ModNetworkHandler.INSTANCE.sendToServer(new PurchaseItemPacket(shopItem.stack, shopItem.cost));
+
                 return true;
             }
         }
         return super.mouseClicked(mouseX, mouseY, button);
-    }
-
-    private void purchaseItem(ShopItem shopItem) {
-        int currentCoins = CoinsManager.getCoins();
-
-        if (currentCoins >= shopItem.cost) {
-            CoinsManager.removeCoins(shopItem.cost);
-
-            if (!player.inventory.add(shopItem.stack.copy())) {
-                player.drop(shopItem.stack.copy(), false);
-            }
-
-            player.sendMessage(new StringTextComponent("Purchased " + shopItem.stack.getHoverName().getString() + " for " + shopItem.cost + " coins!"), player.getUUID());
-        } else {
-            player.sendMessage(new StringTextComponent("Not enough coins!"), player.getUUID());
-        }
     }
 
     @Override

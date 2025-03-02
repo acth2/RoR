@@ -19,119 +19,76 @@ import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.passive.SheepEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
-import static fr.acth2.ror.utils.subscribers.gen.overworld.NPCSpawnSubscriber.*;
 
 @Mod.EventBusSubscriber(modid = References.MODID)
 public class ModCoinsDistributor {
     @SubscribeEvent
     public static void onEntityDeath(LivingDeathEvent event) {
+        if (event.getSource().getEntity() instanceof ServerPlayerEntity) {
+            ServerPlayerEntity player = (ServerPlayerEntity) event.getSource().getEntity();
+            LivingEntity target = event.getEntityLiving();
 
-        if (CoinsManager.hasLeastCoins(1500)) {
-            SPAWN_INTERVAL_TICKS = 1000;
-            ATTEMPTS_PER_PLAYER = 3;
-            SPAWN_CHANCE = 3.0D;
+            if (player == null || target == null) return;
+
+            String entityType = getEntityType(target);
+            int coinsToAdd = getCoinsForEntity(entityType);
+
+            CoinsManager.addCoins(player, coinsToAdd);
+            CoinsManager.syncCoins(player);
         }
+    }
 
-        if (event.getSource().getEntity() instanceof PlayerEntity) {
-            String entityType = getEntityType((LivingEntity) event.getEntity());
+    private static int getCoinsForEntity(String entityType) {
+        switch (entityType) {
+            case "Zombie": return 10;
+            case "Cow": return 5;
+            case "Sheep": return 3;
+            case "Creeper":
+            case "Curser":
+            case "RustedCore": return 20;
+            case "Skeleton": return 15;
+            case "Enderman": return 40;
+            case "Clucker":
+            case "Hopper":
+            case "WoodFall": return 50;
+            case "LostCaver":
+            case "Wicked":
+            case "WoodSpirit": return 70;
+            case "CoinGiver": return 1000;
+            default: return 5;
+        }
+    }
 
-            switch (entityType) {
-                case "Zombie":
-                    CoinsManager.addCoins(10);
-                    break;
-
-                case "Cow":
-                    CoinsManager.addCoins(5);
-                    break;
-
-                case "Sheep":
-                    CoinsManager.addCoins(3);
-                    break;
-
-                case "Creeper":
-
-                case "Curser":
-
-                case "RustedCore":
-                    CoinsManager.addCoins(20);
-                    break;
-
-                case "Skeleton":
-                    CoinsManager.addCoins(15);
-                    break;
-
-                case "Enderman":
-                    CoinsManager.addCoins(40);
-                    break;
-
-                case "Clucker":
-
-                case "Hopper":
-
-                case "WoodFall":
-                    CoinsManager.addCoins(50);
-                    break;
-
-                case "LostCaver":
-
-                case "Wicked":
-
-                case "WoodSpirit":
-                    CoinsManager.addCoins(70);
-                    break;
-
-                case "CoinGiver":
-                    event.getSource().getEntity().sendMessage(ITextComponent.nullToEmpty("+1000 Coins"), event.getSource().getEntity().getUUID());
-                    CoinsManager.addCoins(1000);
-                    break;
-
-                default:
-                    CoinsManager.addCoins(5);
-                    break;
-            }
+    private static void sendCoinMessage(ServerPlayerEntity player, int coins) {
+        if (coins == 1000) {
+            player.sendMessage(new StringTextComponent("+1000 Coins"), player.getUUID());
+        } else {
+            player.sendMessage(new StringTextComponent("+" + coins + " coins!"), player.getUUID());
         }
     }
 
     private static String getEntityType(LivingEntity entity) {
-        if (entity instanceof ZombieEntity) {
-            return "Zombie";
-        } else if (entity instanceof CowEntity) {
-            return "Cow";
-        } else if (entity instanceof SheepEntity) {
-            return "Sheep";
-        } else if (entity instanceof CreeperEntity) {
-            return "Creeper";
-        } else if (entity instanceof SkeletonEntity) {
-            return "Skeleton";
-        } else if (entity instanceof EndermanEntity) {
-            return "Enderman";
-        } else if (entity instanceof CurserEntity) {
-            return "Curser";
-        } else if (entity instanceof CluckerEntity) {
-            return "Clucker";
-        } else if (entity instanceof HopperEntity) {
-            return "Hopper";
-        } else if (entity instanceof LostCaverEntity){
-            return "LostCaver";
-        } else if (entity instanceof RustedCoreEntity) {
-            return "RustedCore";
-        } else if (entity instanceof WickedEntity) {
-            return "Wicked";
-        } else if (entity instanceof WoodFallEntity) {
-            return "WoodFall";
-        } else if (entity instanceof WoodSpiritEntity) {
-            return "WoodSpirit";
-        } else if (entity instanceof ExampleEntity) {
-            return "ExampleEntity";
-        } else if (entity instanceof CoinGiverEntity) {
-            return "CoinGiver";
-        }
+        if (entity instanceof ZombieEntity) return "Zombie";
+        if (entity instanceof CowEntity) return "Cow";
+        if (entity instanceof SheepEntity) return "Sheep";
+        if (entity instanceof CreeperEntity) return "Creeper";
+        if (entity instanceof SkeletonEntity) return "Skeleton";
+        if (entity instanceof EndermanEntity) return "Enderman";
+        if (entity instanceof CurserEntity) return "Curser";
+        if (entity instanceof CluckerEntity) return "Clucker";
+        if (entity instanceof HopperEntity) return "Hopper";
+        if (entity instanceof LostCaverEntity) return "LostCaver";
+        if (entity instanceof RustedCoreEntity) return "RustedCore";
+        if (entity instanceof WickedEntity) return "Wicked";
+        if (entity instanceof WoodFallEntity) return "WoodFall";
+        if (entity instanceof WoodSpiritEntity) return "WoodSpirit";
+        if (entity instanceof ExampleEntity) return "ExampleEntity";
+        if (entity instanceof CoinGiverEntity) return "CoinGiver";
 
         return "Unknown";
     }

@@ -1,6 +1,5 @@
 package fr.acth2.ror.entities.constructors;
 
-import fr.acth2.ror.gui.coins.CoinsManager;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
@@ -17,7 +16,6 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ExampleEntity extends MonsterEntity {
 

@@ -89,7 +89,7 @@ public class BuffsSpawnSubscriber {
     }
 
     private static void trySpawnPlayerLevelEntity(ServerWorld world, BlockPos pos) {
-        if (CoinsManager.getCoins() <= 2500) {
+        if (CoinsManager.getClientCoins() <= 2500) {
             MobSpawnData chosenMobData = mobListLV1.get(world.random.nextInt(mobListLV1.size()));
 
             BlockPos belowPos = pos.below();

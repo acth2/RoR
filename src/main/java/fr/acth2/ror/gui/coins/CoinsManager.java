@@ -1,68 +1,50 @@
 package fr.acth2.ror.gui.coins;
 
+import fr.acth2.ror.init.ModNetworkHandler;
+import fr.acth2.ror.network.coins.SyncCoinsPacket;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.nbt.CompressedStreamTools;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import net.minecraftforge.fml.network.PacketDistributor;
 
 public class CoinsManager {
+    private static final String COINS_TAG = "PlayerCoins";
 
-    private static int playerCoins = 0;
-    private static final File COINS_FILE = new File("config/coins.dat");
+    public static void setCoins(ServerPlayerEntity player, int coins) {
+        CompoundNBT data = player.getPersistentData();
+        int newAmount = Math.max(coins, 0);
+        data.putInt(COINS_TAG, newAmount);
+        syncCoins(player);
+    }
 
-    public static void loadCoins() {
-        if (!COINS_FILE.exists()) {
-            playerCoins = 0;
-            saveCoins();
-            return;
+    public static void addCoins(ServerPlayerEntity player, int coins) {
+        setCoins(player, getCoins(player) + coins);
+    }
+
+    public static void removeCoins(ServerPlayerEntity player, int coins) {
+        setCoins(player, getCoins(player) - coins);
+    }
+
+    public static int getCoins(ServerPlayerEntity player) {
+        CompoundNBT data = player.getPersistentData();
+        if (!data.contains(COINS_TAG)) {
+            data.putInt(COINS_TAG, 0);
         }
-        try (FileInputStream fis = new FileInputStream(COINS_FILE)) {
-            CompoundNBT root = CompressedStreamTools.readCompressed(fis);
-            playerCoins = root.getInt("Coins");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        return data.getInt(COINS_TAG);
+    }
+    private static int clientCoins = 0;
+
+    public static void setClientCoins(int coins) {
+        clientCoins = coins;
     }
 
-    public static void saveCoins() {
-        CompoundNBT root = new CompoundNBT();
-        root.putInt("Coins", playerCoins);
-
-        try (FileOutputStream fos = new FileOutputStream(COINS_FILE)) {
-            CompressedStreamTools.writeCompressed(root, fos);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public static int getClientCoins() {
+        return clientCoins;
     }
 
-    public static void setCoins(int coins) {
-        playerCoins = coins;
-        saveCoins();
-    }
-
-    public static void addCoins(int coins) {
-        playerCoins += coins;
-        saveCoins();
-    }
-
-    public static void removeCoins(int coins) {
-        if (playerCoins - coins < 0) {
-            playerCoins = 0;
-        } else {
-            playerCoins -= coins;
-        }
-        saveCoins();
-    }
-
-    public static int getCoins() {
-        return playerCoins;
-    }
-
-    public static boolean hasLeastCoins(int howMany) {
-        return playerCoins >= howMany;
+    public static void syncCoins(ServerPlayerEntity player) {
+        ModNetworkHandler.INSTANCE.send(
+                PacketDistributor.PLAYER.with(() -> player),
+                new SyncCoinsPacket(getCoins(player))
+        );
     }
 }

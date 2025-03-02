@@ -1,20 +1,23 @@
 package fr.acth2.ror.gui;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import fr.acth2.ror.Main;
 import fr.acth2.ror.gui.coins.CoinsManager;
 import fr.acth2.ror.gui.common.DiscordButton;
 import fr.acth2.ror.gui.common.GithubButton;
 import fr.acth2.ror.gui.common.LogoButton;
 import fr.acth2.ror.gui.diary.DiaryEntry;
 import fr.acth2.ror.gui.diary.DiaryManager;
+import fr.acth2.ror.init.ModNetworkHandler;
+import fr.acth2.ror.network.coins.RequestCoinSyncPacket;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
@@ -24,7 +27,7 @@ import java.util.List;
 
 public class MainMenuGui extends Screen {
 
-    private final PlayerEntity player;
+    private static PlayerEntity player;
     private int currentTab = 0;
     private final String[] tabLabels = { "SKILLS", "DIARY", "OTHER" };
 
@@ -43,7 +46,6 @@ public class MainMenuGui extends Screen {
         super(new StringTextComponent("Ruins of Realms"));
         this.player = player;
         DiaryManager.loadDiary();
-        CoinsManager.loadCoins();
     }
 
     @Override
@@ -51,6 +53,7 @@ public class MainMenuGui extends Screen {
         this.buttons.clear();
         diaryEntryButtons.clear();
         diaryPage = 0;
+        requestInitialCoinSync();
 
         int tabButtonWidth = 120;
         int tabButtonHeight = 20;
@@ -88,8 +91,14 @@ public class MainMenuGui extends Screen {
         }
     }
 
+    private void requestInitialCoinSync() {
+        if (player.level.isClientSide) {
+            ModNetworkHandler.INSTANCE.sendToServer(new RequestCoinSyncPacket());
+        }
+    }
+
     public static int getCurrentPlayerCoins() {
-        return CoinsManager.getCoins();
+        return CoinsManager.getClientCoins();
     }
 
     private void initDiaryEntries() {

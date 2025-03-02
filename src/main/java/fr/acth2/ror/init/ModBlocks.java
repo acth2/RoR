@@ -22,13 +22,7 @@ public class ModBlocks {
 
     );
 
-    public static final RegistryObject<Block> INFRANIUM_ORE = BLOCKS.register("infranium_ore",
-            InfraniumOre::new
-    );
-
-    public static final RegistryObject<Item> INFRANIUM_ORE_ITEM = ITEMS.register("infranium_ore",
-            () -> new BlockItem(INFRANIUM_ORE.get(), new Item.Properties())
-    );
+    public static final RegistryObject<Block> INFRANIUM_ORE = BLOCKS.register("infranium_ore", InfraniumOre::new);
 
     public static final RegistryObject<Item> EXAMPLE_BLOCK_ITEM = ITEMS.register("example_block",
             () -> new BlockItem(EXAMPLE_BLOCK.get(), new Item.Properties())

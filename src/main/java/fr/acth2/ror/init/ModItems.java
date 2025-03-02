@@ -3,6 +3,7 @@ package fr.acth2.ror.init;
 import fr.acth2.ror.init.constructors.items.ItemExample;
 import fr.acth2.ror.init.constructors.items.RealmsVessel;
 import fr.acth2.ror.utils.References;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.fml.RegistryObject;
@@ -16,6 +17,9 @@ public class ModItems {
     public static final RegistryObject<Item> EXAMPLE_ITEM = ITEMS.register("example_item",
             () -> new ItemExample(new Item.Properties())
     );
+
+    public static final RegistryObject<Item> INFRANIUM_ORE = ITEMS.register("infranium_ore",
+            () -> new BlockItem(ModBlocks.INFRANIUM_ORE.get(), new Item.Properties()));
 
     public static final RegistryObject<Item> REALMS_VESSEL = ITEMS.register("realms_vessel",
             () -> new RealmsVessel(new Item.Properties())

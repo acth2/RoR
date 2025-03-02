@@ -24,6 +24,7 @@ public class ModEntityDeathHandler {
                         "wait what?"
                 );
                 DiaryManager.addEntry(entry);
+                DiaryManager.saveDiary();
             } else {
                 DiaryEntry entry = new DiaryEntry(
                         entity.getName().getString(),
@@ -31,6 +32,7 @@ public class ModEntityDeathHandler {
                         DiaryManager.pickDescription(entity.getName().getString())
                 );
                 DiaryManager.addEntry(entry);
+                DiaryManager.saveDiary();
             }
         }
     }

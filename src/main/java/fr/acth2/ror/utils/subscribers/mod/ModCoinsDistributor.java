@@ -20,7 +20,7 @@ import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -40,6 +40,10 @@ public class ModCoinsDistributor {
 
             CoinsManager.addCoins(player, coinsToAdd);
             CoinsManager.syncCoins(player);
+
+            if (entityType.equals("CoinGiver")) {
+                player.sendMessage(ITextComponent.nullToEmpty("+1000 COINS"), player.getUUID());
+            }
         }
     }
 
@@ -61,14 +65,6 @@ public class ModCoinsDistributor {
             case "WoodSpirit": return 70;
             case "CoinGiver": return 1000;
             default: return 5;
-        }
-    }
-
-    private static void sendCoinMessage(ServerPlayerEntity player, int coins) {
-        if (coins == 1000) {
-            player.sendMessage(new StringTextComponent("+1000 Coins"), player.getUUID());
-        } else {
-            player.sendMessage(new StringTextComponent("+" + coins + " coins!"), player.getUUID());
         }
     }
 

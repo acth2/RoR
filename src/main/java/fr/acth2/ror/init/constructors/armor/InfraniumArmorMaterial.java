@@ -13,7 +13,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import java.util.function.Supplier;
 
 public enum InfraniumArmorMaterial implements IArmorMaterial {
-    INFRANIUM(References.MODID + ":infranium", 25, new int[]{3, 6, 7, 3}, 14, SoundEvents.ARMOR_EQUIP_IRON, 1.0F, () -> {
+    INFRANIUM(References.MODID + ":infranium", 25, new int[]{3, 6, 7, 3}, 14, SoundEvents.ARMOR_EQUIP_IRON, 0.0F, () -> {
         return Ingredient.of(ModItems.INFRANIUM_INGOT.get());
     });
 
@@ -69,11 +69,11 @@ public enum InfraniumArmorMaterial implements IArmorMaterial {
 
     @Override
     public float getToughness() {
-        return this.toughness;
+        return 0.0F;
     }
 
     @Override
     public float getKnockbackResistance() {
-        return 0.1F;
+        return 0.0F;
     }
 }

@@ -180,5 +180,26 @@
     "sounds": [
       "ror:cg_ambient"
     ]
+  },
+  "wfs_hit": {
+    "category": "hostile",
+    "subtitle": "ror.wfs_hit",
+    "sounds": [
+      "ror:wfs_hit"
+    ]
+  },
+  "wfs_die": {
+    "category": "hostile",
+    "subtitle": "ror.wfs_die",
+    "sounds": [
+      "ror:wfs_die"
+    ]
+  },
+  "wfs_ambient": {
+    "category": "hostile",
+    "subtitle": "ror.wfs_ambient",
+    "sounds": [
+      "ror:wfs_ambient"
+    ]
   }
 }

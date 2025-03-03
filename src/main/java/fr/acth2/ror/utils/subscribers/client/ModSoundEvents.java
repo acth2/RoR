@@ -86,6 +86,15 @@ public class ModSoundEvents {
     public static final RegistryObject<SoundEvent> WOODFALL_DIE =
             registerSoundEvent("wf_die");
 
+    public static final RegistryObject<SoundEvent> WOODFALL_SOLIDER_HIT =
+            registerSoundEvent("wfs_hit");
+
+    public static final RegistryObject<SoundEvent> WOODFALL_SOLIDER_AMBIENT =
+            registerSoundEvent("wfs_ambient");
+
+    public static final RegistryObject<SoundEvent> WOODFALL_SOLIDER_DIE =
+            registerSoundEvent("wfs_die");
+
     public static final RegistryObject<SoundEvent> COINGIVER_AMBIENT =
             registerSoundEvent("cg_ambient");
 

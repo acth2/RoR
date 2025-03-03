@@ -33,6 +33,9 @@ public class ModItems {
     public static final RegistryObject<Item> INFRANIUM_CORE = ITEMS.register("infranium_core",
             () -> new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> RUSTED_INFRANIUM_CORE = ITEMS.register("rusted_infranium_core",
+            () -> new Item(new Item.Properties()));
+
     public static final RegistryObject<Item> INFRANIUM_SWORD = ITEMS.register("infranium_sword",
             () -> new SwordItem(InfraniumItemTier.INFRANIUM, 5, -2.4F, new Item.Properties()));
 

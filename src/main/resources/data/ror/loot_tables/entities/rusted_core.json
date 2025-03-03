@@ -10,7 +10,17 @@
           "conditions": [
             {
               "condition": "minecraft:random_chance",
-              "chance": 0.1
+              "chance": 0.05
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ror:rusted_infranium_core",
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.7
             }
           ]
         }

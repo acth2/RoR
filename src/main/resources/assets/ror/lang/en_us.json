@@ -11,6 +11,7 @@
   "item.ror.infranium_shovel": "Infranium Shovel",
   "item.ror.infranium_axe": "Infranium Axe",
   "item.ror.infranium_core": "Infranium Core",
+  "item.ror.rusted_infranium_core": "Rusted Infranium Core",
   "item.ror.hopper_sword": "Hopper Sword",
   "block.ror.example_block": "Test Block",
   "block.ror.infranium_ore": "Infranium Ore",
@@ -25,6 +26,7 @@
   "entity.ror.wood_spirit": "Wood Spirit",
   "entity.ror.traveler": "Traveler",
   "entity.ror.coin_giver": "Coin Giver",
+  "entity.ror.woodfall_solider": "Wood Fall Solider",
   "key.ror.mm": "Main menu",
   "key.categories.ror": "Ruins of Realms"
 }

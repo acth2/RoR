@@ -10,6 +10,7 @@ import fr.acth2.ror.entities.constructors.rc.RustedCoreEntity;
 import fr.acth2.ror.entities.constructors.wicked.WickedEntity;
 import fr.acth2.ror.entities.constructors.woodfall.WoodFallEntity;
 import fr.acth2.ror.entities.constructors.ws.WoodSpiritEntity;
+import fr.acth2.ror.entities.entity.woodfall.solider.EntityWoodFallSolider;
 import fr.acth2.ror.gui.coins.CoinsManager;
 import fr.acth2.ror.utils.References;
 import net.minecraft.entity.LivingEntity;
@@ -64,6 +65,7 @@ public class ModCoinsDistributor {
             case "Wicked":
             case "WoodSpirit": return 70;
             case "CoinGiver": return 1000;
+            case "WoodFallSolider": return 250;
             default: return 5;
         }
     }
@@ -85,6 +87,7 @@ public class ModCoinsDistributor {
         if (entity instanceof WoodSpiritEntity) return "WoodSpirit";
         if (entity instanceof ExampleEntity) return "ExampleEntity";
         if (entity instanceof CoinGiverEntity) return "CoinGiver";
+        if (entity instanceof EntityWoodFallSolider) return "WoodFallSolider";
 
         return "Unknown";
     }

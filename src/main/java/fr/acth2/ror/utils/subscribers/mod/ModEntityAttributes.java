@@ -10,6 +10,7 @@ import fr.acth2.ror.entities.constructors.rc.RustedCoreEntity;
 import fr.acth2.ror.entities.constructors.traveler.TravelerEntity;
 import fr.acth2.ror.entities.constructors.wicked.WickedEntity;
 import fr.acth2.ror.entities.constructors.woodfall.WoodFallEntity;
+import fr.acth2.ror.entities.constructors.woodfall.solider.WoodFallSolidierEntity;
 import fr.acth2.ror.entities.constructors.ws.WoodSpiritEntity;
 import fr.acth2.ror.init.ModEntities;
 import fr.acth2.ror.utils.References;
@@ -33,5 +34,6 @@ public class ModEntityAttributes {
         event.put(ModEntities.WOOD_SPIRIT.get(), WoodSpiritEntity.createAttributes().build());
         event.put(ModEntities.TRAVELER.get(), TravelerEntity.createAttributes().build());
         event.put(ModEntities.COIN_GIVER.get(), CoinGiverEntity.createAttributes().build());
+        event.put(ModEntities.WOODFALL_SOLIDER.get(), WoodFallSolidierEntity.createAttributes().build());
     }
 }

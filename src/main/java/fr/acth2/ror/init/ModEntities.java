@@ -10,6 +10,7 @@ import fr.acth2.ror.entities.entity.rc.EntityRustedCore;
 import fr.acth2.ror.entities.entity.traveler.EntityTraveler;
 import fr.acth2.ror.entities.entity.wicked.EntityWicked;
 import fr.acth2.ror.entities.entity.woodfall.EntityWoodFall;
+import fr.acth2.ror.entities.entity.woodfall.solider.EntityWoodFallSolider;
 import fr.acth2.ror.entities.entity.ws.EntityWoodSpirit;
 import fr.acth2.ror.utils.References;
 import fr.acth2.ror.utils.subscribers.gen.overworld.*;
@@ -69,8 +70,14 @@ public class ModEntities {
 
     public static final RegistryObject<EntityType<EntityWoodFall>> WOODFALL = ENTITY_TYPES.register("woodfall", () ->
             EntityType.Builder.<EntityWoodFall>of(EntityWoodFall::new, EntityClassification.CREATURE)
-                    .sized(0.3F, 1.3F)
+                    .sized(0.3F, 1.5F)
                     .build("woodfall")
+    );
+
+    public static final RegistryObject<EntityType<EntityWoodFallSolider>> WOODFALL_SOLIDER = ENTITY_TYPES.register("woodfall_solider", () ->
+            EntityType.Builder.<EntityWoodFallSolider>of(EntityWoodFallSolider::new, EntityClassification.CREATURE)
+                    .sized(0.5F, 1.7F)
+                    .build("woodfall_solider")
     );
 
     public static final RegistryObject<EntityType<EntityWoodSpirit>> WOOD_SPIRIT = ENTITY_TYPES.register("wood_spirit", () ->
@@ -104,6 +111,9 @@ public class ModEntities {
 
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL, 300, Blocks.VINE));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL, 300, Blocks.LILY_PAD));
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL_SOLIDER, 1000, Blocks.LILY_PAD));
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL_SOLIDER, 1000, Blocks.VINE));
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL_SOLIDER, 5000, Blocks.MOSSY_COBBLESTONE));
 
         // NIGHT MONSTER GENERATION
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CLUCKER, 100, Blocks.SAND));
@@ -112,7 +122,9 @@ public class ModEntities {
 
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL, 500, Blocks.VINE));
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL, 500, Blocks.LILY_PAD));
-
+        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL_SOLIDER, 1000, Blocks.LILY_PAD));
+        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL_SOLIDER, 1000, Blocks.VINE));
+        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL_SOLIDER, 5000, Blocks.MOSSY_COBBLESTONE));
         // CAVE MONSTER GENERATION
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(LOST_CAVER, 25, Blocks.STONE));
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WICKED, 100, Blocks.STONE));

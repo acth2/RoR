@@ -3,6 +3,7 @@ package fr.acth2.ror.init;
 import fr.acth2.ror.init.constructors.armor.InfraniumArmorMaterial;
 import fr.acth2.ror.init.constructors.items.ItemExample;
 import fr.acth2.ror.init.constructors.items.RealmsVessel;
+import fr.acth2.ror.init.constructors.tools.HopperItemTier;
 import fr.acth2.ror.init.constructors.tools.InfraniumItemTier;
 import fr.acth2.ror.utils.References;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -34,6 +35,9 @@ public class ModItems {
 
     public static final RegistryObject<Item> INFRANIUM_SWORD = ITEMS.register("infranium_sword",
             () -> new SwordItem(InfraniumItemTier.INFRANIUM, 5, -2.4F, new Item.Properties()));
+
+    public static final RegistryObject<Item> HOPPER_SWORD = ITEMS.register("hopper_sword",
+            () -> new SwordItem(HopperItemTier.HOPPER, 6, -1.9F, new Item.Properties()));
     public static final RegistryObject<Item> INFRANIUM_PICKAXE = ITEMS.register("infranium_pickaxe",
             () -> new PickaxeItem(InfraniumItemTier.INFRANIUM, 3, -2.8F, new Item.Properties()));
     public static final RegistryObject<Item> INFRANIUM_AXE = ITEMS.register("infranium_axe",

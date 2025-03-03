@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "X X",
+    "XSX",
+    "XXX"
+  ],
+  "key": {
+    "X": {
+      "item": "ror:infranium_ingot"
+    },
+    "S": {
+      "item": "ror:infranium_core"
+    }
+  },
+  "result": {
+    "item": "ror:infranium_chestplate"
+  }
+}

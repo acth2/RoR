@@ -1,11 +1,12 @@
 package fr.acth2.ror.init;
 
+import fr.acth2.ror.init.constructors.armor.InfraniumArmorMaterial;
 import fr.acth2.ror.init.constructors.items.ItemExample;
 import fr.acth2.ror.init.constructors.items.RealmsVessel;
+import fr.acth2.ror.init.constructors.tools.InfraniumItemTier;
 import fr.acth2.ror.utils.References;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.*;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -24,6 +25,30 @@ public class ModItems {
     public static final RegistryObject<Item> REALMS_VESSEL = ITEMS.register("realms_vessel",
             () -> new RealmsVessel(new Item.Properties())
     );
+
+    public static final RegistryObject<Item> INFRANIUM_INGOT = ITEMS.register("infranium_ingot",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> INFRANIUM_CORE = ITEMS.register("infranium_core",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> INFRANIUM_SWORD = ITEMS.register("infranium_sword",
+            () -> new SwordItem(InfraniumItemTier.INFRANIUM, 5, -2.4F, new Item.Properties()));
+    public static final RegistryObject<Item> INFRANIUM_PICKAXE = ITEMS.register("infranium_pickaxe",
+            () -> new PickaxeItem(InfraniumItemTier.INFRANIUM, 3, -2.8F, new Item.Properties()));
+    public static final RegistryObject<Item> INFRANIUM_AXE = ITEMS.register("infranium_axe",
+            () -> new AxeItem(InfraniumItemTier.INFRANIUM, 7.0F, -3.0F, new Item.Properties()));
+    public static final RegistryObject<Item> INFRANIUM_SHOVEL = ITEMS.register("infranium_shovel",
+            () -> new ShovelItem(InfraniumItemTier.INFRANIUM, 2.5F, -3.0F, new Item.Properties()));
+
+    public static final RegistryObject<Item> INFRANIUM_HELMET = ITEMS.register("infranium_helmet",
+            () -> new ArmorItem(InfraniumArmorMaterial.INFRANIUM, EquipmentSlotType.HEAD, new Item.Properties()));
+    public static final RegistryObject<Item> INFRANIUM_CHESTPLATE = ITEMS.register("infranium_chestplate",
+            () -> new ArmorItem(InfraniumArmorMaterial.INFRANIUM, EquipmentSlotType.CHEST, new Item.Properties()));
+    public static final RegistryObject<Item> INFRANIUM_LEGGINGS = ITEMS.register("infranium_leggings",
+            () -> new ArmorItem(InfraniumArmorMaterial.INFRANIUM, EquipmentSlotType.LEGS, new Item.Properties()));
+    public static final RegistryObject<Item> INFRANIUM_BOOTS = ITEMS.register("infranium_boots",
+            () -> new ArmorItem(InfraniumArmorMaterial.INFRANIUM, EquipmentSlotType.FEET, new Item.Properties()));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

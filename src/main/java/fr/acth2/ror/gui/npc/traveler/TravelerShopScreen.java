@@ -32,7 +32,7 @@ public class TravelerShopScreen extends Screen {
         shopItems.add(new ShopItem(new ItemStack(ModItems.REALMS_VESSEL.get()), 2500));
         shopItems.add(new ShopItem(new ItemStack(Items.COOKED_BEEF), 10));
         shopItems.add(new ShopItem(new ItemStack(Items.POTION), 25));
-        shopItems.add(new ShopItem(new ItemStack(Items.BOOK), 1));
+        shopItems.add(new ShopItem(new ItemStack(ModItems.INFRANIUM_SWORD.get()), 250));
     }
 
     @Override

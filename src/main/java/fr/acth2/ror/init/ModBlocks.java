@@ -1,6 +1,7 @@
 package fr.acth2.ror.init;
 
 import fr.acth2.ror.init.constructors.blocks.InfraniumOre;
+import fr.acth2.ror.init.constructors.blocks.RestorationStation;
 import fr.acth2.ror.utils.References;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -22,12 +23,19 @@ public class ModBlocks {
 
     );
 
+    public static final RegistryObject<Block> RESTORATION_STATION = BLOCKS.register("restoration_station",
+            RestorationStation::new
+    );
+
     public static final RegistryObject<Block> INFRANIUM_ORE = BLOCKS.register("infranium_ore", InfraniumOre::new);
 
     public static final RegistryObject<Item> EXAMPLE_BLOCK_ITEM = ITEMS.register("example_block",
             () -> new BlockItem(EXAMPLE_BLOCK.get(), new Item.Properties())
     );
 
+    public static final RegistryObject<Item> RESTORATION_STATION_ITEM = ITEMS.register("restoration_station",
+            () -> new BlockItem(RESTORATION_STATION.get(), new Item.Properties())
+    );
 
     public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);

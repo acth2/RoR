@@ -53,9 +53,7 @@ public class DiaryManager {
                 CompressedStreamTools.writeCompressed(root, fos);
                 fos.getChannel().force(true);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (IOException ignored) { }
     }
 
 

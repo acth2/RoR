@@ -29,12 +29,21 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> INFRANIUM_ORE = BLOCKS.register("infranium_ore", InfraniumOre::new);
 
+    public static final RegistryObject<Block> INFRANIUM_BLOCK = BLOCKS.register("infranium_block",
+            () -> new Block(Block.Properties.of(Material.METAL).strength(0.7f, 4.5f))
+
+    );
+
     public static final RegistryObject<Item> EXAMPLE_BLOCK_ITEM = ITEMS.register("example_block",
             () -> new BlockItem(EXAMPLE_BLOCK.get(), new Item.Properties())
     );
 
     public static final RegistryObject<Item> RESTORATION_STATION_ITEM = ITEMS.register("restoration_station",
             () -> new BlockItem(RESTORATION_STATION.get(), new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> INFRANIUM_BLOCK_ITEM = ITEMS.register("infranium_block",
+            () -> new BlockItem(INFRANIUM_BLOCK.get(), new Item.Properties())
     );
 
     public static void register(IEventBus eventBus) {

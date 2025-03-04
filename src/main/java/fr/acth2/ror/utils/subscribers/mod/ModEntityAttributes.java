@@ -4,6 +4,7 @@ import fr.acth2.ror.entities.constructors.ExampleEntity;
 import fr.acth2.ror.entities.constructors.cg.CoinGiverEntity;
 import fr.acth2.ror.entities.constructors.clucker.CluckerEntity;
 import fr.acth2.ror.entities.constructors.curser.CurserEntity;
+import fr.acth2.ror.entities.constructors.ghost.GhostEntity;
 import fr.acth2.ror.entities.constructors.hopper.HopperEntity;
 import fr.acth2.ror.entities.constructors.lc.LostCaverEntity;
 import fr.acth2.ror.entities.constructors.rc.RustedCoreEntity;
@@ -35,5 +36,6 @@ public class ModEntityAttributes {
         event.put(ModEntities.TRAVELER.get(), TravelerEntity.createAttributes().build());
         event.put(ModEntities.COIN_GIVER.get(), CoinGiverEntity.createAttributes().build());
         event.put(ModEntities.WOODFALL_SOLIDER.get(), WoodFallSolidierEntity.createAttributes().build());
+        event.put(ModEntities.GHOST.get(), GhostEntity.createAttributes().build());
     }
 }

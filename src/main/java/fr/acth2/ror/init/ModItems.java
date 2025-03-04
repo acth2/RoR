@@ -1,6 +1,8 @@
 package fr.acth2.ror.init;
 
 import fr.acth2.ror.init.constructors.armor.InfraniumArmorMaterial;
+import fr.acth2.ror.init.constructors.armor.ghost.GhostArmorMaterial;
+import fr.acth2.ror.init.constructors.armor.ghost.GhostBoots;
 import fr.acth2.ror.init.constructors.items.ItemExample;
 import fr.acth2.ror.init.constructors.items.RealmsVessel;
 import fr.acth2.ror.init.constructors.items.RustedItem;
@@ -13,6 +15,7 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.eventbus.api.IEventBus;
+import org.lwjgl.system.CallbackI;
 
 public class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, References.MODID);
@@ -30,6 +33,13 @@ public class ModItems {
 
     public static final RegistryObject<Item> INFRANIUM_INGOT = ITEMS.register("infranium_ingot",
             () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> TRANSLUCENT_INGOT = ITEMS.register("translucent_ingot",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> GHOST_DUST = ITEMS.register("ghost_dust",
+            () -> new Item(new Item.Properties())
+    );
 
     public static final RegistryObject<Item> INFRANIUM_CORE = ITEMS.register("infranium_core",
             () -> new Item(new Item.Properties()));
@@ -58,6 +68,9 @@ public class ModItems {
             () -> new ArmorItem(InfraniumArmorMaterial.INFRANIUM, EquipmentSlotType.LEGS, new Item.Properties()));
     public static final RegistryObject<Item> INFRANIUM_BOOTS = ITEMS.register("infranium_boots",
             () -> new ArmorItem(InfraniumArmorMaterial.INFRANIUM, EquipmentSlotType.FEET, new Item.Properties()));
+
+    public static final RegistryObject<Item> GHOST_BOOTS = ITEMS.register("ghost_boots",
+            () -> new GhostBoots(GhostArmorMaterial.GHOST, EquipmentSlotType.FEET, new Item.Properties()));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

@@ -52,7 +52,6 @@ public class ModCoinsDistributor {
     private static int getCoinsForEntity(String entityType) {
         switch (entityType) {
             case "Zombie": return 10;
-            case "Cow": return 5;
             case "Sheep": return 3;
             case "Creeper":
             case "Curser":

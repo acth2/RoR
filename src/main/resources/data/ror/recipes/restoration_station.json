@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    "SVS",
+    "PPP"
+  ],
+  "key": {
+    "X": {
+      "item": "ror:infranium_ingot"
+    },
+    "S": {
+      "item": "minecraft:iron_ingot"
+    },
+    "V": {
+      "item": "minecraft:crafting_table"
+    },
+    "P": {
+      "item": "minecraft:stone"
+    }
+  },
+  "result": {
+    "item": "ror:restoration_station"
+  }
+}

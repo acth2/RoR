@@ -3,6 +3,7 @@ package fr.acth2.ror.init;
 import fr.acth2.ror.init.constructors.armor.InfraniumArmorMaterial;
 import fr.acth2.ror.init.constructors.items.ItemExample;
 import fr.acth2.ror.init.constructors.items.RealmsVessel;
+import fr.acth2.ror.init.constructors.items.RustedItem;
 import fr.acth2.ror.init.constructors.tools.HopperItemTier;
 import fr.acth2.ror.init.constructors.tools.InfraniumItemTier;
 import fr.acth2.ror.utils.References;
@@ -34,7 +35,8 @@ public class ModItems {
             () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> RUSTED_INFRANIUM_CORE = ITEMS.register("rusted_infranium_core",
-            () -> new Item(new Item.Properties()));
+            () -> new RustedItem(new Item.Properties())
+    );
 
     public static final RegistryObject<Item> INFRANIUM_SWORD = ITEMS.register("infranium_sword",
             () -> new SwordItem(InfraniumItemTier.INFRANIUM, 5, -2.4F, new Item.Properties()));

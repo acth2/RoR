@@ -1,13 +1,8 @@
 package fr.acth2.ror.entities.entity.traveler;
 
-import fr.acth2.ror.entities.constructors.rc.RustedCoreEntity;
 import fr.acth2.ror.entities.constructors.traveler.TravelerEntity;
-import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -18,7 +13,6 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.core.processor.IBone;
 
 public class EntityTraveler extends TravelerEntity implements IAnimatable {
 

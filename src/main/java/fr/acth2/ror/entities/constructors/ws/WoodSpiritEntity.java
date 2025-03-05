@@ -1,6 +1,5 @@
 package fr.acth2.ror.entities.constructors.ws;
 
-import fr.acth2.ror.gui.coins.CoinsManager;
 import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;

@@ -1,13 +1,8 @@
 package fr.acth2.ror.entities.entity.curser;
 
 import fr.acth2.ror.entities.constructors.curser.CurserEntity;
-import fr.acth2.ror.entities.constructors.wicked.WickedEntity;
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.Explosion;
-import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;

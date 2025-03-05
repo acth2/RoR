@@ -1,7 +1,6 @@
 package fr.acth2.ror.entities.models.clucker;
 
 import fr.acth2.ror.entities.entity.clucker.EntityClucker;
-import fr.acth2.ror.entities.entity.wicked.EntityWicked;
 import fr.acth2.ror.utils.References;
 import net.minecraft.util.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;

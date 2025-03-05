@@ -1,6 +1,5 @@
 package fr.acth2.ror.entities.models.wicked;
 
-import fr.acth2.ror.entities.entity.EntityExample;
 import fr.acth2.ror.entities.entity.wicked.EntityWicked;
 import fr.acth2.ror.utils.References;
 import net.minecraft.util.ResourceLocation;

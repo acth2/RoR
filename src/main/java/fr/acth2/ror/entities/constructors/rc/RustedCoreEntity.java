@@ -1,7 +1,5 @@
 package fr.acth2.ror.entities.constructors.rc;
 
-import fr.acth2.ror.entities.constructors.lc.LostCaverEntity;
-import fr.acth2.ror.gui.coins.CoinsManager;
 import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -12,13 +10,9 @@ import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.Mod;
 
 import javax.annotation.Nullable;
-import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class RustedCoreEntity extends CreeperEntity implements IChargeableMob {

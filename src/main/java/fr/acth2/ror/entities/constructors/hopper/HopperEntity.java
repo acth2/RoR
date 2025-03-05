@@ -1,10 +1,6 @@
 package fr.acth2.ror.entities.constructors.hopper;
 
-import fr.acth2.ror.entities.constructors.lc.LostCaverEntity;
-import fr.acth2.ror.gui.coins.CoinsManager;
 import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
-import net.minecraft.block.AirBlock;
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
@@ -16,19 +12,14 @@ import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IServerWorld;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import org.w3c.dom.Attr;
 
 import javax.annotation.Nullable;
-import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class HopperEntity extends MonsterEntity {

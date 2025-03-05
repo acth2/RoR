@@ -20,7 +20,6 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class GhostEntity extends MonsterEntity {
 

@@ -1,6 +1,5 @@
 package fr.acth2.ror.entities.entity.wicked;
 
-import fr.acth2.ror.entities.constructors.ExampleEntity;
 import fr.acth2.ror.entities.constructors.wicked.WickedEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;

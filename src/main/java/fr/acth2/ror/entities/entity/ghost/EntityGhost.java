@@ -1,6 +1,5 @@
 package fr.acth2.ror.entities.entity.ghost;
 
-import fr.acth2.ror.entities.constructors.clucker.CluckerEntity;
 import fr.acth2.ror.entities.constructors.ghost.GhostEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;

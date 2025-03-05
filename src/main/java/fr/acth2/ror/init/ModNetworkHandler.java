@@ -5,7 +5,6 @@ import fr.acth2.ror.network.coins.SyncCoinsPacket;
 import fr.acth2.ror.network.traveler.PurchaseItemPacket;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
-import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraft.util.ResourceLocation;
 
 public class ModNetworkHandler {

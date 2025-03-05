@@ -1,6 +1,5 @@
 package fr.acth2.ror;
 
-import fr.acth2.ror.gui.coins.CoinsManager;
 import fr.acth2.ror.gui.diary.DiaryManager;
 import fr.acth2.ror.init.*;
 import fr.acth2.ror.proxy.ClientProxy;
@@ -23,8 +22,6 @@ public class Main {
             () -> ClientProxy::new,
             () -> CommonProxy::new
     );
-
-
     public Main() {
         GeckoLib.initialize();
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();

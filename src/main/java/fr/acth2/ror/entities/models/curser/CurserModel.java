@@ -1,7 +1,6 @@
 package fr.acth2.ror.entities.models.curser;
 
 import fr.acth2.ror.entities.entity.curser.EntityCurser;
-import fr.acth2.ror.entities.entity.rc.EntityRustedCore;
 import fr.acth2.ror.utils.References;
 import net.minecraft.util.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;

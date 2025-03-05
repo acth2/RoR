@@ -1,6 +1,5 @@
 package fr.acth2.ror.entities.models.ws;
 
-import fr.acth2.ror.entities.entity.clucker.EntityClucker;
 import fr.acth2.ror.entities.entity.ws.EntityWoodSpirit;
 import fr.acth2.ror.utils.References;
 import net.minecraft.util.ResourceLocation;

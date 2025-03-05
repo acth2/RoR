@@ -1,6 +1,5 @@
 package fr.acth2.ror.entities.models.ghost;
 
-import fr.acth2.ror.entities.entity.clucker.EntityClucker;
 import fr.acth2.ror.entities.entity.ghost.EntityGhost;
 import fr.acth2.ror.utils.References;
 import net.minecraft.util.ResourceLocation;

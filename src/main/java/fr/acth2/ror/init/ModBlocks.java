@@ -3,7 +3,6 @@ package fr.acth2.ror.init;
 import fr.acth2.ror.init.constructors.blocks.InfraniumOre;
 import fr.acth2.ror.init.constructors.blocks.RestorationStation;
 import fr.acth2.ror.utils.References;
-import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;

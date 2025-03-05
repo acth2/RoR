@@ -2,10 +2,6 @@ package fr.acth2.ror.entities.entity.hopper;
 
 import fr.acth2.ror.entities.constructors.hopper.HopperEntity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;

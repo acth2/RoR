@@ -1,7 +1,6 @@
 package fr.acth2.ror.entities.constructors.clucker;
 
 
-import fr.acth2.ror.gui.coins.CoinsManager;
 import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -18,7 +17,6 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
-import org.w3c.dom.Attr;
 
 import javax.annotation.Nullable;
 import java.util.concurrent.atomic.AtomicBoolean;

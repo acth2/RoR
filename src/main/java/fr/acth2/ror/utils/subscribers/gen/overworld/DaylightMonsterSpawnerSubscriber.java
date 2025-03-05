@@ -1,10 +1,7 @@
 package fr.acth2.ror.utils.subscribers.gen.overworld;
 
-import fr.acth2.ror.entities.entity.hopper.EntityHopper;
-import fr.acth2.ror.init.ModEntities;
 import fr.acth2.ror.utils.References;
 import fr.acth2.ror.utils.subscribers.gen.utils.MobSpawnData;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,7 +10,6 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.TickEvent.WorldTickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.ArrayList;

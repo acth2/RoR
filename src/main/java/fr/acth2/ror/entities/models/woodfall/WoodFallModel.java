@@ -1,6 +1,5 @@
 package fr.acth2.ror.entities.models.woodfall;
 
-import fr.acth2.ror.entities.entity.hopper.EntityHopper;
 import fr.acth2.ror.entities.entity.woodfall.EntityWoodFall;
 import fr.acth2.ror.utils.References;
 import net.minecraft.util.ResourceLocation;

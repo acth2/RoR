@@ -1,6 +1,5 @@
 package fr.acth2.ror.entities.models.traveler;
 
-import fr.acth2.ror.entities.entity.lc.EntityLostCaver;
 import fr.acth2.ror.entities.entity.traveler.EntityTraveler;
 import fr.acth2.ror.utils.References;
 import net.minecraft.util.ResourceLocation;

@@ -1,6 +1,5 @@
 package fr.acth2.ror.entities.entity.woodfall;
 
-import fr.acth2.ror.entities.constructors.wicked.WickedEntity;
 import fr.acth2.ror.entities.constructors.woodfall.WoodFallEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;

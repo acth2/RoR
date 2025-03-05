@@ -6,8 +6,10 @@ import fr.acth2.ror.init.constructors.armor.ghost.GhostBoots;
 import fr.acth2.ror.init.constructors.items.ItemExample;
 import fr.acth2.ror.init.constructors.items.RealmsVessel;
 import fr.acth2.ror.init.constructors.items.RustedItem;
+import fr.acth2.ror.init.constructors.items.SpiritAxe;
 import fr.acth2.ror.init.constructors.tools.HopperItemTier;
 import fr.acth2.ror.init.constructors.tools.InfraniumItemTier;
+import fr.acth2.ror.init.constructors.tools.SpiritItemTier;
 import fr.acth2.ror.utils.References;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
@@ -71,6 +73,9 @@ public class ModItems {
 
     public static final RegistryObject<Item> GHOST_BOOTS = ITEMS.register("ghost_boots",
             () -> new GhostBoots(GhostArmorMaterial.GHOST, EquipmentSlotType.FEET, new Item.Properties()));
+
+    public static final RegistryObject<Item> SPIRIT_AXE = ITEMS.register("spirit_axe",
+            () -> new SpiritAxe(SpiritItemTier.SPIRIT, 0.0F, -1.0F, new Item.Properties()));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

@@ -1,5 +1,6 @@
 package fr.acth2.ror.init;
 
+import fr.acth2.ror.init.constructors.armor.InfraniumArmor;
 import fr.acth2.ror.init.constructors.armor.InfraniumArmorMaterial;
 import fr.acth2.ror.init.constructors.armor.ghost.GhostArmorMaterial;
 import fr.acth2.ror.init.constructors.armor.ghost.GhostBoots;
@@ -63,13 +64,13 @@ public class ModItems {
             () -> new ShovelItem(InfraniumItemTier.INFRANIUM, 2.5F, -3.0F, new Item.Properties()));
 
     public static final RegistryObject<Item> INFRANIUM_HELMET = ITEMS.register("infranium_helmet",
-            () -> new ArmorItem(InfraniumArmorMaterial.INFRANIUM, EquipmentSlotType.HEAD, new Item.Properties()));
+            () -> new InfraniumArmor(InfraniumArmorMaterial.INFRANIUM, EquipmentSlotType.HEAD, new Item.Properties()));
     public static final RegistryObject<Item> INFRANIUM_CHESTPLATE = ITEMS.register("infranium_chestplate",
-            () -> new ArmorItem(InfraniumArmorMaterial.INFRANIUM, EquipmentSlotType.CHEST, new Item.Properties()));
+            () -> new InfraniumArmor(InfraniumArmorMaterial.INFRANIUM, EquipmentSlotType.CHEST, new Item.Properties()));
     public static final RegistryObject<Item> INFRANIUM_LEGGINGS = ITEMS.register("infranium_leggings",
-            () -> new ArmorItem(InfraniumArmorMaterial.INFRANIUM, EquipmentSlotType.LEGS, new Item.Properties()));
+            () -> new InfraniumArmor(InfraniumArmorMaterial.INFRANIUM, EquipmentSlotType.LEGS, new Item.Properties()));
     public static final RegistryObject<Item> INFRANIUM_BOOTS = ITEMS.register("infranium_boots",
-            () -> new ArmorItem(InfraniumArmorMaterial.INFRANIUM, EquipmentSlotType.FEET, new Item.Properties()));
+            () -> new InfraniumArmor(InfraniumArmorMaterial.INFRANIUM, EquipmentSlotType.FEET, new Item.Properties()));
 
     public static final RegistryObject<Item> GHOST_BOOTS = ITEMS.register("ghost_boots",
             () -> new GhostBoots(GhostArmorMaterial.GHOST, EquipmentSlotType.FEET, new Item.Properties()));

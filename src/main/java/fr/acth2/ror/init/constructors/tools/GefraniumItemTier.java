@@ -8,7 +8,7 @@ import net.minecraft.util.LazyValue;
 import java.util.function.Supplier;
 
 public enum GefraniumItemTier implements IItemTier {
-    GEFRANIUM(4, 750, 9.0F, 5.0F, 16, () -> {
+    GEFRANIUM(6, 750, 9.0F, 5.0F, 16, () -> {
         return Ingredient.of(ModItems.GEFRANIUM_INGOT.get());
     });
 

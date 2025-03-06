@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "ror:gefranium_ore"
+  },
+  "result": "ror:gefranium_ingot",
+  "experience": 0.9,
+  "cookingtime": 135
+}

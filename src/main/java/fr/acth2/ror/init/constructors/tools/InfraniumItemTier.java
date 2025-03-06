@@ -8,7 +8,7 @@ import net.minecraft.util.LazyValue;
 import java.util.function.Supplier;
 
 public enum InfraniumItemTier implements IItemTier {
-    INFRANIUM(3, 750, 7.0F, 3.0F, 14, () -> {
+    INFRANIUM(4, 750, 7.0F, 3.0F, 14, () -> {
         return Ingredient.of(ModItems.INFRANIUM_INGOT.get());
     });
 

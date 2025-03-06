@@ -13,7 +13,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import java.util.function.Supplier;
 
 public enum GefraniumArmorMaterial implements IArmorMaterial {
-    GEFRANIUM(References.MODID + ":gefranium", 25, new int[]{4, 7, 8, 3}, 14, SoundEvents.ARMOR_EQUIP_IRON, 0.25F, () -> {
+    GEFRANIUM(References.MODID + ":gefranium", 25, new int[]{3, 4, 3, 1}, 14, SoundEvents.ARMOR_EQUIP_IRON, 0.25F, () -> {
         return Ingredient.of(ModItems.GEFRANIUM_INGOT.get());
     });
 
@@ -74,6 +74,6 @@ public enum GefraniumArmorMaterial implements IArmorMaterial {
 
     @Override
     public float getKnockbackResistance() {
-        return 0.25F;
+        return 0.35F;
     }
 }

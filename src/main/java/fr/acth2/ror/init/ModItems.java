@@ -93,11 +93,11 @@ public class ModItems {
             () -> new ShovelItem(GefraniumItemTier.GEFRANIUM, 2.5F, -3.0F, new Item.Properties()));
 
     public static final RegistryObject<Item> GEFRANIUM_HELMET = ITEMS.register("gefranium_helmet",
-            () -> new InfraniumArmor(GefraniumArmorMaterial.GEFRANIUM, EquipmentSlotType.HEAD, new Item.Properties()));
+            () -> new GefraniumArmor(GefraniumArmorMaterial.GEFRANIUM, EquipmentSlotType.HEAD, new Item.Properties()));
     public static final RegistryObject<Item> GEFRANIUM_CHESTPLATE = ITEMS.register("gefranium_chestplate",
-            () -> new InfraniumArmor(GefraniumArmorMaterial.GEFRANIUM, EquipmentSlotType.CHEST, new Item.Properties()));
+            () -> new GefraniumArmor(GefraniumArmorMaterial.GEFRANIUM, EquipmentSlotType.CHEST, new Item.Properties()));
     public static final RegistryObject<Item> GEFRANIUM_LEGGINGS = ITEMS.register("gefranium_leggings",
-            () -> new InfraniumArmor(GefraniumArmorMaterial.GEFRANIUM, EquipmentSlotType.LEGS, new Item.Properties()));
+            () -> new GefraniumArmor(GefraniumArmorMaterial.GEFRANIUM, EquipmentSlotType.LEGS, new Item.Properties()));
     public static final RegistryObject<Item> GEFRANIUM_BOOTS = ITEMS.register("gefranium_boots",
             () -> new GefraniumArmor(GefraniumArmorMaterial.GEFRANIUM, EquipmentSlotType.FEET, new Item.Properties()));
 

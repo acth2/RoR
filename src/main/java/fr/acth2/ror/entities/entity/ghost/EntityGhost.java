@@ -25,6 +25,7 @@ public class EntityGhost extends GhostEntity implements IAnimatable {
             > type, World worldIn) {
         super(type, worldIn);
         this.setGlowing(true);
+        this.setSwimming(true);
     }
 
     @Override
@@ -38,6 +39,11 @@ public class EntityGhost extends GhostEntity implements IAnimatable {
         return false;
     }
 
+    @Override
+    public void setSwimming(boolean p_204711_1_) {
+        super.setSwimming(p_204711_1_);
+    }
+
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         if (event.isMoving()) {
             event.getController().setAnimation(
@@ -45,7 +51,7 @@ public class EntityGhost extends GhostEntity implements IAnimatable {
             );
         } else {
             event.getController().setAnimation(
-                    new AnimationBuilder().addAnimation("animation.clucker.idle", true)
+                    new AnimationBuilder().addAnimation("animation.ghost.idle", true)
             );
         }
         return PlayState.CONTINUE;

@@ -1,4 +1,4 @@
-package fr.acth2.ror.init.constructors.armor;
+package fr.acth2.ror.init.constructors.armor.infranium;
 
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.ai.attributes.AttributeModifier;

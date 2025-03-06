@@ -201,5 +201,26 @@
     "sounds": [
       "ror:wfs_ambient"
     ]
+  },
+  "ghost_hit": {
+    "category": "hostile",
+    "subtitle": "ror.ghost_hit",
+    "sounds": [
+      "ror:ghost_hit"
+    ]
+  },
+  "ghost_die": {
+    "category": "hostile",
+    "subtitle": "ror.ghost_die",
+    "sounds": [
+      "ror:ghost_die"
+    ]
+  },
+  "ghost_ambient": {
+    "category": "hostile",
+    "subtitle": "ror.ghost_ambient",
+    "sounds": [
+      "ror:ghost_ambient"
+    ]
   }
 }

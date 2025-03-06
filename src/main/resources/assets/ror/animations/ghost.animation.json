@@ -3,7 +3,7 @@
 	"animations": {
 		"animation.ghost.idle": {
 			"loop": true,
-			"animation_length": 1.25,
+			"animation_length": 1000,
 			"bones": {
 				"bone": {
 					"rotation": {

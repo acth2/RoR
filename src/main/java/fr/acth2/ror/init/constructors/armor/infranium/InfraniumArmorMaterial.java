@@ -1,4 +1,4 @@
-package fr.acth2.ror.init.constructors.armor;
+package fr.acth2.ror.init.constructors.armor.infranium;
 
 import fr.acth2.ror.init.ModItems;
 import fr.acth2.ror.utils.References;

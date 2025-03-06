@@ -6,6 +6,7 @@ import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
+import net.minecraft.world.gen.placement.DepthAverageConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.placement.TopSolidRangeConfig;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
@@ -23,9 +24,12 @@ public class OreGen {
                         ModBlocks.INFRANIUM_ORE.get().defaultBlockState(),
                         4
                 ))
-                .decorated(Placement.RANGE.configured(new TopSolidRangeConfig(5, 0, 16)))
+                .decorated(Placement.DEPTH_AVERAGE.configured(new DepthAverageConfig(
+                        20,
+                        5
+                )))
                 .squared()
-                .count(8);
+                .count(6);
 
         event.getGeneration().addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, infraniumOre);
     }

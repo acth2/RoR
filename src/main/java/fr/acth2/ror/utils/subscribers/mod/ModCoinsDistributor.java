@@ -20,6 +20,7 @@ import net.minecraft.entity.monster.EndermanEntity;
 import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.entity.passive.CowEntity;
+import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.text.ITextComponent;
@@ -67,6 +68,7 @@ public class ModCoinsDistributor {
             case "CoinGiver": return 1000;
             case "WoodFallSolider":
             case "Ghost":
+            case "IronGolem":
                 return 250;
             default: return 5;
         }
@@ -91,6 +93,7 @@ public class ModCoinsDistributor {
         if (entity instanceof CoinGiverEntity) return "CoinGiver";
         if (entity instanceof EntityWoodFallSolider) return "WoodFallSolider";
         if (entity instanceof EntityGhost) return "Ghost";
+        if (entity instanceof IronGolemEntity) return "IronGolem";
 
         return "Unknown";
     }

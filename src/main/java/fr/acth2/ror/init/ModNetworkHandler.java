@@ -1,7 +1,12 @@
 package fr.acth2.ror.init;
 
+import fr.acth2.ror.network.OpenDeathScreenPacket;
+import fr.acth2.ror.network.RevivePlayerPacket;
 import fr.acth2.ror.network.coins.RequestCoinSyncPacket;
 import fr.acth2.ror.network.coins.SyncCoinsPacket;
+import fr.acth2.ror.network.skills.RequestLevelUpPacket;
+import fr.acth2.ror.network.skills.RequestSyncPlayerStatsPacket;
+import fr.acth2.ror.network.skills.SyncPlayerStatsPacket;
 import fr.acth2.ror.network.traveler.PurchaseItemPacket;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
@@ -28,5 +33,21 @@ public class ModNetworkHandler {
                 (msg, buf) -> {},  buf -> new RequestCoinSyncPacket(),
                 RequestCoinSyncPacket::handle
         );
+
+        INSTANCE.registerMessage(id++, RequestLevelUpPacket.class, RequestLevelUpPacket::encode,
+                RequestLevelUpPacket::new, RequestLevelUpPacket::handle
+        );
+
+        INSTANCE.registerMessage(id++, SyncPlayerStatsPacket.class, SyncPlayerStatsPacket::encode,
+                SyncPlayerStatsPacket::new, SyncPlayerStatsPacket::handle
+        );
+
+        INSTANCE.registerMessage(id++, RequestSyncPlayerStatsPacket.class,
+                (msg, buf) -> {}, buf -> new RequestSyncPlayerStatsPacket(),
+                RequestSyncPlayerStatsPacket::handle
+        );
+
+        INSTANCE.registerMessage(id++, OpenDeathScreenPacket.class, OpenDeathScreenPacket::encode, OpenDeathScreenPacket::decode, OpenDeathScreenPacket::handle);
+        INSTANCE.registerMessage(id++, RevivePlayerPacket.class, RevivePlayerPacket::encode, RevivePlayerPacket::decode, RevivePlayerPacket::handle);
     }
 }

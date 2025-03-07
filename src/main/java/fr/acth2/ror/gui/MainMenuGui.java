@@ -9,6 +9,9 @@ import fr.acth2.ror.gui.diary.DiaryEntry;
 import fr.acth2.ror.gui.diary.DiaryManager;
 import fr.acth2.ror.init.ModNetworkHandler;
 import fr.acth2.ror.network.coins.RequestCoinSyncPacket;
+import fr.acth2.ror.network.skills.RequestLevelUpPacket;
+import fr.acth2.ror.network.skills.RequestSyncPlayerStatsPacket;
+import fr.acth2.ror.utils.subscribers.mod.skills.PlayerStats;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.gui.screen.Screen;
@@ -30,6 +33,7 @@ public class MainMenuGui extends Screen {
     private static PlayerEntity player;
     private int currentTab = 0;
     private final String[] tabLabels = { "SKILLS", "DIARY", "OTHER" };
+    private PlayerStats playerStats;
 
     private DiscordButton discordButton;
     private GithubButton githubButton;
@@ -41,6 +45,10 @@ public class MainMenuGui extends Screen {
     private final int entriesPerPage = 5;
     private Button prevPageButton;
     private Button nextPageButton;
+
+    private Button healthButton;
+    private Button staminaButton;
+    private Button strengthButton;
 
     public MainMenuGui(PlayerEntity player) {
         super(new StringTextComponent("Ruins of Realms"));
@@ -86,9 +94,47 @@ public class MainMenuGui extends Screen {
         this.addButton(githubButton);
         this.addButton(logoButton);
 
+        if (currentTab == 0) {
+            ModNetworkHandler.INSTANCE.sendToServer(new RequestSyncPlayerStatsPacket());
+            int startX2 = 50;
+            int startY = 50;
+            int buttonWidth = 100;
+            int buttonHeight = 20;
+            int spacing = 10;
+
+            healthButton = new Button(startX2 + buttonWidth + spacing, startY, buttonWidth, buttonHeight, new StringTextComponent("Level Health"), btn -> {
+                ModNetworkHandler.INSTANCE.sendToServer(new RequestLevelUpPacket("health"));
+            });
+
+            staminaButton = new Button(startX2 + buttonWidth + spacing, startY + (buttonHeight + spacing), buttonWidth, buttonHeight, new StringTextComponent("Level Stamina"), btn -> {
+                ModNetworkHandler.INSTANCE.sendToServer(new RequestLevelUpPacket("stamina"));
+            });
+
+            strengthButton = new Button(startX2 + buttonWidth + spacing, startY + 2 * (buttonHeight + spacing), buttonWidth, buttonHeight, new StringTextComponent("Level Strength"), btn -> {
+                ModNetworkHandler.INSTANCE.sendToServer(new RequestLevelUpPacket("strength"));
+            });
+
+            this.addButton(healthButton);
+            this.addButton(staminaButton);
+            this.addButton(strengthButton);
+        }
+
         if (currentTab == 1) {
             initDiaryEntries();
         }
+    }
+
+    private void updateButtonCosts() {
+        if (playerStats != null) {
+            healthButton.setMessage(new StringTextComponent("Health: " + playerStats.getHealth() + " (Cost: " + playerStats.getLevelUpCost("health") + ")"));
+            staminaButton.setMessage(new StringTextComponent("Stamina: " + playerStats.getStamina() + " (Cost: " + playerStats.getLevelUpCost("stamina") + ")"));
+            strengthButton.setMessage(new StringTextComponent("Strength: " + playerStats.getStrength() + " (Cost: " + playerStats.getLevelUpCost("strength") + ")"));
+        }
+    }
+
+    public void updateStats(int level, int health, int stamina, int strength) {
+        this.playerStats = new PlayerStats(level, health, stamina, strength);
+        updateButtonCosts();
     }
 
     private void requestInitialCoinSync() {
@@ -176,6 +222,10 @@ public class MainMenuGui extends Screen {
         githubButton.visible = (currentTab == 2);
         logoButton.visible = (currentTab == 2);
 
+        healthButton.visible = (currentTab == 0);
+        staminaButton.visible = (currentTab == 0);
+        strengthButton.visible = (currentTab == 0);
+
         removeDiaryWidgets();
         diaryEntryButtons.clear();
 
@@ -203,6 +253,20 @@ public class MainMenuGui extends Screen {
         int contentY = 80;
         switch (currentTab) {
             case 0:
+                int statsX = 20;
+                int statsY = 50;
+                int statsSpacing = 20;
+
+                if (playerStats != null) {
+                    drawString(matrixStack, this.font, "Level: " + playerStats.getLevel(), statsX, statsY, 0xFFFFFF);
+                    drawString(matrixStack, this.font, "Health: " + playerStats.getHealth(), statsX, statsY + statsSpacing, 0xFFFFFF);
+                    drawString(matrixStack, this.font, "Stamina: " + playerStats.getStamina(), statsX, statsY + 2 * statsSpacing, 0xFFFFFF);
+                    drawString(matrixStack, this.font, "Strength: " + playerStats.getStrength(), statsX, statsY + 3 * statsSpacing, 0xFFFFFF);
+                }
+
+                int coins = player.level.isClientSide ? CoinsManager.getClientCoins() : CoinsManager.getCoins((ServerPlayerEntity) player);
+                drawString(matrixStack, this.font, "Coins: " + coins, statsX, statsY + 4 * statsSpacing, 0xFFFFFF);
+
                 int coinsLogoX = 27;
                 int coinsLogoY = this.height - 14;
 
@@ -213,7 +277,7 @@ public class MainMenuGui extends Screen {
                 this.minecraft.getTextureManager().bind(new ResourceLocation("ror", "textures/gui/coin.png"));
                 blit(matrixStack, coinX, coinY - 5, 0, 0, coinIconSize, coinIconSize, coinIconSize, coinIconSize);
 
-                drawString(matrixStack, this.font, getCurrentPlayerCoins() + " COINS", coinX + 16, coinY, 0xFFFFFF);
+                drawString(matrixStack, this.font, coins + " COINS", coinX + 16, coinY, 0xFFFFFF);
                 break;
             case 1:
                 if (currentDiaryEntry != null) {

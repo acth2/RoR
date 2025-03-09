@@ -1,5 +1,6 @@
 package fr.acth2.ror.utils.subscribers.mod.skills;
 
+import fr.acth2.ror.utils.References;
 import fr.acth2.ror.utils.subscribers.client.PlayerStatsCapability;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -9,9 +10,8 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
 
-import java.util.UUID;
-
 public class PlayerStats implements INBTSerializable<CompoundNBT> {
+
     private int level;
     private int health;
     private int stamina;
@@ -65,10 +65,12 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
                 System.out.println("Health stat increased to: " + health);
                 ModifiableAttributeInstance maxHealthAttribute = player.getAttribute(Attributes.MAX_HEALTH);
                 if (maxHealthAttribute != null) {
+                    maxHealthAttribute.removeModifier(References.HEALTH_MODIFIER_UUID);
+
                     maxHealthAttribute.addPermanentModifier(new AttributeModifier(
-                            UUID.randomUUID(),
+                            References.HEALTH_MODIFIER_UUID,
                             "player_health_modifier",
-                            5.0,
+                            health - 20,
                             AttributeModifier.Operation.ADDITION
                     ));
                     player.setHealth(player.getMaxHealth());
@@ -91,24 +93,6 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
         System.out.println("Level increased to: " + level);
     }
 
-    public void saveOnDeath(PlayerEntity player) {
-        CompoundNBT persistentData = player.getPersistentData();
-        CompoundNBT statsNBT = this.serializeNBT();
-        persistentData.put("PlayerStats", statsNBT);
-        System.out.println("Saved PlayerStats on death: " + statsNBT);
-    }
-
-    public void loadOnRespawn(PlayerEntity player) {
-        CompoundNBT persistentData = player.getPersistentData();
-        if (persistentData.contains("PlayerStats")) {
-            CompoundNBT statsNBT = persistentData.getCompound("PlayerStats");
-            this.deserializeNBT(statsNBT);
-            System.out.println("Loaded PlayerStats on respawn: " + statsNBT);
-        } else {
-            System.out.println("No PlayerStats found in persistent data");
-        }
-    }
-
     @Override
     public CompoundNBT serializeNBT() {
         CompoundNBT nbt = new CompoundNBT();
@@ -127,6 +111,22 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
         strength = nbt.getInt("strength");
     }
 
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public void setStamina(int stamina) {
+        this.stamina = stamina;
+    }
+
+    public void setStrength(int strength) {
+        this.strength = strength;
+    }
+
     public static PlayerStats get(PlayerEntity player) {
         LazyOptional<PlayerStats> stats = player.getCapability(PlayerStatsCapability.PLAYER_STATS_CAPABILITY);
         if (!stats.isPresent()) {
@@ -134,4 +134,5 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
         }
         return stats.orElseThrow(() -> new IllegalStateException("PlayerStats capability not found!"));
     }
+
 }

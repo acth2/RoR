@@ -38,11 +38,11 @@ public class RestorationStation  extends Block {
                     if (player.experienceLevel >= 5) {
                         player.giveExperienceLevels(-5);
 
-                        heldStack.shrink(1);
-
                         if (heldStack.getItem() == ModItems.RUSTED_INFRANIUM_CORE.get()) {
                             player.addItem(new ItemStack(ModItems.INFRANIUM_CORE.get()));
                         }
+
+                        heldStack.shrink(1);
                         player.sendMessage(new StringTextComponent("Item restored! (-5 XP Levels)")
                                 .withStyle(TextFormatting.GREEN), player.getUUID());
                     } else {

@@ -1,5 +1,6 @@
 package fr.acth2.ror.utils.subscribers.mod;
 
+import fr.acth2.ror.gui.coins.CoinsManager;
 import fr.acth2.ror.init.ModNetworkHandler;
 import fr.acth2.ror.network.skills.SyncPlayerStatsPacket;
 import fr.acth2.ror.utils.References;

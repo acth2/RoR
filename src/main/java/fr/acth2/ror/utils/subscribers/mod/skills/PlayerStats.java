@@ -74,23 +74,19 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
                             AttributeModifier.Operation.ADDITION
                     ));
                     player.setHealth(player.getMaxHealth());
-                    System.out.println("Player max health increased to: " + player.getMaxHealth());
                 }
                 break;
             case "stamina":
                 stamina += 5;
-                System.out.println("Stamina stat increased to: " + stamina);
                 break;
             case "strength":
                 strength += 1;
-                System.out.println("Strength stat increased to: " + strength);
                 break;
             default:
                 throw new IllegalArgumentException("Invalid stat: " + stat);
         }
 
         level += 1;
-        System.out.println("Level increased to: " + level);
     }
 
     @Override
@@ -130,7 +126,7 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
     public static PlayerStats get(PlayerEntity player) {
         LazyOptional<PlayerStats> stats = player.getCapability(PlayerStatsCapability.PLAYER_STATS_CAPABILITY);
         if (!stats.isPresent()) {
-            System.out.println("PlayerStats capability not found for player: " + player.getName().getString());
+            System.err.println("PlayerStats capability not found for player: " + player.getName().getString());
         }
         return stats.orElseThrow(() -> new IllegalStateException("PlayerStats capability not found!"));
     }

@@ -19,16 +19,14 @@ import java.util.UUID;
 
 @Mod(References.MODID)
 public class Main {
-
-    static {
-        References.HEALTH_MODIFIER_UUID = UUID.randomUUID();
-    }
-
     public static final CommonProxy proxy = DistExecutor.safeRunForDist(
             () -> ClientProxy::new,
             () -> CommonProxy::new
     );
     public Main() {
+        References.HEALTH_MODIFIER_UUID = UUID.randomUUID();
+        References.DEXTERITY_MODIFIER_UUID = UUID.randomUUID();
+
         GeckoLib.initialize();
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         ModItems.register(modEventBus);

@@ -72,13 +72,25 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
                     maxHealthAttribute.addPermanentModifier(new AttributeModifier(
                             References.HEALTH_MODIFIER_UUID,
                             "player_health_modifier",
-                            health - 20,
+                            health - References.HEALTH_REDUCER,
                             AttributeModifier.Operation.ADDITION
                     ));
                 }
                 break;
             case "dexterity":
-                dexterity += 5;
+                dexterity += 1;
+                System.out.println("Dexterity stat increased to: " + dexterity);
+                ModifiableAttributeInstance maxDexAttribute = player.getAttribute(Attributes.MOVEMENT_SPEED);
+                if (maxDexAttribute != null) {
+                    maxDexAttribute.removeModifier(References.DEXTERITY_MODIFIER_UUID);
+
+                    maxDexAttribute.addPermanentModifier(new AttributeModifier(
+                            References.DEXTERITY_MODIFIER_UUID,
+                            "player_dex_modifier",
+                            (double) dexterity / References.DEXTERITY_REDUCER,
+                            AttributeModifier.Operation.ADDITION
+                    ));
+                }
                 break;
             case "strength":
                 strength += 1;

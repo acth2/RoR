@@ -76,11 +76,23 @@ public class PlayerDataHandler {
             maxHealthAttribute.addPermanentModifier(new AttributeModifier(
                     References.HEALTH_MODIFIER_UUID,
                     "player_health_modifier",
-                    playerStats.getHealth() - 20,
+                    playerStats.getHealth() - References.HEALTH_REDUCER,
                     AttributeModifier.Operation.ADDITION
             ));
 
             player.setHealth(player.getMaxHealth());
+        }
+
+        ModifiableAttributeInstance maxDexAttribute = player.getAttribute(Attributes.MOVEMENT_SPEED);
+        if (maxDexAttribute != null) {
+            maxDexAttribute.removeModifier(References.DEXTERITY_MODIFIER_UUID);
+
+            maxDexAttribute.addPermanentModifier(new AttributeModifier(
+                    References.DEXTERITY_MODIFIER_UUID,
+                    "player_dex_modifier",
+                    (double) playerStats.getDexterity() / References.DEXTERITY_REDUCER,
+                    AttributeModifier.Operation.ADDITION
+            ));
         }
     }
 }

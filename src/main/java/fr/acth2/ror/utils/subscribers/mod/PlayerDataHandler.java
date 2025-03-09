@@ -25,12 +25,10 @@ import java.util.List;
 public class PlayerDataHandler {
 
     public static int coins;
-    public static int pv;
-    public static int sv;
-    public static int stv;
-    public static int lv;
-
-    public static final List<String> deathCounter = new ArrayList<>();
+    public static int hp;
+    public static int dp;
+    public static int sp;
+    public static int lp;
 
     @SubscribeEvent
     public static void onPlayerDeath(LivingDeathEvent event) {
@@ -42,14 +40,10 @@ public class PlayerDataHandler {
                     CoinsManager.getClientCoins() :
                     CoinsManager.getCoins((ServerPlayerEntity) player);
 
-            pv = playerStats.getHealth();
-            sv = playerStats.getStamina();
-            stv = playerStats.getStrength();
-            lv = playerStats.getLevel();
-
-            if (!deathCounter.contains(player.getName().getString())) {
-                deathCounter.add(player.getName().getString());
-            }
+            hp = playerStats.getHealth();
+            dp = playerStats.getDexterity();
+            sp = playerStats.getStrength();
+            lp = playerStats.getLevel();
         }
     }
 
@@ -64,10 +58,10 @@ public class PlayerDataHandler {
             CoinsManager.setCoins((ServerPlayerEntity) event.getPlayer(), coins);
         }
 
-        playerStats.setHealth(pv);
-        playerStats.setStamina(sv);
-        playerStats.setStrength(stv);
-        playerStats.setLevel(lv);
+        playerStats.setHealth(hp);
+        playerStats.setDexterity(dp);
+        playerStats.setStrength(sp);
+        playerStats.setLevel(lp);
         reapplyAttributes(player, playerStats);
 
         if (!player.level.isClientSide) {

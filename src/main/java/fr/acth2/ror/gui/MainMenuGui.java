@@ -96,9 +96,9 @@ public class MainMenuGui extends Screen {
 
         if (currentTab == 0) {
             ModNetworkHandler.INSTANCE.sendToServer(new RequestSyncPlayerStatsPacket());
-            int startX2 = 50;
-            int startY = 50;
-            int buttonWidth = 100;
+            int startX2 = 45;
+            int startY = 45;
+            int buttonWidth = 125;
             int buttonHeight = 20;
             int spacing = 10;
 
@@ -127,7 +127,7 @@ public class MainMenuGui extends Screen {
     private void updateButtonCosts() {
         if (playerStats != null) {
             healthButton.setMessage(new StringTextComponent("Health: " + playerStats.getHealth() + " (Cost: " + playerStats.getLevelUpCost("health") + ")"));
-            staminaButton.setMessage(new StringTextComponent("Stamina: " + playerStats.getStamina() + " (Cost: " + playerStats.getLevelUpCost("stamina") + ")"));
+            staminaButton.setMessage(new StringTextComponent("Dexterity: " + playerStats.getDexterity() + " (Cost: " + playerStats.getLevelUpCost("dexterity") + ")"));
             strengthButton.setMessage(new StringTextComponent("Strength: " + playerStats.getStrength() + " (Cost: " + playerStats.getLevelUpCost("strength") + ")"));
         }
     }
@@ -260,13 +260,11 @@ public class MainMenuGui extends Screen {
                 if (playerStats != null) {
                     drawString(matrixStack, this.font, "Level: " + playerStats.getLevel(), statsX, statsY, 0xFFFFFF);
                     drawString(matrixStack, this.font, "Health: " + playerStats.getHealth(), statsX, statsY + statsSpacing, 0xFFFFFF);
-                    drawString(matrixStack, this.font, "Stamina: " + playerStats.getStamina(), statsX, statsY + 2 * statsSpacing, 0xFFFFFF);
+                    drawString(matrixStack, this.font, "Dexterity: " + playerStats.getDexterity(), statsX, statsY + 2 * statsSpacing, 0xFFFFFF);
                     drawString(matrixStack, this.font, "Strength: " + playerStats.getStrength(), statsX, statsY + 3 * statsSpacing, 0xFFFFFF);
                 }
 
                 int coins = player.level.isClientSide ? CoinsManager.getClientCoins() : CoinsManager.getCoins((ServerPlayerEntity) player);
-                drawString(matrixStack, this.font, "Coins: " + coins, statsX, statsY + 4 * statsSpacing, 0xFFFFFF);
-
                 int coinsLogoX = 27;
                 int coinsLogoY = this.height - 14;
 

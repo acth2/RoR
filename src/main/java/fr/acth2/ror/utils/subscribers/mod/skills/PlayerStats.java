@@ -14,13 +14,13 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
 
     private int level;
     private int health;
-    private int stamina;
+    private int dexterity;
     private int strength;
 
-    public PlayerStats(int level, int health, int stamina, int strength) {
+    public PlayerStats(int level, int health, int dexterity, int strength) {
         this.level = level;
         this.health = health;
-        this.stamina = stamina;
+        this.dexterity = dexterity;
         this.strength = strength;
     }
 
@@ -33,8 +33,8 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
         return health;
     }
 
-    public int getStamina() {
-        return stamina;
+    public int getDexterity() {
+        return dexterity;
     }
 
     public int getStrength() {
@@ -50,7 +50,9 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
             case "health":
                 return 100 + (health * 10);
             case "stamina":
-                return 100 + (stamina * 10);
+
+            case "dexterity":
+                return 100 + (dexterity * 10);
             case "strength":
                 return 100 + (strength * 20);
             default:
@@ -61,7 +63,7 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
     public void levelUp(String stat, PlayerEntity player) {
         switch (stat) {
             case "health":
-                health += 5;
+                health += 2;
                 System.out.println("Health stat increased to: " + health);
                 ModifiableAttributeInstance maxHealthAttribute = player.getAttribute(Attributes.MAX_HEALTH);
                 if (maxHealthAttribute != null) {
@@ -73,11 +75,10 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
                             health - 20,
                             AttributeModifier.Operation.ADDITION
                     ));
-                    player.setHealth(player.getMaxHealth());
                 }
                 break;
-            case "stamina":
-                stamina += 5;
+            case "dexterity":
+                dexterity += 5;
                 break;
             case "strength":
                 strength += 1;
@@ -94,7 +95,7 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
         CompoundNBT nbt = new CompoundNBT();
         nbt.putInt("level", level);
         nbt.putInt("health", health);
-        nbt.putInt("stamina", stamina);
+        nbt.putInt("dexterity", dexterity);
         nbt.putInt("strength", strength);
         return nbt;
     }
@@ -103,8 +104,8 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
     public void deserializeNBT(CompoundNBT nbt) {
         level = nbt.getInt("level");
         health = nbt.getInt("health");
-        stamina = nbt.getInt("stamina");
-        strength = nbt.getInt("strength");
+        dexterity = nbt.getInt("dexterity");
+        dexterity = nbt.getInt("strength");
     }
 
     public void setHealth(int health) {
@@ -115,8 +116,8 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
         this.level = level;
     }
 
-    public void setStamina(int stamina) {
-        this.stamina = stamina;
+    public void setDexterity(int dexterity) {
+        this.dexterity = dexterity;
     }
 
     public void setStrength(int strength) {

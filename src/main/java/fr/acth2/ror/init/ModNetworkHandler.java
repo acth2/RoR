@@ -5,6 +5,7 @@ import fr.acth2.ror.network.coins.SyncCoinsPacket;
 import fr.acth2.ror.network.skills.RequestLevelUpPacket;
 import fr.acth2.ror.network.skills.RequestSyncPlayerStatsPacket;
 import fr.acth2.ror.network.skills.SyncPlayerStatsPacket;
+import fr.acth2.ror.network.skills.dexterity.DodgePacket;
 import fr.acth2.ror.network.traveler.PurchaseItemPacket;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraftforge.fml.network.NetworkRegistry;
@@ -45,6 +46,14 @@ public class ModNetworkHandler {
         INSTANCE.registerMessage(id++, RequestSyncPlayerStatsPacket.class,
                 (msg, buf) -> {}, buf -> new RequestSyncPlayerStatsPacket(),
                 RequestSyncPlayerStatsPacket::handle
+        );
+
+        INSTANCE.registerMessage(
+                id++,
+                DodgePacket.class,
+                DodgePacket::encode,
+                DodgePacket::decode,
+                DodgePacket::handle
         );
     }
 

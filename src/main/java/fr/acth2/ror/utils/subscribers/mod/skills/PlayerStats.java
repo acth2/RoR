@@ -1,14 +1,18 @@
 package fr.acth2.ror.utils.subscribers.mod.skills;
 
+import fr.acth2.ror.init.ModNetworkHandler;
+import fr.acth2.ror.network.skills.SyncPlayerStatsPacket;
 import fr.acth2.ror.utils.References;
 import fr.acth2.ror.utils.subscribers.client.PlayerStatsCapability;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fml.network.PacketDistributor;
 
 public class PlayerStats implements INBTSerializable<CompoundNBT> {
 
@@ -16,12 +20,23 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
     private int health;
     private int dexterity;
     private int strength;
+    private boolean hasDoubleJumped;
 
     public PlayerStats(int level, int health, int dexterity, int strength) {
         this.level = level;
         this.health = health;
         this.dexterity = dexterity;
         this.strength = strength;
+        this.hasDoubleJumped = false;
+    }
+
+
+    public boolean hasDoubleJumped() {
+        return hasDoubleJumped;
+    }
+
+    public void setHasDoubleJumped(boolean hasDoubleJumped) {
+        this.hasDoubleJumped = hasDoubleJumped;
     }
 
     public int getLevel() {
@@ -100,6 +115,9 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
         }
 
         level += 1;
+        if (player instanceof ServerPlayerEntity) {
+            ModNetworkHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) player), new SyncPlayerStatsPacket(this));
+        }
     }
 
     @Override

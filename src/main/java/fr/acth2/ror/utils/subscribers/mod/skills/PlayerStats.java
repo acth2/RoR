@@ -1,9 +1,13 @@
 package fr.acth2.ror.utils.subscribers.mod.skills;
 
+import fr.acth2.ror.gui.MainMenuGui;
+import fr.acth2.ror.gui.coins.CoinsManager;
 import fr.acth2.ror.init.ModNetworkHandler;
 import fr.acth2.ror.network.skills.SyncPlayerStatsPacket;
 import fr.acth2.ror.utils.References;
 import fr.acth2.ror.utils.subscribers.client.PlayerStatsCapability;
+import jdk.nashorn.internal.ir.annotations.Ignore;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
@@ -21,6 +25,8 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
     private int dexterity;
     private int strength;
     private boolean hasDoubleJumped;
+    private double dexterityModifierValue;
+    private boolean isFirstUpgrade = true;
 
     public PlayerStats(int level, int health, int dexterity, int strength) {
         this.level = level;
@@ -28,6 +34,7 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
         this.dexterity = dexterity;
         this.strength = strength;
         this.hasDoubleJumped = false;
+        this.dexterityModifierValue = 0.0;
     }
 
 
@@ -43,6 +50,13 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
         return level;
     }
 
+    public double getDexterityModifierValue() {
+        return dexterityModifierValue;
+    }
+
+    public void setDexterityModifierValue(double dexterityModifierValue) {
+        this.dexterityModifierValue = dexterityModifierValue;
+    }
 
     public int getHealth() {
         return health;
@@ -76,47 +90,63 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
     }
 
     public void levelUp(String stat, PlayerEntity player) {
-        switch (stat) {
-            case "health":
-                health += 2;
-                System.out.println("Health stat increased to: " + health);
-                ModifiableAttributeInstance maxHealthAttribute = player.getAttribute(Attributes.MAX_HEALTH);
-                if (maxHealthAttribute != null) {
-                    maxHealthAttribute.removeModifier(References.HEALTH_MODIFIER_UUID);
+        PlayerStats stats = PlayerStats.get(player);
+        int coins = CoinsManager.getCoins((ServerPlayerEntity) player);
 
-                    maxHealthAttribute.addPermanentModifier(new AttributeModifier(
-                            References.HEALTH_MODIFIER_UUID,
-                            "player_health_modifier",
-                            health - References.HEALTH_REDUCER,
-                            AttributeModifier.Operation.ADDITION
-                    ));
+        if (stats.canLevelUp(stat, coins)) {
+            switch (stat) {
+                case "health":
+                    stats.setHealth(stats.getHealth() + 2);
+                    System.out.println("Health stat increased to: " + stats.getHealth());
+                    ModifiableAttributeInstance maxHealthAttribute = player.getAttribute(Attributes.MAX_HEALTH);
+                    if (maxHealthAttribute != null) {
+                        maxHealthAttribute.removeModifier(References.HEALTH_MODIFIER_UUID);
+                        maxHealthAttribute.addPermanentModifier(new AttributeModifier(
+                                References.HEALTH_MODIFIER_UUID,
+                                "player_health_modifier",
+                                stats.getHealth() - References.HEALTH_REDUCER,
+                                AttributeModifier.Operation.ADDITION
+                        ));
+                    }
+                    break;
+                case "dexterity":
+                    stats.setDexterity(stats.getDexterity() + 1);
+                    System.out.println("Dexterity stat increased to: " + stats.getDexterity());
+                    ModifiableAttributeInstance maxDexAttribute = player.getAttribute(Attributes.MOVEMENT_SPEED);
+                    if (maxDexAttribute != null) {
+                        maxDexAttribute.removeModifier(References.DEXTERITY_MODIFIER_UUID);
+                        maxDexAttribute.addPermanentModifier(new AttributeModifier(
+                                References.DEXTERITY_MODIFIER_UUID,
+                                "player_dex_modifier",
+                                (double) stats.getDexterity() / References.DEXTERITY_REDUCER,
+                                AttributeModifier.Operation.ADDITION
+                        ));
+                    }
+                    break;
+                case "strength":
+                    stats.setStrength(stats.getStrength() + 1);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Invalid stat: " + stat);
+            }
+
+            stats.setLevel(stats.getLevel() + 1);
+            CoinsManager.removeCoins((ServerPlayerEntity) player, stats.getLevelUpCost(stat));
+
+            if (isFirstUpgrade) {
+                isFirstUpgrade = false;
+                if (player.level.isClientSide) {
+                    Minecraft minecraft = Minecraft.getInstance();
+                    if (minecraft.screen instanceof MainMenuGui) {
+                        MainMenuGui gui = (MainMenuGui) minecraft.screen;
+                        gui.updateStats(stats.getLevel(), stats.getHealth(), stats.getDexterity(), stats.getStrength());
+                    }
                 }
-                break;
-            case "dexterity":
-                dexterity += 1;
-                System.out.println("Dexterity stat increased to: " + dexterity);
-                ModifiableAttributeInstance maxDexAttribute = player.getAttribute(Attributes.MOVEMENT_SPEED);
-                if (maxDexAttribute != null) {
-                    maxDexAttribute.removeModifier(References.DEXTERITY_MODIFIER_UUID);
+            }
 
-                    maxDexAttribute.addPermanentModifier(new AttributeModifier(
-                            References.DEXTERITY_MODIFIER_UUID,
-                            "player_dex_modifier",
-                            (double) dexterity / References.DEXTERITY_REDUCER,
-                            AttributeModifier.Operation.ADDITION
-                    ));
-                }
-                break;
-            case "strength":
-                strength += 1;
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid stat: " + stat);
-        }
-
-        level += 1;
-        if (player instanceof ServerPlayerEntity) {
-            ModNetworkHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) player), new SyncPlayerStatsPacket(this));
+            if (player instanceof ServerPlayerEntity) {
+                ModNetworkHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) player), new SyncPlayerStatsPacket(stats));
+            }
         }
     }
 
@@ -127,6 +157,7 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
         nbt.putInt("health", health);
         nbt.putInt("dexterity", dexterity);
         nbt.putInt("strength", strength);
+        nbt.putDouble("dexterityModifierValue", dexterityModifierValue);
         return nbt;
     }
 
@@ -136,6 +167,7 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
         health = nbt.getInt("health");
         dexterity = nbt.getInt("dexterity");
         dexterity = nbt.getInt("strength");
+        dexterityModifierValue = nbt.getDouble("dexterityModifierValue");
     }
 
     public void setHealth(int health) {
@@ -159,7 +191,7 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
         if (!stats.isPresent()) {
             System.err.println("PlayerStats capability not found for player: " + player.getName().getString());
         }
-        return stats.orElseThrow(() -> new IllegalStateException("PlayerStats capability not found!"));
+        return stats.orElse(new PlayerStats(1, 20, 10, 1));
     }
 
 }

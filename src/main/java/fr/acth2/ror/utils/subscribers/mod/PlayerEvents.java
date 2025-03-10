@@ -1,5 +1,6 @@
 package fr.acth2.ror.utils.subscribers.mod;
 
+import fr.acth2.ror.gui.MainMenuGui;
 import fr.acth2.ror.gui.coins.CoinsManager;
 import fr.acth2.ror.init.ModNetworkHandler;
 import fr.acth2.ror.network.skills.SyncPlayerStatsPacket;
@@ -9,10 +10,15 @@ import fr.acth2.ror.utils.subscribers.client.PlayerStatsCapability;
 import fr.acth2.ror.utils.subscribers.mod.skills.PlayerStats;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -38,6 +44,8 @@ public class PlayerEvents {
 
     @SubscribeEvent
     public static void onPlayerLoggedIn(net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent event) {
+        loadDexterityModifier(event.getPlayer());
+        PlayerStats.get(event.getPlayer()).setDexterity(MainMenuGui.calculateDexterityFromModifiers(event.getPlayer()));
         if (event.getPlayer() instanceof ServerPlayerEntity) {
             ServerPlayerEntity player = (ServerPlayerEntity) event.getPlayer();
             PlayerStats stats = PlayerStats.get(player);
@@ -75,6 +83,60 @@ public class PlayerEvents {
 
             if (player.isOnGround()) {
                 playerStats.setHasDoubleJumped(false);
+            }
+        }
+    }
+
+
+
+
+
+
+
+    @SubscribeEvent
+    public static void onPlayerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
+        saveDexterityModifier(event.getPlayer());
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @SubscribeEvent
+    public static void onClientTick(TickEvent.ClientTickEvent event) {
+        if (event.phase == TickEvent.Phase.END) {
+            Minecraft minecraft = Minecraft.getInstance();
+            if (minecraft.screen instanceof MainMenuGui) {
+                PlayerEntity player = minecraft.player;
+                if (player != null) {
+                    saveDexterityModifier(player);
+                }
+            }
+        }
+    }
+
+    private static void saveDexterityModifier(PlayerEntity player) {
+        PlayerStats stats = PlayerStats.get(player);
+        if (stats != null) {
+            ModifiableAttributeInstance maxDexAttribute = player.getAttribute(Attributes.MOVEMENT_SPEED);
+            if (maxDexAttribute != null) {
+                AttributeModifier dexModifier = maxDexAttribute.getModifier(References.DEXTERITY_MODIFIER_UUID);
+                if (dexModifier != null) {
+                    stats.setDexterityModifierValue(dexModifier.getAmount());
+                }
+            }
+        }
+    }
+
+    private static void loadDexterityModifier(PlayerEntity player) {
+        PlayerStats stats = PlayerStats.get(player);
+        if (stats != null) {
+            ModifiableAttributeInstance maxDexAttribute = player.getAttribute(Attributes.MOVEMENT_SPEED);
+            if (maxDexAttribute != null) {
+                maxDexAttribute.removeModifier(References.DEXTERITY_MODIFIER_UUID);
+                maxDexAttribute.addPermanentModifier(new AttributeModifier(
+                        References.DEXTERITY_MODIFIER_UUID,
+                        "player_dex_modifier",
+                        stats.getDexterityModifierValue(),
+                        AttributeModifier.Operation.ADDITION
+                ));
             }
         }
     }

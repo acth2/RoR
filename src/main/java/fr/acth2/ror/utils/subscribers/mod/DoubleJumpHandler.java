@@ -1,5 +1,6 @@
 package fr.acth2.ror.utils.subscribers.mod;
 
+import fr.acth2.ror.gui.MainMenuGui;
 import fr.acth2.ror.utils.References;
 import fr.acth2.ror.utils.subscribers.mod.skills.PlayerStats;
 import net.minecraft.block.AirBlock;
@@ -47,7 +48,7 @@ public class DoubleJumpHandler {
 
             boolean isJumping = event.getMovementInput().jumping;
 
-            if (isJumping && !jumpButtonPressed.getOrDefault(playerId, false) && playerStats.getDexterity() >= 15) {
+            if (isJumping && !jumpButtonPressed.getOrDefault(playerId, false) && MainMenuGui.calculateDexterityFromModifiers(player) >= 15) {
                 jumpButtonPressed.put(playerId, true);
 
                 if (!player.isOnGround() && player.getPersistentData().getInt(JUMPS_KEY) < MAX_JUMPS) {

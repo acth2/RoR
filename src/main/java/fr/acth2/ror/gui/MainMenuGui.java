@@ -11,6 +11,7 @@ import fr.acth2.ror.init.ModNetworkHandler;
 import fr.acth2.ror.network.coins.RequestCoinSyncPacket;
 import fr.acth2.ror.network.skills.RequestLevelUpPacket;
 import fr.acth2.ror.network.skills.RequestSyncPlayerStatsPacket;
+import fr.acth2.ror.utils.References;
 import fr.acth2.ror.utils.subscribers.mod.skills.PlayerStats;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
@@ -19,6 +20,9 @@ import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.IReorderingProcessor;
@@ -49,6 +53,8 @@ public class MainMenuGui extends Screen {
     private Button healthButton;
     private Button dexterityButton;
     private Button strengthButton;
+    private boolean statsLoaded = false;
+    private boolean isFirstUpgrade = true;
 
     public MainMenuGui(PlayerEntity player) {
         super(new StringTextComponent("Ruins of Realms"));
@@ -58,6 +64,7 @@ public class MainMenuGui extends Screen {
 
     @Override
     protected void init() {
+        ModNetworkHandler.INSTANCE.sendToServer(new RequestSyncPlayerStatsPacket());
         this.buttons.clear();
         diaryEntryButtons.clear();
         diaryPage = 0;
@@ -103,16 +110,22 @@ public class MainMenuGui extends Screen {
             int spacing = 10;
 
             healthButton = new Button(startX2 + buttonWidth + spacing, startY, buttonWidth, buttonHeight, new StringTextComponent("Level Health"), btn -> {
+                updateButtonCosts();
                 ModNetworkHandler.INSTANCE.sendToServer(new RequestLevelUpPacket("health"));
             });
 
             dexterityButton = new Button(startX2 + buttonWidth + spacing, startY + (buttonHeight + spacing), buttonWidth, buttonHeight, new StringTextComponent("Level Dexterity"), btn -> {
+                updateButtonCosts();
                 ModNetworkHandler.INSTANCE.sendToServer(new RequestLevelUpPacket("dexterity"));
             });
 
             strengthButton = new Button(startX2 + buttonWidth + spacing, startY + 2 * (buttonHeight + spacing), buttonWidth, buttonHeight, new StringTextComponent("Level Strength"), btn -> {
                 ModNetworkHandler.INSTANCE.sendToServer(new RequestLevelUpPacket("strength"));
             });
+
+            healthButton.active = false;
+            dexterityButton.active = false;
+            strengthButton.active = false;
 
             this.addButton(healthButton);
             this.addButton(dexterityButton);
@@ -124,16 +137,33 @@ public class MainMenuGui extends Screen {
         }
     }
 
+    public static int calculateDexterityFromModifiers(PlayerEntity player) {
+        ModifiableAttributeInstance maxDexAttribute = player.getAttribute(Attributes.MOVEMENT_SPEED);
+        if (maxDexAttribute != null) {
+            AttributeModifier dexModifier = maxDexAttribute.getModifier(References.DEXTERITY_MODIFIER_UUID);
+            if (dexModifier != null) {
+                double modifierValue = dexModifier.getAmount();
+                return (int) (modifierValue * References.DEXTERITY_REDUCER);
+            }
+        }
+        return 0;
+    }
+
     private void updateButtonCosts() {
-        if (playerStats != null) {
+        if (playerStats != null && statsLoaded) {
+            healthButton.active = true;
+            dexterityButton.active = true;
+            strengthButton.active = true;
+
             healthButton.setMessage(new StringTextComponent("Health: " + playerStats.getHealth() + " (Cost: " + playerStats.getLevelUpCost("health") + ")"));
             dexterityButton.setMessage(new StringTextComponent("Dexterity: " + playerStats.getDexterity() + " (Cost: " + playerStats.getLevelUpCost("dexterity") + ")"));
-            strengthButton.setMessage(new StringTextComponent("Strength: " + playerStats.getStrength() + " (Cost: " + playerStats.getLevelUpCost("strength") + ")"));
+            strengthButton.setMessage(new StringTextComponent("Strength: " + "??" + " (Cost: " + playerStats.getLevelUpCost("strength") + ")"));
         }
     }
 
     public void updateStats(int level, int health, int dexterity, int strength) {
         this.playerStats = new PlayerStats(level, health, dexterity, strength);
+        this.statsLoaded = true;
         updateButtonCosts();
     }
 

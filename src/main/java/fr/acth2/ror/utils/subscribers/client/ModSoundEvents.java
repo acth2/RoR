@@ -107,6 +107,15 @@ public class ModSoundEvents {
 
     public static final RegistryObject<SoundEvent> GHOST_DIE =
             registerSoundEvent("ghost_die");
+
+    public static final RegistryObject<SoundEvent> SEEKER_HIT =
+            registerSoundEvent("seeker_hit");
+
+    public static final RegistryObject<SoundEvent> SEEKER_AMBIENT =
+            registerSoundEvent("seeker_ambient");
+
+    public static final RegistryObject<SoundEvent> SEEKER_DIE =
+            registerSoundEvent("seeker_die");
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         return SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(References.MODID, name)));
     }

@@ -45,6 +45,7 @@
   "entity.ror.coin_giver": "Coin Giver",
   "entity.ror.woodfall_solider": "Wood Fall Solider",
   "entity.ror.ghost": "Ghost",
+  "entity.ror.seeker": "Seeker",
   "key.ror.mm": "Main menu",
   "key.categories.ror": "Ruins of Realms"
 }

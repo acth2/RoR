@@ -53,8 +53,6 @@ public class MainMenuGui extends Screen {
     private Button healthButton;
     private Button dexterityButton;
     private Button strengthButton;
-    private boolean statsLoaded = false;
-    private boolean isFirstUpgrade = true;
 
     public MainMenuGui(PlayerEntity player) {
         super(new StringTextComponent("Ruins of Realms"));
@@ -123,10 +121,6 @@ public class MainMenuGui extends Screen {
                 ModNetworkHandler.INSTANCE.sendToServer(new RequestLevelUpPacket("strength"));
             });
 
-            healthButton.active = false;
-            dexterityButton.active = false;
-            strengthButton.active = false;
-
             this.addButton(healthButton);
             this.addButton(dexterityButton);
             this.addButton(strengthButton);
@@ -150,20 +144,34 @@ public class MainMenuGui extends Screen {
     }
 
     private void updateButtonCosts() {
-        if (playerStats != null && statsLoaded) {
-            healthButton.active = true;
-            dexterityButton.active = true;
-            strengthButton.active = true;
+        if (playerStats != null) {
+            healthButton.setMessage(new StringTextComponent(playerStats.getHealth() >= 100 ? "MAX" : "Health: " + playerStats.getHealth() + " (Cost: " + playerStats.getLevelUpCost("health") + ")"));
+            dexterityButton.setMessage(new StringTextComponent(playerStats.getDexterity() >= 25 ? "MAX" : "Dexterity: " + playerStats.getDexterity() + " (Cost: " + playerStats.getLevelUpCost("dexterity") + ")"));
+            strengthButton.setMessage(new StringTextComponent(playerStats.getStrength() >= 30 ? "MAX" : "Strength: " + "??" + " (Cost: " + playerStats.getLevelUpCost("strength") + ")"));
 
-            healthButton.setMessage(new StringTextComponent("Health: " + playerStats.getHealth() + " (Cost: " + playerStats.getLevelUpCost("health") + ")"));
-            dexterityButton.setMessage(new StringTextComponent("Dexterity: " + playerStats.getDexterity() + " (Cost: " + playerStats.getLevelUpCost("dexterity") + ")"));
-            strengthButton.setMessage(new StringTextComponent("Strength: " + "??" + " (Cost: " + playerStats.getLevelUpCost("strength") + ")"));
+
+            if (playerStats.getHealth() >= 100) {
+                healthButton.setFGColor(0xFF0000);
+                healthButton.setAlpha(0.5f);
+                healthButton.active = false;
+            }
+
+            if (playerStats.getDexterity() >= 25) {
+                dexterityButton.setFGColor(0xFF0000);
+                dexterityButton.setAlpha(0.5f);
+                dexterityButton.active = false;
+            }
+
+            if (playerStats.getStrength() >= 30) {
+                strengthButton.setFGColor(0xFF0000);
+                strengthButton.setAlpha(0.5f);
+                strengthButton.active = false;
+            }
         }
     }
 
     public void updateStats(int level, int health, int dexterity, int strength) {
         this.playerStats = new PlayerStats(level, health, dexterity, strength);
-        this.statsLoaded = true;
         updateButtonCosts();
     }
 
@@ -171,10 +179,6 @@ public class MainMenuGui extends Screen {
         if (player.level.isClientSide) {
             ModNetworkHandler.INSTANCE.sendToServer(new RequestCoinSyncPacket());
         }
-    }
-
-    public static int getCurrentPlayerCoins() {
-        return CoinsManager.getClientCoins();
     }
 
     private void initDiaryEntries() {
@@ -200,9 +204,8 @@ public class MainMenuGui extends Screen {
         int index = 0;
         for (int i = startIndex; i < endIndex; i++) {
             DiaryEntry entry = entries.get(i);
-            int x = startX;
             int y = startY + index * (buttonHeight + spacing);
-            Button diaryButton = new Button(x, y, buttonWidth, buttonHeight, new StringTextComponent(entry.getMonsterName()), btn -> {
+            Button diaryButton = new Button(startX, y, buttonWidth, buttonHeight, new StringTextComponent(entry.getMonsterName()), btn -> {
                 currentDiaryEntry = entry;
             });
             this.addButton(diaryButton);

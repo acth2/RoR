@@ -222,5 +222,27 @@
     "sounds": [
       "ror:ghost_ambient"
     ]
+  },
+
+  "seeker_hit": {
+    "category": "hostile",
+    "subtitle": "ror.seeker_hit",
+    "sounds": [
+      "ror:seeker_hit"
+    ]
+  },
+  "seeker_die": {
+    "category": "hostile",
+    "subtitle": "ror.seeker_die",
+    "sounds": [
+      "ror:seeker_die"
+    ]
+  },
+  "seeker_ambient": {
+    "category": "hostile",
+    "subtitle": "ror.seeker_ambient",
+    "sounds": [
+      "ror:seeker_ambient"
+    ]
   }
 }

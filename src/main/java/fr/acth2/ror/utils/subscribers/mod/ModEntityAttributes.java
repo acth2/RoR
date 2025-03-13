@@ -8,6 +8,7 @@ import fr.acth2.ror.entities.constructors.ghost.GhostEntity;
 import fr.acth2.ror.entities.constructors.hopper.HopperEntity;
 import fr.acth2.ror.entities.constructors.lc.LostCaverEntity;
 import fr.acth2.ror.entities.constructors.rc.RustedCoreEntity;
+import fr.acth2.ror.entities.constructors.seeker.SeekerEntity;
 import fr.acth2.ror.entities.constructors.traveler.TravelerEntity;
 import fr.acth2.ror.entities.constructors.wicked.WickedEntity;
 import fr.acth2.ror.entities.constructors.woodfall.WoodFallEntity;
@@ -37,5 +38,6 @@ public class ModEntityAttributes {
         event.put(ModEntities.COIN_GIVER.get(), CoinGiverEntity.createAttributes().build());
         event.put(ModEntities.WOODFALL_SOLIDER.get(), WoodFallSolidierEntity.createAttributes().build());
         event.put(ModEntities.GHOST.get(), GhostEntity.createAttributes().build());
+        event.put(ModEntities.SEEKER.get(), SeekerEntity.createAttributes().build());
     }
 }

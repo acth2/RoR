@@ -6,6 +6,8 @@ import fr.acth2.ror.init.constructors.armor.infranium.InfraniumArmor;
 import fr.acth2.ror.init.constructors.armor.infranium.InfraniumArmorMaterial;
 import fr.acth2.ror.init.constructors.armor.ghost.GhostArmorMaterial;
 import fr.acth2.ror.init.constructors.armor.ghost.GhostBoots;
+import fr.acth2.ror.init.constructors.armor.seeker.SeekerArmorMaterial;
+import fr.acth2.ror.init.constructors.armor.seeker.SeekerHelmet;
 import fr.acth2.ror.init.constructors.items.ItemExample;
 import fr.acth2.ror.init.constructors.items.RealmsVessel;
 import fr.acth2.ror.init.constructors.items.RustedItem;
@@ -103,6 +105,10 @@ public class ModItems {
 
     public static final RegistryObject<Item> GHOST_BOOTS = ITEMS.register("ghost_boots",
             () -> new GhostBoots(GhostArmorMaterial.GHOST, EquipmentSlotType.FEET, new Item.Properties()));
+
+    public static final RegistryObject<Item> SEEKER_HELMET = ITEMS.register("seeker_helmet",
+            () -> new SeekerHelmet(SeekerArmorMaterial.SEEKER, EquipmentSlotType.HEAD, new Item.Properties()));
+
 
     public static final RegistryObject<Item> SPIRIT_AXE = ITEMS.register("spirit_axe",
             () -> new SpiritAxe(SpiritItemTier.SPIRIT, 0.0F, -1.0F, new Item.Properties()));

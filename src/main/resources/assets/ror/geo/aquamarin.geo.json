@@ -1,0 +1,94 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.aquamarin",
+				"texture_width": 128,
+				"texture_height": 128,
+				"visible_bounds_width": 3,
+				"visible_bounds_height": 3.5,
+				"visible_bounds_offset": [0, 1.25, 0]
+			},
+			"bones": [
+				{
+					"name": "bone10",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "bone3",
+					"parent": "bone10",
+					"pivot": [0.5, 9, 0.5],
+					"cubes": [
+						{"origin": [-4, 4, -2], "size": [9, 10, 5], "uv": [31, 13]}
+					]
+				},
+				{
+					"name": "bone2",
+					"parent": "bone10",
+					"pivot": [0.5, 9, 8.5],
+					"cubes": [
+						{"origin": [0, 5, 9], "size": [1, 8, 7], "uv": [0, 57]}
+					]
+				},
+				{
+					"name": "bone4",
+					"parent": "bone10",
+					"pivot": [0.5, 9, -4],
+					"cubes": [
+						{"origin": [-5, 3, -6], "size": [11, 12, 4], "uv": [0, 13]}
+					]
+				},
+				{
+					"name": "bone5",
+					"parent": "bone10",
+					"pivot": [0.5, 9, -7],
+					"cubes": [
+						{"origin": [-4, 9, -14], "size": [9, 4, 8], "uv": [0, 30]}
+					]
+				},
+				{
+					"name": "bone6",
+					"parent": "bone10",
+					"pivot": [0.5, 8.5, -5.5],
+					"cubes": [
+						{"origin": [-6, 6, -15], "size": [13, 3, 9], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "bone7",
+					"parent": "bone10",
+					"pivot": [7, 11, -4],
+					"rotation": [0, -12.5, 0],
+					"cubes": [
+						{"origin": [6, 5, -4], "size": [11, 12, 1], "pivot": [6, 11, -4], "rotation": [0, 12.5, 0], "uv": [0, 43]}
+					]
+				},
+				{
+					"name": "bone8",
+					"parent": "bone10",
+					"pivot": [-4.5, 10, -3.5],
+					"cubes": [
+						{"origin": [-16, 5, -4], "size": [11, 12, 1], "uv": [25, 44]}
+					]
+				},
+				{
+					"name": "bone9",
+					"parent": "bone10",
+					"pivot": [0.5, 14.71321, -4.59042],
+					"cubes": [
+						{"origin": [-5, 14, -1], "size": [11, 12, 1], "pivot": [-4, 20, -1], "rotation": [-35, 0, 0], "uv": [50, 44]}
+					]
+				},
+				{
+					"name": "bone",
+					"parent": "bone10",
+					"pivot": [0.5, 9, 6],
+					"cubes": [
+						{"origin": [-3, 5, 3], "size": [7, 8, 6], "uv": [35, 29]}
+					]
+				}
+			]
+		}
+	]
+}

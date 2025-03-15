@@ -1,6 +1,7 @@
 package fr.acth2.ror.init;
 
 import fr.acth2.ror.entities.entity.EntityExample;
+import fr.acth2.ror.entities.entity.aquamarin.EntityAquamarin;
 import fr.acth2.ror.entities.entity.cg.EntityCoinGiver;
 import fr.acth2.ror.entities.entity.clucker.EntityClucker;
 import fr.acth2.ror.entities.entity.curser.EntityCurser;
@@ -18,6 +19,7 @@ import fr.acth2.ror.init.constructors.throwable.entiity.WickedProjectile;
 import fr.acth2.ror.utils.References;
 import fr.acth2.ror.utils.subscribers.gen.overworld.*;
 import fr.acth2.ror.utils.subscribers.gen.utils.MobSpawnData;
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -119,6 +121,12 @@ public class ModEntities {
                     .build("seeker")
     );
 
+    public static final RegistryObject<EntityType<EntityAquamarin>> AQUAMARIN = ENTITY_TYPES.register("aquamarin", () ->
+            EntityType.Builder.<EntityAquamarin>of(EntityAquamarin::new, EntityClassification.CREATURE)
+                    .sized(0.9F, 1.3F)
+                    .build("aquamarin")
+    );
+
 
     public static void register(IEventBus modEventBus) {
         ModEntities.ENTITY_TYPES.register(modEventBus);
@@ -130,6 +138,7 @@ public class ModEntities {
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(RUSTED_CORE, 25, Blocks.GRASS_BLOCK));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOOD_SPIRIT, 1, Blocks.GRASS_BLOCK));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CLUCKER, 100, Blocks.SAND));
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(AQUAMARIN, 100, Blocks.WATER));
 
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL, 300, Blocks.VINE));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL, 300, Blocks.LILY_PAD));
@@ -142,6 +151,7 @@ public class ModEntities {
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CURSER, 1, Blocks.RED_SAND));
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CURSER, 1, Blocks.TERRACOTTA));
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(GHOST, 100, null));
+        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(AQUAMARIN, 100, Blocks.WATER));
 
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL, 500, Blocks.VINE));
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL, 500, Blocks.LILY_PAD));

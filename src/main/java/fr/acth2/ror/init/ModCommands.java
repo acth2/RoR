@@ -30,7 +30,7 @@ public class ModCommands  {
         source.sendSuccess(new StringTextComponent("Changed " + player.getName().getString() + "'s coins to " + amount), true);
         CoinsManager.setCoins(player, amount);
 
-        player.sendMessage(new StringTextComponent("Your coins have been changed to " + amount + " by an administrator"), player.getUUID());
+        player.sendMessage(new StringTextComponent("Your coins have been put to " + amount + " by an administrator"), player.getUUID());
         return 1;
     }
 

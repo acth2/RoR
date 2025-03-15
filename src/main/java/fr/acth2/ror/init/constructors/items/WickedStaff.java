@@ -28,7 +28,9 @@ public class WickedStaff extends Item {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
         tooltip.add(new StringTextComponent(TextFormatting.DARK_PURPLE + "This Staff can shoot magic projectiles"));
-        tooltip.add(new StringTextComponent(TextFormatting.GRAY + "At cost of 15 Coins"));
+        tooltip.add(new StringTextComponent(TextFormatting.GRAY + "At cost of 15 Coins each shots"));
+        tooltip.add(new StringTextComponent(""));
+        tooltip.add(new StringTextComponent(TextFormatting.GREEN + "12 Magic Damage"));
         super.appendHoverText(stack, world, tooltip, flag);
     }
 

@@ -8,14 +8,8 @@ import fr.acth2.ror.init.constructors.armor.ghost.GhostArmorMaterial;
 import fr.acth2.ror.init.constructors.armor.ghost.GhostBoots;
 import fr.acth2.ror.init.constructors.armor.seeker.SeekerArmorMaterial;
 import fr.acth2.ror.init.constructors.armor.seeker.SeekerHelmet;
-import fr.acth2.ror.init.constructors.items.ItemExample;
-import fr.acth2.ror.init.constructors.items.RealmsVessel;
-import fr.acth2.ror.init.constructors.items.RustedItem;
-import fr.acth2.ror.init.constructors.items.SpiritAxe;
-import fr.acth2.ror.init.constructors.tools.GefraniumItemTier;
-import fr.acth2.ror.init.constructors.tools.HopperItemTier;
-import fr.acth2.ror.init.constructors.tools.InfraniumItemTier;
-import fr.acth2.ror.init.constructors.tools.SpiritItemTier;
+import fr.acth2.ror.init.constructors.items.*;
+import fr.acth2.ror.init.constructors.tools.*;
 import fr.acth2.ror.utils.References;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
@@ -23,6 +17,9 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.eventbus.api.IEventBus;
+
+import java.util.Collections;
+import java.util.Set;
 
 public class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, References.MODID);
@@ -46,6 +43,10 @@ public class ModItems {
 
     public static final RegistryObject<Item> GEFRANIUM_INGOT = ITEMS.register("gefranium_ingot",
             () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> WICKED_STAFF = ITEMS.register("wicked_staff",
+            () -> new WickedStaff(new Item.Properties())
+    );
 
 
     public static final RegistryObject<Item> TRANSLUCENT_INGOT = ITEMS.register("translucent_ingot",

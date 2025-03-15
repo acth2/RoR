@@ -14,6 +14,7 @@ import fr.acth2.ror.entities.entity.wicked.EntityWicked;
 import fr.acth2.ror.entities.entity.woodfall.EntityWoodFall;
 import fr.acth2.ror.entities.entity.woodfall.solider.EntityWoodFallSolider;
 import fr.acth2.ror.entities.entity.ws.EntityWoodSpirit;
+import fr.acth2.ror.init.constructors.throwable.entiity.WickedProjectile;
 import fr.acth2.ror.utils.References;
 import fr.acth2.ror.utils.subscribers.gen.overworld.*;
 import fr.acth2.ror.utils.subscribers.gen.utils.MobSpawnData;
@@ -27,6 +28,12 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModEntities {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, References.MODID);
+
+    public static final RegistryObject<EntityType<WickedProjectile>> WICKED_PROJECTILE = ENTITY_TYPES.register("wicked_projectile", () ->
+            EntityType.Builder.<WickedProjectile>of(WickedProjectile::new, EntityClassification.MISC)
+                    .sized(0.25F, 0.25F)
+                    .build("wicked_projectile")
+    );
 
     public static final RegistryObject<EntityType<EntityExample>> ENTITY_EXAMPLE = ENTITY_TYPES.register("entity_example", () ->
             EntityType.Builder.<EntityExample>of(EntityExample::new, EntityClassification.CREATURE)

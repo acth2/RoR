@@ -16,6 +16,8 @@ import fr.acth2.ror.entities.renderer.woodfall.solider.WoodFallSoliderRenderer;
 import fr.acth2.ror.entities.renderer.ws.WoodSpiritRenderer;
 import fr.acth2.ror.init.ModEntities;
 import fr.acth2.ror.utils.References;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -29,6 +31,8 @@ public class ClientEventSubscriber {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
+        ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
+
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.ENTITY_EXAMPLE.get(), EntityExampleRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.LOST_CAVER.get(), LostCaverRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.HOPPER.get(), HopperRenderer::new);

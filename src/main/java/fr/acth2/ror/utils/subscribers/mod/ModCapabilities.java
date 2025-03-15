@@ -2,11 +2,7 @@ package fr.acth2.ror.utils.subscribers.mod;
 
 import fr.acth2.ror.utils.subscribers.client.PlayerStatsStorage;
 import fr.acth2.ror.utils.subscribers.mod.skills.PlayerStats;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.world.NoteBlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;

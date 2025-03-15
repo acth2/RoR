@@ -7,6 +7,8 @@ import fr.acth2.ror.proxy.CommonProxy;
 import fr.acth2.ror.utils.References;
 import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegisterCommandsEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -37,6 +39,7 @@ public class Main {
         MinecraftForge.EVENT_BUS.addListener(this::onServerStarting);
         DiaryManager.registerAutosave();
         modEventBus.addListener(this::setup);
+        MinecraftForge.EVENT_BUS.register(this);
     }
 
     private void setup(FMLCommonSetupEvent event) {
@@ -44,6 +47,11 @@ public class Main {
         ModDimensions.register(event);
 
         proxy.setup();
+    }
+
+    @SubscribeEvent
+    public void onRegisterCommands(RegisterCommandsEvent event) {
+        ModCommands.register(event.getDispatcher());
     }
 
     private void onServerStarting(FMLServerStartingEvent event) {

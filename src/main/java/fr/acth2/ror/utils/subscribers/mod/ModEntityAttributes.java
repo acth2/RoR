@@ -5,6 +5,7 @@ import fr.acth2.ror.entities.constructors.aquamarin.AquamarinEntity;
 import fr.acth2.ror.entities.constructors.cg.CoinGiverEntity;
 import fr.acth2.ror.entities.constructors.clucker.CluckerEntity;
 import fr.acth2.ror.entities.constructors.curser.CurserEntity;
+import fr.acth2.ror.entities.constructors.fussle.FussleEntity;
 import fr.acth2.ror.entities.constructors.ghost.GhostEntity;
 import fr.acth2.ror.entities.constructors.hopper.HopperEntity;
 import fr.acth2.ror.entities.constructors.lc.LostCaverEntity;
@@ -41,5 +42,6 @@ public class ModEntityAttributes {
         event.put(ModEntities.GHOST.get(), GhostEntity.createAttributes().build());
         event.put(ModEntities.SEEKER.get(), SeekerEntity.createAttributes().build());
         event.put(ModEntities.AQUAMARIN.get(), AquamarinEntity.createAttributes().build());
+        event.put(ModEntities.FUSSLE.get(), FussleEntity.createAttributes().build());
     }
 }

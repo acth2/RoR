@@ -1,6 +1,7 @@
 package fr.acth2.ror.entities.constructors.aquamarin;
 
 import fr.acth2.ror.entities.constructors.WaterMonsterEntity;
+import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -101,17 +102,17 @@ public class AquamarinEntity extends WaterMonsterEntity {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return null;
+        return ModSoundEvents.AQUAMARIN_AMBIENT.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-        return super.getHurtSound(p_184601_1_);
+        return ModSoundEvents.AQUAMARIN_HIT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return super.getDeathSound();
+        return ModSoundEvents.AQUAMARIN_DIE.get();
     }
 
     @Override

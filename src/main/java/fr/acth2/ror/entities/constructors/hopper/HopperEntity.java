@@ -38,7 +38,6 @@ public class HopperEntity extends MonsterEntity {
         this.addBehaviourGoals();
     }
 
-    private static AtomicBoolean giveCoinsOnce = new AtomicBoolean(true);
     @Override
     public void tick() {
         super.tick();

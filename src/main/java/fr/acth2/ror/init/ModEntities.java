@@ -5,6 +5,7 @@ import fr.acth2.ror.entities.entity.aquamarin.EntityAquamarin;
 import fr.acth2.ror.entities.entity.cg.EntityCoinGiver;
 import fr.acth2.ror.entities.entity.clucker.EntityClucker;
 import fr.acth2.ror.entities.entity.curser.EntityCurser;
+import fr.acth2.ror.entities.entity.fussle.EntityFussle;
 import fr.acth2.ror.entities.entity.ghost.EntityGhost;
 import fr.acth2.ror.entities.entity.hopper.EntityHopper;
 import fr.acth2.ror.entities.entity.lc.EntityLostCaver;
@@ -123,8 +124,14 @@ public class ModEntities {
 
     public static final RegistryObject<EntityType<EntityAquamarin>> AQUAMARIN = ENTITY_TYPES.register("aquamarin", () ->
             EntityType.Builder.<EntityAquamarin>of(EntityAquamarin::new, EntityClassification.CREATURE)
-                    .sized(0.9F, 1.3F)
+                    .sized(0.9F, 0.8F)
                     .build("aquamarin")
+    );
+
+    public static final RegistryObject<EntityType<EntityFussle>> FUSSLE = ENTITY_TYPES.register("fussle", () ->
+            EntityType.Builder.<EntityFussle>of(EntityFussle::new, EntityClassification.CREATURE)
+                    .sized(0.7F, 1.1F)
+                    .build("fussle")
     );
 
 
@@ -139,6 +146,7 @@ public class ModEntities {
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOOD_SPIRIT, 1, Blocks.GRASS_BLOCK));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CLUCKER, 100, Blocks.SAND));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(AQUAMARIN, 100, Blocks.WATER));
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(FUSSLE, 50, Blocks.GRASS_BLOCK));
 
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL, 300, Blocks.VINE));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL, 300, Blocks.LILY_PAD));

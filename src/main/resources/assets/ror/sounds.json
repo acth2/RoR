@@ -223,7 +223,6 @@
       "ror:ghost_ambient"
     ]
   },
-
   "seeker_hit": {
     "category": "hostile",
     "subtitle": "ror.seeker_hit",
@@ -243,6 +242,27 @@
     "subtitle": "ror.seeker_ambient",
     "sounds": [
       "ror:seeker_ambient"
+    ]
+  },
+  "aquamarin_hit": {
+    "category": "hostile",
+    "subtitle": "ror.aquamarin_hit",
+    "sounds": [
+      "ror:aquamarin_hit"
+    ]
+  },
+  "aquamarin_die": {
+    "category": "hostile",
+    "subtitle": "ror.aquamarin_die",
+    "sounds": [
+      "ror:aquamarin_die"
+    ]
+  },
+  "aquamarin_ambient": {
+    "category": "hostile",
+    "subtitle": "ror.aquamarin_ambient",
+    "sounds": [
+      "ror:aquamarin_ambient"
     ]
   }
 }

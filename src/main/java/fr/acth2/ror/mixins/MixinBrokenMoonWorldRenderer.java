@@ -28,7 +28,7 @@ public abstract class MixinBrokenMoonWorldRenderer {
     @Shadow
     private TextureManager textureManager;
 
-    private static final ResourceLocation CUSTOM_MOON_TEXTURE = new ResourceLocation(References.MODID + ":textures/environment/broken_moon.png");
+    private static final ResourceLocation BROKEN_MOON_TEXTURE = new ResourceLocation(References.MODID + ":textures/environment/broken_moon.png");
     private final Random random = new Random();
     private static boolean locked = false;
 
@@ -71,7 +71,7 @@ public abstract class MixinBrokenMoonWorldRenderer {
     }
 
     private void renderCustomMoon(MatrixStack matrixStack) {
-        this.textureManager.bind(CUSTOM_MOON_TEXTURE);
+        this.textureManager.bind(BROKEN_MOON_TEXTURE);
 
         float moonSize = 16.0F;
         float skyHeight = 30.0F;

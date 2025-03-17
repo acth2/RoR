@@ -67,8 +67,8 @@ public class PlayerEvents {
 
             int randomGoal = (int) (Math.random() * 45);
             for (int i = 0; i < playerStats.getDexterity(); i++) {
-                int randomTry = (int) (Math.random() * 50);
-                if (randomTry == randomGoal) {
+                int randomTry = (int) (Math.random() * 75);
+                if (randomTry == randomGoal && !player.isSwimming() && !player.isFallFlying() && !player.isDeadOrDying() && !player.isInLava()) {
                     event.setCanceled(true);
                     player.sendMessage(ITextComponent.nullToEmpty("You dodged the attack thanks to your dexterity"), player.getUUID());
 

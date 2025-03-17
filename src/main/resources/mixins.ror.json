@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "fr.acth2.ror.mixins",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "MixinBrokenMoonWorldRenderer",
+    "MixinBrokenMoonFogRenderer"
+  ],
+  "client": [
+  ],
+  "server": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

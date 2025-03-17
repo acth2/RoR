@@ -15,17 +15,23 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.spongepowered.asm.launch.MixinBootstrap;
+import org.spongepowered.asm.mixin.Mixins;
+import org.spongepowered.asm.mixin.connect.IMixinConnector;
 import software.bernie.geckolib3.GeckoLib;
 
 import java.util.UUID;
 
 @Mod(References.MODID)
-public class Main {
+public class Main implements IMixinConnector {
     public static final CommonProxy proxy = DistExecutor.safeRunForDist(
             () -> ClientProxy::new,
             () -> CommonProxy::new
     );
     public Main() {
+        MixinBootstrap.init();
+        Mixins.addConfiguration("mixins.ror.json");
+
         References.HEALTH_MODIFIER_UUID = UUID.randomUUID();
         References.DEXTERITY_MODIFIER_UUID = UUID.randomUUID();
 
@@ -56,5 +62,13 @@ public class Main {
 
     private void onServerStarting(FMLServerStartingEvent event) {
         DiaryManager.initialize(event.getServer().getServerDirectory());
+    }
+
+    @Override
+    public void connect() {
+        Mixins.addConfiguration("mixins.ror.json");
+
+        Mixins.addConfiguration("fr.acth2.ror.mixins.events.bm.MixinWorldRenderer");
+        Mixins.addConfiguration("fr.acth2.ror.mixins.events.bm.MixinFogRenderer");
     }
 }

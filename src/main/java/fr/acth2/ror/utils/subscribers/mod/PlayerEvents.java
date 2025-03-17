@@ -17,6 +17,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -28,8 +30,12 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.PacketDistributor;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 @Mod.EventBusSubscriber
 public class PlayerEvents {
+
+    private static final AtomicBoolean atomicBrokenMoonWarning = new AtomicBoolean(true);
 
     @SubscribeEvent
     public static void onAttachCapabilities(AttachCapabilitiesEvent<Entity> event) {
@@ -77,13 +83,19 @@ public class PlayerEvents {
 
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+        PlayerEntity player = event.player;
         if (event.phase == TickEvent.Phase.END && event.player != null && !event.player.isDeadOrDying()) {
-            PlayerEntity player = event.player;
             PlayerStats playerStats = PlayerStats.get(player);
 
             if (player.isOnGround()) {
                 playerStats.setHasDoubleJumped(false);
             }
+        }
+
+        if (References.brokenMoonWarning && atomicBrokenMoonWarning.getAndSet(false)) {
+            player.sendMessage(ITextComponent.nullToEmpty(TextFormatting.GOLD + "BROKEN MOON ENTRY MESSAGE"), player.getUUID());
+        } else if (!References.brokenMoonWarning) {
+            atomicBrokenMoonWarning.set(true);
         }
     }
 

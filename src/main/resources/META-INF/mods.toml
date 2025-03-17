@@ -57,3 +57,6 @@ An adventure mod
     versionRange="[1.16.5,1.17)"
     ordering="NONE"
     side="BOTH"
+
+[[mixins]]
+    config="mixins.ror.json"

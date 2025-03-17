@@ -9,12 +9,16 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 @Mod.EventBusSubscriber(modid = References.MODID, value = Dist.CLIENT)
 public class ClientTickHandler {
+
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent event) {
         if (Minecraft.getInstance().screen == null && ModKeyBindings.MM.consumeClick()) {
             Minecraft.getInstance().setScreen(new MainMenuGui(Minecraft.getInstance().player));
         }
+
     }
 }

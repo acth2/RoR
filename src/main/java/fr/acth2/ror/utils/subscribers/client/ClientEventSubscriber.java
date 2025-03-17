@@ -18,9 +18,12 @@ import fr.acth2.ror.entities.renderer.woodfall.WoodFallRenderer;
 import fr.acth2.ror.entities.renderer.woodfall.solider.WoodFallSoliderRenderer;
 import fr.acth2.ror.entities.renderer.ws.WoodSpiritRenderer;
 import fr.acth2.ror.init.ModEntities;
+import fr.acth2.ror.init.ModItems;
 import fr.acth2.ror.utils.References;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.item.ItemModelsProperties;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -53,5 +56,18 @@ public class ClientEventSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.AQUAMARIN.get(), AquamarinRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.FUSSLE.get(), FussleRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.ECHO.get(), EchoRenderer::new);
+
+        event.enqueueWork(() -> {
+            ItemModelsProperties.register(
+                    ModItems.REALMS_VESSEL.get(),
+                    new ResourceLocation(References.MODID, "is_activated"),
+                    (itemStack, world, livingEntity) -> {
+                        if (itemStack.hasTag() && itemStack.getTag().getBoolean("isActivated")) {
+                            return 1.0F;
+                        }
+                        return 0.0F;
+                    }
+            );
+        });
     }
 }

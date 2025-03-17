@@ -137,7 +137,7 @@ public class ModEntities {
 
     public static final RegistryObject<EntityType<EntityEcho>> ECHO = ENTITY_TYPES.register("echo", () ->
             EntityType.Builder.<EntityEcho>of(EntityEcho::new, EntityClassification.CREATURE)
-                    .sized(0.7F, 1.1F)
+                    .sized(0.9F, 1.3F)
                     .build("echo")
     );
 
@@ -154,6 +154,7 @@ public class ModEntities {
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CLUCKER, 100, Blocks.SAND));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(AQUAMARIN, 100, Blocks.WATER));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(FUSSLE, 50, Blocks.GRASS_BLOCK));
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(ECHO, 100, null));
 
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(FUSSLE, 75, Blocks.COARSE_DIRT));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(FUSSLE, 75, Blocks.PODZOL));

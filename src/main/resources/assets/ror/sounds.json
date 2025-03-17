@@ -264,5 +264,47 @@
     "sounds": [
       "ror:aquamarin_ambient"
     ]
+  },
+  "fussle_hit": {
+    "category": "hostile",
+    "subtitle": "ror.fussle_hit",
+    "sounds": [
+      "ror:fussle_hit"
+    ]
+  },
+  "fussle_die": {
+    "category": "hostile",
+    "subtitle": "ror.fussle_die",
+    "sounds": [
+      "ror:fussle_die"
+    ]
+  },
+  "fussle_ambient": {
+    "category": "hostile",
+    "subtitle": "ror.fussle_ambient",
+    "sounds": [
+      "ror:fussle_ambient"
+    ]
+  },
+  "echo_hit": {
+    "category": "hostile",
+    "subtitle": "ror.echo_hit",
+    "sounds": [
+      "ror:echo_hit"
+    ]
+  },
+  "echo_die": {
+    "category": "hostile",
+    "subtitle": "ror.echo_die",
+    "sounds": [
+      "ror:echo_die"
+    ]
+  },
+  "echo_ambient": {
+    "category": "hostile",
+    "subtitle": "ror.echo_ambient",
+    "sounds": [
+      "ror:echo_ambient"
+    ]
   }
 }

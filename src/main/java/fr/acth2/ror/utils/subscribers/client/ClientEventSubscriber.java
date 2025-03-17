@@ -5,6 +5,7 @@ import fr.acth2.ror.entities.renderer.aquamarin.AquamarinRenderer;
 import fr.acth2.ror.entities.renderer.cg.CoinGiverRenderer;
 import fr.acth2.ror.entities.renderer.clucker.CluckerRenderer;
 import fr.acth2.ror.entities.renderer.curser.CurserRenderer;
+import fr.acth2.ror.entities.renderer.echo.EchoRenderer;
 import fr.acth2.ror.entities.renderer.fussle.FussleRenderer;
 import fr.acth2.ror.entities.renderer.ghost.GhostRenderer;
 import fr.acth2.ror.entities.renderer.hopper.HopperRenderer;
@@ -51,5 +52,6 @@ public class ClientEventSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.SEEKER.get(), SeekerRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.AQUAMARIN.get(), AquamarinRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.FUSSLE.get(), FussleRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.ECHO.get(), EchoRenderer::new);
     }
 }

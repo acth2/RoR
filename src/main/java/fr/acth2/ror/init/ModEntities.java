@@ -5,6 +5,7 @@ import fr.acth2.ror.entities.entity.aquamarin.EntityAquamarin;
 import fr.acth2.ror.entities.entity.cg.EntityCoinGiver;
 import fr.acth2.ror.entities.entity.clucker.EntityClucker;
 import fr.acth2.ror.entities.entity.curser.EntityCurser;
+import fr.acth2.ror.entities.entity.echo.EntityEcho;
 import fr.acth2.ror.entities.entity.fussle.EntityFussle;
 import fr.acth2.ror.entities.entity.ghost.EntityGhost;
 import fr.acth2.ror.entities.entity.hopper.EntityHopper;
@@ -134,6 +135,12 @@ public class ModEntities {
                     .build("fussle")
     );
 
+    public static final RegistryObject<EntityType<EntityEcho>> ECHO = ENTITY_TYPES.register("echo", () ->
+            EntityType.Builder.<EntityEcho>of(EntityEcho::new, EntityClassification.CREATURE)
+                    .sized(0.7F, 1.1F)
+                    .build("echo")
+    );
+
 
     public static void register(IEventBus modEventBus) {
         ModEntities.ENTITY_TYPES.register(modEventBus);
@@ -147,6 +154,13 @@ public class ModEntities {
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CLUCKER, 100, Blocks.SAND));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(AQUAMARIN, 100, Blocks.WATER));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(FUSSLE, 50, Blocks.GRASS_BLOCK));
+
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(FUSSLE, 75, Blocks.COARSE_DIRT));
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(FUSSLE, 75, Blocks.PODZOL));
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(RUSTED_CORE, 75, Blocks.COARSE_DIRT));
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(RUSTED_CORE, 75, Blocks.PODZOL));
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(HOPPER, 75, Blocks.COARSE_DIRT));
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(HOPPER, 75, Blocks.PODZOL));
 
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL, 300, Blocks.VINE));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL, 300, Blocks.LILY_PAD));

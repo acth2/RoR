@@ -1,0 +1,25 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.echo.idle": {
+			"loop": true,
+			"animation_length": 7.5,
+			"bones": {
+				"entity": {
+					"rotation": {
+						"vector": ["math.sin(query.anim_time * 120) * 6", 0, "math.cos(query.anim_time * 100) * 4"]
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, "math.sin(query.anim_time * 90) * 1", 0]
+						},
+						"1.0833": {
+							"vector": [0, "math.sin(query.anim_time * 90) * 1", 0]
+						}
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

@@ -54,6 +54,22 @@ public class FussleEntity extends CreatureEntity {
         return true;
     }
 
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return ModSoundEvents.FUSSLE_AMBIENT.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
+        return ModSoundEvents.FUSSLE_HIT.get();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return ModSoundEvents.FUSSLE_DIE.get();
+    }
+
     @Override
     protected boolean isSunBurnTick() {
         return false;

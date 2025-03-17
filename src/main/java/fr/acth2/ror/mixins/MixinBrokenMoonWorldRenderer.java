@@ -42,7 +42,7 @@ public abstract class MixinBrokenMoonWorldRenderer {
         boolean isNight = worldTime >= 13000 && worldTime < 23000;
 
         if (isNight && atomicPicker.getAndSet(false)) {
-            References.brokenMoonPicked = random.nextInt(1);
+            References.brokenMoonPicked = random.nextInt(50);
             References.brokenMoonWarning = true;
         }
 

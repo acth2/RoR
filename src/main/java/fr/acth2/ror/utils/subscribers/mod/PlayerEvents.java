@@ -6,6 +6,7 @@ import fr.acth2.ror.init.ModNetworkHandler;
 import fr.acth2.ror.network.skills.SyncPlayerStatsPacket;
 import fr.acth2.ror.network.skills.dexterity.DodgePacket;
 import fr.acth2.ror.utils.References;
+import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
 import fr.acth2.ror.utils.subscribers.client.PlayerStatsCapability;
 import fr.acth2.ror.utils.subscribers.mod.skills.PlayerStats;
 import net.minecraft.client.Minecraft;
@@ -30,6 +31,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.PacketDistributor;
 
+import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @Mod.EventBusSubscriber
@@ -90,6 +92,10 @@ public class PlayerEvents {
             if (player.isOnGround()) {
                 playerStats.setHasDoubleJumped(false);
             }
+        }
+
+        if (References.brokenMoonWarning && new Random().nextInt(15) == new Random().nextInt(15)) {
+            player.playSound(ModSoundEvents.BROKEN_MOON_AMBIENT.get(), 1.0F, 1.0F);
         }
 
         if (References.brokenMoonWarning && atomicBrokenMoonWarning.getAndSet(false)) {

@@ -306,5 +306,12 @@
     "sounds": [
       "ror:echo_ambient"
     ]
+  },
+  "bm_ambient": {
+    "category": "hostile",
+    "subtitle": "ror.bm_ambient",
+    "sounds": [
+      "ror:bm_ambient"
+    ]
   }
 }

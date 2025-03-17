@@ -143,6 +143,9 @@ public class ModSoundEvents {
 
     public static final RegistryObject<SoundEvent> ECHO_DIE =
             registerSoundEvent("echo_die");
+
+    public static final RegistryObject<SoundEvent> BROKEN_MOON_AMBIENT =
+            registerSoundEvent("bm_ambient");
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         return SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(References.MODID, name)));
     }

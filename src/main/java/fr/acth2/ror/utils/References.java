@@ -13,6 +13,6 @@ public class References {
 
     public static int HEALTH_REDUCER = 20;
 
-    public static int brokenMoonPicked;
+    public static int brokenMoonPicked = 1;
     public static boolean brokenMoonWarning = false;
 }

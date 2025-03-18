@@ -94,11 +94,11 @@ public class PlayerEvents {
             }
         }
 
-        if (References.brokenMoonWarning && new Random().nextInt(15) == new Random().nextInt(15)) {
+        if (References.brokenMoonWarning && References.brokenMoonPicked == 0 && new Random().nextInt(850) == new Random().nextInt(850)) {
             player.playSound(ModSoundEvents.BROKEN_MOON_AMBIENT.get(), 1.0F, 1.0F);
         }
 
-        if (References.brokenMoonWarning && atomicBrokenMoonWarning.getAndSet(false)) {
+        if (References.brokenMoonWarning && References.brokenMoonPicked == 0 && atomicBrokenMoonWarning.getAndSet(false)) {
             player.sendMessage(ITextComponent.nullToEmpty(TextFormatting.GOLD + "BROKEN MOON ENTRY MESSAGE"), player.getUUID());
         } else if (!References.brokenMoonWarning) {
             atomicBrokenMoonWarning.set(true);

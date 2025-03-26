@@ -10,8 +10,10 @@ import fr.acth2.ror.entities.renderer.fussle.FussleRenderer;
 import fr.acth2.ror.entities.renderer.ghost.GhostRenderer;
 import fr.acth2.ror.entities.renderer.hopper.HopperRenderer;
 import fr.acth2.ror.entities.renderer.lc.LostCaverRenderer;
+import fr.acth2.ror.entities.renderer.mw.MajorWickedRenderer;
 import fr.acth2.ror.entities.renderer.rc.RustedCoreRenderer;
 import fr.acth2.ror.entities.renderer.seeker.SeekerRenderer;
+import fr.acth2.ror.entities.renderer.silker.SilkerRenderer;
 import fr.acth2.ror.entities.renderer.traveler.TravelerRenderer;
 import fr.acth2.ror.entities.renderer.wicked.WickedRenderer;
 import fr.acth2.ror.entities.renderer.woodfall.WoodFallRenderer;
@@ -56,6 +58,8 @@ public class ClientEventSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.AQUAMARIN.get(), AquamarinRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.FUSSLE.get(), FussleRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.ECHO.get(), EchoRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.SILKER.get(), SilkerRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.MAJOR_WICKED.get(), MajorWickedRenderer::new);
 
         event.enqueueWork(() -> {
             ItemModelsProperties.register(

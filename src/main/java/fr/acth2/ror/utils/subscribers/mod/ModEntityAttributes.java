@@ -10,8 +10,10 @@ import fr.acth2.ror.entities.constructors.fussle.FussleEntity;
 import fr.acth2.ror.entities.constructors.ghost.GhostEntity;
 import fr.acth2.ror.entities.constructors.hopper.HopperEntity;
 import fr.acth2.ror.entities.constructors.lc.LostCaverEntity;
+import fr.acth2.ror.entities.constructors.mw.MajorWickedEntity;
 import fr.acth2.ror.entities.constructors.rc.RustedCoreEntity;
 import fr.acth2.ror.entities.constructors.seeker.SeekerEntity;
+import fr.acth2.ror.entities.constructors.silker.SilkerEntity;
 import fr.acth2.ror.entities.constructors.traveler.TravelerEntity;
 import fr.acth2.ror.entities.constructors.wicked.WickedEntity;
 import fr.acth2.ror.entities.constructors.woodfall.WoodFallEntity;
@@ -45,5 +47,7 @@ public class ModEntityAttributes {
         event.put(ModEntities.AQUAMARIN.get(), AquamarinEntity.createAttributes().build());
         event.put(ModEntities.FUSSLE.get(), FussleEntity.createAttributes().build());
         event.put(ModEntities.ECHO.get(), EchoEntity.createAttributes().build());
+        event.put(ModEntities.SILKER.get(), SilkerEntity.createAttributes().build());
+        event.put(ModEntities.MAJOR_WICKED.get(), MajorWickedEntity.createAttributes().build());
     }
 }

@@ -31,9 +31,9 @@ public class WickedProjectile extends ThrowableEntity {
         super.onHitEntity(result);
         if (result.getEntity() instanceof LivingEntity) {
             LivingEntity entity = (LivingEntity) result.getEntity();
-            entity.hurt(DamageSource.MAGIC, damage); // Apply magic damage
+            entity.hurt(DamageSource.MAGIC, damage);
         }
-        this.remove(); // Remove the projectile after hitting an entity
+        this.remove();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package fr.acth2.ror.entities.constructors.wicked;
+package fr.acth2.ror.entities.constructors.mw;
 
 
 import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
@@ -18,9 +18,9 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class WickedEntity extends MonsterEntity {
+public class MajorWickedEntity extends MonsterEntity {
 
-    public WickedEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
+    public MajorWickedEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
         this.setGlowing(true);
     }
@@ -86,15 +86,16 @@ public class WickedEntity extends MonsterEntity {
         boolean flag = super.doHurtTarget(target);
         if (flag && target instanceof LivingEntity) {
             ((LivingEntity) target).addEffect(new EffectInstance(Effects.BLINDNESS, 75, 0));
+            ((LivingEntity) target).addEffect(new EffectInstance(Effects.POISON, 75, 0));
         }
         return flag;
     }
 
     public static AttributeModifierMap.MutableAttribute createAttributes() {
         return MobEntity.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 15.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.23D)
-                .add(Attributes.ATTACK_DAMAGE, 5.0D);
+                .add(Attributes.MAX_HEALTH, 35.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.20D)
+                .add(Attributes.ATTACK_DAMAGE, 8.0D);
     }
 
 }

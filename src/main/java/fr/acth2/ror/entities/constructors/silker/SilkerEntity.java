@@ -1,8 +1,11 @@
-package fr.acth2.ror.entities.constructors.wicked;
+package fr.acth2.ror.entities.constructors.silker;
 
 
 import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
@@ -18,9 +21,9 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class WickedEntity extends MonsterEntity {
+public class SilkerEntity extends MonsterEntity {
 
-    public WickedEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
+    public SilkerEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
         this.setGlowing(true);
     }
@@ -51,22 +54,6 @@ public class WickedEntity extends MonsterEntity {
         return true;
     }
 
-    @Nullable
-    @Override
-    protected SoundEvent getAmbientSound() {
-        return ModSoundEvents.WICKED_AMBIENT.get();
-    }
-
-    @Override
-    protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-        return ModSoundEvents.WICKED_HIT.get();
-    }
-
-    @Override
-    protected SoundEvent getDeathSound() {
-        return ModSoundEvents.WICKED_DIE.get();
-    }
-
     public int getAmbientSoundInterval() {
         return 60;
     }
@@ -85,16 +72,16 @@ public class WickedEntity extends MonsterEntity {
     public boolean doHurtTarget(Entity target) {
         boolean flag = super.doHurtTarget(target);
         if (flag && target instanceof LivingEntity) {
-            ((LivingEntity) target).addEffect(new EffectInstance(Effects.BLINDNESS, 75, 0));
+            ((LivingEntity) target).addEffect(new EffectInstance(Effects.DIG_SLOWDOWN, 75, 0));
         }
         return flag;
     }
 
     public static AttributeModifierMap.MutableAttribute createAttributes() {
         return MobEntity.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 15.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.23D)
-                .add(Attributes.ATTACK_DAMAGE, 5.0D);
+                .add(Attributes.MAX_HEALTH, 17.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.25D)
+                .add(Attributes.ATTACK_DAMAGE, 4.0D);
     }
 
 }

@@ -10,8 +10,10 @@ import fr.acth2.ror.entities.entity.fussle.EntityFussle;
 import fr.acth2.ror.entities.entity.ghost.EntityGhost;
 import fr.acth2.ror.entities.entity.hopper.EntityHopper;
 import fr.acth2.ror.entities.entity.lc.EntityLostCaver;
+import fr.acth2.ror.entities.entity.mw.EntityMajorWicked;
 import fr.acth2.ror.entities.entity.rc.EntityRustedCore;
 import fr.acth2.ror.entities.entity.seeker.EntitySeeker;
+import fr.acth2.ror.entities.entity.silker.EntitySilker;
 import fr.acth2.ror.entities.entity.traveler.EntityTraveler;
 import fr.acth2.ror.entities.entity.wicked.EntityWicked;
 import fr.acth2.ror.entities.entity.woodfall.EntityWoodFall;
@@ -141,6 +143,17 @@ public class ModEntities {
                     .build("echo")
     );
 
+    public static final RegistryObject<EntityType<EntitySilker>> SILKER = ENTITY_TYPES.register("silker", () ->
+            EntityType.Builder.<EntitySilker>of(EntitySilker::new, EntityClassification.CREATURE)
+                    .sized(0.6F, 1.0F)
+                    .build("silker")
+    );
+
+    public static final RegistryObject<EntityType<EntityMajorWicked>> MAJOR_WICKED = ENTITY_TYPES.register("major_wicked", () ->
+            EntityType.Builder.<EntityMajorWicked>of(EntityMajorWicked::new, EntityClassification.CREATURE)
+                    .sized(0.6F, 2.8F)
+                    .build("major_wicked")
+    );
 
     public static void register(IEventBus modEventBus) {
         ModEntities.ENTITY_TYPES.register(modEventBus);
@@ -175,6 +188,8 @@ public class ModEntities {
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CURSER, 1, Blocks.TERRACOTTA));
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(GHOST, 100, null));
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(AQUAMARIN, 100, Blocks.WATER));
+        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(SILKER, 85, null));
+        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(MAJOR_WICKED, 25, Blocks.STONE));
 
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL, 500, Blocks.VINE));
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL, 500, Blocks.LILY_PAD));
@@ -186,6 +201,7 @@ public class ModEntities {
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(LOST_CAVER, 25, Blocks.STONE));
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WICKED, 100, Blocks.STONE));
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(SEEKER, 50, Blocks.STONE));
+        CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(MAJOR_WICKED, 25, Blocks.STONE));
 
         // NPC CREATURE GENERATION
         NPCSpawnSubscriber.mobListLV1.add(new MobSpawnData(TRAVELER, 50, null));

@@ -2,6 +2,7 @@ package fr.acth2.ror.init;
 
 import fr.acth2.ror.init.constructors.blocks.GefraniumOre;
 import fr.acth2.ror.init.constructors.blocks.InfraniumOre;
+import fr.acth2.ror.init.constructors.blocks.OroniumOre;
 import fr.acth2.ror.init.constructors.blocks.RestorationStation;
 import fr.acth2.ror.utils.References;
 import net.minecraft.block.Block;
@@ -29,8 +30,14 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> INFRANIUM_ORE = BLOCKS.register("infranium_ore", InfraniumOre::new);
     public static final RegistryObject<Block> GEFRANIUM_ORE = BLOCKS.register("gefranium_ore", GefraniumOre::new);
+    public static final RegistryObject<Block> ORONIUM_ORE = BLOCKS.register("oronium_ore", OroniumOre::new);
 
     public static final RegistryObject<Block> GEFRANIUM_BLOCK = BLOCKS.register("gefranium_block",
+            () -> new Block(Block.Properties.of(Material.METAL).strength(0.7f, 4.5f))
+
+    );
+
+    public static final RegistryObject<Block> ORONIUM_BLOCK = BLOCKS.register("oronium_block",
             () -> new Block(Block.Properties.of(Material.METAL).strength(0.7f, 4.5f))
 
     );
@@ -54,6 +61,10 @@ public class ModBlocks {
 
     public static final RegistryObject<Item> GEFRANIUM_BLOCK_ITEM = ITEMS.register("gefranium_block",
             () -> new BlockItem(GEFRANIUM_BLOCK.get(), new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> ORONIUM_BLOCK_ITEM = ITEMS.register("oronium_block",
+            () -> new BlockItem(ORONIUM_BLOCK.get(), new Item.Properties())
     );
 
     public static void register(IEventBus eventBus) {

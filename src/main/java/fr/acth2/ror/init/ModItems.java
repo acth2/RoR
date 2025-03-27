@@ -6,6 +6,8 @@ import fr.acth2.ror.init.constructors.armor.infranium.InfraniumArmor;
 import fr.acth2.ror.init.constructors.armor.infranium.InfraniumArmorMaterial;
 import fr.acth2.ror.init.constructors.armor.ghost.GhostArmorMaterial;
 import fr.acth2.ror.init.constructors.armor.ghost.GhostBoots;
+import fr.acth2.ror.init.constructors.armor.oronium.OroniumArmor;
+import fr.acth2.ror.init.constructors.armor.oronium.OroniumArmorMaterial;
 import fr.acth2.ror.init.constructors.armor.seeker.SeekerArmorMaterial;
 import fr.acth2.ror.init.constructors.armor.seeker.SeekerHelmet;
 import fr.acth2.ror.init.constructors.items.*;
@@ -34,6 +36,9 @@ public class ModItems {
     public static final RegistryObject<Item> GEFRANIUM_ORE = ITEMS.register("gefranium_ore",
             () -> new BlockItem(ModBlocks.GEFRANIUM_ORE.get(), new Item.Properties()));
 
+    public static final RegistryObject<Item> ORONIUM_ORE = ITEMS.register("oronium_ore",
+            () -> new BlockItem(ModBlocks.ORONIUM_ORE.get(), new Item.Properties()));
+
     public static final RegistryObject<Item> REALMS_VESSEL = ITEMS.register("realms_vessel",
             () -> new RealmsVessel(new Item.Properties())
     );
@@ -42,6 +47,9 @@ public class ModItems {
             () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> GEFRANIUM_INGOT = ITEMS.register("gefranium_ingot",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> ORONIUM_INGOT = ITEMS.register("oronium_ingot",
             () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> WICKED_STAFF = ITEMS.register("wicked_staff",
@@ -84,6 +92,24 @@ public class ModItems {
     public static final RegistryObject<Item> INFRANIUM_BOOTS = ITEMS.register("infranium_boots",
             () -> new InfraniumArmor(InfraniumArmorMaterial.INFRANIUM, EquipmentSlotType.FEET, new Item.Properties()));
 
+    public static final RegistryObject<Item> ORONIUM_HELMET = ITEMS.register("oronium_helmet",
+            () -> new OroniumArmor(OroniumArmorMaterial.ORONIUM, EquipmentSlotType.HEAD, new Item.Properties()));
+    public static final RegistryObject<Item> ORONIUM_CHESTPLATE = ITEMS.register("oronium_chestplate",
+            () -> new OroniumArmor(OroniumArmorMaterial.ORONIUM, EquipmentSlotType.CHEST, new Item.Properties()));
+    public static final RegistryObject<Item> ORONIUM_LEGGINGS = ITEMS.register("oronium_leggings",
+            () -> new OroniumArmor(OroniumArmorMaterial.ORONIUM, EquipmentSlotType.LEGS, new Item.Properties()));
+    public static final RegistryObject<Item> ORONIUM_BOOTS = ITEMS.register("oronium_boots",
+            () -> new OroniumArmor(OroniumArmorMaterial.ORONIUM, EquipmentSlotType.FEET, new Item.Properties()));
+
+    public static final RegistryObject<Item> ORONIUM_SWORD = ITEMS.register("oronium_sword",
+            () -> new SwordItem(OroniumItemTier.ORONIUM, 5, -2.0F, new Item.Properties()));
+
+    public static final RegistryObject<Item> ORONIUM_PICKAXE = ITEMS.register("oronium_pickaxe",
+            () -> new PickaxeItem(OroniumItemTier.ORONIUM, 3, -2.8F, new Item.Properties()));
+    public static final RegistryObject<Item> ORONIUM_AXE = ITEMS.register("oronium_axe",
+            () -> new AxeItem(OroniumItemTier.ORONIUM, 7.0F, -3.0F, new Item.Properties()));
+    public static final RegistryObject<Item> ORONIUM_SHOVEL = ITEMS.register("oronium_shovel",
+            () -> new ShovelItem(OroniumItemTier.ORONIUM, 2.5F, -3.0F, new Item.Properties()));
 
     public static final RegistryObject<Item> GEFRANIUM_SWORD = ITEMS.register("gefranium_sword",
             () -> new SwordItem(GefraniumItemTier.GEFRANIUM, 5, -2.0F, new Item.Properties()));

@@ -6,7 +6,6 @@ import fr.acth2.ror.init.ModNetworkHandler;
 import fr.acth2.ror.network.skills.SyncPlayerStatsPacket;
 import fr.acth2.ror.utils.References;
 import fr.acth2.ror.utils.subscribers.client.PlayerStatsCapability;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;

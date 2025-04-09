@@ -45,6 +45,8 @@ minecraft {
                     source sourceSets.main
                 }
             }
+            args '--username', 'DevPlayer'
+            args '--uuid', '0'
         }
         server {
             workingDirectory project.file('run')

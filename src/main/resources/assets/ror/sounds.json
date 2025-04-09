@@ -313,5 +313,19 @@
     "sounds": [
       "ror:bm_ambient"
     ]
+  },
+  "ookla_die": {
+    "category": "hostile",
+    "subtitle": "ror.ookla_die",
+    "sounds": [
+      "ror:ookla_die"
+    ]
+  },
+  "ookla_ambient": {
+    "category": "hostile",
+    "subtitle": "ror.ookla_ambient",
+    "sounds": [
+      "ror:ookla_ambient"
+    ]
   }
 }

@@ -11,6 +11,7 @@ import fr.acth2.ror.entities.entity.ghost.EntityGhost;
 import fr.acth2.ror.entities.entity.hopper.EntityHopper;
 import fr.acth2.ror.entities.entity.lc.EntityLostCaver;
 import fr.acth2.ror.entities.entity.mw.EntityMajorWicked;
+import fr.acth2.ror.entities.entity.ookla.EntityOokla;
 import fr.acth2.ror.entities.entity.rc.EntityRustedCore;
 import fr.acth2.ror.entities.entity.seeker.EntitySeeker;
 import fr.acth2.ror.entities.entity.silker.EntitySilker;
@@ -155,6 +156,12 @@ public class ModEntities {
                     .build("major_wicked")
     );
 
+    public static final RegistryObject<EntityType<EntityOokla>> OOKLA = ENTITY_TYPES.register("ookla", () ->
+            EntityType.Builder.<EntityOokla>of(EntityOokla::new, EntityClassification.CREATURE)
+                    .sized(0.6F, 2.8F)
+                    .build("ookla")
+    );
+
     public static void register(IEventBus modEventBus) {
         ModEntities.ENTITY_TYPES.register(modEventBus);
 
@@ -196,6 +203,7 @@ public class ModEntities {
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL_SOLIDER, 1000, Blocks.LILY_PAD));
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL_SOLIDER, 1000, Blocks.VINE));
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL_SOLIDER, 5000, Blocks.MOSSY_COBBLESTONE));
+        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(OOKLA, 25, null));
 
         // CAVE MONSTER GENERATION
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(LOST_CAVER, 25, Blocks.STONE));

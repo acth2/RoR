@@ -1,4 +1,4 @@
-package fr.acth2.ror.entities.constructors.curser;
+package fr.acth2.ror.entities.constructors.ookla;
 
 import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
 import net.minecraft.entity.CreatureAttribute;
@@ -15,11 +15,12 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class CurserEntity extends MonsterEntity {
+public class OoklaEntity extends MonsterEntity {
 
-    protected CurserEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
+    protected OoklaEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
@@ -56,12 +57,12 @@ public class CurserEntity extends MonsterEntity {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return ModSoundEvents.CURSER_AMBIENT.get();
+        return ModSoundEvents.OOKLA_AMBIENT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return ModSoundEvents.CURSER_HIT.get();
+        return ModSoundEvents.OOKLA_DIE.get();
     }
 
 
@@ -86,30 +87,32 @@ public class CurserEntity extends MonsterEntity {
                 .add(Attributes.ATTACK_DAMAGE, 0.0D);
     }
 
-    private static final AtomicBoolean isCursingOnce = new AtomicBoolean(true);
+    private static final AtomicBoolean isHelpingOnce = new AtomicBoolean(true);
 
-    public boolean isPlayerWithin10Blocks() {
-        boolean playerInRange = false;
+    public boolean isEntitiesWithin10Blocks() {
+        List<MonsterEntity> nearbyMonsters = this.level.getEntitiesOfClass(
+                MonsterEntity.class,
+                this.getBoundingBox().inflate(10.0D),
+                entity -> entity != this
+        );
 
-        for (PlayerEntity player : this.level.players()) {
-            double distance = this.distanceTo(player);
+        boolean foundEntity = !nearbyMonsters.isEmpty();
 
-            if (distance <= 10.0D) {
-                playerInRange = true;
-                this.setGlowing(true);
+        this.setGlowing(foundEntity);
 
-                if (isCursingOnce.getAndSet(false)) {
-                    player.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 75, 1, false, true));
-                    player.addEffect(new EffectInstance(Effects.WEAKNESS, 75, 1, false, true));
-                }
-            } else {
-                player.removeEffect(Effects.WEAKNESS);
-                player.removeEffect(Effects.MOVEMENT_SLOWDOWN);
-                this.setGlowing(false);
-                isCursingOnce.set(true);
+        if (foundEntity) {
+            if (isHelpingOnce.getAndSet(false)) {
+                nearbyMonsters.forEach(entity ->
+                        entity.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 75, 1))
+                );
             }
+        } else {
+            isHelpingOnce.set(true);
+            nearbyMonsters.forEach(entity ->
+                    entity.removeEffect(Effects.MOVEMENT_SPEED)
+            );
         }
 
-        return playerInRange;
+        return foundEntity;
     }
 }

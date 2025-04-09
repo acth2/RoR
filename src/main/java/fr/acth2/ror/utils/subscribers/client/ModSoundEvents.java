@@ -144,6 +144,12 @@ public class ModSoundEvents {
     public static final RegistryObject<SoundEvent> ECHO_DIE =
             registerSoundEvent("echo_die");
 
+    public static final RegistryObject<SoundEvent> OOKLA_AMBIENT =
+            registerSoundEvent("ookla_ambient");
+
+    public static final RegistryObject<SoundEvent> OOKLA_DIE =
+            registerSoundEvent("ookla_die");
+
     public static final RegistryObject<SoundEvent> BROKEN_MOON_AMBIENT =
             registerSoundEvent("bm_ambient");
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {

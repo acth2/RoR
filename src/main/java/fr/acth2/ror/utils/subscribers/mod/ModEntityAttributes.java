@@ -11,6 +11,7 @@ import fr.acth2.ror.entities.constructors.ghost.GhostEntity;
 import fr.acth2.ror.entities.constructors.hopper.HopperEntity;
 import fr.acth2.ror.entities.constructors.lc.LostCaverEntity;
 import fr.acth2.ror.entities.constructors.mw.MajorWickedEntity;
+import fr.acth2.ror.entities.constructors.ookla.OoklaEntity;
 import fr.acth2.ror.entities.constructors.rc.RustedCoreEntity;
 import fr.acth2.ror.entities.constructors.seeker.SeekerEntity;
 import fr.acth2.ror.entities.constructors.silker.SilkerEntity;
@@ -49,5 +50,6 @@ public class ModEntityAttributes {
         event.put(ModEntities.ECHO.get(), EchoEntity.createAttributes().build());
         event.put(ModEntities.SILKER.get(), SilkerEntity.createAttributes().build());
         event.put(ModEntities.MAJOR_WICKED.get(), MajorWickedEntity.createAttributes().build());
+        event.put(ModEntities.OOKLA.get(), OoklaEntity.createAttributes().build());
     }
 }

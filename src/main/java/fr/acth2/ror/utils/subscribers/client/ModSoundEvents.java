@@ -152,6 +152,15 @@ public class ModSoundEvents {
 
     public static final RegistryObject<SoundEvent> BROKEN_MOON_AMBIENT =
             registerSoundEvent("bm_ambient");
+
+    public static final RegistryObject<SoundEvent> BADOMEN_AMBIENT =
+            registerSoundEvent("bo_ambient");
+
+    public static final RegistryObject<SoundEvent> BADOMEN_DIE =
+            registerSoundEvent("bo_die");
+
+    public static final RegistryObject<SoundEvent> BADOMEN_HIT =
+            registerSoundEvent("bo_hit");
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         return SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(References.MODID, name)));
     }

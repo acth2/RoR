@@ -5,6 +5,7 @@ import fr.acth2.ror.entities.renderer.aquamarin.AquamarinRenderer;
 import fr.acth2.ror.entities.renderer.cg.CoinGiverRenderer;
 import fr.acth2.ror.entities.renderer.clucker.CluckerRenderer;
 import fr.acth2.ror.entities.renderer.curser.CurserRenderer;
+import fr.acth2.ror.entities.renderer.echo.BadOmenRenderer;
 import fr.acth2.ror.entities.renderer.echo.EchoRenderer;
 import fr.acth2.ror.entities.renderer.fussle.FussleRenderer;
 import fr.acth2.ror.entities.renderer.ghost.GhostRenderer;
@@ -62,6 +63,7 @@ public class ClientEventSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.SILKER.get(), SilkerRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.MAJOR_WICKED.get(), MajorWickedRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.OOKLA.get(), OoklaRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.BAD_OMEN.get(), BadOmenRenderer::new);
 
         event.enqueueWork(() -> {
             ItemModelsProperties.register(

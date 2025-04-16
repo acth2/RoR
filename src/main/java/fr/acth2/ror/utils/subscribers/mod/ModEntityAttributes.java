@@ -2,6 +2,7 @@ package fr.acth2.ror.utils.subscribers.mod;
 
 import fr.acth2.ror.entities.constructors.ExampleEntity;
 import fr.acth2.ror.entities.constructors.aquamarin.AquamarinEntity;
+import fr.acth2.ror.entities.constructors.bo.BadOmenEntity;
 import fr.acth2.ror.entities.constructors.cg.CoinGiverEntity;
 import fr.acth2.ror.entities.constructors.clucker.CluckerEntity;
 import fr.acth2.ror.entities.constructors.curser.CurserEntity;
@@ -51,5 +52,6 @@ public class ModEntityAttributes {
         event.put(ModEntities.SILKER.get(), SilkerEntity.createAttributes().build());
         event.put(ModEntities.MAJOR_WICKED.get(), MajorWickedEntity.createAttributes().build());
         event.put(ModEntities.OOKLA.get(), OoklaEntity.createAttributes().build());
+        event.put(ModEntities.BAD_OMEN.get(), BadOmenEntity.createAttributes().build());
     }
 }

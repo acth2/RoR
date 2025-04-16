@@ -327,5 +327,26 @@
     "sounds": [
       "ror:ookla_ambient"
     ]
+  },
+  "bo_ambient": {
+    "category": "hostile",
+    "subtitle": "ror.bo_ambient",
+    "sounds": [
+      "ror:bo_ambient"
+    ]
+  },
+  "bo_die": {
+    "category": "hostile",
+    "subtitle": "ror.bo_die",
+    "sounds": [
+      "ror:bo_die"
+    ]
+  },
+  "bo_hit": {
+    "category": "hostile",
+    "subtitle": "ror.bo_hit",
+    "sounds": [
+      "ror:bo_hit"
+    ]
   }
 }

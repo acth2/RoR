@@ -2,6 +2,7 @@ package fr.acth2.ror.init;
 
 import fr.acth2.ror.entities.entity.EntityExample;
 import fr.acth2.ror.entities.entity.aquamarin.EntityAquamarin;
+import fr.acth2.ror.entities.entity.bo.EntityBadOmen;
 import fr.acth2.ror.entities.entity.cg.EntityCoinGiver;
 import fr.acth2.ror.entities.entity.clucker.EntityClucker;
 import fr.acth2.ror.entities.entity.curser.EntityCurser;
@@ -162,6 +163,12 @@ public class ModEntities {
                     .build("ookla")
     );
 
+    public static final RegistryObject<EntityType<EntityBadOmen>> BAD_OMEN = ENTITY_TYPES.register("bad_omen", () ->
+            EntityType.Builder.<EntityBadOmen>of(EntityBadOmen::new, EntityClassification.CREATURE)
+                    .sized(2.0F, 2.0F)
+                    .build("bad_omen")
+    );
+
     public static void register(IEventBus modEventBus) {
         ModEntities.ENTITY_TYPES.register(modEventBus);
 
@@ -204,6 +211,7 @@ public class ModEntities {
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL_SOLIDER, 1000, Blocks.VINE));
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL_SOLIDER, 5000, Blocks.MOSSY_COBBLESTONE));
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(OOKLA, 25, null));
+        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(BAD_OMEN, 1, Blocks.AIR));
 
         // CAVE MONSTER GENERATION
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(LOST_CAVER, 25, Blocks.STONE));

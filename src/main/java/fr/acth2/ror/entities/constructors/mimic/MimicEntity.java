@@ -1,5 +1,6 @@
 package fr.acth2.ror.entities.constructors.mimic;
 
+import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
@@ -102,21 +103,21 @@ public class MimicEntity extends MonsterEntity {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return null;
+        return ModSoundEvents.MIMIC_AMBIENT.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-        return super.getHurtSound(p_184601_1_);
+        return ModSoundEvents.MIMIC_HIT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return super.getDeathSound();
+        return ModSoundEvents.MIMIC_DIE.get();
     }
 
     public int getAmbientSoundInterval() {
-        return 120;
+        return 30;
     }
 
     @Override
@@ -131,9 +132,9 @@ public class MimicEntity extends MonsterEntity {
 
     public static AttributeModifierMap.MutableAttribute createAttributes() {
         return MobEntity.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 15.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.18D)
-                .add(Attributes.ATTACK_DAMAGE, 10.0D);
+                .add(Attributes.MAX_HEALTH, 50.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.25D)
+                .add(Attributes.ATTACK_DAMAGE, 15.0D);
     }
 
     public boolean isAwake() {

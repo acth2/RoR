@@ -348,5 +348,26 @@
     "sounds": [
       "ror:bo_hit"
     ]
+  },
+  "mimic_ambient": {
+    "category": "hostile",
+    "subtitle": "ror.mimic_ambient",
+    "sounds": [
+      "ror:mimic_ambient"
+    ]
+  },
+  "mimic_die": {
+    "category": "hostile",
+    "subtitle": "ror.mimic_die",
+    "sounds": [
+      "ror:mimic_die"
+    ]
+  },
+  "mimic_hit": {
+    "category": "hostile",
+    "subtitle": "ror.mimic_hit",
+    "sounds": [
+      "ror:mimic_hit"
+    ]
   }
 }

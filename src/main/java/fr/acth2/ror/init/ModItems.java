@@ -74,6 +74,9 @@ public class ModItems {
     public static final RegistryObject<Item> INFRANIUM_SWORD = ITEMS.register("infranium_sword",
             () -> new SwordItem(InfraniumItemTier.INFRANIUM, 5, -2.4F, new Item.Properties()));
 
+    public static final RegistryObject<Item> AVARICE_SWORD = ITEMS.register("sword_of_avarice",
+            () -> new AvariceSword(new Item.Properties()));
+
     public static final RegistryObject<Item> HOPPER_SWORD = ITEMS.register("hopper_sword",
             () -> new SwordItem(HopperItemTier.HOPPER, 6, -1.9F, new Item.Properties()));
     public static final RegistryObject<Item> INFRANIUM_PICKAXE = ITEMS.register("infranium_pickaxe",

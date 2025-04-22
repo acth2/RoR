@@ -37,6 +37,7 @@
   "item.ror.spirit_axe": "Spirit Axe",
   "item.ror.seeker_helmet": "Seeker Helmet",
   "item.ror.wicked_staff": "Wicked Staff",
+  "item.ror.sword_of_avarice": "Sword Of Avarice",
   "block.ror.example_block": "Test Block",
   "block.ror.infranium_ore": "Infranium Ore",
   "block.ror.infranium_block": "Infranium Block",
@@ -69,5 +70,9 @@
   "entity.ror.bad_omen": "Bad Omen",
   "entity.ror.mimic": "Mimic",
   "key.ror.mm": "Main menu",
-  "key.categories.ror": "Ruins of Realms"
+  "key.categories.ror": "Ruins of Realms",
+  "tooltip.ror.avarice.damage_range": "Damage: %s - %s",
+  "tooltip.ror.avarice.current_damage": "Current: %s",
+  "tooltip.ror.avarice.description": "Damage scales with missing health",
+  "tooltip.ror.avarice.health_cost": "25% chance to drain ½ heart on hit"
 }

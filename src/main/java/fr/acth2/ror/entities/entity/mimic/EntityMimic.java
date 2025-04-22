@@ -69,7 +69,7 @@ public class EntityMimic extends MimicEntity implements IAnimatable {
             return PlayState.CONTINUE;
         }
 
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.mimic.idle", true));
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.mimic.sleep", true));
         return PlayState.CONTINUE;
     }
 

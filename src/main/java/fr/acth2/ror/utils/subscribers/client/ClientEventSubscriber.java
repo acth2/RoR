@@ -11,6 +11,7 @@ import fr.acth2.ror.entities.renderer.fussle.FussleRenderer;
 import fr.acth2.ror.entities.renderer.ghost.GhostRenderer;
 import fr.acth2.ror.entities.renderer.hopper.HopperRenderer;
 import fr.acth2.ror.entities.renderer.lc.LostCaverRenderer;
+import fr.acth2.ror.entities.renderer.mimic.MimicRenderer;
 import fr.acth2.ror.entities.renderer.mw.MajorWickedRenderer;
 import fr.acth2.ror.entities.renderer.ookla.OoklaRenderer;
 import fr.acth2.ror.entities.renderer.rc.RustedCoreRenderer;
@@ -64,6 +65,7 @@ public class ClientEventSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.MAJOR_WICKED.get(), MajorWickedRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.OOKLA.get(), OoklaRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.BAD_OMEN.get(), BadOmenRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.MIMIC.get(), MimicRenderer::new);
 
         event.enqueueWork(() -> {
             ItemModelsProperties.register(

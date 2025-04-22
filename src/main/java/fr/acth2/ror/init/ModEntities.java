@@ -11,6 +11,7 @@ import fr.acth2.ror.entities.entity.fussle.EntityFussle;
 import fr.acth2.ror.entities.entity.ghost.EntityGhost;
 import fr.acth2.ror.entities.entity.hopper.EntityHopper;
 import fr.acth2.ror.entities.entity.lc.EntityLostCaver;
+import fr.acth2.ror.entities.entity.mimic.EntityMimic;
 import fr.acth2.ror.entities.entity.mw.EntityMajorWicked;
 import fr.acth2.ror.entities.entity.ookla.EntityOokla;
 import fr.acth2.ror.entities.entity.rc.EntityRustedCore;
@@ -169,6 +170,12 @@ public class ModEntities {
                     .build("bad_omen")
     );
 
+    public static final RegistryObject<EntityType<EntityMimic>> MIMIC = ENTITY_TYPES.register("mimic", () ->
+            EntityType.Builder.<EntityMimic>of(EntityMimic::new, EntityClassification.CREATURE)
+                    .sized(1.0F, 1.0F)
+                    .build("mimic")
+    );
+
     public static void register(IEventBus modEventBus) {
         ModEntities.ENTITY_TYPES.register(modEventBus);
 
@@ -218,6 +225,10 @@ public class ModEntities {
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WICKED, 100, Blocks.STONE));
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(SEEKER, 50, Blocks.STONE));
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(MAJOR_WICKED, 25, Blocks.STONE));
+
+        // RARE CAVE MONSTER GENERATION
+
+        RareCaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(MIMIC, 100, null));
 
         // NPC CREATURE GENERATION
         NPCSpawnSubscriber.mobListLV1.add(new MobSpawnData(TRAVELER, 50, null));

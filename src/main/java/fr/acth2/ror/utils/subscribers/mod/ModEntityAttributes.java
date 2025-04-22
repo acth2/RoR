@@ -11,6 +11,7 @@ import fr.acth2.ror.entities.constructors.fussle.FussleEntity;
 import fr.acth2.ror.entities.constructors.ghost.GhostEntity;
 import fr.acth2.ror.entities.constructors.hopper.HopperEntity;
 import fr.acth2.ror.entities.constructors.lc.LostCaverEntity;
+import fr.acth2.ror.entities.constructors.mimic.MimicEntity;
 import fr.acth2.ror.entities.constructors.mw.MajorWickedEntity;
 import fr.acth2.ror.entities.constructors.ookla.OoklaEntity;
 import fr.acth2.ror.entities.constructors.rc.RustedCoreEntity;
@@ -53,5 +54,6 @@ public class ModEntityAttributes {
         event.put(ModEntities.MAJOR_WICKED.get(), MajorWickedEntity.createAttributes().build());
         event.put(ModEntities.OOKLA.get(), OoklaEntity.createAttributes().build());
         event.put(ModEntities.BAD_OMEN.get(), BadOmenEntity.createAttributes().build());
+        event.put(ModEntities.MIMIC.get(), MimicEntity.createAttributes().build());
     }
 }

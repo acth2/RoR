@@ -74,5 +74,6 @@
   "tooltip.ror.avarice.damage_range": "Damage: %s - %s",
   "tooltip.ror.avarice.current_damage": "Current: %s",
   "tooltip.ror.avarice.description": "Damage scales with missing health",
-  "tooltip.ror.avarice.health_cost": "25% chance to drain ½ heart on hit"
+  "tooltip.ror.avarice.health_cost": "25% chance to drain ½ heart on hit",
+  "death.attack.avarice": "You tried to gamble with the RNG Master"
 }

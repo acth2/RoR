@@ -1,12 +1,16 @@
 package fr.acth2.ror.utils.subscribers.mod;
 
 import fr.acth2.ror.entities.constructors.ExampleEntity;
+import fr.acth2.ror.entities.constructors.bo.BadOmenEntity;
 import fr.acth2.ror.entities.constructors.cg.CoinGiverEntity;
 import fr.acth2.ror.entities.constructors.clucker.CluckerEntity;
 import fr.acth2.ror.entities.constructors.curser.CurserEntity;
 import fr.acth2.ror.entities.constructors.hopper.HopperEntity;
 import fr.acth2.ror.entities.constructors.lc.LostCaverEntity;
+import fr.acth2.ror.entities.constructors.mw.MajorWickedEntity;
+import fr.acth2.ror.entities.constructors.ookla.OoklaEntity;
 import fr.acth2.ror.entities.constructors.rc.RustedCoreEntity;
+import fr.acth2.ror.entities.constructors.silker.SilkerEntity;
 import fr.acth2.ror.entities.constructors.wicked.WickedEntity;
 import fr.acth2.ror.entities.constructors.woodfall.WoodFallEntity;
 import fr.acth2.ror.entities.constructors.ws.WoodSpiritEntity;
@@ -56,11 +60,13 @@ public class ModCoinsDistributor {
             case "Sheep": return 3;
             case "Creeper":
             case "Curser":
+            case "Ookla":
             case "RustedCore": return 20;
             case "Skeleton": return 15;
             case "Enderman": return 40;
             case "Clucker":
             case "Hopper":
+            case "Silker":
             case "WoodFall": return 50;
             case "LostCaver":
             case "Wicked":
@@ -68,8 +74,12 @@ public class ModCoinsDistributor {
             case "CoinGiver": return 1000;
             case "WoodFallSolider":
             case "Ghost":
+            case "BadOmen":
+            case "MajorWicked":
             case "IronGolem":
                 return 250;
+            case "Mimic":
+                return 500;
             default: return 5;
         }
     }
@@ -94,6 +104,12 @@ public class ModCoinsDistributor {
         if (entity instanceof EntityWoodFallSolider) return "WoodFallSolider";
         if (entity instanceof EntityGhost) return "Ghost";
         if (entity instanceof IronGolemEntity) return "IronGolem";
+        if (entity instanceof BadOmenEntity) return "BadOem";
+        if (entity instanceof MajorWickedEntity) return "MajorWicked";
+        if (entity instanceof IronGolemEntity) return "IronGolem";
+        if (entity instanceof OoklaEntity) return "Ookla";
+        if (entity instanceof MajorWickedEntity) return "MajorWicked";
+        if (entity instanceof SilkerEntity) return "Silker";
 
         return "Unknown";
     }

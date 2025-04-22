@@ -105,12 +105,6 @@ public class PlayerEvents {
         }
     }
 
-
-
-
-
-
-
     @SubscribeEvent
     public static void onPlayerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
         saveDexterityModifier(event.getPlayer());

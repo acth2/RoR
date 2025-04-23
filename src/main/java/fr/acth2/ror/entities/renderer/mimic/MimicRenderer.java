@@ -10,6 +10,6 @@ import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 public class MimicRenderer extends GeoEntityRenderer<EntityMimic> {
     public MimicRenderer(EntityRendererManager manager) {
         super(manager, new MimicModel());
-        this.shadowRadius = 1.0f;
+        this.shadowRadius = 0.0f;
     }
 }

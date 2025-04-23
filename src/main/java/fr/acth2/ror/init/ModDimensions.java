@@ -1,6 +1,7 @@
 package fr.acth2.ror.init;
 
 import fr.acth2.ror.dimension.example.ExampleGenerator;
+import fr.acth2.ror.dimension.skyria.SkyriaGenerator;
 import fr.acth2.ror.utils.References;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
@@ -12,6 +13,13 @@ public class ModDimensions {
             Registry.register(Registry.CHUNK_GENERATOR,
                     new ResourceLocation(References.MODID, "example_generator"),
                     ExampleGenerator.CODEC
+            );
+        });
+
+        event.enqueueWork(() -> {
+            Registry.register(Registry.CHUNK_GENERATOR,
+                    new ResourceLocation(References.MODID, "skyria_generator"),
+                    SkyriaGenerator.CODEC
             );
         });
     }

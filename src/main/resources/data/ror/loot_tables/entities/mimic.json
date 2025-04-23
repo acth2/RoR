@@ -7,22 +7,12 @@
         {
           "type": "minecraft:item",
           "name": "ror:sword_of_avarice",
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 50
-            }
-          ]
+          "weight": 1
         },
         {
           "type": "minecraft:item",
           "name": "ror:wicked_staff",
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 50
-            }
-          ]
+          "weight": 1
         }
       ]
     }

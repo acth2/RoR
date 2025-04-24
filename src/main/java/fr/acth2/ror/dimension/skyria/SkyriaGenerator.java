@@ -2,6 +2,7 @@ package fr.acth2.ror.dimension.skyria;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import fr.acth2.ror.init.ModBlocks;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -84,7 +85,7 @@ public class SkyriaGenerator extends ChunkGenerator {
         BlockPos.Mutable pos = new BlockPos.Mutable();
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++) {
-                chunk.setBlockState(pos.set(x, 0, z), Blocks.BEDROCK.defaultBlockState(), false);
+                chunk.setBlockState(pos.set(x, 0, z), ModBlocks.SKYRIA_TELEPORTER.get().defaultBlockState(), false);
             }
         }
     }
@@ -127,7 +128,7 @@ public class SkyriaGenerator extends ChunkGenerator {
                                 if (y >= baseY || (horizontalDist < radius * 0.8f)) {
                                     if (y == baseY || (horizontalDist < radius - 1 && y < baseY + 3)) {
                                         chunk.setBlockState(new BlockPos(x + dx, y, z + dz),
-                                                Blocks.END_STONE.defaultBlockState(), false);
+                                                ModBlocks.CLOUD_PIECE.get().defaultBlockState(), false);
                                     }
                                 }
                             }
@@ -137,30 +138,30 @@ public class SkyriaGenerator extends ChunkGenerator {
             }
 
             if (RANDOM.nextFloat() < 0.00095f) {
-                generateObsidianSpike(chunk, x, z);
+                generateOroniumSpike(chunk, x, z);
             }
 
             if (islandValue > 0.8 && x % 4 == 0 && z % 4 == 0) {
-                chunk.setBlockState(new BlockPos(x, baseY + 4, z),
+                chunk.setBlockState(new BlockPos(x, baseY + 3, z),
                         Blocks.CHORUS_PLANT.defaultBlockState(), false);
             }
         }
     }
 
 
-    private void generateObsidianSpike(IChunk chunk, int x, int z) {
+    private void generateOroniumSpike(IChunk chunk, int x, int z) {
         int height = 3 + RANDOM.nextInt(5);
         int baseY = 60 + RANDOM.nextInt(100);
 
         for (int y = baseY; y < baseY + height; y++) {
-            chunk.setBlockState(new BlockPos(x, y, z), Blocks.OBSIDIAN.defaultBlockState(), false);
+            chunk.setBlockState(new BlockPos(x, y, z), ModBlocks.ORONIUM_ORE.get().defaultBlockState(), false);
         }
 
         if (RANDOM.nextBoolean()) {
             for (int dx = -1; dx <= 1; dx++) {
                 for (int dz = -1; dz <= 1; dz++) {
                     if (x + dx >= 0 && x + dx < 16 && z + dz >= 0 && z + dz < 16) {
-                        chunk.setBlockState(new BlockPos(x + dx, baseY + height, z + dz), Blocks.OBSIDIAN.defaultBlockState(), false);
+                        chunk.setBlockState(new BlockPos(x + dx, baseY + height, z + dz), ModBlocks.ORONIUM_ORE.get().defaultBlockState(), false);
                     }
                 }
             }
@@ -177,7 +178,7 @@ public class SkyriaGenerator extends ChunkGenerator {
                         float dist = MathHelper.sqrt(dx*dx + dz*dz);
                         if (dist <= radius) {
                             chunk.setBlockState(new BlockPos(x + dx, baseY + dy, z + dz),
-                                    Blocks.WHITE_STAINED_GLASS.defaultBlockState(), false);
+                                    ModBlocks.SKYRIA_AIR.get().defaultBlockState(), false);
                         }
                     }
                 }

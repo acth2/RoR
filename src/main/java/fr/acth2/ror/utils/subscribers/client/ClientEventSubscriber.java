@@ -22,11 +22,14 @@ import fr.acth2.ror.entities.renderer.wicked.WickedRenderer;
 import fr.acth2.ror.entities.renderer.woodfall.WoodFallRenderer;
 import fr.acth2.ror.entities.renderer.woodfall.solider.WoodFallSoliderRenderer;
 import fr.acth2.ror.entities.renderer.ws.WoodSpiritRenderer;
+import fr.acth2.ror.init.ModBlocks;
 import fr.acth2.ror.init.ModEntities;
 import fr.acth2.ror.init.ModItems;
 import fr.acth2.ror.utils.References;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.ItemModelsProperties;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -78,6 +81,12 @@ public class ClientEventSubscriber {
                         return 0.0F;
                     }
             );
+        });
+
+        event.enqueueWork(() -> {
+            RenderTypeLookup.setRenderLayer(ModBlocks.CLOUD_PIECE.get(), RenderType.translucent());
+            RenderTypeLookup.setRenderLayer(ModBlocks.SKYRIA_AIR.get(), RenderType.translucent());
+            RenderTypeLookup.setRenderLayer(ModBlocks.SKYRIA_TELEPORTER.get(), RenderType.translucent());
         });
     }
 }

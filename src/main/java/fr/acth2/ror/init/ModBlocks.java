@@ -1,14 +1,14 @@
 package fr.acth2.ror.init;
 
-import fr.acth2.ror.init.constructors.blocks.GefraniumOre;
-import fr.acth2.ror.init.constructors.blocks.InfraniumOre;
-import fr.acth2.ror.init.constructors.blocks.OroniumOre;
-import fr.acth2.ror.init.constructors.blocks.RestorationStation;
+import fr.acth2.ror.init.constructors.blocks.*;
 import fr.acth2.ror.utils.References;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.Rarity;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -47,6 +47,26 @@ public class ModBlocks {
 
     );
 
+    public static final RegistryObject<Block> SKYRIA_AIR = BLOCKS.register("skyria_air", SkyriaAir::new);
+
+    public static final RegistryObject<Block> CLOUD_PIECE = BLOCKS.register("cloud_piece", CloudPiece::new);
+    public static final RegistryObject<Item> CLOUD_PIECE_ITEM = ITEMS.register("cloud_piece",
+            () -> new BlockItem(CLOUD_PIECE.get(), new Item.Properties())
+    );
+
+    public static final RegistryObject<Block> SKYRIA_TELEPORTER = BLOCKS.register(
+            "skyria_teleporter",
+            SkyriaTeleporter::new
+    );
+
+    public static final RegistryObject<Item> SKYRIA_TELEPORTER_ITEM = ITEMS.register(
+            "skyria_teleporter",
+            () -> new BlockItem(SKYRIA_TELEPORTER.get(), new Item.Properties().rarity(Rarity.EPIC))
+    );
+
+    public static final RegistryObject<Item> SKYRIA_AIR_ITEM = ITEMS.register("skyria_air",
+            () -> new BlockItem(SKYRIA_AIR.get(), new Item.Properties())
+    );
     public static final RegistryObject<Item> EXAMPLE_BLOCK_ITEM = ITEMS.register("example_block",
             () -> new BlockItem(EXAMPLE_BLOCK.get(), new Item.Properties())
     );

@@ -86,7 +86,6 @@ public class ClientEventSubscriber {
         event.enqueueWork(() -> {
             RenderTypeLookup.setRenderLayer(ModBlocks.CLOUD_PIECE.get(), RenderType.translucent());
             RenderTypeLookup.setRenderLayer(ModBlocks.SKYRIA_AIR.get(), RenderType.translucent());
-            RenderTypeLookup.setRenderLayer(ModBlocks.SKYRIA_TELEPORTER.get(), RenderType.translucent());
         });
     }
 }

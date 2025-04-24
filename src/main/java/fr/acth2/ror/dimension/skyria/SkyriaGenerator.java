@@ -3,6 +3,7 @@ package fr.acth2.ror.dimension.skyria;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import fr.acth2.ror.init.ModBlocks;
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -85,7 +86,7 @@ public class SkyriaGenerator extends ChunkGenerator {
         BlockPos.Mutable pos = new BlockPos.Mutable();
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++) {
-                chunk.setBlockState(pos.set(x, 0, z), ModBlocks.SKYRIA_TELEPORTER.get().defaultBlockState(), false);
+                chunk.setBlockState(pos.set(x, 0, z), Blocks.AIR.defaultBlockState(), false);
             }
         }
     }

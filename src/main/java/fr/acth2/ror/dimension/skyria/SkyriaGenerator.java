@@ -4,19 +4,36 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import fr.acth2.ror.init.ModBlocks;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.FlowingFluidBlock;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Mirror;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.util.registry.DynamicRegistries;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IServerWorld;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.biome.BiomeManager;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.gen.*;
+import net.minecraft.world.gen.feature.BlockStateFeatureConfig;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.DecoratedFeatureConfig;
+import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.structure.StructureManager;
-import net.minecraft.world.gen.feature.template.TemplateManager;
+import net.minecraft.world.gen.feature.structure.StructurePiece;
+import net.minecraft.world.gen.feature.template.*;
 
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class SkyriaGenerator extends ChunkGenerator {
@@ -121,18 +138,82 @@ public class SkyriaGenerator extends ChunkGenerator {
                     for (int dz = -(int)radius; dz <= radius; dz++) {
                         if (x + dx >= 0 && x + dx < 16 && z + dz >= 0 && z + dz < 16) {
                             float horizontalDist = MathHelper.sqrt(dx*dx + dz*dz);
-
-                            float verticalDist = baseY - y;
                             if (horizontalDist <= radius * getVerticalMultiplier(y, baseY, radius)) {
-                                double detail = detailNoise.getValue((worldX + dx) * 0.2, (worldZ + dz) * 0.2) * 0.5;
-
                                 if (y >= baseY || (horizontalDist < radius * 0.8f)) {
                                     if (y == baseY || (horizontalDist < radius - 1 && y < baseY + 3)) {
-                                        chunk.setBlockState(new BlockPos(x + dx, y, z + dz),
-                                                ModBlocks.CLOUD_PIECE.get().defaultBlockState(), false);
+                                        BlockPos pos = new BlockPos(x + dx, y, z + dz);
+                                        chunk.setBlockState(pos, ModBlocks.CLOUD_PIECE.get().defaultBlockState(), false);
                                     }
                                 }
                             }
+                        }
+                    }
+                }
+            }
+
+            if (RANDOM.nextFloat() < 0.002f) {
+                int poolRadius = 2 + RANDOM.nextInt(2);
+                int poolCenterY = baseY + 1;
+                List<BlockPos> waterSources = new ArrayList<>();
+
+                for (int dx = -poolRadius; dx <= poolRadius; dx++) {
+                    for (int dz = -poolRadius; dz <= poolRadius; dz++) {
+                        float dist = MathHelper.sqrt(dx*dx + dz*dz);
+                        if (dist <= poolRadius && x + dx >= 0 && x + dx < 16 && z + dz >= 0 && z + dz < 16) {
+                            for (int dy = 0; dy < 3; dy++) {
+                                BlockPos pos = new BlockPos(x + dx, poolCenterY - dy, z + dz);
+                                chunk.setBlockState(pos, Blocks.AIR.defaultBlockState(), false);
+                            }
+
+                            if (dist < poolRadius - 0.5f) {
+                                BlockPos waterPos = new BlockPos(x + dx, poolCenterY - 1, z + dz);
+                                chunk.setBlockState(waterPos, Blocks.WATER.defaultBlockState(), false);
+                                waterSources.add(waterPos);
+                            }
+
+                            if (dist < poolRadius - 1.5f) {
+                                for (int dy = 1; dy <= 2; dy++) {
+                                    BlockPos abovePos = new BlockPos(x + dx, poolCenterY + dy, z + dz);
+                                    if (RANDOM.nextFloat() < 0.7f) {
+                                        chunk.setBlockState(abovePos, Blocks.AIR.defaultBlockState(), false);
+                                    }
+                                }
+                            }
+
+                            if (dist >= poolRadius - 0.8f) {
+                                for (int dy = 0; dy < 2; dy++) {
+                                    BlockPos wallPos = new BlockPos(x + dx, poolCenterY + dy, z + dz);
+                                    chunk.setBlockState(wallPos, ModBlocks.CLOUD_PIECE.get().defaultBlockState(), false);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                for (BlockPos waterPos : waterSources) {
+                    BlockPos belowPos = waterPos.below();
+                    if (chunk.getBlockState(belowPos).isAir()) {
+                        int waterfallHeight = 6 + RANDOM.nextInt(7);
+
+                        for (int i = 1; i <= waterfallHeight; i++) {
+                            BlockPos fallPos = belowPos.below(i - 1);
+                            if (fallPos.getY() < 0) break;
+
+                            chunk.setBlockState(fallPos,
+                                    Blocks.WATER.defaultBlockState()
+                                            .setValue(FlowingFluidBlock.LEVEL, 0),
+                                    false);
+                        }
+                    }
+                }
+
+                for (int i = 0; i < 4 + RANDOM.nextInt(3); i++) {
+                    int dx = RANDOM.nextInt(poolRadius + 2) - (poolRadius/2);
+                    int dz = RANDOM.nextInt(poolRadius + 2) - (poolRadius/2);
+                    if (x + dx >= 0 && x + dx < 16 && z + dz >= 0 && z + dz < 16) {
+                        BlockPos wispPos = new BlockPos(x + dx, poolCenterY + 1, z + dz);
+                        if (chunk.getBlockState(wispPos).isAir()) {
+                            chunk.setBlockState(wispPos, ModBlocks.CLOUD_PIECE.get().defaultBlockState(), false);
                         }
                     }
                 }
@@ -189,13 +270,11 @@ public class SkyriaGenerator extends ChunkGenerator {
 
     @Override
     public void applyCarvers(long seed, BiomeManager biomeManager, IChunk chunk, GenerationStage.Carving carving) {}
-
-    @Override
-    public void applyBiomeDecoration(WorldGenRegion region, StructureManager structures) {}
-
     @Override
     public void createStructures(DynamicRegistries registries, StructureManager structures, IChunk chunk,
                                  TemplateManager templates, long seed) {}
+    @Override
+    public void applyBiomeDecoration(WorldGenRegion p_230351_1_, StructureManager p_230351_2_) {}
 
     private float getVerticalMultiplier(int y, int baseY, float radius) {
         if (y >= baseY) return 1.0f;

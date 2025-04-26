@@ -1,11 +1,15 @@
 package fr.acth2.ror;
 
+import com.google.common.collect.ImmutableList;
 import fr.acth2.ror.gui.diary.DiaryManager;
 import fr.acth2.ror.init.*;
 import fr.acth2.ror.proxy.ClientProxy;
 import fr.acth2.ror.proxy.CommonProxy;
 import fr.acth2.ror.utils.References;
 import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
+import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.world.gen.feature.StructureFeature;
+import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

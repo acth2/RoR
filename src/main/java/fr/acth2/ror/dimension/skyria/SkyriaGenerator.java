@@ -142,7 +142,7 @@ public class SkyriaGenerator extends ChunkGenerator {
                                 if (y >= baseY || (horizontalDist < radius * 0.8f)) {
                                     if (y == baseY || (horizontalDist < radius - 1 && y < baseY + 3)) {
                                         BlockPos pos = new BlockPos(x + dx, y, z + dz);
-                                        if (RANDOM.nextInt(50) != 1) {
+                                        if (RANDOM.nextInt(85) != 1) {
                                             chunk.setBlockState(pos, ModBlocks.CLOUD_PIECE.get().defaultBlockState(), false);
                                         } else {
                                             chunk.setBlockState(pos, ModBlocks.ORONIUM_ORE.get().defaultBlockState(), false);

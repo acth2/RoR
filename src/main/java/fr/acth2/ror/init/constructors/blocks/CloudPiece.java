@@ -6,14 +6,16 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
+import net.minecraftforge.common.ToolType;
 
 public class CloudPiece extends Block {
     public CloudPiece() {
         super(Properties.of(Material.WOOL, MaterialColor.WOOL)
-                .strength(3.25F, 1.25F)
+                .strength(1.25F, 1.25F)
                 .harvestLevel(0)
                 .noOcclusion()
                 .lightLevel((state) -> 15)
+                .harvestTool(ToolType.SHOVEL)
         );
     }
 

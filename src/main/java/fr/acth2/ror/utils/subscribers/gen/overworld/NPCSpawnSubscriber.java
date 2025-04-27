@@ -36,9 +36,6 @@ public class NPCSpawnSubscriber {
         if (event.phase != TickEvent.Phase.END) return;
 
         ServerWorld serverWorld = (ServerWorld) event.world;
-        if (!serverWorld.dimension().equals(ServerWorld.OVERWORLD)) {
-            return;
-        }
 
         tickCounter++;
         if (tickCounter < SPAWN_INTERVAL_TICKS) {

@@ -15,6 +15,7 @@ import fr.acth2.ror.entities.constructors.mimic.MimicEntity;
 import fr.acth2.ror.entities.constructors.mw.MajorWickedEntity;
 import fr.acth2.ror.entities.constructors.ookla.OoklaEntity;
 import fr.acth2.ror.entities.constructors.rc.RustedCoreEntity;
+import fr.acth2.ror.entities.constructors.se.SkyEjectorEntity;
 import fr.acth2.ror.entities.constructors.seeker.SeekerEntity;
 import fr.acth2.ror.entities.constructors.silker.SilkerEntity;
 import fr.acth2.ror.entities.constructors.traveler.TravelerEntity;
@@ -55,5 +56,6 @@ public class ModEntityAttributes {
         event.put(ModEntities.OOKLA.get(), OoklaEntity.createAttributes().build());
         event.put(ModEntities.BAD_OMEN.get(), BadOmenEntity.createAttributes().build());
         event.put(ModEntities.MIMIC.get(), MimicEntity.createAttributes().build());
+        event.put(ModEntities.SKY_EJECTOR.get(), SkyEjectorEntity.createAttributes().build());
     }
 }

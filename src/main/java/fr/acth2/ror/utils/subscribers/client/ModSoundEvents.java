@@ -170,6 +170,15 @@ public class ModSoundEvents {
 
     public static final RegistryObject<SoundEvent> MIMIC_HIT =
             registerSoundEvent("mimic_hit");
+
+    public static final RegistryObject<SoundEvent> SKYEJECTOR_AMBIENT =
+            registerSoundEvent("se_ambient");
+
+    public static final RegistryObject<SoundEvent> SKYEJECTOR_DIE =
+            registerSoundEvent("se_die");
+
+    public static final RegistryObject<SoundEvent> SKYEJECTOR_HIT =
+            registerSoundEvent("se_hit");
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         return SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(References.MODID, name)));
     }

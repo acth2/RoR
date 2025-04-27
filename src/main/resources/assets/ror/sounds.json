@@ -369,5 +369,26 @@
     "sounds": [
       "ror:mimic_hit"
     ]
+  },
+  "se_ambient": {
+    "category": "hostile",
+    "subtitle": "ror.se_ambient",
+    "sounds": [
+      "ror:se_ambient"
+    ]
+  },
+  "se_die": {
+    "category": "hostile",
+    "subtitle": "ror.se_die",
+    "sounds": [
+      "ror:se_die"
+    ]
+  },
+  "se_hit": {
+    "category": "hostile",
+    "subtitle": "ror.se_hit",
+    "sounds": [
+      "ror:se_hit"
+    ]
   }
 }

@@ -15,6 +15,7 @@ import fr.acth2.ror.entities.entity.mimic.EntityMimic;
 import fr.acth2.ror.entities.entity.mw.EntityMajorWicked;
 import fr.acth2.ror.entities.entity.ookla.EntityOokla;
 import fr.acth2.ror.entities.entity.rc.EntityRustedCore;
+import fr.acth2.ror.entities.entity.se.EntitySkyEjector;
 import fr.acth2.ror.entities.entity.seeker.EntitySeeker;
 import fr.acth2.ror.entities.entity.silker.EntitySilker;
 import fr.acth2.ror.entities.entity.traveler.EntityTraveler;
@@ -25,6 +26,7 @@ import fr.acth2.ror.entities.entity.ws.EntityWoodSpirit;
 import fr.acth2.ror.init.constructors.throwable.entiity.WickedProjectile;
 import fr.acth2.ror.utils.References;
 import fr.acth2.ror.utils.subscribers.gen.overworld.*;
+import fr.acth2.ror.utils.subscribers.gen.skyria.SkyriaMonsterSpawnerSubscriber;
 import fr.acth2.ror.utils.subscribers.gen.utils.MobSpawnData;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -172,8 +174,14 @@ public class ModEntities {
 
     public static final RegistryObject<EntityType<EntityMimic>> MIMIC = ENTITY_TYPES.register("mimic", () ->
             EntityType.Builder.<EntityMimic>of(EntityMimic::new, EntityClassification.CREATURE)
-                    .sized(1.0F, 1.0F)
+                    .sized(1.0F, 1.5F)
                     .build("mimic")
+    );
+
+    public static final RegistryObject<EntityType<EntitySkyEjector>> SKY_EJECTOR = ENTITY_TYPES.register("sky_ejector", () ->
+            EntityType.Builder.<EntitySkyEjector>of(EntitySkyEjector::new, EntityClassification.CREATURE)
+                    .sized(1.0F, 2.8F)
+                    .build("sky_ejector")
     );
 
     public static void register(IEventBus modEventBus) {
@@ -235,5 +243,9 @@ public class ModEntities {
 
         // BUFFS GENERATION
         BuffsSpawnSubscriber.mobListLV1.add(new MobSpawnData(COIN_GIVER, 50, null));
+
+        // SKYRIA
+
+        SkyriaMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(SKY_EJECTOR, 100, null));
     }
 }

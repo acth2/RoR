@@ -15,6 +15,7 @@ import fr.acth2.ror.entities.renderer.mimic.MimicRenderer;
 import fr.acth2.ror.entities.renderer.mw.MajorWickedRenderer;
 import fr.acth2.ror.entities.renderer.ookla.OoklaRenderer;
 import fr.acth2.ror.entities.renderer.rc.RustedCoreRenderer;
+import fr.acth2.ror.entities.renderer.se.SkyEjectorRenderer;
 import fr.acth2.ror.entities.renderer.seeker.SeekerRenderer;
 import fr.acth2.ror.entities.renderer.silker.SilkerRenderer;
 import fr.acth2.ror.entities.renderer.traveler.TravelerRenderer;
@@ -23,8 +24,8 @@ import fr.acth2.ror.entities.renderer.woodfall.WoodFallRenderer;
 import fr.acth2.ror.entities.renderer.woodfall.solider.WoodFallSoliderRenderer;
 import fr.acth2.ror.entities.renderer.ws.WoodSpiritRenderer;
 import fr.acth2.ror.init.ModBlocks;
-import fr.acth2.ror.init.ModEntities;
 import fr.acth2.ror.init.ModItems;
+import fr.acth2.ror.init.ModEntities;
 import fr.acth2.ror.utils.References;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -69,6 +70,7 @@ public class ClientEventSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.OOKLA.get(), OoklaRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.BAD_OMEN.get(), BadOmenRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.MIMIC.get(), MimicRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.SKY_EJECTOR.get(), SkyEjectorRenderer::new);
 
         event.enqueueWork(() -> {
             ItemModelsProperties.register(

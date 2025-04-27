@@ -97,9 +97,6 @@ public class OoklaEntity extends MonsterEntity {
         );
 
         boolean foundEntity = !nearbyMonsters.isEmpty();
-
-        this.setGlowing(foundEntity);
-
         if (foundEntity) {
             if (isHelpingOnce.getAndSet(false)) {
                 nearbyMonsters.forEach(entity ->

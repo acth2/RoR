@@ -10,6 +10,7 @@ import fr.acth2.ror.entities.constructors.echo.EchoEntity;
 import fr.acth2.ror.entities.constructors.fussle.FussleEntity;
 import fr.acth2.ror.entities.constructors.ghost.GhostEntity;
 import fr.acth2.ror.entities.constructors.hopper.HopperEntity;
+import fr.acth2.ror.entities.constructors.lavabeing.LavaBeingEntity;
 import fr.acth2.ror.entities.constructors.lc.LostCaverEntity;
 import fr.acth2.ror.entities.constructors.mimic.MimicEntity;
 import fr.acth2.ror.entities.constructors.mw.MajorWickedEntity;
@@ -57,5 +58,6 @@ public class ModEntityAttributes {
         event.put(ModEntities.BAD_OMEN.get(), BadOmenEntity.createAttributes().build());
         event.put(ModEntities.MIMIC.get(), MimicEntity.createAttributes().build());
         event.put(ModEntities.SKY_EJECTOR.get(), SkyEjectorEntity.createAttributes().build());
+        event.put(ModEntities.LAVA_BEING.get(), LavaBeingEntity.createAttributes().build());
     }
 }

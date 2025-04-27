@@ -10,6 +10,7 @@ import fr.acth2.ror.entities.entity.echo.EntityEcho;
 import fr.acth2.ror.entities.entity.fussle.EntityFussle;
 import fr.acth2.ror.entities.entity.ghost.EntityGhost;
 import fr.acth2.ror.entities.entity.hopper.EntityHopper;
+import fr.acth2.ror.entities.entity.lb.EntityLavaBeing;
 import fr.acth2.ror.entities.entity.lc.EntityLostCaver;
 import fr.acth2.ror.entities.entity.mimic.EntityMimic;
 import fr.acth2.ror.entities.entity.mw.EntityMajorWicked;
@@ -184,6 +185,12 @@ public class ModEntities {
                     .build("sky_ejector")
     );
 
+    public static final RegistryObject<EntityType<EntityLavaBeing>> LAVA_BEING = ENTITY_TYPES.register("lava_being", () ->
+            EntityType.Builder.<EntityLavaBeing>of(EntityLavaBeing::new, EntityClassification.CREATURE)
+                    .sized(1.0F, 3.4F)
+                    .build("lava_being")
+    );
+
     public static void register(IEventBus modEventBus) {
         ModEntities.ENTITY_TYPES.register(modEventBus);
 
@@ -233,6 +240,7 @@ public class ModEntities {
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WICKED, 100, Blocks.STONE));
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(SEEKER, 50, Blocks.STONE));
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(MAJOR_WICKED, 25, Blocks.STONE));
+        CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(LAVA_BEING, 100, Blocks.LAVA));
 
         // RARE CAVE MONSTER GENERATION
 

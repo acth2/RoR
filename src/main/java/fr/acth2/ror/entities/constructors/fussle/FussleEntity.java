@@ -22,10 +22,6 @@ import javax.annotation.Nullable;
 
 public class FussleEntity extends CreatureEntity {
 
-    private PlayerEntity owner;
-    private boolean isTamed;
-    private boolean isSitting = false;
-
     protected FussleEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
         super(type, worldIn);
     }

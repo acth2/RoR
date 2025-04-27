@@ -24,7 +24,6 @@ public class WoodFallSolidierEntity extends MonsterEntity {
 
     protected WoodFallSolidierEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
-        this.setGlowing(true);
     }
 
     @Override

@@ -25,7 +25,6 @@ public class AquamarinEntity extends WaterMonsterEntity {
 
     public AquamarinEntity(EntityType<? extends WaterMonsterEntity> type, World worldIn) {
         super(type, worldIn);
-        this.setGlowing(true);
     }
 
     @Override

@@ -25,7 +25,6 @@ public class SilkerEntity extends MonsterEntity {
 
     public SilkerEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
-        this.setGlowing(true);
     }
 
 

@@ -21,7 +21,6 @@ public class EntityFussle extends FussleEntity implements IAnimatable {
 
     public EntityFussle(EntityType<? extends FussleEntity> type, World worldIn) {
         super(type, worldIn);
-        this.setGlowing(true);
     }
 
     @Override

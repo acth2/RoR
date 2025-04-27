@@ -26,7 +26,6 @@ public class WoodFallEntity extends MonsterEntity {
 
     protected WoodFallEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
-        this.setGlowing(true);
     }
 
     @Override

@@ -25,7 +25,6 @@ public class SkyEjectorEntity extends MonsterEntity {
 
     public SkyEjectorEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
-        this.setGlowing(true);
     }
 
     @Override

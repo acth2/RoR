@@ -85,11 +85,6 @@ public class LostCaverEntity extends MonsterEntity {
         return false;
     }
 
-    @Override
-    public void setGlowing(boolean p_184195_1_) {
-        super.setGlowing(p_184195_1_);
-    }
-
     public static AttributeModifierMap.MutableAttribute createAttributes() {
         return MobEntity.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 20.0D)

@@ -24,7 +24,6 @@ public class EntityRustedCore extends RustedCoreEntity implements IAnimatable {
     public EntityRustedCore(EntityType<? extends RustedCoreEntity
             > type, World worldIn) {
         super(type, worldIn);
-        this.setGlowing(true);
     }
 
     @Override

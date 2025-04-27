@@ -24,7 +24,6 @@ public class EntityGhost extends GhostEntity implements IAnimatable {
     public EntityGhost(EntityType<? extends GhostEntity
             > type, World worldIn) {
         super(type, worldIn);
-        this.setGlowing(true);
         this.setSwimming(true);
     }
 

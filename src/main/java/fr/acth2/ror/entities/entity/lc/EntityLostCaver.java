@@ -18,7 +18,6 @@ public class EntityLostCaver extends LostCaverEntity implements IAnimatable {
     public EntityLostCaver(EntityType<? extends LostCaverEntity
             > type, World worldIn) {
         super(type, worldIn);
-        this.setGlowing(true);
     }
 
     @Override

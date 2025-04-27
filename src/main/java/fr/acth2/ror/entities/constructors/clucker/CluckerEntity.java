@@ -25,7 +25,6 @@ public class CluckerEntity extends MonsterEntity {
 
     public CluckerEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
-        this.setGlowing(true);
     }
 
     @Override

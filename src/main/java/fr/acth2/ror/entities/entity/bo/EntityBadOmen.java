@@ -25,7 +25,6 @@ public class EntityBadOmen extends BadOmenEntity implements IAnimatable {
     public EntityBadOmen(EntityType<? extends BadOmenEntity
             > type, World worldIn) {
         super(type, worldIn);
-        this.setGlowing(true);
     }
 
     @Override

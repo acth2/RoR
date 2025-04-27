@@ -16,7 +16,6 @@ public class EntityMajorWicked extends MajorWickedEntity implements IAnimatable 
 
     public EntityMajorWicked(EntityType<? extends MajorWickedEntity> type, World worldIn) {
         super(type, worldIn);
-        this.setGlowing(true);
     }
 
     @Override

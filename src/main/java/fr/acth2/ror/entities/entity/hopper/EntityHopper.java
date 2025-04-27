@@ -19,7 +19,6 @@ public class EntityHopper extends HopperEntity implements IAnimatable {
     public EntityHopper(EntityType<? extends HopperEntity
             > type, World worldIn) {
         super(type, worldIn);
-        this.setGlowing(true);
     }
 
     @Override

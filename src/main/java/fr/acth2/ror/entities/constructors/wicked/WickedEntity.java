@@ -22,7 +22,6 @@ public class WickedEntity extends MonsterEntity {
 
     public WickedEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
-        this.setGlowing(true);
     }
 
 

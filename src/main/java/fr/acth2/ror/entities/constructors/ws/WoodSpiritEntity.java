@@ -24,7 +24,6 @@ public class WoodSpiritEntity extends MonsterEntity {
 
     public WoodSpiritEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
-        this.setGlowing(true);
     }
 
     @Override

@@ -22,7 +22,6 @@ public class SeekerEntity extends MonsterEntity {
 
     protected SeekerEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
-        this.setGlowing(true);
     }
 
     @Override

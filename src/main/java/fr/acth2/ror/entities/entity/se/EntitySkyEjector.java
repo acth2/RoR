@@ -52,7 +52,7 @@ public class EntitySkyEjector extends SkyEjectorEntity implements IAnimatable {
             }
         } else {
             event.getController().setAnimation(
-                    new AnimationBuilder().addAnimation("animation.sky_ejector.knock", false)
+                    new AnimationBuilder().addAnimation("animation.sky_ejector.knockback", false)
             );
             new Thread() {
                 @Override

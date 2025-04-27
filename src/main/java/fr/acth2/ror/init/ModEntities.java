@@ -60,7 +60,7 @@ public class ModEntities {
 
     public static final RegistryObject<EntityType<EntityHopper>> HOPPER = ENTITY_TYPES.register("hopper", () ->
             EntityType.Builder.<EntityHopper>of(EntityHopper::new, EntityClassification.CREATURE)
-                    .sized(0.9F, 1.3F)
+                    .sized(1.5F, 1.3F)
                     .build("hopper")
     );
 
@@ -72,7 +72,7 @@ public class ModEntities {
 
     public static final RegistryObject<EntityType<EntityWicked>> WICKED = ENTITY_TYPES.register("wicked", () ->
             EntityType.Builder.<EntityWicked>of(EntityWicked::new, EntityClassification.CREATURE)
-                    .sized(0.6F, 2.8F)
+                    .sized(0.6F, 1.6F)
                     .build("wicked")
     );
 
@@ -84,7 +84,7 @@ public class ModEntities {
 
     public static final RegistryObject<EntityType<EntityCurser>> CURSER = ENTITY_TYPES.register("curser", () ->
             EntityType.Builder.<EntityCurser>of(EntityCurser::new, EntityClassification.CREATURE)
-                    .sized(0.6F, 3.1F)
+                    .sized(1.0F, 3.8F)
                     .build("curser")
     );
 
@@ -96,13 +96,13 @@ public class ModEntities {
 
     public static final RegistryObject<EntityType<EntityWoodFallSolider>> WOODFALL_SOLIDER = ENTITY_TYPES.register("woodfall_solider", () ->
             EntityType.Builder.<EntityWoodFallSolider>of(EntityWoodFallSolider::new, EntityClassification.CREATURE)
-                    .sized(0.5F, 1.7F)
+                    .sized(0.5F, 2.6F)
                     .build("woodfall_solider")
     );
 
     public static final RegistryObject<EntityType<EntityWoodSpirit>> WOOD_SPIRIT = ENTITY_TYPES.register("wood_spirit", () ->
             EntityType.Builder.<EntityWoodSpirit>of(EntityWoodSpirit::new, EntityClassification.CREATURE)
-                    .sized(1.0F, 4F)
+                    .sized(2.0F, 3.0F)
                     .build("wood_spirit")
     );
 
@@ -126,13 +126,13 @@ public class ModEntities {
 
     public static final RegistryObject<EntityType<EntitySeeker>> SEEKER = ENTITY_TYPES.register("seeker", () ->
             EntityType.Builder.<EntitySeeker>of(EntitySeeker::new, EntityClassification.CREATURE)
-                    .sized(0.6F, 1.0F)
+                    .sized(1.0F, 1.5F)
                     .build("seeker")
     );
 
     public static final RegistryObject<EntityType<EntityAquamarin>> AQUAMARIN = ENTITY_TYPES.register("aquamarin", () ->
             EntityType.Builder.<EntityAquamarin>of(EntityAquamarin::new, EntityClassification.CREATURE)
-                    .sized(0.9F, 0.8F)
+                    .sized(1.3F, 0.8F)
                     .build("aquamarin")
     );
 
@@ -150,13 +150,13 @@ public class ModEntities {
 
     public static final RegistryObject<EntityType<EntitySilker>> SILKER = ENTITY_TYPES.register("silker", () ->
             EntityType.Builder.<EntitySilker>of(EntitySilker::new, EntityClassification.CREATURE)
-                    .sized(0.6F, 1.0F)
+                    .sized(0.6F, 1.6F)
                     .build("silker")
     );
 
     public static final RegistryObject<EntityType<EntityMajorWicked>> MAJOR_WICKED = ENTITY_TYPES.register("major_wicked", () ->
             EntityType.Builder.<EntityMajorWicked>of(EntityMajorWicked::new, EntityClassification.CREATURE)
-                    .sized(0.6F, 2.8F)
+                    .sized(1.0F, 4.0F)
                     .build("major_wicked")
     );
 
@@ -168,7 +168,7 @@ public class ModEntities {
 
     public static final RegistryObject<EntityType<EntityBadOmen>> BAD_OMEN = ENTITY_TYPES.register("bad_omen", () ->
             EntityType.Builder.<EntityBadOmen>of(EntityBadOmen::new, EntityClassification.CREATURE)
-                    .sized(2.0F, 2.0F)
+                    .sized(5.0F, 5.0F)
                     .build("bad_omen")
     );
 

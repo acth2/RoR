@@ -9,6 +9,7 @@ import fr.acth2.ror.entities.renderer.echo.BadOmenRenderer;
 import fr.acth2.ror.entities.renderer.echo.EchoRenderer;
 import fr.acth2.ror.entities.renderer.fussle.FussleRenderer;
 import fr.acth2.ror.entities.renderer.ghost.GhostRenderer;
+import fr.acth2.ror.entities.renderer.grasser.GrasserRenderer;
 import fr.acth2.ror.entities.renderer.hopper.HopperRenderer;
 import fr.acth2.ror.entities.renderer.lb.LavaBeingRenderer;
 import fr.acth2.ror.entities.renderer.lc.LostCaverRenderer;
@@ -73,6 +74,7 @@ public class ClientEventSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.MIMIC.get(), MimicRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.SKY_EJECTOR.get(), SkyEjectorRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.LAVA_BEING.get(), LavaBeingRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.GRASSER.get(), GrasserRenderer::new);
 
         event.enqueueWork(() -> {
             ItemModelsProperties.register(

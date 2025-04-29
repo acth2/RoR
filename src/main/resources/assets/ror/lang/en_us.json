@@ -73,6 +73,7 @@
   "entity.ror.mimic": "Mimic",
   "entity.ror.sky_ejector": "Sky Ejector",
   "entity.ror.lava_being": "Lava Being",
+  "entity.ror.grasser": "Grasser",
   "key.ror.mm": "Main menu",
   "key.categories.ror": "Ruins of Realms",
   "tooltip.ror.avarice.damage_range": "Damage: %s - %s",

@@ -1,6 +1,7 @@
 package fr.acth2.ror.entities.entity.lb;
 
 import fr.acth2.ror.entities.constructors.lavabeing.LavaBeingEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -14,6 +15,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 public class EntityLavaBeing extends LavaBeingEntity implements IAnimatable {
 
     private final AnimationFactory factory = new AnimationFactory(this);
+    public static boolean startShooting = false;
 
     public EntityLavaBeing(EntityType<? extends LavaBeingEntity
             > type, World worldIn) {
@@ -32,7 +34,7 @@ public class EntityLavaBeing extends LavaBeingEntity implements IAnimatable {
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if (isAttacking()) {
+        if (startShooting) {
             event.getController().setAnimation(
                     new AnimationBuilder().addAnimation("animation.lava_being.shoot", true)
             );
@@ -44,10 +46,10 @@ public class EntityLavaBeing extends LavaBeingEntity implements IAnimatable {
         return PlayState.CONTINUE;
     }
 
-
-
-    private boolean isAttacking() {
-        return this.getTarget() != null;
+    @Override
+    public boolean doHurtTarget(Entity p_70652_1_) {
+        startShooting = true;
+        return super.doHurtTarget(p_70652_1_);
     }
 
     @Override

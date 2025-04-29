@@ -9,6 +9,7 @@ import fr.acth2.ror.entities.entity.curser.EntityCurser;
 import fr.acth2.ror.entities.entity.echo.EntityEcho;
 import fr.acth2.ror.entities.entity.fussle.EntityFussle;
 import fr.acth2.ror.entities.entity.ghost.EntityGhost;
+import fr.acth2.ror.entities.entity.grasser.EntityGrasser;
 import fr.acth2.ror.entities.entity.hopper.EntityHopper;
 import fr.acth2.ror.entities.entity.lb.EntityLavaBeing;
 import fr.acth2.ror.entities.entity.lc.EntityLostCaver;
@@ -191,6 +192,12 @@ public class ModEntities {
                     .build("lava_being")
     );
 
+    public static final RegistryObject<EntityType<EntityGrasser>> GRASSER = ENTITY_TYPES.register("grasser", () ->
+            EntityType.Builder.<EntityGrasser>of(EntityGrasser::new, EntityClassification.CREATURE)
+                    .sized(1.0F, 1.4F)
+                    .build("grasser")
+    );
+
     public static void register(IEventBus modEventBus) {
         ModEntities.ENTITY_TYPES.register(modEventBus);
 
@@ -198,6 +205,7 @@ public class ModEntities {
 
         // DAY MONSTER GENERATION
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(HOPPER, 45, null));
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(GRASSER, 100, Blocks.GRASS_BLOCK));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(RUSTED_CORE, 25, Blocks.GRASS_BLOCK));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOOD_SPIRIT, 1, Blocks.GRASS_BLOCK));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CLUCKER, 100, Blocks.SAND));
@@ -209,8 +217,6 @@ public class ModEntities {
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(FUSSLE, 75, Blocks.PODZOL));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(RUSTED_CORE, 75, Blocks.COARSE_DIRT));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(RUSTED_CORE, 75, Blocks.PODZOL));
-        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(HOPPER, 75, Blocks.COARSE_DIRT));
-        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(HOPPER, 75, Blocks.PODZOL));
 
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL, 300, Blocks.VINE));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL, 300, Blocks.LILY_PAD));

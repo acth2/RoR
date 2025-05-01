@@ -87,6 +87,17 @@ public class ClientEventSubscriber {
                         return 0.0F;
                     }
             );
+
+            ItemModelsProperties.register(
+                    ModItems.REALMS_VESSEL.get(),
+                    new ResourceLocation(References.MODID, "is_skyria"),
+                    (itemStack, world, livingEntity) -> {
+                        if (itemStack.hasTag() && itemStack.getTag().getBoolean("isSkyria")) {
+                            return 1.0F;
+                        }
+                        return 0.0F;
+                    }
+            );
         });
 
         event.enqueueWork(() -> {

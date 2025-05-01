@@ -3,7 +3,7 @@
 	"animations": {
 		"animation.grasser.idle": {
 			"loop": true,
-			"animation_length": 32,
+			"animation_length": 2048,
 			"bones": {
 				"bone4": {
 					"position": {

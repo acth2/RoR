@@ -9,6 +9,12 @@
         "ror:is_activated": 1
       },
       "model": "ror:item/realms_vessel_activated"
+    },
+    {
+      "predicate": {
+        "ror:is_skyria": 1
+      },
+      "model": "ror:item/realms_vessel_skyria"
     }
   ]
 }

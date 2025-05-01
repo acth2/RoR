@@ -1,4 +1,4 @@
-package fr.acth2.ror.entities.renderer.echo;
+package fr.acth2.ror.entities.renderer.bo;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;

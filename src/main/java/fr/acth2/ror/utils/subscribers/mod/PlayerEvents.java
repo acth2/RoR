@@ -1,5 +1,8 @@
 package fr.acth2.ror.utils.subscribers.mod;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.systems.RenderSystem;
+import fr.acth2.ror.entities.constructors.ExampleInvaderEntity;
 import fr.acth2.ror.gui.MainMenuGui;
 import fr.acth2.ror.gui.coins.CoinsManager;
 import fr.acth2.ror.init.ModNetworkHandler;
@@ -9,7 +12,12 @@ import fr.acth2.ror.utils.References;
 import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
 import fr.acth2.ror.utils.subscribers.client.PlayerStatsCapability;
 import fr.acth2.ror.utils.subscribers.mod.skills.PlayerStats;
+import net.minecraft.client.MainWindow;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldVertexBufferUploader;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -22,6 +30,8 @@ import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.EntityViewRenderEvent;
+import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -30,6 +40,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.PacketDistributor;
+import org.lwjgl.opengl.GL11;
 
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -151,5 +162,69 @@ public class PlayerEvents {
                 ));
             }
         }
+    }
+
+    private static float redEffectIntensity = 0.5f;
+
+    @SubscribeEvent
+    public static void onClientInvadingTick(TickEvent.ClientTickEvent event) {
+        if (event.phase == TickEvent.Phase.END) {
+            Minecraft mc = Minecraft.getInstance();
+            if (mc.level != null && mc.player != null) {
+                boolean bossNearby = !mc.level.getEntitiesOfClass(
+                        ExampleInvaderEntity.class,
+                        mc.player.getBoundingBox().inflate(50)
+                ).isEmpty();
+
+                float targetIntensity = bossNearby ? 0.5f : 0f;
+                redEffectIntensity += (targetIntensity - redEffectIntensity) * 0.05f;
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onRenderFog(EntityViewRenderEvent.FogColors event) {
+        if (redEffectIntensity > 0.01f) {
+            event.setRed(event.getRed() * (1f + redEffectIntensity));
+            event.setGreen(event.getGreen() * (1f - redEffectIntensity * 0.7f));
+            event.setBlue(event.getBlue() * (1f - redEffectIntensity * 0.7f));
+        }
+    }
+
+    @SubscribeEvent
+    public static void onRenderWorldLast(RenderWorldLastEvent event) {
+        if (redEffectIntensity > 0.01f) {
+            Minecraft mc = Minecraft.getInstance();
+            drawRedOverlay(mc, event.getMatrixStack(), redEffectIntensity);
+        }
+    }
+
+    private static void drawRedOverlay(Minecraft mc, MatrixStack matrixStack, float intensity) {
+        MainWindow window = mc.getWindow();
+        int width = window.getGuiScaledWidth();
+        int height = window.getGuiScaledHeight();
+
+        RenderSystem.disableDepthTest();
+        RenderSystem.depthMask(false);
+        RenderSystem.disableTexture();
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
+
+        float alpha = intensity * 0.3f;
+        RenderSystem.color4f(1.0f, 0.1f, 0.1f, alpha);
+
+        BufferBuilder bufferbuilder = Tessellator.getInstance().getBuilder();
+        bufferbuilder.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
+        bufferbuilder.vertex(0, height, -90).endVertex();
+        bufferbuilder.vertex(width, height, -90).endVertex();
+        bufferbuilder.vertex(width, 0, -90).endVertex();
+        bufferbuilder.vertex(0, 0, -90).endVertex();
+        bufferbuilder.end();
+        WorldVertexBufferUploader.end(bufferbuilder);
+
+        RenderSystem.depthMask(true);
+        RenderSystem.enableDepthTest();
+        RenderSystem.enableTexture();
+        RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
     }
 }

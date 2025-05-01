@@ -1,0 +1,77 @@
+package fr.acth2.ror.entities.entity;
+
+import fr.acth2.ror.entities.constructors.ExampleInvaderEntity;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.Explosion;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
+import net.minecraft.world.World;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
+
+public class EntityExampleInvader extends ExampleInvaderEntity implements IAnimatable {
+
+    private final AnimationFactory factory = new AnimationFactory(this);
+
+    public EntityExampleInvader(EntityType<? extends ExampleInvaderEntity> type, World worldIn) {
+        super(type, worldIn);
+    }
+
+    @Override
+    public void registerControllers(AnimationData data) {
+        data.addAnimationController(new AnimationController<>(this, "controller", 5, this::predicate));
+    }
+
+    @Override
+    public boolean shouldBlockExplode(Explosion p_174816_1_, IBlockReader p_174816_2_, BlockPos p_174816_3_, BlockState p_174816_4_, float p_174816_5_) {
+        return false;
+    }
+
+    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+        if (this.spawnCooldown > 0) {
+            event.getController().setAnimation(
+                    new AnimationBuilder().addAnimation("animation.invader.spawn", true)
+            );
+            return PlayState.CONTINUE;
+        }
+
+        if (!isAttacking()) {
+            if (event.isMoving()) {
+                event.getController().setAnimation(
+                        new AnimationBuilder().addAnimation("animation.invader.move", true)
+                );
+            } else {
+                event.getController().setAnimation(
+                        new AnimationBuilder().addAnimation("animation.invader.idle", true)
+                );
+            }
+        } else {
+            event.getController().setAnimation(
+                    new AnimationBuilder().addAnimation("animation.invader.attack", false)
+            );
+        }
+        return PlayState.CONTINUE;
+    }
+
+    private boolean isAttacking() {
+        return this.swinging || this.attackAnim > 0;
+    }
+
+    @Override
+    public boolean checkSpawnRules(IWorld world, SpawnReason spawnReason) {
+        return super.checkSpawnRules(world, spawnReason);
+    }
+
+    @Override
+    public AnimationFactory getFactory() {
+        return factory;
+    }
+}

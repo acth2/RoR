@@ -1,11 +1,12 @@
 package fr.acth2.ror.utils.subscribers.client;
 
 import fr.acth2.ror.entities.renderer.EntityExampleRenderer;
+import fr.acth2.ror.entities.renderer.ExampleInvaderRenderer;
 import fr.acth2.ror.entities.renderer.aquamarin.AquamarinRenderer;
 import fr.acth2.ror.entities.renderer.cg.CoinGiverRenderer;
 import fr.acth2.ror.entities.renderer.clucker.CluckerRenderer;
 import fr.acth2.ror.entities.renderer.curser.CurserRenderer;
-import fr.acth2.ror.entities.renderer.echo.BadOmenRenderer;
+import fr.acth2.ror.entities.renderer.bo.BadOmenRenderer;
 import fr.acth2.ror.entities.renderer.echo.EchoRenderer;
 import fr.acth2.ror.entities.renderer.fussle.FussleRenderer;
 import fr.acth2.ror.entities.renderer.ghost.GhostRenderer;
@@ -75,6 +76,7 @@ public class ClientEventSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.SKY_EJECTOR.get(), SkyEjectorRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.LAVA_BEING.get(), LavaBeingRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.GRASSER.get(), GrasserRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.EXAMPLE_INVADER.get(), ExampleInvaderRenderer::new);
 
         event.enqueueWork(() -> {
             ItemModelsProperties.register(

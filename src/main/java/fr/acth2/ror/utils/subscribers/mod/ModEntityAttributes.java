@@ -1,6 +1,7 @@
 package fr.acth2.ror.utils.subscribers.mod;
 
 import fr.acth2.ror.entities.constructors.ExampleEntity;
+import fr.acth2.ror.entities.constructors.ExampleInvaderEntity;
 import fr.acth2.ror.entities.constructors.aquamarin.AquamarinEntity;
 import fr.acth2.ror.entities.constructors.bo.BadOmenEntity;
 import fr.acth2.ror.entities.constructors.cg.CoinGiverEntity;
@@ -25,6 +26,7 @@ import fr.acth2.ror.entities.constructors.wicked.WickedEntity;
 import fr.acth2.ror.entities.constructors.woodfall.WoodFallEntity;
 import fr.acth2.ror.entities.constructors.woodfall.solider.WoodFallSolidierEntity;
 import fr.acth2.ror.entities.constructors.ws.WoodSpiritEntity;
+import fr.acth2.ror.entities.entity.EntityExampleInvader;
 import fr.acth2.ror.init.ModEntities;
 import fr.acth2.ror.utils.References;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -61,5 +63,6 @@ public class ModEntityAttributes {
         event.put(ModEntities.SKY_EJECTOR.get(), SkyEjectorEntity.createAttributes().build());
         event.put(ModEntities.LAVA_BEING.get(), LavaBeingEntity.createAttributes().build());
         event.put(ModEntities.GRASSER.get(), GrasserEntity.createAttributes().build());
+        event.put(ModEntities.EXAMPLE_INVADER.get(), ExampleInvaderEntity.createAttributes().build());
     }
 }

@@ -1,6 +1,7 @@
 package fr.acth2.ror.init;
 
 import fr.acth2.ror.entities.entity.EntityExample;
+import fr.acth2.ror.entities.entity.EntityExampleInvader;
 import fr.acth2.ror.entities.entity.aquamarin.EntityAquamarin;
 import fr.acth2.ror.entities.entity.bo.EntityBadOmen;
 import fr.acth2.ror.entities.entity.cg.EntityCoinGiver;
@@ -196,6 +197,12 @@ public class ModEntities {
             EntityType.Builder.<EntityGrasser>of(EntityGrasser::new, EntityClassification.CREATURE)
                     .sized(1.0F, 1.4F)
                     .build("grasser")
+    );
+
+    public static final RegistryObject<EntityType<EntityExampleInvader>> EXAMPLE_INVADER = ENTITY_TYPES.register("example_invader", () ->
+            EntityType.Builder.<EntityExampleInvader>of(EntityExampleInvader::new, EntityClassification.CREATURE)
+                    .sized(1.0F, 2.0F)
+                    .build("example_invader")
     );
 
     public static void register(IEventBus modEventBus) {

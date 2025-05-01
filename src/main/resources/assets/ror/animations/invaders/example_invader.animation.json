@@ -1,7 +1,7 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"animation.realm_invader.spawn": {
+		"animation.invader.spawn": {
 			"animation_length": 7.5,
 			"bones": {
 				"bone3": {
@@ -178,7 +178,7 @@
 				}
 			}
 		},
-		"animation.realm_invader.move": {
+		"animation.invader.move": {
 			"loop": true,
 			"animation_length": 1,
 			"bones": {
@@ -256,7 +256,7 @@
 				}
 			}
 		},
-		"animation.realm_invader.idle": {
+		"animation.invader.idle": {
 			"animation_length": 10,
 			"bones": {
 				"bone11": {
@@ -280,16 +280,16 @@
 						"5.0": {
 							"vector": [47.59468, -4.32875, -2.50477]
 						},
-						"7.0833": {
+						"7.1": {
 							"vector": [47.79902, -6.29165, -4.6717]
 						},
 						"7.5": {
 							"vector": [47.48235, -2.64087, -0.65709]
 						},
-						"7.9167": {
+						"7.9": {
 							"vector": [44.98235, -2.64087, -0.65709]
 						},
-						"8.3333": {
+						"8.3": {
 							"vector": [44.98125, 2.66454, -5.96018]
 						},
 						"10.0": {
@@ -363,7 +363,7 @@
 				}
 			}
 		},
-		"animation.realm_invader.attack": {
+		"animation.invader.attack": {
 			"animation_length": 0.625,
 			"bones": {
 				"bone11": {

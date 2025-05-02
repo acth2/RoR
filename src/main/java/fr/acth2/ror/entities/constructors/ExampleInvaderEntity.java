@@ -2,13 +2,11 @@ package fr.acth2.ror.entities.constructors;
 
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -25,8 +23,10 @@ import net.minecraft.world.server.ServerBossInfo;
 import javax.annotation.Nullable;
 
 public class ExampleInvaderEntity extends MonsterEntity {
+    public boolean stopEveryAnimations = false;
+    public boolean triggerQuitAnim = false;
     public int spawnCooldown = 84;
-    private final ServerBossInfo bossInfo = (ServerBossInfo) new ServerBossInfo(
+    public final ServerBossInfo bossInfo = (ServerBossInfo) new ServerBossInfo(
             getDisplayName(),
             BossInfo.Color.RED,
             BossInfo.Overlay.PROGRESS
@@ -109,6 +109,23 @@ public class ExampleInvaderEntity extends MonsterEntity {
                 // Play a sound
             }
         }
+        boolean playerNearby = !this.level.getEntitiesOfClass(
+                PlayerEntity.class,
+                this.getBoundingBox().inflate(10)
+        ).isEmpty();
+
+        if (!playerNearby && spawnCooldown <= 0) {
+            triggerQuitAnim = true;
+            this.goalSelector.disableControlFlag(Goal.Flag.MOVE);
+            this.goalSelector.disableControlFlag(Goal.Flag.LOOK);
+        } else if (playerNearby && triggerQuitAnim) {
+            triggerQuitAnim = false;
+            this.goalSelector.enableControlFlag(Goal.Flag.MOVE);
+            this.goalSelector.enableControlFlag(Goal.Flag.LOOK);
+            if (spawnCooldown <= 0) {
+                spawnCooldown = 20;
+            }
+        }
 
         this.bossInfo.setPercent(this.getHealth() / this.getMaxHealth());
     }
@@ -117,6 +134,7 @@ public class ExampleInvaderEntity extends MonsterEntity {
     public void startSeenByPlayer(ServerPlayerEntity player) {
         super.startSeenByPlayer(player);
         this.bossInfo.addPlayer(player);
+        stopEveryAnimations = false;
     }
 
     @Override

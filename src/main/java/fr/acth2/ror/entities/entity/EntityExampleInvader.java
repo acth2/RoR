@@ -20,9 +20,24 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 public class EntityExampleInvader extends ExampleInvaderEntity implements IAnimatable {
 
     private final AnimationFactory factory = new AnimationFactory(this);
+    private int quitAnimTimer = 0;
+    private boolean isReturning = false;
 
     public EntityExampleInvader(EntityType<? extends ExampleInvaderEntity> type, World worldIn) {
         super(type, worldIn);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+
+        if (isReturning && quitAnimTimer > 0) {
+            quitAnimTimer--;
+            if (quitAnimTimer <= 0) {
+                isReturning = false;
+                bossInfo.setVisible(false);
+            }
+        }
     }
 
     @Override
@@ -43,19 +58,28 @@ public class EntityExampleInvader extends ExampleInvaderEntity implements IAnima
             return PlayState.CONTINUE;
         }
 
-        if (!isAttacking()) {
-            if (event.isMoving()) {
+        if (this.triggerQuitAnim) {
+            if (!isReturning) {
+                isReturning = true;
+                quitAnimTimer = 15;
                 event.getController().setAnimation(
-                        new AnimationBuilder().addAnimation("animation.invader.move", true)
-                );
-            } else {
-                event.getController().setAnimation(
-                        new AnimationBuilder().addAnimation("animation.invader.idle", true)
+                        new AnimationBuilder().addAnimation("animation.invader.returning", false)
                 );
             }
-        } else {
+            return PlayState.CONTINUE;
+        }
+
+        if (this.isAttacking()) {
             event.getController().setAnimation(
                     new AnimationBuilder().addAnimation("animation.invader.attack", false)
+            );
+        } else if (event.isMoving()) {
+            event.getController().setAnimation(
+                    new AnimationBuilder().addAnimation("animation.invader.move", true)
+            );
+        } else {
+            event.getController().setAnimation(
+                    new AnimationBuilder().addAnimation("animation.invader.idle", true)
             );
         }
         return PlayState.CONTINUE;

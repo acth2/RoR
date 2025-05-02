@@ -1,6 +1,7 @@
 package fr.acth2.ror.utils.subscribers.mod;
 
 import fr.acth2.ror.entities.constructors.ExampleEntity;
+import fr.acth2.ror.entities.constructors.ExampleInvaderEntity;
 import fr.acth2.ror.entities.constructors.bo.BadOmenEntity;
 import fr.acth2.ror.entities.constructors.cg.CoinGiverEntity;
 import fr.acth2.ror.entities.constructors.clucker.CluckerEntity;
@@ -80,6 +81,9 @@ public class ModCoinsDistributor {
                 return 250;
             case "Mimic":
                 return 500;
+            case "ShatteredInvader":
+                return 2000;
+
             default: return 5;
         }
     }
@@ -110,6 +114,7 @@ public class ModCoinsDistributor {
         if (entity instanceof OoklaEntity) return "Ookla";
         if (entity instanceof MajorWickedEntity) return "MajorWicked";
         if (entity instanceof SilkerEntity) return "Silker";
+        if (entity instanceof ExampleInvaderEntity) return "ShatteredInvader";
 
         return "Unknown";
     }

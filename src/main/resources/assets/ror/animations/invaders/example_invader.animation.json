@@ -160,10 +160,12 @@
 							"vector": [0.06, 0.06, 0.06]
 						},
 						"0.1": {
-							"vector": [0.94, 0.94, 0.94]
+							"vector": [0.94, 0.94, 0.94],
+							"easing": "linear"
 						},
 						"0.3": {
-							"vector": [1, 1, 1]
+							"vector": [1, 1, 1],
+							"easing": "easeInElastic"
 						},
 						"3.9": {
 							"vector": [0.94, 0.94, 0.94]
@@ -431,6 +433,110 @@
 				"bone": {
 					"scale": {
 						"vector": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.invader.returning": {
+			"loop": true,
+			"animation_length": 2147483648.75,
+			"bones": {
+				"bone3": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.5": {
+							"vector": [0, -28, 0],
+							"easing": "easeInOutBack"
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"0.4167": {
+							"vector": [1, 0, 1],
+							"easing": "step"
+						}
+					}
+				},
+				"bone11": {
+					"rotation": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"bone7": {
+					"rotation": {
+						"0.0": {
+							"vector": [17.87238, -1.62155, -0.66022]
+						},
+						"0.125": {
+							"vector": [0.37238, -1.62155, -0.66022]
+						}
+					}
+				},
+				"bone6": {
+					"rotation": {
+						"0.0": {
+							"vector": [30, 0, 0]
+						},
+						"0.125": {
+							"vector": [-52.5, 0, 0]
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, -3, -6]
+						},
+						"0.125": {
+							"vector": [0, -1, -5]
+						}
+					}
+				},
+				"bone4": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 87.5]
+						},
+						"0.125": {
+							"vector": [-180, 15, -92.5]
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [-1, 0, -4]
+						},
+						"0.125": {
+							"vector": [-1, 0, 2]
+						}
+					}
+				},
+				"bone5": {
+					"rotation": {
+						"vector": [87.5079, -7.38743, -91.29312]
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 1, -5]
+						},
+						"0.125": {
+							"vector": [0, 1, -1]
+						}
+					}
+				},
+				"bone": {
+					"scale": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.375": {
+							"vector": [1, 1, 1],
+							"easing": "easeInElastic"
+						},
+						"0.75": {
+							"vector": [0, 0, 0]
+						}
 					}
 				}
 			}

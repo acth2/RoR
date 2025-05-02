@@ -177,6 +177,10 @@ public class PlayerEvents {
                 ).isEmpty();
 
                 float targetIntensity = bossNearby ? 0.5f : 0f;
+
+                if (bossNearby) {
+                    mc.options.renderDistance = 2;
+                }
                 redEffectIntensity += (targetIntensity - redEffectIntensity) * 0.05f;
             }
         }

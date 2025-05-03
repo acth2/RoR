@@ -4,6 +4,7 @@ import fr.acth2.ror.entities.constructors.ExampleInvaderEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockReader;
@@ -69,24 +70,28 @@ public class EntityExampleInvader extends ExampleInvaderEntity implements IAnima
             return PlayState.CONTINUE;
         }
 
-        if (this.isAttacking()) {
+        if (this.isShooting) {
             event.getController().setAnimation(
-                    new AnimationBuilder().addAnimation("animation.invader.attack", false)
+                    new AnimationBuilder().addAnimation("animation.invader.shoot", false)
             );
-        } else if (event.isMoving()) {
+            return PlayState.CONTINUE;
+        }
+
+        if (event.isMoving()) {
             event.getController().setAnimation(
                     new AnimationBuilder().addAnimation("animation.invader.move", true)
             );
-        } else {
-            event.getController().setAnimation(
-                    new AnimationBuilder().addAnimation("animation.invader.idle", true)
-            );
+            return PlayState.CONTINUE;
         }
+
+        event.getController().setAnimation(
+                new AnimationBuilder().addAnimation("animation.invader.idle", true)
+        );
         return PlayState.CONTINUE;
     }
 
     private boolean isAttacking() {
-        return this.swinging || this.attackAnim > 0;
+        return this.attackAnim > 0;
     }
 
     @Override

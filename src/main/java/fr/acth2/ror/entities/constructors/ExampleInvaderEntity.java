@@ -1,5 +1,7 @@
 package fr.acth2.ror.entities.constructors;
 
+import fr.acth2.ror.entities.entity.EntityExampleInvader;
+import net.minecraft.client.audio.SoundSource;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -14,18 +16,33 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.BossInfo;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerBossInfo;
+import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nullable;
 
 public class ExampleInvaderEntity extends MonsterEntity {
+
     public boolean stopEveryAnimations = false;
     public boolean triggerQuitAnim = false;
     public int spawnCooldown = 84;
+
+    private int attackCooldown = 0;
+    public int attackPauseTime = 0;
+    private boolean isPerformingRangedAttack = false;
+
+    public boolean isShooting = false;
+    public int shootAnimationTime = 0;
+    private static final int SHOOT_ANIMATION_DURATION = 40;
+    private static final float RANGED_ATTACK_RANGE = 20.0f;
+    private static final float ATTACK_DAMAGE = 8.0f;
     public final ServerBossInfo bossInfo = (ServerBossInfo) new ServerBossInfo(
             getDisplayName(),
             BossInfo.Color.RED,
@@ -37,6 +54,46 @@ public class ExampleInvaderEntity extends MonsterEntity {
         this.bossInfo.setVisible(false);
     }
 
+    public void triggerShootAnimation() {
+        this.isShooting = true;
+        this.shootAnimationTime = SHOOT_ANIMATION_DURATION;
+        this.swing(Hand.MAIN_HAND);
+    }
+
+    public void performRangedAttack(LivingEntity target, float distanceFactor) {
+        triggerShootAnimation();
+        this.getNavigation().stop();
+        this.setDeltaMovement(0, this.getDeltaMovement().y, 0);
+
+        if (!level.isClientSide) {
+            level.getServer().execute(() -> {
+                createAttackEffect(target);
+                if (this.distanceTo(target) <= RANGED_ATTACK_RANGE) {
+                    target.hurt(DamageSource.mobAttack(this), ATTACK_DAMAGE * (1.0f + distanceFactor));
+                }
+            });
+        }
+    }
+
+    private void createAttackEffect(LivingEntity target) {
+        if (this.level.isClientSide) return;
+
+        Vector3d startPos = this.position().add(0, this.getEyeHeight(), 0);
+        Vector3d endPos = target.position().add(0, target.getEyeHeight(), 0);
+        Vector3d direction = endPos.subtract(startPos).normalize();
+
+        for (int i = 0; i < 10; i++) {
+            double progress = i / 10.0;
+            Vector3d particlePos = startPos.add(direction.scale(progress * 6));
+
+            ((ServerWorld)this.level).sendParticles(
+                    ParticleTypes.FLAME,
+                    particlePos.x, particlePos.y, particlePos.z,
+                    5, 0.2, 0.2, 0.2, 0.05
+            );
+        }
+    }
+
     @Override
     public CreatureAttribute getMobType() {
         return CreatureAttribute.UNDEFINED;
@@ -45,6 +102,26 @@ public class ExampleInvaderEntity extends MonsterEntity {
     @Override
     protected void registerGoals() {
         super.registerGoals();
+        this.goalSelector.addGoal(2, new RangedAttackGoal(this, 1.0D) {
+            @Override
+            public boolean canUse() {
+                return spawnCooldown <= 0 && !this.mob.isPerformingRangedAttack && super.canUse();
+            }
+
+            @Override
+            public boolean canContinueToUse() {
+                return spawnCooldown <= 0 && !this.mob.isPerformingRangedAttack && super.canContinueToUse();
+            }
+
+            @Override
+            public void tick() {
+                LivingEntity target = this.mob.getTarget();
+                if (target != null && !this.mob.isPerformingRangedAttack) {
+                    super.tick();
+                }
+            }
+        });
+
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, false) {
             @Override
             public boolean canUse() {
@@ -57,14 +134,12 @@ public class ExampleInvaderEntity extends MonsterEntity {
             }
         });
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
-
         this.goalSelector.addGoal(3, new WaterAvoidingRandomWalkingGoal(this, 1.0D) {
             @Override
             public boolean canUse() {
                 return spawnCooldown <= 0 && super.canUse();
             }
         });
-
         this.goalSelector.addGoal(4, new LookAtGoal(this, PlayerEntity.class, 8.0F));
     }
 
@@ -97,6 +172,13 @@ public class ExampleInvaderEntity extends MonsterEntity {
                     });
         }
 
+        if (shootAnimationTime > 0) {
+            shootAnimationTime--;
+            if (shootAnimationTime <= 0) {
+                isShooting = false;
+            }
+        }
+
 
         if (spawnCooldown > 0) {
             spawnCooldown--;
@@ -124,6 +206,17 @@ public class ExampleInvaderEntity extends MonsterEntity {
             this.goalSelector.enableControlFlag(Goal.Flag.LOOK);
             if (spawnCooldown <= 0) {
                 spawnCooldown = 20;
+            }
+        }
+
+        if (attackPauseTime > 0) {
+            attackPauseTime--;
+            this.setDeltaMovement(0, this.getDeltaMovement().y, 0);
+            this.xxa = 0;
+            this.zza = 0;
+
+            if (attackPauseTime <= 0) {
+                isPerformingRangedAttack = false;
             }
         }
 

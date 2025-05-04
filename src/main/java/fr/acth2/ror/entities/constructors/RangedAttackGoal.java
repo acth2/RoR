@@ -8,10 +8,10 @@ import java.util.EnumSet;
 public class RangedAttackGoal extends Goal {
 
     private int attackCooldown = 0;
-    private static final int ATTACK_COOLDOWN_TIME = 40;
+    public static final int ATTACK_COOLDOWN_TIME = 40;
 
-    private static final float RANGED_ATTACK_RANGE = 20.0f;
-    private static final float RANGED_ATTACK_MIN_RANGE = 6.0f;
+    public static final float RANGED_ATTACK_RANGE = 20.0f;
+    public static final float RANGED_ATTACK_MIN_RANGE = 6.0f;
 
     final ExampleInvaderEntity mob;
     private LivingEntity target;
@@ -74,20 +74,5 @@ public class RangedAttackGoal extends Goal {
         }
 
         this.mob.getLookControl().setLookAt(this.target, 30.0F, 30.0F);
-
-        if (--this.attackTime <= 0 && this.seeTime >= 5) {
-            if (!canSee) return;
-
-            float f = (float)Math.sqrt(d0) / RANGED_ATTACK_RANGE;
-            float f1 = (float) Math.max(0.1, Math.min(1.0F, f));
-
-            mob.triggerShootAnimation();
-
-            if (!mob.level.isClientSide) {
-                mob.performRangedAttack(this.target, f1);
-            }
-
-            this.attackTime = ATTACK_COOLDOWN_TIME;
-        }
     }
 }

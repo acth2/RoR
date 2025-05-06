@@ -1,12 +1,12 @@
 package fr.acth2.ror.entities.constructors;
 
-import fr.acth2.ror.entities.entity.EntityExampleInvader;
-import net.minecraft.client.audio.SoundSource;
-import net.minecraft.entity.*;
+import net.minecraft.entity.CreatureAttribute;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -14,25 +14,18 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.BossInfo;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerBossInfo;
-import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nullable;
 
 public class ExampleInvaderEntity extends MonsterEntity {
-
     public boolean stopEveryAnimations = false;
     public boolean triggerQuitAnim = false;
     public int spawnCooldown = 84;
-
-    public int attackPauseTime = 0;
     public final ServerBossInfo bossInfo = (ServerBossInfo) new ServerBossInfo(
             getDisplayName(),
             BossInfo.Color.RED,
@@ -52,7 +45,6 @@ public class ExampleInvaderEntity extends MonsterEntity {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, false) {
             @Override
             public boolean canUse() {
@@ -65,12 +57,14 @@ public class ExampleInvaderEntity extends MonsterEntity {
             }
         });
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+
         this.goalSelector.addGoal(3, new WaterAvoidingRandomWalkingGoal(this, 1.0D) {
             @Override
             public boolean canUse() {
                 return spawnCooldown <= 0 && super.canUse();
             }
         });
+
         this.goalSelector.addGoal(4, new LookAtGoal(this, PlayerEntity.class, 8.0F));
     }
 
@@ -132,6 +126,7 @@ public class ExampleInvaderEntity extends MonsterEntity {
                 spawnCooldown = 20;
             }
         }
+
         this.bossInfo.setPercent(this.getHealth() / this.getMaxHealth());
     }
 

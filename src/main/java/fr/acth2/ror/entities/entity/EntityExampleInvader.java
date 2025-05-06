@@ -3,11 +3,7 @@ package fr.acth2.ror.entities.entity;
 import fr.acth2.ror.entities.constructors.ExampleInvaderEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockReader;
@@ -20,10 +16,6 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
-
-import javax.annotation.Nullable;
-
-import static fr.acth2.ror.entities.constructors.RangedAttackGoal.ATTACK_COOLDOWN_TIME;
 
 public class EntityExampleInvader extends ExampleInvaderEntity implements IAnimatable {
 
@@ -50,7 +42,7 @@ public class EntityExampleInvader extends ExampleInvaderEntity implements IAnima
 
     @Override
     public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController<>(this, "controller", 0, this::predicate));
+        data.addAnimationController(new AnimationController<>(this, "controller", 5, this::predicate));
     }
 
     @Override
@@ -77,29 +69,24 @@ public class EntityExampleInvader extends ExampleInvaderEntity implements IAnima
             return PlayState.CONTINUE;
         }
 
-        if (((ExampleInvaderEntity)event.getAnimatable()).isShooting) {
-            event.getController().markNeedsReload();
+        if (this.isAttacking()) {
             event.getController().setAnimation(
-                    new AnimationBuilder().addAnimation("animation.invader.shoot", false)
+                    new AnimationBuilder().addAnimation("animation.invader.attack", false)
             );
-            return PlayState.CONTINUE;
-        }
-
-        if (event.isMoving()) {
+        } else if (event.isMoving()) {
             event.getController().setAnimation(
                     new AnimationBuilder().addAnimation("animation.invader.move", true)
             );
-            return PlayState.CONTINUE;
+        } else {
+            event.getController().setAnimation(
+                    new AnimationBuilder().addAnimation("animation.invader.idle", true)
+            );
         }
-
-        event.getController().setAnimation(
-                new AnimationBuilder().addAnimation("animation.invader.idle", true)
-        );
         return PlayState.CONTINUE;
     }
 
     private boolean isAttacking() {
-        return this.attackAnim > 0;
+        return this.swinging || this.attackAnim > 0;
     }
 
     @Override

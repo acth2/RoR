@@ -41,7 +41,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModEntities {
-    // test
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, References.MODID);
 
     public static final RegistryObject<EntityType<WickedProjectile>> WICKED_PROJECTILE = ENTITY_TYPES.register("wicked_projectile", () ->

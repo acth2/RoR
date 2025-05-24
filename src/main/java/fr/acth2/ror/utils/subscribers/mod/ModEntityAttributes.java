@@ -8,6 +8,7 @@ import fr.acth2.ror.entities.constructors.cg.CoinGiverEntity;
 import fr.acth2.ror.entities.constructors.clucker.CluckerEntity;
 import fr.acth2.ror.entities.constructors.curser.CurserEntity;
 import fr.acth2.ror.entities.constructors.echo.EchoEntity;
+import fr.acth2.ror.entities.constructors.flyer.FlyerEntity;
 import fr.acth2.ror.entities.constructors.fussle.FussleEntity;
 import fr.acth2.ror.entities.constructors.ghost.GhostEntity;
 import fr.acth2.ror.entities.constructors.grasser.GrasserEntity;
@@ -64,5 +65,6 @@ public class ModEntityAttributes {
         event.put(ModEntities.LAVA_BEING.get(), LavaBeingEntity.createAttributes().build());
         event.put(ModEntities.GRASSER.get(), GrasserEntity.createAttributes().build());
         event.put(ModEntities.EXAMPLE_INVADER.get(), ExampleInvaderEntity.createAttributes().build());
+        event.put(ModEntities.FLYER.get(), FlyerEntity.createAttributes().build());
     }
 }

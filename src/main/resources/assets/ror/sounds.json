@@ -390,5 +390,26 @@
     "sounds": [
       "ror:se_hit"
     ]
+  },
+  "flyer_ambient": {
+    "category": "hostile",
+    "subtitle": "ror.flyer_ambient",
+    "sounds": [
+      "ror:flyer_ambient"
+    ]
+  },
+  "flyer_die": {
+    "category": "hostile",
+    "subtitle": "ror.flyer_die",
+    "sounds": [
+      "ror:flyer_die"
+    ]
+  },
+  "flyer_hit": {
+    "category": "hostile",
+    "subtitle": "ror.flyer_hit",
+    "sounds": [
+      "ror:flyer_hit"
+    ]
   }
 }

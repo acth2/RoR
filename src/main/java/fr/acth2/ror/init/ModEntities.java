@@ -8,6 +8,7 @@ import fr.acth2.ror.entities.entity.cg.EntityCoinGiver;
 import fr.acth2.ror.entities.entity.clucker.EntityClucker;
 import fr.acth2.ror.entities.entity.curser.EntityCurser;
 import fr.acth2.ror.entities.entity.echo.EntityEcho;
+import fr.acth2.ror.entities.entity.flyer.EntityFlyer;
 import fr.acth2.ror.entities.entity.fussle.EntityFussle;
 import fr.acth2.ror.entities.entity.ghost.EntityGhost;
 import fr.acth2.ror.entities.entity.grasser.EntityGrasser;
@@ -199,6 +200,12 @@ public class ModEntities {
                     .build("grasser")
     );
 
+    public static final RegistryObject<EntityType<EntityFlyer>> FLYER = ENTITY_TYPES.register("flyer", () ->
+            EntityType.Builder.<EntityFlyer>of(EntityFlyer::new, EntityClassification.CREATURE)
+                    .sized(1.4F, 1.0F)
+                    .build("flyer")
+    );
+
     public static final RegistryObject<EntityType<EntityExampleInvader>> EXAMPLE_INVADER = ENTITY_TYPES.register("example_invader", () ->
             EntityType.Builder.<EntityExampleInvader>of(EntityExampleInvader::new, EntityClassification.CREATURE)
                     .sized(1.0F, 2.0F)
@@ -268,5 +275,6 @@ public class ModEntities {
         // SKYRIA
 
         SkyriaMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(SKY_EJECTOR, 100, null));
+        SkyriaMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(FLYER, 25, null));
     }
 }

@@ -179,6 +179,15 @@ public class ModSoundEvents {
 
     public static final RegistryObject<SoundEvent> SKYEJECTOR_HIT =
             registerSoundEvent("se_hit");
+
+    public static final RegistryObject<SoundEvent> FLYER_AMBIENT =
+            registerSoundEvent("flyer_ambient");
+
+    public static final RegistryObject<SoundEvent> FLYER_DIE =
+            registerSoundEvent("flyer_die");
+
+    public static final RegistryObject<SoundEvent> FLYER_HIT =
+            registerSoundEvent("flyer_hit");
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         return SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(References.MODID, name)));
     }

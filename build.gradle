@@ -13,7 +13,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 version = '1.0'
-group = 'fr.acth2.mod' // Use your mod's package naming convention.
+group = 'fr.acth2.ror' // Use your mod's package naming convention.
 archivesBaseName = 'ror'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(8)

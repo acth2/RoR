@@ -4,7 +4,7 @@
   "package": "fr.acth2.ror.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "MixinBrokenMoonWorldRenderer",
+    "MixinWorldEventsCR",
     "MixinBrokenMoonFogRenderer"
   ],
   "client": [

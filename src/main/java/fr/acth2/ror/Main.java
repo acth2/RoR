@@ -68,8 +68,5 @@ public class Main implements IMixinConnector {
     @Override
     public void connect() {
         Mixins.addConfiguration("mixins.ror.json");
-
-        Mixins.addConfiguration("fr.acth2.ror.mixins.events.bm.MixinWorldRenderer");
-        Mixins.addConfiguration("fr.acth2.ror.mixins.events.bm.MixinFogRenderer");
     }
 }

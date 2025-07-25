@@ -23,7 +23,7 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @Mixin(WorldRenderer.class)
-public abstract class MixinBrokenMoonWorldRenderer {
+public abstract class MixinWorldEventsCR {
 
     @Shadow
     private TextureManager textureManager;

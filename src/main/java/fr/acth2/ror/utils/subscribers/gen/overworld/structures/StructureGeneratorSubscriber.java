@@ -2,11 +2,14 @@ package fr.acth2.ror.utils.subscribers.gen.overworld.structures;
 
 import fr.acth2.ror.utils.References;
 import fr.acth2.ror.utils.subscribers.gen.utils.Structure;
+import fr.acth2.ror.utils.subscribers.gen.utils.data.GeneratedStructuresData;
 import fr.acth2.ror.utils.subscribers.gen.utils.parser.StructureParser;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.palette.UpgradeData;
+import net.minecraft.world.chunk.ChunkPrimerWrapper;
 import net.minecraft.world.chunk.ChunkStatus;
 import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.server.ServerWorld;
@@ -31,7 +34,7 @@ public class StructureGeneratorSubscriber {
         initialized = true;
 
         list_structures.add(new Structure(
-                new ResourceLocation(References.MODID + ":example_structure"),
+                new ResourceLocation(References.MODID + ":example"),
                 60, 80,
                 Arrays.asList("minecraft:plains", "minecraft:desert"),
                 1
@@ -63,39 +66,43 @@ public class StructureGeneratorSubscriber {
         IChunk chunk = event.getChunk();
         if (chunk.getStatus() != ChunkStatus.FULL) return;
 
+        ChunkPos chunkPos = chunk.getPos();
+        long chunkLongPos = chunkPos.toLong();
+
+        GeneratedStructuresData data = GeneratedStructuresData.get(world);
+        if (data.isChunkGenerated(chunkLongPos)) {
+            return;
+        }
+
         if (!initialized) initStructures();
 
-        ChunkPos chunkPos = chunk.getPos();
         Random random = new Random(world.getSeed());
-        random.setSeed(random.nextLong() ^ chunkPos.toLong());
+        random.setSeed(random.nextLong() ^ chunkLongPos);
 
-        BlockPos pos = new BlockPos(
-                chunkPos.getMinBlockX() + 8,
-                64,
-                chunkPos.getMinBlockZ() + 8
-        );
-        generateStructure(random, chunkPos.x, chunkPos.z, world);
+        if (generateStructure(random, chunkPos.x, chunkPos.z, world)) {
+            data.markChunkGenerated(chunkLongPos);
+        }
     }
 
-    public static void generateStructure(Random random, int chunkX, int chunkZ, ServerWorld world) {
-        if (list_structures.isEmpty()) return;
-        // if ((chunkX % 4 != 0) || (chunkZ % 4 != 0)) return;
+    public static boolean generateStructure(Random random, int chunkX, int chunkZ, ServerWorld world) {
+        if (list_structures.isEmpty()) return false;
 
-        System.out.println("Attempting generation in chunk ["+chunkX+","+chunkZ+"]");
-
+        boolean generatedAny = false;
         for (Structure structure : list_structures) {
             if (random.nextInt(structure.getRarity()) == 0) {
                 BlockPos pos = new BlockPos(
                         chunkX * 16 + 8,
-                        64,
+                        world.getSeaLevel(),
                         chunkZ * 16 + 8
                 );
 
                 if (structure.generate(world, world.getStructureManager(), random, pos)) {
-                    System.out.println("Successfully generated structure");
+                    System.out.println("Generated structure at " + pos);
+                    generatedAny = true;
                 }
                 break;
             }
         }
+        return generatedAny;
     }
 }

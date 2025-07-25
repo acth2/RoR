@@ -1,0 +1,20 @@
+{
+  "blocks": [
+    {
+      "block": "minecraft:stone_bricks",
+      "shape": "cylinder",
+      "radius": 2,
+      "height": 4,
+      "layers": {
+        "top": "minecraft:stone_brick_slab",
+        "bottom": "minecraft:mossy_stone_bricks"
+      }
+    },
+    {
+      "block": "minecraft:bedrock",
+      "shape": "cylinder",
+      "radius": 0,
+      "height": 6
+    }
+  ]
+}

@@ -53,7 +53,6 @@ public class Structure {
         BlockPos.Mutable mutablePos = new BlockPos.Mutable(pos.getX(), world.getMaxBuildHeight(), pos.getZ());
         while (mutablePos.getY() > 0) {
             BlockState state = world.getBlockState(mutablePos);
-
             if (state.getMaterial().isSolid() &&
                     !state.is(BlockTags.LEAVES) &&
                     !state.is(BlockTags.LOGS)) {
@@ -69,30 +68,51 @@ public class Structure {
             return false;
         }
 
-        world.setBlock(surfacePos, Blocks.MOSSY_COBBLESTONE.defaultBlockState(), 2);
-        for (int x = -1; x <= 1; x++) {
-            for (int z = -1; z <= 1; z++) {
-                world.setBlock(surfacePos.offset(x, 0, z), Blocks.COBBLESTONE.defaultBlockState(), 2);
-            }
-        }
+        try {
+            StructureParser.StructureDefinition def = StructureParser.parse(
+                    world.getLevel().getServer().getDataPackRegistries().getResourceManager(),
+                    structureLocation
+            );
 
-        return true;
+            BlockPos centerPos = surfacePos.offset(-def.blocks[0].radius, 0, -def.blocks[0].radius);
+
+            for (StructureParser.StructureDefinition.BlockEntry entry : def.blocks) {
+                if ("cylinder".equals(entry.shape)) {
+                    generateCylinder(world, centerPos, entry);
+                }
+            }
+            return true;
+
+        } catch (Exception e) {
+            System.err.println("Failed to generate structure " + structureLocation + ": ");
+            e.printStackTrace();
+            return false;
+        }
     }
 
     private void generateCylinder(ISeedReader world, BlockPos center, StructureParser.StructureDefinition.BlockEntry entry) {
         for (int y = 0; y < entry.height; y++) {
             for (int x = -entry.radius; x <= entry.radius; x++) {
                 for (int z = -entry.radius; z <= entry.radius; z++) {
+                    // Circle equation for cylinder shape
                     if (x*x + z*z <= entry.radius*entry.radius) {
                         BlockPos pos = center.offset(x, y, z);
                         BlockState state = ForgeRegistries.BLOCKS.getValue(
                                 new ResourceLocation(entry.block)
                         ).defaultBlockState();
 
-                        if (entry.layers != null && y == entry.height-1 && entry.layers.top != null) {
-                            state = ForgeRegistries.BLOCKS.getValue(
-                                    new ResourceLocation(entry.layers.top)
-                            ).defaultBlockState();
+                        // Handle special layers
+                        if (entry.layers != null) {
+                            if (y == entry.height-1 && entry.layers.top != null) {
+                                state = ForgeRegistries.BLOCKS.getValue(
+                                        new ResourceLocation(entry.layers.top)
+                                ).defaultBlockState();
+                            }
+                            else if (y == 0 && entry.layers.bottom != null) {
+                                state = ForgeRegistries.BLOCKS.getValue(
+                                        new ResourceLocation(entry.layers.bottom)
+                                ).defaultBlockState();
+                            }
                         }
 
                         world.setBlock(pos, state, 2);

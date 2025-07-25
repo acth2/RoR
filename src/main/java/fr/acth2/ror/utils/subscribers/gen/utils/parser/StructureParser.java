@@ -60,6 +60,7 @@ public class StructureParser {
 
         public static class LayerEntry {
             public String top;
+            public String bottom;
         }
     }
 }

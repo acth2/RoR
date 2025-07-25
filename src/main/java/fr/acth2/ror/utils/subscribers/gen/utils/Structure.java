@@ -2,15 +2,10 @@ package fr.acth2.ror.utils.subscribers.gen.utils;
 
 import fr.acth2.ror.utils.subscribers.gen.utils.parser.StructureParser;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
-import net.minecraft.world.chunk.IChunk;
-import net.minecraft.world.gen.Heightmap;
-import net.minecraft.world.gen.feature.template.PlacementSettings;
-import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -94,14 +89,12 @@ public class Structure {
         for (int y = 0; y < entry.height; y++) {
             for (int x = -entry.radius; x <= entry.radius; x++) {
                 for (int z = -entry.radius; z <= entry.radius; z++) {
-                    // Circle equation for cylinder shape
                     if (x*x + z*z <= entry.radius*entry.radius) {
                         BlockPos pos = center.offset(x, y, z);
                         BlockState state = ForgeRegistries.BLOCKS.getValue(
                                 new ResourceLocation(entry.block)
                         ).defaultBlockState();
 
-                        // Handle special layers
                         if (entry.layers != null) {
                             if (y == entry.height-1 && entry.layers.top != null) {
                                 state = ForgeRegistries.BLOCKS.getValue(

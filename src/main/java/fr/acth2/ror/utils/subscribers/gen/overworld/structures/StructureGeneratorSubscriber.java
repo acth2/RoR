@@ -29,15 +29,31 @@ public class StructureGeneratorSubscriber {
     private static boolean initialized = false;
 
     public static void initStructures() {
-
         if (initialized) return;
         initialized = true;
 
+        //Infranium
         list_structures.add(new Structure(
-                new ResourceLocation(References.MODID + ":example"),
+                new ResourceLocation(References.MODID + ":sealed_treasure_t1"),
                 60, 80,
                 Arrays.asList("minecraft:plains", "minecraft:desert"),
-                1
+                225
+        ));
+
+        //Gefranium
+        list_structures.add(new Structure(
+                new ResourceLocation(References.MODID + ":sealed_treasure_t2"),
+                60, 80,
+                Arrays.asList("minecraft:plains", "minecraft:desert"),
+                275
+        ));
+
+        //Oronium
+        list_structures.add(new Structure(
+                new ResourceLocation(References.MODID + ":sealed_treasure_t3"),
+                60, 80,
+                Arrays.asList("minecraft:plains", "minecraft:desert"),
+                375
         ));
     }
 

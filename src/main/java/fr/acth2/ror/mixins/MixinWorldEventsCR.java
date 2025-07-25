@@ -31,8 +31,10 @@ public abstract class MixinWorldEventsCR {
     private static final ResourceLocation BROKEN_MOON_TEXTURE = new ResourceLocation(References.MODID + ":textures/environment/broken_moon.png");
     private final Random random = new Random();
     private static boolean locked = false;
+    private static boolean locked1 = false;
 
     private static AtomicBoolean atomicPicker = new AtomicBoolean(true);
+    private static AtomicBoolean atomicPickerDay = new AtomicBoolean(true);
 
     @Inject(method = "renderSky", at = @At("HEAD"), cancellable = true)
     void renderSky(MatrixStack matrixStack, float partialTicks, CallbackInfo ci) {
@@ -44,6 +46,11 @@ public abstract class MixinWorldEventsCR {
         if (isNight && atomicPicker.getAndSet(false)) {
             References.brokenMoonPicked = random.nextInt(50);
             References.brokenMoonWarning = true;
+        }
+
+        if (!isNight && atomicPickerDay.getAndSet(false)) {
+            References.event1Picked = random.nextInt(45);
+            References.event1Warning = true;
         }
 
         if (isNight && References.brokenMoonPicked == 0 || locked) {
@@ -58,11 +65,22 @@ public abstract class MixinWorldEventsCR {
             renderCustomMoon(matrixStack);
         }
 
+        if (!isNight && References.brokenMoonPicked == 0 || locked1) {
+            locked1 = true;
+        }
+
         if (!isNight) {
             locked = false;
             References.brokenMoonPicked = 1;
             References.brokenMoonWarning = false;
             atomicPicker.set(true);
+        }
+
+        if (isNight) {
+            locked1 = false;
+            References.event1Picked = 1;
+            References.event1Warning = false;
+            atomicPickerDay.set(true);
         }
     }
 

@@ -37,7 +37,7 @@ public class StructureGeneratorSubscriber {
                 new ResourceLocation(References.MODID + ":sealed_treasure_t1"),
                 60, 80,
                 Arrays.asList("minecraft:plains", "minecraft:desert"),
-                225
+                550
         ));
 
         //Gefranium
@@ -45,7 +45,7 @@ public class StructureGeneratorSubscriber {
                 new ResourceLocation(References.MODID + ":sealed_treasure_t2"),
                 60, 80,
                 Arrays.asList("minecraft:plains", "minecraft:desert"),
-                275
+                600
         ));
 
         //Oronium
@@ -53,7 +53,7 @@ public class StructureGeneratorSubscriber {
                 new ResourceLocation(References.MODID + ":sealed_treasure_t3"),
                 60, 80,
                 Arrays.asList("minecraft:plains", "minecraft:desert"),
-                375
+                650
         ));
     }
 

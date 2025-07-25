@@ -11,6 +11,10 @@ public class References {
 
     public static int DEXTERITY_REDUCER = 728;
     public static int HEALTH_REDUCER = 20;
+
     public static int brokenMoonPicked = 1;
     public static boolean brokenMoonWarning = false;
+
+    public static int event1Picked = 1;
+    public static boolean event1Warning = false;
 }

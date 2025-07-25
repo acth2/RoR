@@ -49,6 +49,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class PlayerEvents {
 
     private static final AtomicBoolean atomicBrokenMoonWarning = new AtomicBoolean(true);
+    private static final AtomicBoolean atomicEvent1Warning = new AtomicBoolean(true);
 
     @SubscribeEvent
     public static void onAttachCapabilities(AttachCapabilitiesEvent<Entity> event) {
@@ -113,6 +114,18 @@ public class PlayerEvents {
             player.sendMessage(ITextComponent.nullToEmpty(TextFormatting.GOLD + "BROKEN MOON ENTRY MESSAGE"), player.getUUID());
         } else if (!References.brokenMoonWarning) {
             atomicBrokenMoonWarning.set(true);
+        }
+
+
+        //event1
+        if (References.event1Warning && References.event1Picked == 0 && atomicEvent1Warning.get()) {
+            player.playSound(ModSoundEvents.BROKEN_MOON_AMBIENT.get(), 1.0F, 1.0F);
+        }
+
+        if (References.event1Warning && References.event1Picked == 0 && atomicEvent1Warning.getAndSet(false)) {
+            player.sendMessage(ITextComponent.nullToEmpty(TextFormatting.DARK_RED + "EVENT1 ENTRY MESSAGE"), player.getUUID());
+        } else if (!References.event1Warning) {
+            atomicEvent1Warning.set(true);
         }
     }
 

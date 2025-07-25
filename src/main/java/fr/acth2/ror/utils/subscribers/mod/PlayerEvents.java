@@ -93,8 +93,8 @@ public class PlayerEvents {
             }
         }
     }
-
     @SubscribeEvent
+
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         PlayerEntity player = event.player;
         if (event.phase == TickEvent.Phase.END && event.player != null && !event.player.isDeadOrDying()) {
@@ -105,7 +105,7 @@ public class PlayerEvents {
             }
         }
 
-        if (References.brokenMoonWarning && References.brokenMoonPicked == 0 && new Random().nextInt(850) == new Random().nextInt(850)) {
+        if (References.brokenMoonWarning && References.brokenMoonPicked == 0 && atomicBrokenMoonWarning.get()) {
             player.playSound(ModSoundEvents.BROKEN_MOON_AMBIENT.get(), 1.0F, 1.0F);
         }
 

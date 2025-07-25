@@ -103,5 +103,4 @@ public class NPCSpawnSubscriber {
             world.addFreshEntityWithPassengers(chosenEntity);
         }
     }
-
 }

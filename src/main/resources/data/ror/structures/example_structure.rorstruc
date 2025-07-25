@@ -1,0 +1,13 @@
+{
+  "blocks": [
+    {
+      "block": "minecraft:dirt",
+      "shape": "cylinder",
+      "radius": 1,
+      "height": 8,
+      "layers": {
+        "top": "minecraft:grass_block"
+      }
+    }
+  ]
+}

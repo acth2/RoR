@@ -27,6 +27,8 @@ public class Structure {
         this.rarity = rarity;
     }
 
+    public ResourceLocation getStructureLocation() {return structureLocation; }
+
     public int getMinY() {
         return minY;
     }

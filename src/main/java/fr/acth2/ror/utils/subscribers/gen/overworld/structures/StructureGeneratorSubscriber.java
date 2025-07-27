@@ -95,15 +95,13 @@ public class StructureGeneratorSubscriber {
         Random random = new Random(world.getSeed());
         random.setSeed(random.nextLong() ^ chunkLongPos);
 
-        if (generateStructure(random, chunkPos.x, chunkPos.z, world)) {
-            data.markChunkGenerated(chunkLongPos);
-        }
+        generateStructure(random, chunkPos.x, chunkPos.z, world, data, chunkLongPos);
     }
 
-    public static boolean generateStructure(Random random, int chunkX, int chunkZ, ServerWorld world) {
-        if (list_structures.isEmpty()) return false;
 
-        boolean generatedAny = false;
+    public static void generateStructure(Random random, int chunkX, int chunkZ, ServerWorld world, GeneratedStructuresData data, long chunkLongPos) {
+        if (list_structures.isEmpty()) return;
+
         for (Structure structure : list_structures) {
             if (random.nextInt(structure.getRarity()) == 0) {
                 BlockPos pos = new BlockPos(
@@ -114,11 +112,10 @@ public class StructureGeneratorSubscriber {
 
                 if (structure.generate(world, world.getStructureManager(), random, pos)) {
                     System.out.println("Generated structure at " + pos);
-                    generatedAny = true;
+                    data.markChunkGenerated(chunkLongPos, structure.getStructureLocation().getPath(), pos);
                 }
                 break;
             }
         }
-        return generatedAny;
     }
 }

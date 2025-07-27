@@ -16,8 +16,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public abstract class MixinBrokenMoonFogRenderer {
 
     private static boolean locked = false;
+    private static boolean locked1 = false;
 
-    private static AtomicBoolean atomicPicker = new AtomicBoolean(true);
+    private static AtomicBoolean atomicPicker0 = new AtomicBoolean(true);
+    private static AtomicBoolean atomicPicker1 = new AtomicBoolean(true);
 
     @ModifyArgs(
             method = "setupColor",
@@ -40,7 +42,21 @@ public abstract class MixinBrokenMoonFogRenderer {
 
             if (!isNight) {
                 locked = false;
-                atomicPicker.set(true);
+                atomicPicker0.set(true);
+            }
+
+
+            if (!isNight && References.event1Picked == 0 || locked1) {
+                locked1 = true;
+                args.set(0, 1.0F);
+                args.set(1, 0.0F);
+                args.set(2, 0.0F);
+                args.set(3, 1.0F);
+            }
+
+            if (!isNight) {
+                locked1 = false;
+                atomicPicker1.set(true);
             }
         }
     }

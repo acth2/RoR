@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.WorldVertexBufferUploader;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.client.world.ClientWorld;
+import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -29,6 +30,7 @@ public abstract class MixinWorldEventsCR {
     private TextureManager textureManager;
 
     private static final ResourceLocation BROKEN_MOON_TEXTURE = new ResourceLocation(References.MODID + ":textures/environment/broken_moon.png");
+    private static final ResourceLocation BLOOD_SUN_TEXTURE = new ResourceLocation(References.MODID + ":textures/environment/blood_sun.png");
     private final Random random = new Random();
     private static boolean locked = false;
     private static boolean locked1 = false;
@@ -57,16 +59,29 @@ public abstract class MixinWorldEventsCR {
             locked = true;
             ci.cancel();
 
+            RenderSystem.clear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT, false);
             RenderSystem.clearDepth(1.0);
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
 
             renderSkyColor(0.1F, 0.1F, 0.1F);
-            renderCustomMoon(matrixStack);
+            renderCustomSkybox(matrixStack, BROKEN_MOON_TEXTURE);
         }
 
-        if (!isNight && References.brokenMoonPicked == 0 || locked1) {
+        if (!isNight && References.event1Picked == 0 || locked1) {
             locked1 = true;
+            ci.cancel();
+
+            RenderSystem.clear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT, false);
+            RenderSystem.disableTexture();
+            RenderSystem.disableBlend();
+
+            renderSkyColor(1.0F, 0.0F, 0.0F);
+
+            RenderSystem.enableTexture();
+            RenderSystem.enableBlend();
+            RenderSystem.defaultBlendFunc();
+            renderCustomSkybox(matrixStack, BLOOD_SUN_TEXTURE);
         }
 
         if (!isNight) {
@@ -88,8 +103,8 @@ public abstract class MixinWorldEventsCR {
         RenderSystem.clearColor(r, g, b, 1.0F);
     }
 
-    private void renderCustomMoon(MatrixStack matrixStack) {
-        this.textureManager.bind(BROKEN_MOON_TEXTURE);
+    private void renderCustomSkybox(MatrixStack matrixStack, ResourceLocation moonTexture) {
+        this.textureManager.bind(moonTexture);
 
         float moonSize = 16.0F;
         float skyHeight = 30.0F;

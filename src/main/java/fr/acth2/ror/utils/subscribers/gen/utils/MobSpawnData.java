@@ -20,10 +20,6 @@ public class MobSpawnData {
         return entityType.get();
     }
 
-    public int getSpawnChance() {
-        return spawnChance;
-    }
-
     public Block getRequiredBlock() {
         return requiredBlock;
     }

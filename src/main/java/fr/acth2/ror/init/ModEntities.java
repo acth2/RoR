@@ -3,6 +3,7 @@ package fr.acth2.ror.init;
 import fr.acth2.ror.entities.entity.EntityExample;
 import fr.acth2.ror.entities.entity.EntityExampleInvader;
 import fr.acth2.ror.entities.entity.aquamarin.EntityAquamarin;
+import fr.acth2.ror.entities.entity.bi.EntityBloodInfectioner;
 import fr.acth2.ror.entities.entity.bo.EntityBadOmen;
 import fr.acth2.ror.entities.entity.cg.EntityCoinGiver;
 import fr.acth2.ror.entities.entity.clucker.EntityClucker;
@@ -203,6 +204,12 @@ public class ModEntities {
     public static final RegistryObject<EntityType<EntityFlyer>> FLYER = ENTITY_TYPES.register("flyer", () ->
             EntityType.Builder.<EntityFlyer>of(EntityFlyer::new, EntityClassification.CREATURE)
                     .sized(1.4F, 1.0F)
+                    .build("flyer")
+    );
+
+    public static final RegistryObject<EntityType<EntityBloodInfectioner>> BLOOD_INFECTIONER = ENTITY_TYPES.register("blood_infectioner", () ->
+            EntityType.Builder.<EntityBloodInfectioner>of(EntityBloodInfectioner::new, EntityClassification.CREATURE)
+                    .sized(1.2F, 0.7F)
                     .build("flyer")
     );
 

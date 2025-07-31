@@ -51,7 +51,7 @@ public abstract class MixinWorldEventsCR {
         }
 
         if (!isNight && atomicPickerDay.getAndSet(false)) {
-            References.event1Picked = random.nextInt(45);
+            References.event1Picked = random.nextInt(1);
             References.event1Warning = true;
         }
 

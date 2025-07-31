@@ -76,6 +76,7 @@
   "entity.ror.grasser": "Grasser",
   "entity.ror.example_invader": "Example Invader",
   "entity.ror.flyer": "Flyer",
+  "entity.ror.blood_infectioner": "Blood Infectioner",
   "key.ror.mm": "Main menu",
   "key.categories.ror": "Ruins of Realms",
   "tooltip.ror.avarice.damage_range": "Damage: %s - %s",

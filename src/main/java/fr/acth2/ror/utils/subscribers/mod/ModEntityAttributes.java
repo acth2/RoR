@@ -3,6 +3,7 @@ package fr.acth2.ror.utils.subscribers.mod;
 import fr.acth2.ror.entities.constructors.ExampleEntity;
 import fr.acth2.ror.entities.constructors.ExampleInvaderEntity;
 import fr.acth2.ror.entities.constructors.aquamarin.AquamarinEntity;
+import fr.acth2.ror.entities.constructors.bi.BloodInfectionerEntity;
 import fr.acth2.ror.entities.constructors.bo.BadOmenEntity;
 import fr.acth2.ror.entities.constructors.cg.CoinGiverEntity;
 import fr.acth2.ror.entities.constructors.clucker.CluckerEntity;
@@ -66,5 +67,6 @@ public class ModEntityAttributes {
         event.put(ModEntities.GRASSER.get(), GrasserEntity.createAttributes().build());
         event.put(ModEntities.EXAMPLE_INVADER.get(), ExampleInvaderEntity.createAttributes().build());
         event.put(ModEntities.FLYER.get(), FlyerEntity.createAttributes().build());
+        event.put(ModEntities.BLOOD_INFECTIONER.get(), BloodInfectionerEntity.createAttributes().build());
     }
 }

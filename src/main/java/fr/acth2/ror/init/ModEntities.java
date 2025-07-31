@@ -280,8 +280,10 @@ public class ModEntities {
         BuffsSpawnSubscriber.mobListLV1.add(new MobSpawnData(COIN_GIVER, 50, null));
 
         // SKYRIA
-
         SkyriaMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(SKY_EJECTOR, 100, null));
         SkyriaMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(FLYER, 25, null));
+
+        // BLOOD SUN
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(BLOOD_INFECTIONER, 100, null, 1));
     }
 }

@@ -100,7 +100,7 @@ public class BloodInfectionerEntity extends MonsterEntity {
     public static AttributeModifierMap.MutableAttribute createAttributes() {
         return MobEntity.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 35.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.30D)
+                .add(Attributes.MOVEMENT_SPEED, 0.3)
                 .add(Attributes.ATTACK_DAMAGE, 7.0D)
                 .add(Attributes.ATTACK_KNOCKBACK, 2.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D);

@@ -11,6 +11,7 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.FireballEntity;
 import net.minecraft.entity.projectile.SmallFireballEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
@@ -119,7 +120,7 @@ public class LavaBeingEntity extends MonsterEntity {
         double d3 = this.getTarget().getY(0.5D) - (this.getY(0.5D) + 0.5D);
         double d4 = this.getTarget().getZ() - (this.getZ() + vec3d.z * 2.0D);
 
-        SmallFireballEntity fireball = new SmallFireballEntity(this.level, this, d2, d3, d4);
+        FireballEntity fireball = new FireballEntity(this.level, this, d2, d3, d4);
         fireball.setPos(this.getX() + vec3d.x * 2.0D, this.getY(0.5D) + 0.5D, this.getZ() + vec3d.z * 2.0D);
         this.level.addFreshEntity(fireball);
     }

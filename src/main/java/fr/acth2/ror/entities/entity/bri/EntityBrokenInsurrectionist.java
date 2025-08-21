@@ -42,16 +42,6 @@ public class EntityBrokenInsurrectionist extends BrokenInsurrectionistEntity imp
             event.getController().setAnimation(
                     new AnimationBuilder().addAnimation("animation.broken_insurrectionist.magic", true)
             );
-
-            new Thread() {
-                @Override
-                public void run() {
-                    super.run();
-                    stopEveryAnimations = true;
-                    try { Thread.sleep(3442); } catch (InterruptedException e) { throw new RuntimeException(e); }
-                    stopEveryAnimations = false;
-                }
-            }.start();
         } else if (isAttacking() && !stopEveryAnimations) {
             event.getController().setAnimation(
                     new AnimationBuilder().addAnimation("animation.broken_insurrectionist.melee", true)

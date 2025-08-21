@@ -119,7 +119,7 @@
 			}
 		},
 		"animation.model.melee": {
-			"animation_length": 3.25,
+			"animation_length": 1,
 			"bones": {
 				"bone": {
 					"rotation": {
@@ -150,14 +150,14 @@
 						"0.0": {
 							"vector": [158.94073, 14.31098, -145.90202]
 						},
-						"1.0833": {
+						"0.25": {
 							"vector": ["math.sin(query.anim_time * 120) * 6", 0, "math.cos(query.anim_time * 100) * 4"]
 						},
-						"1.7083": {
+						"0.4583": {
 							"vector": [73.3982, 12.71195, -130.04093],
 							"easing": "easeOutCirc"
 						},
-						"3.25": {
+						"1.0": {
 							"vector": [158.94073, 14.31098, -145.90202],
 							"easing": "easeInBack"
 						}

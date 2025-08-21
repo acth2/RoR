@@ -4,6 +4,7 @@ import fr.acth2.ror.entities.renderer.EntityExampleRenderer;
 import fr.acth2.ror.entities.renderer.ExampleInvaderRenderer;
 import fr.acth2.ror.entities.renderer.aquamarin.AquamarinRenderer;
 import fr.acth2.ror.entities.renderer.bi.BloodInfectionerRenderer;
+import fr.acth2.ror.entities.renderer.bri.BrokenInsurrectionistRenderer;
 import fr.acth2.ror.entities.renderer.cg.CoinGiverRenderer;
 import fr.acth2.ror.entities.renderer.clucker.CluckerRenderer;
 import fr.acth2.ror.entities.renderer.curser.CurserRenderer;
@@ -81,6 +82,7 @@ public class ClientEventSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.EXAMPLE_INVADER.get(), ExampleInvaderRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.FLYER.get(), FlyerRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.BLOOD_INFECTIONER.get(), BloodInfectionerRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.BROKEN_INSURRECTIONIST.get(), BrokenInsurrectionistRenderer::new);
 
         event.enqueueWork(() -> {
             ItemModelsProperties.register(

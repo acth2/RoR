@@ -5,6 +5,7 @@ import fr.acth2.ror.entities.entity.EntityExampleInvader;
 import fr.acth2.ror.entities.entity.aquamarin.EntityAquamarin;
 import fr.acth2.ror.entities.entity.bi.EntityBloodInfectioner;
 import fr.acth2.ror.entities.entity.bo.EntityBadOmen;
+import fr.acth2.ror.entities.entity.bri.EntityBrokenInsurrectionist;
 import fr.acth2.ror.entities.entity.cg.EntityCoinGiver;
 import fr.acth2.ror.entities.entity.clucker.EntityClucker;
 import fr.acth2.ror.entities.entity.curser.EntityCurser;
@@ -210,7 +211,13 @@ public class ModEntities {
     public static final RegistryObject<EntityType<EntityBloodInfectioner>> BLOOD_INFECTIONER = ENTITY_TYPES.register("blood_infectioner", () ->
             EntityType.Builder.<EntityBloodInfectioner>of(EntityBloodInfectioner::new, EntityClassification.CREATURE)
                     .sized(1.2F, 0.7F)
-                    .build("flyer")
+                    .build("blood_infectioner")
+    );
+
+    public static final RegistryObject<EntityType<EntityBrokenInsurrectionist>> BROKEN_INSURRECTIONIST = ENTITY_TYPES.register("broken_insurrectionist", () ->
+            EntityType.Builder.<EntityBrokenInsurrectionist>of(EntityBrokenInsurrectionist::new, EntityClassification.CREATURE)
+                    .sized(1F, 1.4F)
+                    .build("broken_insurrectionist")
     );
 
     public static final RegistryObject<EntityType<EntityExampleInvader>> EXAMPLE_INVADER = ENTITY_TYPES.register("example_invader", () ->
@@ -285,5 +292,8 @@ public class ModEntities {
 
         // BLOOD SUN
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(BLOOD_INFECTIONER, 100, null, 1));
+
+        // BROKEN MOON
+        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(BROKEN_INSURRECTIONIST, 100, null, 0));
     }
 }

@@ -77,6 +77,7 @@
   "entity.ror.example_invader": "Example Invader",
   "entity.ror.flyer": "Flyer",
   "entity.ror.blood_infectioner": "Blood Infectioner",
+  "entity.ror.broken_insurrectionist": "Broken insurrectionist",
   "key.ror.mm": "Main menu",
   "key.categories.ror": "Ruins of Realms",
   "tooltip.ror.avarice.damage_range": "Damage: %s - %s",

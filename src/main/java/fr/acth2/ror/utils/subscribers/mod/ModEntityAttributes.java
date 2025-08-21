@@ -5,6 +5,7 @@ import fr.acth2.ror.entities.constructors.ExampleInvaderEntity;
 import fr.acth2.ror.entities.constructors.aquamarin.AquamarinEntity;
 import fr.acth2.ror.entities.constructors.bi.BloodInfectionerEntity;
 import fr.acth2.ror.entities.constructors.bo.BadOmenEntity;
+import fr.acth2.ror.entities.constructors.bri.BrokenInsurrectionistEntity;
 import fr.acth2.ror.entities.constructors.cg.CoinGiverEntity;
 import fr.acth2.ror.entities.constructors.clucker.CluckerEntity;
 import fr.acth2.ror.entities.constructors.curser.CurserEntity;
@@ -68,5 +69,6 @@ public class ModEntityAttributes {
         event.put(ModEntities.EXAMPLE_INVADER.get(), ExampleInvaderEntity.createAttributes().build());
         event.put(ModEntities.FLYER.get(), FlyerEntity.createAttributes().build());
         event.put(ModEntities.BLOOD_INFECTIONER.get(), BloodInfectionerEntity.createAttributes().build());
+        event.put(ModEntities.BROKEN_INSURRECTIONIST.get(), BrokenInsurrectionistEntity.createAttributes().build());
     }
 }

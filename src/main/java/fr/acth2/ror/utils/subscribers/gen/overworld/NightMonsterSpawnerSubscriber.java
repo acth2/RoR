@@ -112,16 +112,35 @@ public class NightMonsterSpawnerSubscriber {
         }
 
         EntityType<? extends LivingEntity> chosenEntityType = (EntityType<? extends LivingEntity>) chosenMobData.getEntityType();
-        LivingEntity chosenEntity = chosenEntityType.create(world);
-        if (chosenEntity == null) return;
+        if (chosenMobData.getEventID() != -1) {
+            if (chosenMobData.getEventID() == 0 && References.brokenMoonPicked == 0 || new Random().nextInt(100) == 0) {
+                LivingEntity chosenEntity = chosenEntityType.create(world);
+                if (chosenEntity == null) return;
 
-        chosenEntity.moveTo(
-                pos.getX() + 0.5,
-                pos.getY(),
-                pos.getZ() + 0.5,
-                world.random.nextFloat() * 360F,
-                0
-        );
-        world.addFreshEntityWithPassengers(chosenEntity);
+                chosenEntity.moveTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5,
+                        world.random.nextFloat() * 360F, 0);
+                world.addFreshEntityWithPassengers(chosenEntity);
+                world.addFreshEntityWithPassengers(chosenEntity);
+                world.addFreshEntityWithPassengers(chosenEntity);
+            }
+
+            if (chosenMobData.getEventID() == 1 && References.event1Picked == 0 || new Random().nextInt(100) == 0) {
+                LivingEntity chosenEntity = chosenEntityType.create(world);
+                if (chosenEntity == null) return;
+
+                chosenEntity.moveTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5,
+                        world.random.nextFloat() * 360F, 0);
+                world.addFreshEntityWithPassengers(chosenEntity);
+                world.addFreshEntityWithPassengers(chosenEntity);
+                world.addFreshEntityWithPassengers(chosenEntity);
+            }
+        } else {
+            LivingEntity chosenEntity = chosenEntityType.create(world);
+            if (chosenEntity == null) return;
+
+            chosenEntity.moveTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5,
+                    world.random.nextFloat() * 360F, 0);
+            world.addFreshEntityWithPassengers(chosenEntity);
+        }
     }
 }

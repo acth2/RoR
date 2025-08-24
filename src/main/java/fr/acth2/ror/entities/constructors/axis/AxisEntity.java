@@ -1,6 +1,5 @@
 package fr.acth2.ror.entities.constructors.axis;
 
-
 import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -16,15 +15,18 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class AxisEntity extends MonsterEntity {
-    private static final double ATTRACTION_RANGE = 10.0D;
-    private static final double ATTRACTION_STRENGTH = 0.15D;
+    private static final double ATTRACTION_STRENGTH = 0.25D;
+    private static final int PULL_DURATION = 1250;
+    private static final int COOLDOWN_DURATION = 3250;
+
+    private long pullingStartTime = -1;
+    private boolean isPulling = false;
+    private boolean isVulnerable = false;
 
     public AxisEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
@@ -35,7 +37,6 @@ public class AxisEntity extends MonsterEntity {
         super.registerGoals();
 
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, false));
-
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
@@ -75,29 +76,55 @@ public class AxisEntity extends MonsterEntity {
     public void tick() {
         super.tick();
 
-        if (!this.level.isClientSide) {
-            for (PlayerEntity player : this.level.players()) {
-                if (player.distanceToSqr(this) <= ATTRACTION_RANGE * ATTRACTION_RANGE) {
-                    applyAttractionForce(player);
+        if (!this.level.isClientSide && this.isAlive() && this.getTarget() != null) {
+            LivingEntity target = this.getTarget();
+            long currentTime = System.currentTimeMillis();
+
+            if (pullingStartTime == -1) {
+                pullingStartTime = currentTime;
+                isPulling = true;
+            }
+            long elapsed = currentTime - pullingStartTime;
+            if (isPulling) {
+                if (elapsed < PULL_DURATION) {
+                    isVulnerable = true;
+
+                    double deltaX = this.getX() - target.getX();
+                    double deltaY = this.getY() - target.getY();
+                    double deltaZ = this.getZ() - target.getZ();
+
+                    double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ);
+                    if (distance > 0) {
+                        double moveX = deltaX / distance * ATTRACTION_STRENGTH;
+                        double moveY = deltaY / distance * ATTRACTION_STRENGTH;
+                        double moveZ = deltaZ / distance * ATTRACTION_STRENGTH;
+
+                        target.teleportTo(
+                                target.getX() + moveX,
+                                target.getY() + moveY,
+                                target.getZ() + moveZ
+                        );
+                    }
+                } else {
+                    isPulling = false;
+                    isVulnerable = false;
+                    pullingStartTime = currentTime;
+                }
+            } else {
+                if (elapsed >= COOLDOWN_DURATION) {
+                    isPulling = true;
+                    pullingStartTime = currentTime;
                 }
             }
         }
     }
 
-    private void applyAttractionForce(PlayerEntity player) {
-        Vector3d direction = this.position().subtract(player.position());
-
-        if (direction.lengthSqr() > 0.1D) {
-            direction = direction.normalize().scale(ATTRACTION_STRENGTH);
-
-            player.setDeltaMovement(
-                    player.getDeltaMovement().add(direction)
-            );
-
-            if (this.tickCount % 20 == 0) {
-
-            }
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if (isVulnerable) {
+            return super.hurt(source, amount * 2);
         }
+        return super.hurt(source, amount);
     }
 
     @Override
@@ -119,7 +146,7 @@ public class AxisEntity extends MonsterEntity {
     public boolean doHurtTarget(Entity target) {
         boolean flag = super.doHurtTarget(target);
         if (flag && target instanceof LivingEntity) {
-            ((LivingEntity) target).addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 75, 3));
+            ((LivingEntity) target).addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 75, 2));
         }
         return flag;
     }

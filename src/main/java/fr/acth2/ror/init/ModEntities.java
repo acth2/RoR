@@ -3,9 +3,11 @@ package fr.acth2.ror.init;
 import fr.acth2.ror.entities.entity.EntityExample;
 import fr.acth2.ror.entities.entity.EntityExampleInvader;
 import fr.acth2.ror.entities.entity.aquamarin.EntityAquamarin;
+import fr.acth2.ror.entities.entity.axis.EntityAxis;
 import fr.acth2.ror.entities.entity.bi.EntityBloodInfectioner;
 import fr.acth2.ror.entities.entity.bo.EntityBadOmen;
 import fr.acth2.ror.entities.entity.bri.EntityBrokenInsurrectionist;
+import fr.acth2.ror.entities.entity.cavesucker.EntityCaveSucker;
 import fr.acth2.ror.entities.entity.cg.EntityCoinGiver;
 import fr.acth2.ror.entities.entity.clucker.EntityClucker;
 import fr.acth2.ror.entities.entity.curser.EntityCurser;
@@ -220,6 +222,18 @@ public class ModEntities {
                     .build("broken_insurrectionist")
     );
 
+    public static final RegistryObject<EntityType<EntityCaveSucker>> CAVE_SUCKER = ENTITY_TYPES.register("cave_sucker", () ->
+            EntityType.Builder.<EntityCaveSucker>of(EntityCaveSucker::new, EntityClassification.CREATURE)
+                    .sized(1F, 1.4F)
+                    .build("cave_sucker")
+    );
+
+    public static final RegistryObject<EntityType<EntityAxis>> AXIS = ENTITY_TYPES.register("axis", () ->
+            EntityType.Builder.<EntityAxis>of(EntityAxis::new, EntityClassification.CREATURE)
+                    .sized(1F, 2.0F)
+                    .build("axis")
+    );
+
     public static final RegistryObject<EntityType<EntityExampleInvader>> EXAMPLE_INVADER = ENTITY_TYPES.register("example_invader", () ->
             EntityType.Builder.<EntityExampleInvader>of(EntityExampleInvader::new, EntityClassification.CREATURE)
                     .sized(1.0F, 2.0F)
@@ -270,11 +284,12 @@ public class ModEntities {
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(BAD_OMEN, 1, Blocks.AIR));
 
         // CAVE MONSTER GENERATION
-        CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(LOST_CAVER, 25, Blocks.STONE));
-        CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WICKED, 100, Blocks.STONE));
-        CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(SEEKER, 50, Blocks.STONE));
+        CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(LOST_CAVER, 25, null));
+        CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WICKED, 100, null));
+        CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(SEEKER, 50, null));
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(MAJOR_WICKED, 25, Blocks.STONE));
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(LAVA_BEING, 100, Blocks.LAVA));
+        CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CAVE_SUCKER, 100, null));
 
         // RARE CAVE MONSTER GENERATION
 

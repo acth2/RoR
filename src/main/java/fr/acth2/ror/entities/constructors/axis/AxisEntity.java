@@ -20,9 +20,9 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class AxisEntity extends MonsterEntity {
-    private static final double ATTRACTION_STRENGTH = 0.25D;
-    private static final int PULL_DURATION = 1250;
-    private static final int COOLDOWN_DURATION = 3250;
+    private static final double ATTRACTION_STRENGTH = 0.15D;
+    private static final int PULL_DURATION = 500;
+    private static final int COOLDOWN_DURATION = 5000;
 
     private long pullingStartTime = -1;
     private boolean isPulling = false;

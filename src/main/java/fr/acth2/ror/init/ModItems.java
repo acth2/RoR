@@ -10,6 +10,8 @@ import fr.acth2.ror.init.constructors.armor.oronium.OroniumArmor;
 import fr.acth2.ror.init.constructors.armor.oronium.OroniumArmorMaterial;
 import fr.acth2.ror.init.constructors.armor.seeker.SeekerArmorMaterial;
 import fr.acth2.ror.init.constructors.armor.seeker.SeekerHelmet;
+import fr.acth2.ror.init.constructors.armor.unstable.UnstableArmorMaterial;
+import fr.acth2.ror.init.constructors.armor.unstable.UnstableChestplate;
 import fr.acth2.ror.init.constructors.items.*;
 import fr.acth2.ror.init.constructors.tools.*;
 import fr.acth2.ror.utils.References;
@@ -139,6 +141,8 @@ public class ModItems {
     public static final RegistryObject<Item> SEEKER_HELMET = ITEMS.register("seeker_helmet",
             () -> new SeekerHelmet(SeekerArmorMaterial.SEEKER, EquipmentSlotType.HEAD, new Item.Properties()));
 
+    public static final RegistryObject<Item> UNSTABLE_CHESTPLATE = ITEMS.register("unstable_chestplate",
+            () -> new UnstableChestplate(UnstableArmorMaterial.UNSTABLE, EquipmentSlotType.CHEST, new Item.Properties()));
 
     public static final RegistryObject<Item> SPIRIT_AXE = ITEMS.register("spirit_axe",
             () -> new SpiritAxe(SpiritItemTier.SPIRIT, 0.0F, -1.0F, new Item.Properties()));

@@ -20,7 +20,7 @@ import java.util.Random;
 public class DaylightMonsterSpawnerSubscriber {
 
     private static final int SPAWN_INTERVAL_TICKS = 200;
-    private static final int ATTEMPTS_PER_PLAYER = 2;
+    private static final int ATTEMPTS_PER_PLAYER = 6;
     private static final double SPAWN_CHANCE = 2.45;
 
     private static final int SPAWN_RADIUS_MIN = 8;

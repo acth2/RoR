@@ -81,6 +81,8 @@
   "entity.ror.flyer": "Flyer",
   "entity.ror.blood_infectioner": "Blood Infectioner",
   "entity.ror.broken_insurrectionist": "Broken insurrectionist",
+  "entity.ror.howler": "Howler",
+  "entity.ror.despiter": "Despiter",
   "key.ror.mm": "Main menu",
   "key.categories.ror": "Ruins of Realms",
   "tooltip.ror.avarice.damage_range": "Damage: %s - %s",

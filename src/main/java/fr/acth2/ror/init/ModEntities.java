@@ -11,12 +11,14 @@ import fr.acth2.ror.entities.entity.cavesucker.EntityCaveSucker;
 import fr.acth2.ror.entities.entity.cg.EntityCoinGiver;
 import fr.acth2.ror.entities.entity.clucker.EntityClucker;
 import fr.acth2.ror.entities.entity.curser.EntityCurser;
+import fr.acth2.ror.entities.entity.despiter.EntityDespiter;
 import fr.acth2.ror.entities.entity.echo.EntityEcho;
 import fr.acth2.ror.entities.entity.flyer.EntityFlyer;
 import fr.acth2.ror.entities.entity.fussle.EntityFussle;
 import fr.acth2.ror.entities.entity.ghost.EntityGhost;
 import fr.acth2.ror.entities.entity.grasser.EntityGrasser;
 import fr.acth2.ror.entities.entity.hopper.EntityHopper;
+import fr.acth2.ror.entities.entity.howler.EntityHowler;
 import fr.acth2.ror.entities.entity.lb.EntityLavaBeing;
 import fr.acth2.ror.entities.entity.lc.EntityLostCaver;
 import fr.acth2.ror.entities.entity.mimic.EntityMimic;
@@ -234,6 +236,18 @@ public class ModEntities {
                     .build("axis")
     );
 
+    public static final RegistryObject<EntityType<EntityHowler>> HOWLER = ENTITY_TYPES.register("howler", () ->
+            EntityType.Builder.<EntityHowler>of(EntityHowler::new, EntityClassification.CREATURE)
+                    .sized(1F, 2.0F)
+                    .build("axis")
+    );
+
+    public static final RegistryObject<EntityType<EntityDespiter>> DESPITER = ENTITY_TYPES.register("despiter", () ->
+            EntityType.Builder.<EntityDespiter>of(EntityDespiter::new, EntityClassification.CREATURE)
+                    .sized(1F, 2.0F)
+                    .build("axis")
+    );
+
     public static final RegistryObject<EntityType<EntityExampleInvader>> EXAMPLE_INVADER = ENTITY_TYPES.register("example_invader", () ->
             EntityType.Builder.<EntityExampleInvader>of(EntityExampleInvader::new, EntityClassification.CREATURE)
                     .sized(1.0F, 2.0F)
@@ -254,6 +268,8 @@ public class ModEntities {
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(AQUAMARIN, 100, Blocks.WATER));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(FUSSLE, 50, Blocks.GRASS_BLOCK));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(ECHO, 100, null));
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(HOWLER, 100, Blocks.GRASS_BLOCK));
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(DESPITER, 100, null));
 
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(FUSSLE, 75, Blocks.COARSE_DIRT));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(FUSSLE, 75, Blocks.PODZOL));

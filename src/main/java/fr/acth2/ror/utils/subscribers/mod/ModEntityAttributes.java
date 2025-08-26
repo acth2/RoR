@@ -11,12 +11,14 @@ import fr.acth2.ror.entities.constructors.cavesucker.CaveSuckerEntity;
 import fr.acth2.ror.entities.constructors.cg.CoinGiverEntity;
 import fr.acth2.ror.entities.constructors.clucker.CluckerEntity;
 import fr.acth2.ror.entities.constructors.curser.CurserEntity;
+import fr.acth2.ror.entities.constructors.despiter.DespiterEntity;
 import fr.acth2.ror.entities.constructors.echo.EchoEntity;
 import fr.acth2.ror.entities.constructors.flyer.FlyerEntity;
 import fr.acth2.ror.entities.constructors.fussle.FussleEntity;
 import fr.acth2.ror.entities.constructors.ghost.GhostEntity;
 import fr.acth2.ror.entities.constructors.grasser.GrasserEntity;
 import fr.acth2.ror.entities.constructors.hopper.HopperEntity;
+import fr.acth2.ror.entities.constructors.howler.HowlerEntity;
 import fr.acth2.ror.entities.constructors.lavabeing.LavaBeingEntity;
 import fr.acth2.ror.entities.constructors.lc.LostCaverEntity;
 import fr.acth2.ror.entities.constructors.mimic.MimicEntity;
@@ -74,5 +76,7 @@ public class ModEntityAttributes {
         event.put(ModEntities.BROKEN_INSURRECTIONIST.get(), BrokenInsurrectionistEntity.createAttributes().build());
         event.put(ModEntities.CAVE_SUCKER.get(), CaveSuckerEntity.createAttributes().build());
         event.put(ModEntities.AXIS.get(), AxisEntity.createAttributes().build());
+        event.put(ModEntities.HOWLER.get(), HowlerEntity.createAttributes().build());
+        event.put(ModEntities.DESPITER.get(), DespiterEntity.createAttributes().build());
     }
 }

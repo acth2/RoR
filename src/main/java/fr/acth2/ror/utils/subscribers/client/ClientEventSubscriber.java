@@ -11,12 +11,14 @@ import fr.acth2.ror.entities.renderer.cg.CoinGiverRenderer;
 import fr.acth2.ror.entities.renderer.clucker.CluckerRenderer;
 import fr.acth2.ror.entities.renderer.curser.CurserRenderer;
 import fr.acth2.ror.entities.renderer.bo.BadOmenRenderer;
+import fr.acth2.ror.entities.renderer.despiter.DespiterRenderer;
 import fr.acth2.ror.entities.renderer.echo.EchoRenderer;
 import fr.acth2.ror.entities.renderer.flyer.FlyerRenderer;
 import fr.acth2.ror.entities.renderer.fussle.FussleRenderer;
 import fr.acth2.ror.entities.renderer.ghost.GhostRenderer;
 import fr.acth2.ror.entities.renderer.grasser.GrasserRenderer;
 import fr.acth2.ror.entities.renderer.hopper.HopperRenderer;
+import fr.acth2.ror.entities.renderer.howler.HowlerRenderer;
 import fr.acth2.ror.entities.renderer.lb.LavaBeingRenderer;
 import fr.acth2.ror.entities.renderer.lc.LostCaverRenderer;
 import fr.acth2.ror.entities.renderer.mimic.MimicRenderer;
@@ -87,6 +89,8 @@ public class ClientEventSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.BROKEN_INSURRECTIONIST.get(), BrokenInsurrectionistRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.CAVE_SUCKER.get(), CaveSuckerRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.AXIS.get(), AxisRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.HOWLER.get(), HowlerRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.DESPITER.get(), DespiterRenderer::new);
 
         event.enqueueWork(() -> {
             ItemModelsProperties.register(

@@ -58,17 +58,17 @@ public class CaveSuckerEntity extends MonsterEntity {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return ModSoundEvents.SEEKER_AMBIENT.get();
+        return ModSoundEvents.CAVE_SUCKER_AMBIENT.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-        return ModSoundEvents.SEEKER_HIT.get();
+        return ModSoundEvents.CAVE_SUCKER_HIT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return ModSoundEvents.SEEKER_DIE.get();
+        return ModSoundEvents.CAVE_SUCKER_DIE.get();
     }
 
     public int getAmbientSoundInterval() {

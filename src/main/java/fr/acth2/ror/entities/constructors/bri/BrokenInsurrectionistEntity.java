@@ -13,8 +13,11 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
 
 public class BrokenInsurrectionistEntity extends MonsterEntity {
 
@@ -58,6 +61,22 @@ public class BrokenInsurrectionistEntity extends MonsterEntity {
             return true;
         }
         return super.isInvulnerableTo(source);
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return ModSoundEvents.BROKEN_INSURRECTIONIST_AMBIENT.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
+        return ModSoundEvents.BROKEN_INSURRECTIONIST_HIT.get();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return ModSoundEvents.BROKEN_INSURRECTIONIST_DIE.get();
     }
 
     @Override

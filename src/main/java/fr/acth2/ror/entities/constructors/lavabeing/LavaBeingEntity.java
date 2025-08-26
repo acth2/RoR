@@ -77,6 +77,22 @@ public class LavaBeingEntity extends MonsterEntity {
         return super.isInvulnerableTo(source);
     }
 
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return ModSoundEvents.LAVA_BEING_AMBIENT.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
+        return ModSoundEvents.LAVA_BEING_HIT.get();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return ModSoundEvents.LAVA_BEING_DIE.get();
+    }
+
     @Override
     public boolean causeFallDamage(float distance, float damageMultiplier) {
         return false;

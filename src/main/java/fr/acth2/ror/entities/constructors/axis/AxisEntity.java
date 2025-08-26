@@ -55,17 +55,17 @@ public class AxisEntity extends MonsterEntity {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return ModSoundEvents.CLUCKER_AMBIENT.get();
+        return ModSoundEvents.AXIS_AMBIENT.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-        return ModSoundEvents.CLUCKER_HIT.get();
+        return ModSoundEvents.AXIS_HIT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return ModSoundEvents.CLUCKER_DIE.get();
+        return ModSoundEvents.AXIS_DIE.get();
     }
 
     public int getAmbientSoundInterval() {

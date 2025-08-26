@@ -68,17 +68,17 @@ public class DespiterEntity extends MonsterEntity {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return ModSoundEvents.HOPPER_AMBIENT.get();
+        return ModSoundEvents.DESPITER_AMBIENT.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-        return ModSoundEvents.HOPPER_HIT.get();
+        return ModSoundEvents.DESPITER_HIT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return ModSoundEvents.HOPPER_DIE.get();
+        return ModSoundEvents.DESPITER_DIE.get();
     }
     public int getAmbientSoundInterval() {
         return 120;

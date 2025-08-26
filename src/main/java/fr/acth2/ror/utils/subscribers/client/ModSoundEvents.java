@@ -188,6 +188,79 @@ public class ModSoundEvents {
 
     public static final RegistryObject<SoundEvent> FLYER_HIT =
             registerSoundEvent("flyer_hit");
+
+    public static final RegistryObject<SoundEvent> CAVE_SUCKER_AMBIENT =
+            registerSoundEvent("cs_ambient");
+
+    public static final RegistryObject<SoundEvent> CAVE_SUCKER_DIE =
+            registerSoundEvent("cs_die");
+
+    public static final RegistryObject<SoundEvent> CAVE_SUCKER_HIT =
+            registerSoundEvent("cs_hit");
+
+    public static final RegistryObject<SoundEvent> BLOOD_INFECTIONER_AMBIENT =
+            registerSoundEvent("bi_ambient");
+
+    public static final RegistryObject<SoundEvent> BLOOD_INFECTIONER_DIE =
+            registerSoundEvent("bi_die");
+
+    public static final RegistryObject<SoundEvent> BLOOD_INFECTIONER_HIT =
+            registerSoundEvent("bi_hit");
+
+    public static final RegistryObject<SoundEvent> DESPITER_AMBIENT =
+            registerSoundEvent("despiter_ambient");
+
+    public static final RegistryObject<SoundEvent> DESPITER_DIE =
+            registerSoundEvent("despiter_die");
+
+    public static final RegistryObject<SoundEvent> DESPITER_HIT =
+            registerSoundEvent("despiter_hit");
+
+    public static final RegistryObject<SoundEvent> BROKEN_INSURRECTIONIST_AMBIENT =
+            registerSoundEvent("bri_ambient");
+
+    public static final RegistryObject<SoundEvent> BROKEN_INSURRECTIONIST_DIE =
+            registerSoundEvent("bri_die");
+
+    public static final RegistryObject<SoundEvent> BROKEN_INSURRECTIONIST_HIT =
+            registerSoundEvent("bri_hit");
+
+    public static final RegistryObject<SoundEvent> GRASSER_AMBIENT =
+            registerSoundEvent("grasser_ambient");
+
+    public static final RegistryObject<SoundEvent> GRASSER_DIE =
+            registerSoundEvent("grasser_die");
+
+    public static final RegistryObject<SoundEvent> GRASSER_HIT =
+            registerSoundEvent("grasser_hit");
+
+    public static final RegistryObject<SoundEvent> HOWLER_AMBIENT =
+            registerSoundEvent("howler_ambient");
+
+    public static final RegistryObject<SoundEvent> HOWLER_DIE =
+            registerSoundEvent("howler_die");
+
+    public static final RegistryObject<SoundEvent> HOWLER_HIT =
+            registerSoundEvent("howler_hit");
+
+    public static final RegistryObject<SoundEvent> AXIS_AMBIENT =
+            registerSoundEvent("axis_ambient");
+
+    public static final RegistryObject<SoundEvent> AXIS_DIE =
+            registerSoundEvent("axis_die");
+
+    public static final RegistryObject<SoundEvent> AXIS_HIT =
+            registerSoundEvent("axis_hit");
+
+    public static final RegistryObject<SoundEvent> LAVA_BEING_AMBIENT =
+            registerSoundEvent("lb_ambient");
+
+    public static final RegistryObject<SoundEvent> LAVA_BEING_DIE =
+            registerSoundEvent("lb_die");
+
+    public static final RegistryObject<SoundEvent> LAVA_BEING_HIT =
+            registerSoundEvent("lb_hit");
+
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         return SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(References.MODID, name)));
     }

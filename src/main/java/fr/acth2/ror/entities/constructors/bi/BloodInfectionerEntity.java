@@ -51,17 +51,17 @@ public class BloodInfectionerEntity extends MonsterEntity {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return ModSoundEvents.CLUCKER_AMBIENT.get();
+        return ModSoundEvents.BLOOD_INFECTIONER_AMBIENT.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-        return ModSoundEvents.CLUCKER_HIT.get();
+        return ModSoundEvents.BLOOD_INFECTIONER_HIT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return ModSoundEvents.CLUCKER_DIE.get();
+        return ModSoundEvents.BLOOD_INFECTIONER_DIE.get();
     }
 
     public int getAmbientSoundInterval() {

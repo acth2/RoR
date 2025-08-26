@@ -1,6 +1,7 @@
 package fr.acth2.ror.entities.constructors.mw;
 
 
+import fr.acth2.ror.init.constructors.throwable.entiity.WickedProjectile;
 import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -13,6 +14,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -23,6 +25,7 @@ public class MajorWickedEntity extends MonsterEntity {
     public MajorWickedEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
     }
+    private int fireballCooldown = 0;
 
 
     @Override
@@ -46,6 +49,16 @@ public class MajorWickedEntity extends MonsterEntity {
     public void tick() {
         super.tick();
     }
+
+    @Override
+    public void aiStep() {
+        if (fireballCooldown <= 0 && this.canSee(this.getTarget())) {
+            shootFireballAtTarget();
+            fireballCooldown = 25;
+        }
+        super.aiStep();
+    }
+
     public boolean causeFallDamage(float p_225503_1_, float p_225503_2_) {
         return true;
     }
@@ -88,6 +101,35 @@ public class MajorWickedEntity extends MonsterEntity {
             ((LivingEntity) target).addEffect(new EffectInstance(Effects.POISON, 75, 0));
         }
         return flag;
+    }
+
+    private void shootFireballAtTarget() {
+        if (this.getTarget() == null) return;
+        LivingEntity target = this.getTarget();
+        double deltaX = target.getX() - this.getX();
+        double deltaY = target.getY(0.5D) - this.getY(0.5D);
+        double deltaZ = target.getZ() - this.getZ();
+
+        double distance = Math.sqrt(deltaX * deltaX + deltaZ * deltaZ);
+
+        float yaw = (float)(Math.atan2(deltaZ, deltaX) * (180D / Math.PI)) - 90.0F;
+        float pitch = (float)(-Math.atan2(deltaY, distance) * (180D / Math.PI));
+
+        this.yRot = yaw;
+        this.xRot = pitch;
+        this.yRotO = this.yRot;
+        this.xRotO = this.xRot;
+        Vector3d vec3d = this.getViewVector(1.0F);
+
+        double spawnX = this.getX() + vec3d.x * 1.5D;
+        double spawnY = this.getY(0.5D) + 0.5D;
+        double spawnZ = this.getZ() + vec3d.z * 1.5D;
+        WickedProjectile fireball = new WickedProjectile(this.level, this);
+        fireball.setDamage(6);
+
+        fireball.shootFromRotation(this, pitch, yaw, 0.0F, 1.5F, 1.0F);
+        fireball.setPos(spawnX, spawnY, spawnZ);
+        this.level.addFreshEntity(fireball);
     }
 
     public static AttributeModifierMap.MutableAttribute createAttributes() {

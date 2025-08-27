@@ -47,14 +47,18 @@ public class MajorWickedEntity extends MonsterEntity {
 
     @Override
     public void tick() {
+        if (fireballCooldown > 0) {
+            fireballCooldown--;
+        }
+
         super.tick();
     }
 
     @Override
     public void aiStep() {
-        if (fireballCooldown <= 0 && this.canSee(this.getTarget())) {
+        if (fireballCooldown <= 0 && this.getTarget() != null && this.canSee(this.getTarget())) {
             shootFireballAtTarget();
-            fireballCooldown = 25;
+            fireballCooldown = 100;
         }
         super.aiStep();
     }

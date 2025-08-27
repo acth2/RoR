@@ -411,5 +411,166 @@
     "sounds": [
       "ror:flyer_hit"
     ]
+  },
+  "cs_ambient": {
+    "category": "hostile",
+    "subtitle": "ror.cs_ambient",
+    "sounds": [
+      "ror:cs_ambient"
+    ]
+  },
+  "cs_hit": {
+    "category": "hostile",
+    "subtitle": "ror.cs_hit",
+    "sounds": [
+      "ror:cs_hit"
+    ]
+  },
+  "cs_die": {
+    "category": "hostile",
+    "subtitle": "ror.cs_die",
+    "sounds": [
+      "ror:cs_die"
+    ]
+  },
+  "bi_ambient": {
+    "category": "hostile",
+    "subtitle": "ror.bi_ambient",
+    "sounds": [
+      "ror:bi_ambient"
+    ]
+  },
+  "bi_hit": {
+    "category": "hostile",
+    "subtitle": "ror.bi_hit",
+    "sounds": [
+      "ror:bi_hit"
+    ]
+  },
+  "bi_die": {
+    "category": "hostile",
+    "subtitle": "ror.bi_die",
+    "sounds": [
+      "ror:bi_die"
+    ]
+  },
+  "bri_ambient": {
+    "category": "hostile",
+    "subtitle": "ror.bri_ambient",
+    "sounds": [
+      "ror:bri_ambient"
+    ]
+  },
+  "bri_hit": {
+    "category": "hostile",
+    "subtitle": "ror.bri_hit",
+    "sounds": [
+      "ror:bri_hit"
+    ]
+  },
+  "bri_die": {
+    "category": "hostile",
+    "subtitle": "ror.bri_die",
+    "sounds": [
+      "ror:bri_die"
+    ]
+  },
+  "despiter_ambient": {
+    "category": "hostile",
+    "subtitle": "ror.despiter_ambient",
+    "sounds": [
+      "ror:despiter_ambient"
+    ]
+  },
+  "despiter_hit": {
+    "category": "hostile",
+    "subtitle": "ror.despiter_hit",
+    "sounds": [
+      "ror:despiter_hit"
+    ]
+  },
+  "grasser_die": {
+    "category": "hostile",
+    "subtitle": "ror.grasser_die",
+    "sounds": [
+      "ror:grasser_die"
+    ]
+  },
+  "grasser_ambient": {
+    "category": "hostile",
+    "subtitle": "ror.grasser_ambient",
+    "sounds": [
+      "ror:grasser_ambient"
+    ]
+  },
+  "grasser_hit": {
+    "category": "hostile",
+    "subtitle": "ror.grasser_hit",
+    "sounds": [
+      "ror:grasser_hit"
+    ]
+  },
+  "howler_die": {
+    "category": "hostile",
+    "subtitle": "ror.howler_die",
+    "sounds": [
+      "ror:howler_die"
+    ]
+  },
+  "howler_ambient": {
+    "category": "hostile",
+    "subtitle": "ror.howler_ambient",
+    "sounds": [
+      "ror:howler_ambient"
+    ]
+  },
+  "howler_hit": {
+    "category": "hostile",
+    "subtitle": "ror.howler_hit",
+    "sounds": [
+      "ror:howler_hit"
+    ]
+  },
+  "axis_die": {
+    "category": "hostile",
+    "subtitle": "ror.axis_die",
+    "sounds": [
+      "ror:axis_die"
+    ]
+  },
+  "axis_ambient": {
+    "category": "hostile",
+    "subtitle": "ror.axis_ambient",
+    "sounds": [
+      "ror:axis_ambient"
+    ]
+  },
+  "axis_hit": {
+    "category": "hostile",
+    "subtitle": "ror.axis_hit",
+    "sounds": [
+      "ror:axis_hit"
+    ]
+  },
+  "lb_die": {
+    "category": "hostile",
+    "subtitle": "ror.lb_die",
+    "sounds": [
+      "ror:lb_die"
+    ]
+  },
+  "lb_ambient": {
+    "category": "hostile",
+    "subtitle": "ror.lb_ambient",
+    "sounds": [
+      "ror:lb_ambient"
+    ]
+  },
+  "lb_hit": {
+    "category": "hostile",
+    "subtitle": "ror.lb_hit",
+    "sounds": [
+      "ror:lb_hit"
+    ]
   }
 }

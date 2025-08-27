@@ -25,10 +25,12 @@ import fr.acth2.ror.entities.renderer.mimic.MimicRenderer;
 import fr.acth2.ror.entities.renderer.mw.MajorWickedRenderer;
 import fr.acth2.ror.entities.renderer.ookla.OoklaRenderer;
 import fr.acth2.ror.entities.renderer.rc.RustedCoreRenderer;
+import fr.acth2.ror.entities.renderer.rift.RiftV2Renderer;
 import fr.acth2.ror.entities.renderer.se.SkyEjectorRenderer;
 import fr.acth2.ror.entities.renderer.seeker.SeekerRenderer;
 import fr.acth2.ror.entities.renderer.silker.SilkerRenderer;
 import fr.acth2.ror.entities.renderer.traveler.TravelerRenderer;
+import fr.acth2.ror.entities.renderer.rift.RiftRenderer;
 import fr.acth2.ror.entities.renderer.wicked.WickedRenderer;
 import fr.acth2.ror.entities.renderer.woodfall.WoodFallRenderer;
 import fr.acth2.ror.entities.renderer.woodfall.solider.WoodFallSoliderRenderer;
@@ -91,6 +93,8 @@ public class ClientEventSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.AXIS.get(), AxisRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.HOWLER.get(), HowlerRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.DESPITER.get(), DespiterRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.RIFT.get(), RiftRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.RIFT_V2.get(), RiftV2Renderer::new);
 
         event.enqueueWork(() -> {
             ItemModelsProperties.register(

@@ -572,5 +572,12 @@
     "sounds": [
       "ror:lb_hit"
     ]
+  },
+  "whisp_ambient": {
+    "category": "hostile",
+    "subtitle": "ror.whisp_ambient",
+    "sounds": [
+      "ror:whisp_ambient"
+    ]
   }
 }

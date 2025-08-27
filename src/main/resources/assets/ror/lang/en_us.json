@@ -83,6 +83,8 @@
   "entity.ror.broken_insurrectionist": "Broken insurrectionist",
   "entity.ror.howler": "Howler",
   "entity.ror.despiter": "Despiter",
+  "entity.ror.rift": "Realm Rift",
+  "entity.ror.rift_variant2": "Realm Rift",
   "key.ror.mm": "Main menu",
   "key.categories.ror": "Ruins of Realms",
   "tooltip.ror.avarice.damage_range": "Damage: %s - %s",

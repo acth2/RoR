@@ -25,10 +25,12 @@ import fr.acth2.ror.entities.entity.mimic.EntityMimic;
 import fr.acth2.ror.entities.entity.mw.EntityMajorWicked;
 import fr.acth2.ror.entities.entity.ookla.EntityOokla;
 import fr.acth2.ror.entities.entity.rc.EntityRustedCore;
+import fr.acth2.ror.entities.entity.rift.EntityRiftV2;
 import fr.acth2.ror.entities.entity.se.EntitySkyEjector;
 import fr.acth2.ror.entities.entity.seeker.EntitySeeker;
 import fr.acth2.ror.entities.entity.silker.EntitySilker;
 import fr.acth2.ror.entities.entity.traveler.EntityTraveler;
+import fr.acth2.ror.entities.entity.rift.EntityRift;
 import fr.acth2.ror.entities.entity.wicked.EntityWicked;
 import fr.acth2.ror.entities.entity.woodfall.EntityWoodFall;
 import fr.acth2.ror.entities.entity.woodfall.solider.EntityWoodFallSolider;
@@ -38,7 +40,6 @@ import fr.acth2.ror.utils.References;
 import fr.acth2.ror.utils.subscribers.gen.overworld.*;
 import fr.acth2.ror.utils.subscribers.gen.skyria.SkyriaMonsterSpawnerSubscriber;
 import fr.acth2.ror.utils.subscribers.gen.utils.MobSpawnData;
-import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -239,13 +240,25 @@ public class ModEntities {
     public static final RegistryObject<EntityType<EntityHowler>> HOWLER = ENTITY_TYPES.register("howler", () ->
             EntityType.Builder.<EntityHowler>of(EntityHowler::new, EntityClassification.CREATURE)
                     .sized(1F, 2.0F)
-                    .build("axis")
+                    .build("howler")
     );
 
     public static final RegistryObject<EntityType<EntityDespiter>> DESPITER = ENTITY_TYPES.register("despiter", () ->
             EntityType.Builder.<EntityDespiter>of(EntityDespiter::new, EntityClassification.CREATURE)
-                    .sized(1F, 2.0F)
-                    .build("axis")
+                    .sized(1F, 1.0F)
+                    .build("despiter")
+    );
+
+    public static final RegistryObject<EntityType<EntityRift>> RIFT = ENTITY_TYPES.register("rift", () ->
+            EntityType.Builder.<EntityRift>of(EntityRift::new, EntityClassification.CREATURE)
+                    .sized(1.0F, 1.0F)
+                    .build("rift")
+    );
+
+    public static final RegistryObject<EntityType<EntityRiftV2>> RIFT_V2 = ENTITY_TYPES.register("rift_variant2", () ->
+            EntityType.Builder.<EntityRiftV2>of(EntityRiftV2::new, EntityClassification.CREATURE)
+                    .sized(1.0F, 1.0F)
+                    .build("rift_variant2")
     );
 
     public static final RegistryObject<EntityType<EntityExampleInvader>> EXAMPLE_INVADER = ENTITY_TYPES.register("example_invader", () ->
@@ -281,6 +294,7 @@ public class ModEntities {
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL_SOLIDER, 1000, Blocks.LILY_PAD));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL_SOLIDER, 1000, Blocks.VINE));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL_SOLIDER, 5000, Blocks.MOSSY_COBBLESTONE));
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(RIFT_V2, 100, null));
 
         // NIGHT MONSTER GENERATION
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CLUCKER, 100, Blocks.SAND));
@@ -290,6 +304,7 @@ public class ModEntities {
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(AQUAMARIN, 100, Blocks.WATER));
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(SILKER, 85, null));
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(MAJOR_WICKED, 25, Blocks.STONE));
+        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(RIFT, 100, null));
 
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL, 500, Blocks.VINE));
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL, 500, Blocks.LILY_PAD));

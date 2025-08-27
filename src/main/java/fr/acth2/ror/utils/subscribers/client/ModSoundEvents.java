@@ -261,6 +261,9 @@ public class ModSoundEvents {
     public static final RegistryObject<SoundEvent> LAVA_BEING_HIT =
             registerSoundEvent("lb_hit");
 
+    public static final RegistryObject<SoundEvent> WHISP_AMBIENT =
+            registerSoundEvent("whisp_ambient");
+
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         return SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(References.MODID, name)));
     }

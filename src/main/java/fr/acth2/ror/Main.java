@@ -6,11 +6,13 @@ import fr.acth2.ror.proxy.ClientProxy;
 import fr.acth2.ror.proxy.CommonProxy;
 import fr.acth2.ror.utils.References;
 import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
@@ -48,6 +50,7 @@ public class Main implements IMixinConnector {
         DiaryManager.registerAutosave();
         modEventBus.addListener(this::setup);
         MinecraftForge.EVENT_BUS.register(this);
+        System.setProperty("forge.logging.mojang.level", "debug");
     }
 
     private void setup(FMLCommonSetupEvent event) {
@@ -55,6 +58,8 @@ public class Main implements IMixinConnector {
         ModDimensions.register(event);
         proxy.setup();
     }
+
+
 
     @SubscribeEvent
     public void onRegisterCommands(RegisterCommandsEvent event) {

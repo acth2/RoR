@@ -15,7 +15,7 @@ public class EchoModel extends AnimatedGeoModel<EntityEcho> {
 
     @Override
     public ResourceLocation getTextureLocation(EntityEcho object) {
-        return new ResourceLocation(References.MODID, "textures/entity/echo/echo.png");
+        return new ResourceLocation(References.MODID, "textures/echo/echo.png");
     }
 
     @Override

@@ -25,15 +25,16 @@ import fr.acth2.ror.entities.constructors.mimic.MimicEntity;
 import fr.acth2.ror.entities.constructors.mw.MajorWickedEntity;
 import fr.acth2.ror.entities.constructors.ookla.OoklaEntity;
 import fr.acth2.ror.entities.constructors.rc.RustedCoreEntity;
+import fr.acth2.ror.entities.constructors.rift.RiftV2Entity;
 import fr.acth2.ror.entities.constructors.se.SkyEjectorEntity;
 import fr.acth2.ror.entities.constructors.seeker.SeekerEntity;
 import fr.acth2.ror.entities.constructors.silker.SilkerEntity;
 import fr.acth2.ror.entities.constructors.traveler.TravelerEntity;
+import fr.acth2.ror.entities.constructors.rift.RiftEntity;
 import fr.acth2.ror.entities.constructors.wicked.WickedEntity;
 import fr.acth2.ror.entities.constructors.woodfall.WoodFallEntity;
 import fr.acth2.ror.entities.constructors.woodfall.solider.WoodFallSolidierEntity;
 import fr.acth2.ror.entities.constructors.ws.WoodSpiritEntity;
-import fr.acth2.ror.entities.entity.EntityExampleInvader;
 import fr.acth2.ror.init.ModEntities;
 import fr.acth2.ror.utils.References;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -78,5 +79,7 @@ public class ModEntityAttributes {
         event.put(ModEntities.AXIS.get(), AxisEntity.createAttributes().build());
         event.put(ModEntities.HOWLER.get(), HowlerEntity.createAttributes().build());
         event.put(ModEntities.DESPITER.get(), DespiterEntity.createAttributes().build());
+        event.put(ModEntities.RIFT.get(), RiftEntity.createAttributes().build());
+        event.put(ModEntities.RIFT_V2.get(), RiftV2Entity.createAttributes().build());
     }
 }

@@ -61,7 +61,7 @@ public class ModEntities {
 
     public static final RegistryObject<EntityType<EntityExampleParticle>> EXAMPLE_PARTICLE = ENTITY_TYPES.register("example_particle", () ->
             EntityType.Builder.<EntityExampleParticle>of(EntityExampleParticle::new, EntityClassification.CREATURE)
-                    .sized(3.0F, 0.25F)
+                    .sized(0.1F, 0.1F)
                     .build("example_particle")
     );
 

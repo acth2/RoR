@@ -30,14 +30,6 @@ public class ExampleParticleEntity extends MonsterEntity {
         return CreatureAttribute.UNDEFINED;
     }
 
-    protected void registerGoals() {
-        this.goalSelector.addGoal(0, new SwimGoal(this));
-        this.goalSelector.addGoal(1, new PanicGoal(this, 1.4D));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
-        this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 6.0F));
-        this.goalSelector.addGoal(7, new LookRandomlyGoal(this));
-    }
-
     @Override
     public boolean hurt(DamageSource source, float amount) {
         return false;
@@ -83,7 +75,7 @@ public class ExampleParticleEntity extends MonsterEntity {
 
     public void sendColoredParticle(ServerWorld world, int offsetX, int offsetY, int offsetZ,
                                     float red, float green, float blue, int count) {
-        IParticleData particleData = new RedstoneParticleData(red, green, blue, 1.0f);
+        IParticleData particleData = new RedstoneParticleData(red, green, blue, 10.0f);
 
         world.sendParticles(
                 particleData,

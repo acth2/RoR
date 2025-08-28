@@ -84,6 +84,6 @@ public class ModEntityAttributes {
         event.put(ModEntities.RIFT.get(), RiftEntity.createAttributes().build());
         event.put(ModEntities.RIFT_V2.get(), RiftV2Entity.createAttributes().build());
         event.put(ModEntities.CORRUPTED.get(), CorruptedEntity.createAttributes().build());
-        event.put(ModEntities.LIVING_PARTICLE.get(), ExampleParticleEntity.createAttributes().build());
+        event.put(ModEntities.EXAMPLE_PARTICLE.get(), ExampleParticleEntity.createAttributes().build());
     }
 }

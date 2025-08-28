@@ -98,7 +98,7 @@ public class ClientEventSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.RIFT.get(), RiftRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.RIFT_V2.get(), RiftV2Renderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.CORRUPTED.get(), CorruptedRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModEntities.LIVING_PARTICLE.get(), ExampleParticleRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.EXAMPLE_PARTICLE.get(), ExampleParticleRenderer::new);
 
         event.enqueueWork(() -> {
             ItemModelsProperties.register(

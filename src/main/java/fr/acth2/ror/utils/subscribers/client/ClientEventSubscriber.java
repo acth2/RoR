@@ -22,6 +22,7 @@ import fr.acth2.ror.entities.renderer.hopper.HopperRenderer;
 import fr.acth2.ror.entities.renderer.howler.HowlerRenderer;
 import fr.acth2.ror.entities.renderer.lb.LavaBeingRenderer;
 import fr.acth2.ror.entities.renderer.lc.LostCaverRenderer;
+import fr.acth2.ror.entities.renderer.ExampleParticleRenderer;
 import fr.acth2.ror.entities.renderer.mimic.MimicRenderer;
 import fr.acth2.ror.entities.renderer.mw.MajorWickedRenderer;
 import fr.acth2.ror.entities.renderer.ookla.OoklaRenderer;
@@ -97,6 +98,7 @@ public class ClientEventSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.RIFT.get(), RiftRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.RIFT_V2.get(), RiftV2Renderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.CORRUPTED.get(), CorruptedRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.LIVING_PARTICLE.get(), ExampleParticleRenderer::new);
 
         event.enqueueWork(() -> {
             ItemModelsProperties.register(

@@ -22,6 +22,7 @@ import fr.acth2.ror.entities.entity.hopper.EntityHopper;
 import fr.acth2.ror.entities.entity.howler.EntityHowler;
 import fr.acth2.ror.entities.entity.lb.EntityLavaBeing;
 import fr.acth2.ror.entities.entity.lc.EntityLostCaver;
+import fr.acth2.ror.entities.entity.EntityExampleParticle;
 import fr.acth2.ror.entities.entity.mimic.EntityMimic;
 import fr.acth2.ror.entities.entity.mw.EntityMajorWicked;
 import fr.acth2.ror.entities.entity.ookla.EntityOokla;
@@ -52,22 +53,35 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class ModEntities {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, References.MODID);
 
-    public static final RegistryObject<EntityType<WickedProjectile>> WICKED_PROJECTILE = ENTITY_TYPES.register("wicked_projectile", () ->
-            EntityType.Builder.<WickedProjectile>of(WickedProjectile::new, EntityClassification.MISC)
-                    .sized(0.25F, 0.25F)
-                    .build("wicked_projectile")
-    );
-
     public static final RegistryObject<EntityType<EntityExample>> ENTITY_EXAMPLE = ENTITY_TYPES.register("entity_example", () ->
             EntityType.Builder.<EntityExample>of(EntityExample::new, EntityClassification.CREATURE)
                     .sized(0.6F, 3F)
                     .build("entity_example")
     );
 
+    public static final RegistryObject<EntityType<EntityExampleParticle>> EXAMPLE_PARTICLE = ENTITY_TYPES.register("example_particle", () ->
+            EntityType.Builder.<EntityExampleParticle>of(EntityExampleParticle::new, EntityClassification.CREATURE)
+                    .sized(3.0F, 0.25F)
+                    .build("example_particle")
+    );
+
+    public static final RegistryObject<EntityType<EntityExampleInvader>> EXAMPLE_INVADER = ENTITY_TYPES.register("example_invader", () ->
+            EntityType.Builder.<EntityExampleInvader>of(EntityExampleInvader::new, EntityClassification.CREATURE)
+                    .sized(1.0F, 2.0F)
+                    .build("example_invader")
+    );
+
     public static final RegistryObject<EntityType<EntityLostCaver>> LOST_CAVER = ENTITY_TYPES.register("lost_caver", () ->
             EntityType.Builder.<EntityLostCaver>of(EntityLostCaver::new, EntityClassification.MONSTER)
                     .sized(1.2F, 3.4F)
                     .build("lost_caver")
+    );
+
+
+    public static final RegistryObject<EntityType<WickedProjectile>> WICKED_PROJECTILE = ENTITY_TYPES.register("wicked_projectile", () ->
+            EntityType.Builder.<WickedProjectile>of(WickedProjectile::new, EntityClassification.MISC)
+                    .sized(0.25F, 0.25F)
+                    .build("wicked_projectile")
     );
 
     public static final RegistryObject<EntityType<EntityHopper>> HOPPER = ENTITY_TYPES.register("hopper", () ->
@@ -268,12 +282,6 @@ public class ModEntities {
                     .build("corrupted")
     );
 
-    public static final RegistryObject<EntityType<EntityExampleInvader>> EXAMPLE_INVADER = ENTITY_TYPES.register("example_invader", () ->
-            EntityType.Builder.<EntityExampleInvader>of(EntityExampleInvader::new, EntityClassification.CREATURE)
-                    .sized(1.0F, 2.0F)
-                    .build("example_invader")
-    );
-
     public static void register(IEventBus modEventBus) {
         ModEntities.ENTITY_TYPES.register(modEventBus);
 
@@ -302,6 +310,7 @@ public class ModEntities {
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL_SOLIDER, 1000, Blocks.VINE));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL_SOLIDER, 5000, Blocks.MOSSY_COBBLESTONE));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(RIFT_V2, 100, null));
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(EXAMPLE_PARTICLE, 100, null));
 
         // NIGHT MONSTER GENERATION
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CLUCKER, 100, Blocks.SAND));

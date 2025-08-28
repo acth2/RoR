@@ -22,6 +22,7 @@ import fr.acth2.ror.entities.constructors.hopper.HopperEntity;
 import fr.acth2.ror.entities.constructors.howler.HowlerEntity;
 import fr.acth2.ror.entities.constructors.lavabeing.LavaBeingEntity;
 import fr.acth2.ror.entities.constructors.lc.LostCaverEntity;
+import fr.acth2.ror.entities.constructors.ExampleParticleEntity;
 import fr.acth2.ror.entities.constructors.mimic.MimicEntity;
 import fr.acth2.ror.entities.constructors.mw.MajorWickedEntity;
 import fr.acth2.ror.entities.constructors.ookla.OoklaEntity;
@@ -83,5 +84,6 @@ public class ModEntityAttributes {
         event.put(ModEntities.RIFT.get(), RiftEntity.createAttributes().build());
         event.put(ModEntities.RIFT_V2.get(), RiftV2Entity.createAttributes().build());
         event.put(ModEntities.CORRUPTED.get(), CorruptedEntity.createAttributes().build());
+        event.put(ModEntities.LIVING_PARTICLE.get(), ExampleParticleEntity.createAttributes().build());
     }
 }

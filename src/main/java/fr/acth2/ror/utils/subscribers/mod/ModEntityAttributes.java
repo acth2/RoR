@@ -10,6 +10,7 @@ import fr.acth2.ror.entities.constructors.bri.BrokenInsurrectionistEntity;
 import fr.acth2.ror.entities.constructors.cavesucker.CaveSuckerEntity;
 import fr.acth2.ror.entities.constructors.cg.CoinGiverEntity;
 import fr.acth2.ror.entities.constructors.clucker.CluckerEntity;
+import fr.acth2.ror.entities.constructors.corrupted.CorruptedEntity;
 import fr.acth2.ror.entities.constructors.curser.CurserEntity;
 import fr.acth2.ror.entities.constructors.despiter.DespiterEntity;
 import fr.acth2.ror.entities.constructors.echo.EchoEntity;
@@ -81,5 +82,6 @@ public class ModEntityAttributes {
         event.put(ModEntities.DESPITER.get(), DespiterEntity.createAttributes().build());
         event.put(ModEntities.RIFT.get(), RiftEntity.createAttributes().build());
         event.put(ModEntities.RIFT_V2.get(), RiftV2Entity.createAttributes().build());
+        event.put(ModEntities.CORRUPTED.get(), CorruptedEntity.createAttributes().build());
     }
 }

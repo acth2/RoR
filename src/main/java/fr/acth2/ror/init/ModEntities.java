@@ -10,6 +10,7 @@ import fr.acth2.ror.entities.entity.bri.EntityBrokenInsurrectionist;
 import fr.acth2.ror.entities.entity.cavesucker.EntityCaveSucker;
 import fr.acth2.ror.entities.entity.cg.EntityCoinGiver;
 import fr.acth2.ror.entities.entity.clucker.EntityClucker;
+import fr.acth2.ror.entities.entity.corrupted.EntityCorrupted;
 import fr.acth2.ror.entities.entity.curser.EntityCurser;
 import fr.acth2.ror.entities.entity.despiter.EntityDespiter;
 import fr.acth2.ror.entities.entity.echo.EntityEcho;
@@ -261,6 +262,12 @@ public class ModEntities {
                     .build("rift_variant2")
     );
 
+    public static final RegistryObject<EntityType<EntityCorrupted>> CORRUPTED = ENTITY_TYPES.register("corrupted", () ->
+            EntityType.Builder.<EntityCorrupted>of(EntityCorrupted::new, EntityClassification.CREATURE)
+                    .sized(1.0F, 2.0F)
+                    .build("corrupted")
+    );
+
     public static final RegistryObject<EntityType<EntityExampleInvader>> EXAMPLE_INVADER = ENTITY_TYPES.register("example_invader", () ->
             EntityType.Builder.<EntityExampleInvader>of(EntityExampleInvader::new, EntityClassification.CREATURE)
                     .sized(1.0F, 2.0F)
@@ -321,6 +328,7 @@ public class ModEntities {
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(MAJOR_WICKED, 25, Blocks.STONE));
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(LAVA_BEING, 100, Blocks.LAVA));
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CAVE_SUCKER, 100, null));
+        CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CORRUPTED, 100, null));
 
         // RARE CAVE MONSTER GENERATION
 

@@ -579,5 +579,27 @@
     "sounds": [
       "ror:whisp_ambient"
     ]
+  },
+
+  "corrupted_ambient": {
+    "category": "hostile",
+    "subtitle": "ror.corrupted_ambient",
+    "sounds": [
+      "ror:corrupted_ambient"
+    ]
+  },
+  "corrupted_hit": {
+    "category": "hostile",
+    "subtitle": "ror.corrupted_hit",
+    "sounds": [
+      "ror:corrupted_hit"
+    ]
+  },
+  "corrupted_die": {
+    "category": "hostile",
+    "subtitle": "ror.corrupted_die",
+    "sounds": [
+      "ror:corrupted_die"
+    ]
   }
 }

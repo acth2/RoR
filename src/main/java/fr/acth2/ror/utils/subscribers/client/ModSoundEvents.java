@@ -264,6 +264,16 @@ public class ModSoundEvents {
     public static final RegistryObject<SoundEvent> WHISP_AMBIENT =
             registerSoundEvent("whisp_ambient");
 
+
+    public static final RegistryObject<SoundEvent> CORRUPTED_DIE =
+            registerSoundEvent("corrupted_die");
+
+    public static final RegistryObject<SoundEvent> CORRUPTED_HIT =
+            registerSoundEvent("corrupted_hit");
+
+    public static final RegistryObject<SoundEvent> CORRUPTED_AMBIENT =
+            registerSoundEvent("corrupted_ambient");
+
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         return SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(References.MODID, name)));
     }

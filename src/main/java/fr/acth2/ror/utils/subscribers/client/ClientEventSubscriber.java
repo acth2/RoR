@@ -9,6 +9,7 @@ import fr.acth2.ror.entities.renderer.bri.BrokenInsurrectionistRenderer;
 import fr.acth2.ror.entities.renderer.cavesucker.CaveSuckerRenderer;
 import fr.acth2.ror.entities.renderer.cg.CoinGiverRenderer;
 import fr.acth2.ror.entities.renderer.clucker.CluckerRenderer;
+import fr.acth2.ror.entities.renderer.corrupted.CorruptedRenderer;
 import fr.acth2.ror.entities.renderer.curser.CurserRenderer;
 import fr.acth2.ror.entities.renderer.bo.BadOmenRenderer;
 import fr.acth2.ror.entities.renderer.despiter.DespiterRenderer;
@@ -95,6 +96,7 @@ public class ClientEventSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.DESPITER.get(), DespiterRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.RIFT.get(), RiftRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.RIFT_V2.get(), RiftV2Renderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.CORRUPTED.get(), CorruptedRenderer::new);
 
         event.enqueueWork(() -> {
             ItemModelsProperties.register(

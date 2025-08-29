@@ -289,6 +289,15 @@ public class ModSoundEvents {
     public static final RegistryObject<SoundEvent> SILKER_AMBIENT =
             registerSoundEvent("silker_ambient");
 
+    public static final RegistryObject<SoundEvent> LOGO_CLICK_1 =
+            registerSoundEvent("logo_click_1");
+
+    public static final RegistryObject<SoundEvent> LOGO_CLICK_2 =
+            registerSoundEvent("logo_click_2");
+
+    public static final RegistryObject<SoundEvent> LOGO_CLICK_3 =
+            registerSoundEvent("logo_click_3");
+
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         return SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(References.MODID, name)));
     }

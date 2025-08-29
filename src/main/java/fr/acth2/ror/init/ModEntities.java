@@ -23,6 +23,7 @@ import fr.acth2.ror.entities.entity.howler.EntityHowler;
 import fr.acth2.ror.entities.entity.lb.EntityLavaBeing;
 import fr.acth2.ror.entities.entity.lc.EntityLostCaver;
 import fr.acth2.ror.entities.entity.EntityExampleParticle;
+import fr.acth2.ror.entities.entity.lp.EntityLivingParticle;
 import fr.acth2.ror.entities.entity.mimic.EntityMimic;
 import fr.acth2.ror.entities.entity.mw.EntityMajorWicked;
 import fr.acth2.ror.entities.entity.ookla.EntityOokla;
@@ -282,6 +283,12 @@ public class ModEntities {
                     .build("corrupted")
     );
 
+    public static final RegistryObject<EntityType<EntityLivingParticle>> LIVING_PARTICLE = ENTITY_TYPES.register("living_particle", () ->
+            EntityType.Builder.<EntityLivingParticle>of(EntityLivingParticle::new, EntityClassification.CREATURE)
+                    .sized(1.0F, 1.0F)
+                    .build("living_particle")
+    );
+
     public static void register(IEventBus modEventBus) {
         ModEntities.ENTITY_TYPES.register(modEventBus);
 
@@ -310,7 +317,7 @@ public class ModEntities {
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL_SOLIDER, 1000, Blocks.VINE));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL_SOLIDER, 5000, Blocks.MOSSY_COBBLESTONE));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(RIFT_V2, 100, null));
-        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(EXAMPLE_PARTICLE, 100, null));
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(LIVING_PARTICLE, 100, null));
 
         // NIGHT MONSTER GENERATION
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CLUCKER, 100, Blocks.SAND));

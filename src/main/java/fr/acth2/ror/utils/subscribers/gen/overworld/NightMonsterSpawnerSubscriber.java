@@ -20,7 +20,7 @@ import java.util.Random;
 public class NightMonsterSpawnerSubscriber {
 
     private static final int SPAWN_INTERVAL_TICKS = 100;
-    private static final int ATTEMPTS_PER_PLAYER = 3;
+    private static final int ATTEMPTS_PER_PLAYER = 13;
     private static final double SPAWN_CHANCE = 4.75;
     private static final int SPAWN_RADIUS_MIN = 8;
     private static final int SPAWN_RADIUS_MAX = 24;

@@ -20,7 +20,7 @@ import java.util.Random;
 public class CaveMonsterSpawnerSubscriber {
 
     private static final int SPAWN_INTERVAL_TICKS = 250;
-    private static final int ATTEMPTS_PER_PLAYER = 6;
+    private static final int ATTEMPTS_PER_PLAYER = 16;
     private static final double SPAWN_CHANCE = 6.75;
     private static final int SPAWN_RADIUS_MIN = 4;
     private static final int SPAWN_RADIUS_MAX = 50;

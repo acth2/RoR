@@ -48,6 +48,9 @@ public class TravelerEntity extends MonsterEntity {
     }
 
     @Override
+    public void push(double p_70024_1_, double p_70024_3_, double p_70024_5_) { }
+
+    @Override
     public boolean hurt(DamageSource source, float amount) {
         if (source.getEntity() instanceof PlayerEntity) {
             hurtCounter++;

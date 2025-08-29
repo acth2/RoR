@@ -274,6 +274,21 @@ public class ModSoundEvents {
     public static final RegistryObject<SoundEvent> CORRUPTED_AMBIENT =
             registerSoundEvent("corrupted_ambient");
 
+    public static final RegistryObject<SoundEvent> LIVING_PARTICLE_AMBIENT =
+            registerSoundEvent("lp_ambient");
+
+    public static final RegistryObject<SoundEvent> LIVING_PARTICLE_DIE =
+            registerSoundEvent("lp_die");
+
+    public static final RegistryObject<SoundEvent> SILKER_DIE =
+            registerSoundEvent("silker_die");
+
+    public static final RegistryObject<SoundEvent> SILKER_HIT =
+            registerSoundEvent("silker_hit");
+
+    public static final RegistryObject<SoundEvent> SILKER_AMBIENT =
+            registerSoundEvent("silker_ambient");
+
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         return SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(References.MODID, name)));
     }

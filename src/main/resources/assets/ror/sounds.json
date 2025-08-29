@@ -601,5 +601,40 @@
     "sounds": [
       "ror:corrupted_die"
     ]
+  },
+  "silker_ambient": {
+    "category": "hostile",
+    "subtitle": "ror.silker_ambient",
+    "sounds": [
+      "ror:silker_ambient"
+    ]
+  },
+  "silker_hit": {
+    "category": "hostile",
+    "subtitle": "ror.silker_hit",
+    "sounds": [
+      "ror:silker_hit"
+    ]
+  },
+  "silker_die": {
+    "category": "hostile",
+    "subtitle": "ror.silker_die",
+    "sounds": [
+      "ror:silker_die"
+    ]
+  },
+  "lp_die": {
+    "category": "hostile",
+    "subtitle": "ror.lp_die",
+    "sounds": [
+      "ror:lp_die"
+    ]
+  },
+  "lp_ambient": {
+    "category": "hostile",
+    "subtitle": "ror.lp_ambient",
+    "sounds": [
+      "ror:lp_ambient"
+    ]
   }
 }

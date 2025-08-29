@@ -9,6 +9,8 @@ import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.SoundEvent;
@@ -43,7 +45,33 @@ public class OoklaEntity extends MonsterEntity {
 
     @Override
     public void tick() {
+        if (!this.level.isClientSide && this.isAlive()) {
+            if (this.isSunBurnTick()) {
+                boolean flag = this.isSunSensitive();
+                if (flag) {
+                    ItemStack itemstack = this.getItemBySlot(EquipmentSlotType.HEAD);
+                    if (!itemstack.isEmpty()) {
+                        if (itemstack.isDamageableItem()) {
+                            itemstack.setDamageValue(itemstack.getDamageValue() + this.random.nextInt(2));
+                            if (itemstack.getDamageValue() >= itemstack.getMaxDamage()) {
+                                this.broadcastBreakEvent(EquipmentSlotType.HEAD);
+                                this.setItemSlot(EquipmentSlotType.HEAD, ItemStack.EMPTY);
+                            }
+                        }
+                        flag = false;
+                    }
+                    if (flag && this.level.isDay() && this.level.canSeeSky(this.blockPosition())) {
+                        this.setSecondsOnFire(8);
+                    }
+                }
+            }
+        }
+
         super.tick();
+    }
+
+    protected boolean isSunSensitive() {
+        return true;
     }
     @Override
     public boolean isDeadOrDying() {
@@ -72,7 +100,7 @@ public class OoklaEntity extends MonsterEntity {
 
     @Override
     protected boolean isSunBurnTick() {
-        return false;
+        return true;
     }
 
     @Override

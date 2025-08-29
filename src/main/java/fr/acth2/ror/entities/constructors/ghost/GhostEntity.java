@@ -14,6 +14,8 @@ import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.IWorld;
@@ -39,7 +41,33 @@ public class GhostEntity extends MonsterEntity {
 
     @Override
     public void tick() {
+        if (!this.level.isClientSide && this.isAlive()) {
+            if (this.isSunBurnTick()) {
+                boolean flag = this.isSunSensitive();
+                if (flag) {
+                    ItemStack itemstack = this.getItemBySlot(EquipmentSlotType.HEAD);
+                    if (!itemstack.isEmpty()) {
+                        if (itemstack.isDamageableItem()) {
+                            itemstack.setDamageValue(itemstack.getDamageValue() + this.random.nextInt(2));
+                            if (itemstack.getDamageValue() >= itemstack.getMaxDamage()) {
+                                this.broadcastBreakEvent(EquipmentSlotType.HEAD);
+                                this.setItemSlot(EquipmentSlotType.HEAD, ItemStack.EMPTY);
+                            }
+                        }
+                        flag = false;
+                    }
+                    if (flag && this.level.isDay() && this.level.canSeeSky(this.blockPosition())) {
+                        this.setSecondsOnFire(8);
+                    }
+                }
+            }
+        }
+
         super.tick();
+    }
+
+    protected boolean isSunSensitive() {
+        return true;
     }
 
     protected void addBehaviourGoals() {
@@ -86,7 +114,7 @@ public class GhostEntity extends MonsterEntity {
 
     @Override
     protected boolean isSunBurnTick() {
-        return false;
+        return true;
     }
 
     @Override

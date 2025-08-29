@@ -1,7 +1,7 @@
 package fr.acth2.ror.mixins;
 
 import fr.acth2.ror.utils.References;
-import net.minecraft.client.Minecraft; // Import Minecraft
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.world.ClientWorld;
 import org.spongepowered.asm.mixin.Mixin;

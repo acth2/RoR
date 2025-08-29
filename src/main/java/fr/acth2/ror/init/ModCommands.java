@@ -41,7 +41,7 @@ public class ModCommands  {
                                     builder.suggest("sealed_treasure_t1");
                                     builder.suggest("sealed_treasure_t2");
                                     builder.suggest("sealed_treasure_t3");
-                                    builder.suggest("hollow_structure_test");
+                                    builder.suggest("skyria_tower");
                                     return builder.buildFuture();
                                 })
                                 .executes(context -> listStructures(
@@ -73,7 +73,7 @@ public class ModCommands  {
             String coords = String.format("X: %d, Y: %d, Z: %d", pos.getX(), pos.getY(), pos.getZ());
             source.sendSuccess(new StringTextComponent(TextFormatting.WHITE + "- " + coords), false);
 
-            StringTextComponent teleport = new StringTextComponent(TextFormatting.BLUE + "[Teleport]");
+            StringTextComponent teleport = new StringTextComponent(TextFormatting.BLUE + "[Teleport]" + TextFormatting.GRAY + " (You wont be telported to the structure dimension)");
             teleport.withStyle(style -> style.withClickEvent(new ClickEvent(
                     ClickEvent.Action.RUN_COMMAND,
                     "/tp " + pos.getX() + " " + pos.getY() + " " + pos.getZ()

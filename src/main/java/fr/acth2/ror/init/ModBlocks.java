@@ -66,6 +66,7 @@ public class ModBlocks {
             () -> new BlockItem(SKYRIA_BRICK.get(), new Item.Properties())
     );
 
+
     public static final RegistryObject<Item> POLISHED_SKYRIA_BRICK_ITEM = ITEMS.register("polished_skyria_brick",
             () -> new BlockItem(POLISHED_SKYRIA_BRICK.get(), new Item.Properties())
     );

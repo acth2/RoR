@@ -11,7 +11,7 @@ public class LogoButton extends Button {
     private static final ResourceLocation LOGO_ICON = new ResourceLocation("ror", "textures/gui/logo.png");
     public LogoButton(int x, int y, int width, int height) {
         super(x, y, width, height, new StringTextComponent(""), button -> {
-            // make a sound (need to learn fl studio ahhh)
+            // make a sound (i learned fl studio but i didnt remembered this message)
         });
     }
 

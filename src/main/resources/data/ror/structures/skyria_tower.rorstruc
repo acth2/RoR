@@ -1,0 +1,29 @@
+{
+  "blocks": [
+    {
+      "shape": "hollow_box",
+      "width": 3,
+      "height": 32,
+      "length": 3,
+      "hollow_box": {
+        "corner_block": "ror:polished_skyria_brick",
+        "edge_block": "ror:polished_skyria_brick",
+        "face_block": "ror:skyria_brick",
+        "interior_block": "minecraft:ladder",
+        "air_roof": true
+      },
+      "entrance": {
+        "wall": "north",
+        "width": 2,
+        "height": 2
+      },
+      "platform": {
+        "enabled": true,
+        "block": "ror:skyria_brick",
+        "thickness": 1,
+        "extend_walls": true,
+        "railing": false
+      }
+    }
+  ]
+}

@@ -59,6 +59,8 @@ public class StructureParser {
             public int length;
             public LayerEntry layers;
             public HollowBoxEntry hollow_box;
+            public EntranceEntry entrance;
+            public PlatformEntry platform;
         }
 
         public static class LayerEntry {
@@ -71,6 +73,22 @@ public class StructureParser {
             public String edge_block;
             public String face_block;
             public String interior_block = "minecraft:air";
+            public boolean air_roof = true;
+        }
+
+        public static class EntranceEntry {
+            public String wall = "north";
+            public int width = 2;
+            public int height = 2;
+        }
+
+        public static class PlatformEntry {
+            public boolean enabled = false;
+            public String block = "minecraft:stone";
+            public int thickness = 1;
+            public boolean extend_walls = true;
+            public boolean railing = false;
+            public String railing_block = "minecraft:stone_wall";
         }
     }
 }

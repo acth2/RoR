@@ -41,6 +41,7 @@ public class ModCommands  {
                                     builder.suggest("sealed_treasure_t1");
                                     builder.suggest("sealed_treasure_t2");
                                     builder.suggest("sealed_treasure_t3");
+                                    builder.suggest("hollow_structure_test");
                                     return builder.buildFuture();
                                 })
                                 .executes(context -> listStructures(

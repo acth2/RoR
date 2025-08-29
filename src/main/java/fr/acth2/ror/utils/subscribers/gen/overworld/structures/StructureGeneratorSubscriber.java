@@ -55,6 +55,13 @@ public class StructureGeneratorSubscriber {
                 Arrays.asList("minecraft:plains", "minecraft:desert"),
                 650
         ));
+
+        list_structures.add(new Structure(
+                new ResourceLocation(References.MODID + ":hollow_structure_test"),
+                60, 80,
+                Arrays.asList("minecraft:plains", "minecraft:desert"),
+                100
+        ));
     }
 
     @SubscribeEvent

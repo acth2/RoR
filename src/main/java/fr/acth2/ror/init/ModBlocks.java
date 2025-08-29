@@ -23,6 +23,14 @@ public class ModBlocks {
 
     );
 
+    public static final RegistryObject<Block> SKYRIA_BRICK = BLOCKS.register("skyria_brick",
+            () -> new Block(Block.Properties.of(Material.STONE).strength(1, 4.5F))
+    );
+
+    public static final RegistryObject<Block> POLISHED_SKYRIA_BRICK = BLOCKS.register("polished_skyria_brick",
+            () -> new Block(Block.Properties.of(Material.STONE).strength(1, 4.5F))
+    );
+
     public static final RegistryObject<Block> RESTORATION_STATION = BLOCKS.register("restoration_station",
             RestorationStation::new
     );
@@ -49,8 +57,17 @@ public class ModBlocks {
     public static final RegistryObject<Block> SKYRIA_AIR = BLOCKS.register("skyria_air", SkyriaAir::new);
 
     public static final RegistryObject<Block> CLOUD_PIECE = BLOCKS.register("cloud_piece", CloudPiece::new);
+
     public static final RegistryObject<Item> CLOUD_PIECE_ITEM = ITEMS.register("cloud_piece",
             () -> new BlockItem(CLOUD_PIECE.get(), new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> SKYRIA_BRICK_ITEM = ITEMS.register("skyria_brick",
+            () -> new BlockItem(SKYRIA_BRICK.get(), new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> POLISHED_SKYRIA_BRICK_ITEM = ITEMS.register("polished_skyria_brick",
+            () -> new BlockItem(POLISHED_SKYRIA_BRICK.get(), new Item.Properties())
     );
 
     public static final RegistryObject<Item> SKYRIA_AIR_ITEM = ITEMS.register("skyria_air",

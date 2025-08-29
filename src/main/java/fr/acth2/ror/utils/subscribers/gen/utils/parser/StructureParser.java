@@ -52,15 +52,25 @@ public class StructureParser {
 
         public static class BlockEntry {
             public String block;
-            public String shape; // "cylinder", "box", etc.
+            public String shape;
             public int radius;
             public int height;
+            public int width;
+            public int length;
             public LayerEntry layers;
+            public HollowBoxEntry hollow_box;
         }
 
         public static class LayerEntry {
             public String top;
             public String bottom;
+        }
+
+        public static class HollowBoxEntry {
+            public String corner_block;
+            public String edge_block;
+            public String face_block;
+            public String interior_block = "minecraft:air";
         }
     }
 }

@@ -1,0 +1,16 @@
+{
+  "blocks": [
+    {
+      "shape": "hollow_box",
+      "width": 5,
+      "height": 4,
+      "length": 5,
+      "hollow_box": {
+        "corner_block": "minecraft:obsidian",
+        "edge_block": "minecraft:stone_bricks",
+        "face_block": "minecraft:stone",
+        "interior_block": "minecraft:air"
+      }
+    }
+  ]
+}

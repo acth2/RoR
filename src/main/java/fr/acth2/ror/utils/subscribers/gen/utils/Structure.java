@@ -76,6 +76,8 @@ public class Structure {
             for (StructureParser.StructureDefinition.BlockEntry entry : def.blocks) {
                 if ("cylinder".equals(entry.shape)) {
                     generateCylinder(world, centerPos, entry);
+                } else if ("hollow_box".equals(entry.shape)) {
+                    generateHollowBox(world, centerPos, entry);
                 }
             }
             return true;
@@ -115,5 +117,64 @@ public class Structure {
                 }
             }
         }
+    }
+
+    private void generateHollowBox(ISeedReader world, BlockPos center, StructureParser.StructureDefinition.BlockEntry entry) {
+        if (entry.hollow_box == null) {
+            System.err.println("Missing hollow_box configuration for structure");
+            return;
+        }
+
+        StructureParser.StructureDefinition.HollowBoxEntry hollowConfig = entry.hollow_box;
+        int width = entry.width;
+        int height = entry.height;
+        int length = entry.length;
+
+        BlockState cornerBlock = getBlockState(hollowConfig.corner_block);
+        BlockState edgeBlock = getBlockState(hollowConfig.edge_block);
+        BlockState faceBlock = getBlockState(hollowConfig.face_block);
+        BlockState interiorBlock = getBlockState(hollowConfig.interior_block);
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                for (int z = 0; z < length; z++) {
+                    BlockPos pos = center.offset(x - width/2, y, z - length/2);
+
+                    BlockState stateToPlace = determineHollowBoxBlock(x, y, z, width, height, length,
+                            cornerBlock, edgeBlock, faceBlock, interiorBlock);
+
+                    world.setBlock(pos, stateToPlace, 2);
+                }
+            }
+        }
+    }
+
+    private BlockState determineHollowBoxBlock(int x, int y, int z, int width, int height, int length,
+                                               BlockState cornerBlock, BlockState edgeBlock,
+                                               BlockState faceBlock, BlockState interiorBlock) {
+        boolean isCornerX = (x == 0 || x == width - 1);
+        boolean isCornerZ = (z == 0 || z == length - 1);
+        boolean isCornerY = (y == 0 || y == height - 1);
+
+        if (isCornerX && isCornerZ && isCornerY) {
+            return cornerBlock;
+        }
+
+        if ((isCornerX && isCornerZ) || (isCornerX && isCornerY) || (isCornerZ && isCornerY)) {
+            return edgeBlock;
+        }
+
+        if (isCornerX || isCornerZ || isCornerY) {
+            return faceBlock;
+        }
+
+        return interiorBlock;
+    }
+
+    private BlockState getBlockState(String blockId) {
+        if (blockId == null) {
+            return ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft:air")).defaultBlockState();
+        }
+        return ForgeRegistries.BLOCKS.getValue(new ResourceLocation(blockId)).defaultBlockState();
     }
 }

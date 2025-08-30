@@ -26,7 +26,7 @@ public class Glider extends Item {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
         tooltip.add(new StringTextComponent(TextFormatting.GRAY + "Holding this item while falling"));
-        tooltip.add(new StringTextComponent(TextFormatting.BLUE + "Make you glide and cancel you fall damages!"));
+        tooltip.add(new StringTextComponent(TextFormatting.BLUE + "Make you glide and cancel your fall damages!"));
         super.appendHoverText(stack, world, tooltip, flag);
     }
 

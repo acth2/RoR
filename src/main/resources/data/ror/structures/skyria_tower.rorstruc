@@ -14,8 +14,8 @@
       },
       "entrance": {
         "wall": "north",
-        "width": 2,
-        "height": 2
+        "width": 3,
+        "height": 3
       },
       "platform": {
         "enabled": true,

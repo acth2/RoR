@@ -110,7 +110,7 @@ public class SkyriaStructureGeneratorSubscriber {
                 new ResourceLocation(References.MODID + ":skyria_tower"),
                 60, 80,
                 allList,
-                550
+                350
         ));
     }
 
@@ -122,8 +122,7 @@ public class SkyriaStructureGeneratorSubscriber {
                 if (list_structures.isEmpty()) {
                     initStructures();
                 }
-                System.out.println("Skyria dimension loaded - structure generation enabled");
-            }
+             }
         }
     }
 
@@ -145,56 +144,41 @@ public class SkyriaStructureGeneratorSubscriber {
 
         GeneratedStructuresData data = GeneratedStructuresData.get(world);
         if (data.isChunkGenerated(chunkLongPos)) {
-            System.out.println("Chunk " + chunkPos + " already generated structures");
             return;
         }
 
         if (!initialized) initStructures();
 
-        Random random = new Random(world.getSeed());
-        random.setSeed(random.nextLong() ^ chunkLongPos);
-
-        System.out.println("Processing chunk " + chunkPos + " for structure generation");
+        long worldSeed = world.getSeed();
+        Random random = new Random(worldSeed);
+        long chunkSpecificSeed = (long) chunkPos.x * 341873128712L + (long) chunkPos.z * 132897987541L;
+        random.setSeed(worldSeed ^ chunkSpecificSeed);
         generateStructure(random, chunkPos.x, chunkPos.z, world, data, chunkLongPos);
     }
 
     public static void generateStructure(Random random, int chunkX, int chunkZ, ServerWorld world, GeneratedStructuresData data, long chunkLongPos) {
         if (list_structures.isEmpty()) {
-            System.out.println("No structures configured");
             return;
         }
 
         for (Structure structure : list_structures) {
             int rarityResult = random.nextInt(structure.getRarity());
-            System.out.println("Rarity check: random.nextInt(" + structure.getRarity() + ") = " + rarityResult);
 
             if (rarityResult == 0) {
-                System.out.println("Rarity check passed for: " + structure.getStructureLocation());
-
                 BlockPos suitablePos = findSuitableSkyriaPosition(world, chunkX, chunkZ, structure.getMinY());
 
-                if (suitablePos == null) {
-                    System.out.println("No suitable position found in chunk [" + chunkX + ", " + chunkZ + "]");
-                    continue;
-                }
+                if (suitablePos == null) continue;
 
-                System.out.println("Found suitable position at: " + suitablePos);
 
                 if (structure.generate(world, world.getStructureManager(), random, suitablePos)) {
-                    System.out.println("SUCCESS: Generated structure at " + suitablePos);
                     data.markChunkGenerated(chunkLongPos, structure.getStructureLocation().getPath(), suitablePos);
-                } else {
-                    System.out.println("FAILED: Structure generation failed at " + suitablePos);
                 }
                 break;
-            } else {
-                System.out.println("Rarity check failed for: " + structure.getStructureLocation());
             }
         }
     }
 
     private static BlockPos findSuitableSkyriaPosition(ServerWorld world, int chunkX, int chunkZ, int minY) {
-        System.out.println("Searching for position in chunk [" + chunkX + ", " + chunkZ + "] above Y=" + minY);
 
         for (int attempt = 0; attempt < 5; attempt++) {
             int xInChunk = 4 + attempt * 3;
@@ -216,16 +200,10 @@ public class SkyriaStructureGeneratorSubscriber {
                 boolean isAirAbove = world.isEmptyBlock(abovePos);
 
                 if (isCloudBelow && isAirAtPos && isAirAbove) {
-                    System.out.println("Found valid position at " + currentPos +
-                            " - Cloud below: " + isCloudBelow +
-                            ", Air at pos: " + isAirAtPos +
-                            ", Air above: " + isAirAbove);
                     return currentPos;
                 }
             }
         }
-
-        System.out.println("No valid position found after 5 attempts");
         return null;
     }
 

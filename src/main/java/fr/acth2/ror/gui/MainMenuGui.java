@@ -12,6 +12,7 @@ import fr.acth2.ror.network.coins.RequestCoinSyncPacket;
 import fr.acth2.ror.network.skills.RequestLevelUpPacket;
 import fr.acth2.ror.network.skills.RequestSyncPlayerStatsPacket;
 import fr.acth2.ror.utils.References;
+import fr.acth2.ror.utils.subscribers.client.WorldParticleHandler;
 import fr.acth2.ror.utils.subscribers.mod.skills.PlayerStats;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
@@ -53,6 +54,7 @@ public class MainMenuGui extends Screen {
     private Button healthButton;
     private Button dexterityButton;
     private Button strengthButton;
+    private Button particleToggleButton;
 
     public MainMenuGui(PlayerEntity player) {
         super(new StringTextComponent("Ruins of Realms"));
@@ -91,9 +93,24 @@ public class MainMenuGui extends Screen {
         githubButton = new GithubButton(10, this.height - iconSize - 30, iconSize, iconSize);
         logoButton = new LogoButton(logoX, logoY, 300, 128);
 
+        int pbuttonWidth = 150;
+        int pbuttonHeight = 20;
+        particleToggleButton = new Button(
+                this.width - pbuttonWidth - 10,
+                this.height - pbuttonHeight - 10,
+                pbuttonWidth,
+                pbuttonHeight,
+                new StringTextComponent(getParticleButtonText()),
+                button -> {
+                    WorldParticleHandler.toggleParticles();
+                    particleToggleButton.setMessage(new StringTextComponent(getParticleButtonText()));
+                }
+        );
+
         discordButton.visible = (currentTab == 2);
         githubButton.visible = (currentTab == 2);
         logoButton.visible = (currentTab == 2);
+        particleToggleButton.visible = (currentTab == 2);
 
         this.addButton(discordButton);
         this.addButton(githubButton);
@@ -124,6 +141,7 @@ public class MainMenuGui extends Screen {
             this.addButton(healthButton);
             this.addButton(dexterityButton);
             this.addButton(strengthButton);
+            this.addButton(particleToggleButton);
         }
 
         if (currentTab == 1) {
@@ -141,6 +159,11 @@ public class MainMenuGui extends Screen {
             }
         }
         return 0;
+    }
+
+    private String getParticleButtonText() {
+        return WorldParticleHandler.areParticlesEnabled() ?
+                "Disable World Particles" : "Enable World Particles";
     }
 
     private void updateButtonCosts() {
@@ -254,6 +277,7 @@ public class MainMenuGui extends Screen {
         discordButton.visible = (currentTab == 2);
         githubButton.visible = (currentTab == 2);
         logoButton.visible = (currentTab == 2);
+        particleToggleButton.visible = (currentTab == 2);
 
         healthButton.visible = (currentTab == 0);
         dexterityButton.visible = (currentTab == 0);
@@ -266,6 +290,10 @@ public class MainMenuGui extends Screen {
             initDiaryEntries();
         } else {
             currentDiaryEntry = null;
+        }
+
+        if (currentTab == 2) {
+            particleToggleButton.setMessage(new StringTextComponent(getParticleButtonText()));
         }
     }
 

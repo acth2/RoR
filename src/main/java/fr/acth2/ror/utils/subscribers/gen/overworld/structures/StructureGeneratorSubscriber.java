@@ -95,7 +95,11 @@ public class StructureGeneratorSubscriber {
         Random random = new Random(world.getSeed());
         random.setSeed(random.nextLong() ^ chunkLongPos);
 
-        generateStructure(random, chunkPos.x, chunkPos.z, world, data, chunkLongPos);
+        long worldSeed = world.getSeed();
+        Random random2 = new Random(worldSeed);
+        long chunkSpecificSeed = (long) chunkPos.x * 341873128712L + (long) chunkPos.z * 132897987541L;
+        random2.setSeed(worldSeed ^ chunkSpecificSeed);
+        generateStructure(random2, chunkPos.x, chunkPos.z, world, data, chunkLongPos);
     }
 
 

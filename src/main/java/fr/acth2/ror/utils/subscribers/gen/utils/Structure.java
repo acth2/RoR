@@ -43,22 +43,13 @@ public class Structure {
 
 
     public boolean generate(ISeedReader world, TemplateManager templateManager, Random random, BlockPos pos) {
-        System.out.println("=== STRUCTURE GENERATION START ===");
-        System.out.println("Structure: " + structureLocation);
-        System.out.println("Position: " + pos);
-
         boolean isSkyria = world.getLevel().dimension().location().toString().equals("ror:skyria");
-        System.out.println("Is Skyria dimension: " + isSkyria);
 
         BlockPos surfacePos;
 
         if (!isSkyria) {
             String biomeName = world.getBiome(pos).getRegistryName().toString();
-            System.out.println("Biome: " + biomeName);
-            System.out.println("Biome in allowed list: " + allowedBiomes.contains(biomeName));
-
             if (!allowedBiomes.contains(biomeName)) {
-                System.out.println("=== STRUCTURE GENERATION FAILED: Wrong biome ===");
                 return false;
             }
 
@@ -76,14 +67,10 @@ public class Structure {
             surfacePos = new BlockPos(pos.getX(), Math.min(Math.max(mutablePos.getY(), minY), maxY), pos.getZ());
 
             if (!world.getBlockState(surfacePos.below()).getMaterial().isSolid()) {
-                System.out.println("=== STRUCTURE GENERATION FAILED: No solid ground below ===");
                 return false;
             }
         } else {
-            System.out.println("Y level: " + pos.getY() + " (minY: " + minY + ", maxY: " + maxY + ")");
-
             if (pos.getY() < minY) {
-                System.out.println("=== STRUCTURE GENERATION FAILED: Y too low ===");
                 return false;
             }
 
@@ -94,12 +81,7 @@ public class Structure {
             boolean hasAirAtPos = world.isEmptyBlock(pos);
             boolean hasAirAbove = world.isEmptyBlock(abovePos);
 
-            System.out.println("Cloud below: " + hasCloudBelow + " at " + belowPos);
-            System.out.println("Air at position: " + hasAirAtPos);
-            System.out.println("Air above: " + hasAirAbove + " at " + abovePos);
-
             if (!hasCloudBelow || !hasAirAtPos || !hasAirAbove) {
-                System.out.println("=== STRUCTURE GENERATION FAILED: Invalid position conditions ===");
                 return false;
             }
 
@@ -112,38 +94,22 @@ public class Structure {
                     world.getLevel().getServer().getDataPackRegistries().getResourceManager(),
                     structureLocation
             );
-            System.out.println("Structure parsed successfully");
 
             if (def.blocks != null && def.blocks.length > 0) {
-                for (StructureParser.StructureDefinition.BlockEntry entry : def.blocks) {
-                    if (entry.width > 50 || entry.length > 50 || entry.height > 100) {
-                        System.out.println("WARNING: Structure is very large - may cause performance issues");
-                    }
-                }
-
                 BlockPos centerPos = surfacePos.offset(-def.blocks[0].radius, 0, -def.blocks[0].radius);
-                System.out.println("Center position: " + centerPos);
-
                 for (StructureParser.StructureDefinition.BlockEntry entry : def.blocks) {
                     if ("cylinder".equals(entry.shape)) {
-                        System.out.println("Generating cylinder...");
                         generateCylinder(world, centerPos, entry);
                     } else if ("hollow_box".equals(entry.shape)) {
-                        System.out.println("Generating hollow box...");
                         generateHollowBox(world, centerPos, entry);
                     }
                 }
             } else {
-                System.out.println("=== STRUCTURE GENERATION FAILED: No blocks defined in structure ===");
                 return false;
             }
-
-            System.out.println("=== STRUCTURE GENERATION SUCCESS ===");
             return true;
 
         } catch (Exception e) {
-            System.err.println("=== STRUCTURE GENERATION FAILED: Exception ===");
-            System.err.println("Failed to generate structure " + structureLocation + ": ");
             e.printStackTrace();
             return false;
         }
@@ -188,7 +154,6 @@ public class Structure {
                     }
                 }
             } catch (Exception e) {
-                System.err.println("Error generating cylinder: " + e.getMessage());
                 e.printStackTrace();
             }
         });
@@ -196,7 +161,6 @@ public class Structure {
 
     private void generateHollowBox(ISeedReader world, BlockPos center, StructureParser.StructureDefinition.BlockEntry entry) {
         if (entry.hollow_box == null) {
-            System.err.println("Missing hollow_box configuration for structure");
             return;
         }
 
@@ -206,8 +170,6 @@ public class Structure {
         int width = entry.width;
         int height = entry.height;
         int length = entry.length;
-
-        System.out.println("Generating hollow box: " + width + "x" + height + "x" + length);
 
         BlockState cornerBlock = getBlockState(hollowConfig.corner_block);
         BlockState edgeBlock = getBlockState(hollowConfig.edge_block);
@@ -245,15 +207,6 @@ public class Structure {
 
                     world.setBlock(pos, stateToPlace, 2);
                     blocksPlaced++;
-
-                    if (blocksPlaced % 64 == 0) {
-                        try {
-                            Thread.sleep(1);
-                        } catch (InterruptedException e) {
-                            Thread.currentThread().interrupt();
-                            return;
-                        }
-                    }
                 }
             }
 
@@ -312,15 +265,6 @@ public class Structure {
                         world.setBlock(pos, platformBlock, 2);
                     }
                     blocksPlaced++;
-
-                    if (blocksPlaced % 64 == 0) {
-                        try {
-                            Thread.sleep(1);
-                        } catch (InterruptedException e) {
-                            Thread.currentThread().interrupt();
-                            return;
-                        }
-                    }
                 }
             }
         }
@@ -347,15 +291,6 @@ public class Structure {
                             world.setBlock(pos, edgeBlock, 2);
                         }
                         blocksPlaced++;
-
-                        if (blocksPlaced % 64 == 0) {
-                            try {
-                                Thread.sleep(1);
-                            } catch (InterruptedException e) {
-                                Thread.currentThread().interrupt();
-                                return;
-                            }
-                        }
                     }
                 }
             }

@@ -1,29 +1,23 @@
-package fr.acth2.ror.gui.npc.traveler;
+package fr.acth2.ror.gui.npc.skyria;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import fr.acth2.ror.gui.coins.CoinsManager;
-import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.world.World;
 
-public class TravelerSpeech extends Screen {
+public class SkyriaTraderSpeech extends Screen {
 
     private PlayerEntity player;
     private boolean showAfterShopDialogue = false;
     private String npcText;
     private String[] playerResponses;
 
-    public TravelerSpeech(PlayerEntity player) {
-        super(new StringTextComponent("Ruins of Realms - Traveler"));
+    public SkyriaTraderSpeech(PlayerEntity player) {
+        super(new StringTextComponent("Ruins of Realms - Skyria Trader"));
         this.player = player;
-        this.npcText = "Hello, traveler. Searching items?";
+        this.npcText = "A new client! Here check my shop.";
         this.playerResponses = new String[]{"Open shop", "No"};
     }
 
@@ -50,7 +44,7 @@ public class TravelerSpeech extends Screen {
             this.onClose();
         } else {
             if (index == 0) {
-                Minecraft.getInstance().setScreen(new TravelerShopScreen(player));
+                Minecraft.getInstance().setScreen(new SkyriaTraderShopScreen(player));
             } else {
                 this.onClose();
             }

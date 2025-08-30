@@ -32,6 +32,7 @@ import fr.acth2.ror.entities.entity.rift.EntityRiftV2;
 import fr.acth2.ror.entities.entity.se.EntitySkyEjector;
 import fr.acth2.ror.entities.entity.seeker.EntitySeeker;
 import fr.acth2.ror.entities.entity.silker.EntitySilker;
+import fr.acth2.ror.entities.entity.traders.EntitySkyriaTrader;
 import fr.acth2.ror.entities.entity.traveler.EntityTraveler;
 import fr.acth2.ror.entities.entity.rift.EntityRift;
 import fr.acth2.ror.entities.entity.wicked.EntityWicked;
@@ -287,6 +288,12 @@ public class ModEntities {
             EntityType.Builder.<EntityLivingParticle>of(EntityLivingParticle::new, EntityClassification.CREATURE)
                     .sized(1.0F, 1.0F)
                     .build("living_particle")
+    );
+
+    public static final RegistryObject<EntityType<EntitySkyriaTrader>> SKYRIA_TRADER = ENTITY_TYPES.register("skyria_trader", () ->
+            EntityType.Builder.<EntitySkyriaTrader>of(EntitySkyriaTrader::new, EntityClassification.CREATURE)
+                    .sized(1.0F, 2.0F)
+                    .build("skyria_trader")
     );
 
     public static void register(IEventBus modEventBus) {

@@ -1,5 +1,7 @@
 package fr.acth2.ror.utils.subscribers.gen.skyria;
 
+import fr.acth2.ror.entities.constructors.traders.SkyriaTraderEntity;
+import fr.acth2.ror.init.ModEntities;
 import fr.acth2.ror.utils.References;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -55,7 +57,7 @@ public class StructureNPCSpawnerSubscriber {
                     if (blockName.equals("ror:skyria_brick") || blockName.equals("ror:polished_skyria_brick")) {
                         BlockPos abovePos = checkPos.above();
                         if (world.isEmptyBlock(abovePos)) {
-                            if (!isVillagerNearby(world, checkPos)) {
+                            if (!isTraderNearby(world, checkPos)) {
                                 spawnTrader(world, abovePos);
                                 return;
                             }
@@ -66,24 +68,24 @@ public class StructureNPCSpawnerSubscriber {
         }
     }
 
-    private static boolean isVillagerNearby(ServerWorld world, BlockPos pos) {
+    private static boolean isTraderNearby(ServerWorld world, BlockPos pos) {
         AxisAlignedBB searchArea = new AxisAlignedBB(
                 pos.getX() - 8, pos.getY() - 8, pos.getZ() - 8,
                 pos.getX() + 8, pos.getY() + 8, pos.getZ() + 8
         );
 
-        return !world.getEntitiesOfClass(VillagerEntity.class, searchArea).isEmpty();
+        return !world.getEntitiesOfClass(SkyriaTraderEntity.class, searchArea).isEmpty();
     }
 
     private static void spawnTrader(ServerWorld world, BlockPos pos) {
-        VillagerEntity villager = EntityType.VILLAGER.create(world);
-        if (villager != null) {
-            villager.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
-            villager.setNoAi(false);
-            villager.setPersistenceRequired();
+        SkyriaTraderEntity trader = new SkyriaTraderEntity(ModEntities.SKYRIA_TRADER.get(), world);
+        if (trader != null) {
+            trader.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
+            trader.setNoAi(false);
+            trader.setPersistenceRequired();
 
-            world.addFreshEntity(villager);
-            System.out.println("Spawned villager at structure: " + pos);
+            world.addFreshEntity(trader);
+            System.out.println("Spawned Skyria Trader at structure: " + pos);
         }
     }
 }

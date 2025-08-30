@@ -32,6 +32,7 @@ import fr.acth2.ror.entities.constructors.rift.RiftV2Entity;
 import fr.acth2.ror.entities.constructors.se.SkyEjectorEntity;
 import fr.acth2.ror.entities.constructors.seeker.SeekerEntity;
 import fr.acth2.ror.entities.constructors.silker.SilkerEntity;
+import fr.acth2.ror.entities.constructors.traders.SkyriaTraderEntity;
 import fr.acth2.ror.entities.constructors.traveler.TravelerEntity;
 import fr.acth2.ror.entities.constructors.rift.RiftEntity;
 import fr.acth2.ror.entities.constructors.wicked.WickedEntity;
@@ -87,5 +88,6 @@ public class ModEntityAttributes {
         event.put(ModEntities.CORRUPTED.get(), CorruptedEntity.createAttributes().build());
         event.put(ModEntities.EXAMPLE_PARTICLE.get(), ExampleParticleEntity.createAttributes().build());
         event.put(ModEntities.LIVING_PARTICLE.get(), LivingParticleEntity.createAttributes().build());
+        event.put(ModEntities.SKYRIA_TRADER.get(), SkyriaTraderEntity.createAttributes().build());
     }
 }

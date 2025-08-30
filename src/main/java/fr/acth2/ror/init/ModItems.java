@@ -45,6 +45,10 @@ public class ModItems {
             () -> new RealmsVessel(new Item.Properties())
     );
 
+    public static final RegistryObject<Item> GLIDER = ITEMS.register("glider",
+            () -> new Glider(new Item.Properties())
+    );
+
     public static final RegistryObject<Item> INFRANIUM_INGOT = ITEMS.register("infranium_ingot",
             () -> new Item(new Item.Properties()));
 

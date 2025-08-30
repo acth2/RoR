@@ -24,11 +24,11 @@ public class ModBlocks {
     );
 
     public static final RegistryObject<Block> SKYRIA_BRICK = BLOCKS.register("skyria_brick",
-            () -> new Block(Block.Properties.of(Material.STONE).strength(1, 4.5F))
+            () -> new Block(Block.Properties.of(Material.STONE).strength(6, 4.5F))
     );
 
     public static final RegistryObject<Block> POLISHED_SKYRIA_BRICK = BLOCKS.register("polished_skyria_brick",
-            () -> new Block(Block.Properties.of(Material.STONE).strength(1, 4.5F))
+            () -> new Block(Block.Properties.of(Material.STONE).strength(6, 4.5F))
     );
 
     public static final RegistryObject<Block> RESTORATION_STATION = BLOCKS.register("restoration_station",

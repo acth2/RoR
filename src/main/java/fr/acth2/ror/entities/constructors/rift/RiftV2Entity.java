@@ -2,6 +2,7 @@ package fr.acth2.ror.entities.constructors.rift;
 
 import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
 import net.minecraft.entity.CreatureAttribute;
+import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -17,9 +18,9 @@ import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nullable;
 
-public class RiftV2Entity extends MonsterEntity {
+public class RiftV2Entity extends CreatureEntity {
 
-    protected RiftV2Entity(EntityType<? extends MonsterEntity> type, World worldIn) {
+    protected RiftV2Entity(EntityType<? extends CreatureEntity> type, World worldIn) {
         super(type, worldIn);
     }
 

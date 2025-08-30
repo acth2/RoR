@@ -50,7 +50,6 @@ public class Main implements IMixinConnector {
         DiaryManager.registerAutosave();
         modEventBus.addListener(this::setup);
         MinecraftForge.EVENT_BUS.register(this);
-        System.setProperty("forge.logging.mojang.level", "debug");
     }
 
     private void setup(FMLCommonSetupEvent event) {

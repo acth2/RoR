@@ -6,6 +6,7 @@ import fr.acth2.ror.entities.constructors.ExampleInvaderEntity;
 import fr.acth2.ror.gui.MainMenuGui;
 import fr.acth2.ror.gui.coins.CoinsManager;
 import fr.acth2.ror.init.ModNetworkHandler;
+import fr.acth2.ror.init.constructors.items.Glider;
 import fr.acth2.ror.network.skills.SyncPlayerStatsPacket;
 import fr.acth2.ror.network.skills.dexterity.DodgePacket;
 import fr.acth2.ror.utils.References;
@@ -59,6 +60,13 @@ public class PlayerEvents {
                     new ResourceLocation(References.MODID, "player_stats"),
                     new PlayerStatsCapability()
             );
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerGliding(TickEvent.PlayerTickEvent event) {
+        if (event.phase == TickEvent.Phase.END) {
+            Glider.handleGliding(event.player);
         }
     }
 

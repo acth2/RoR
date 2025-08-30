@@ -8,6 +8,7 @@
     "MixinBrokenMoonFogRenderer"
   ],
   "client": [
+    "PlayerModelMixin"
   ],
   "server": [
   ],

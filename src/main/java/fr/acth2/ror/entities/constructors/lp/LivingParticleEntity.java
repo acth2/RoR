@@ -2,6 +2,7 @@ package fr.acth2.ror.entities.constructors.lp;
 
 import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
 import net.minecraft.entity.CreatureAttribute;
+import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -23,11 +24,11 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
-public class LivingParticleEntity extends MonsterEntity {
+public class LivingParticleEntity extends CreatureEntity {
     private int colorCycle = 0;
     private final int COLOR_CYCLE_SPEED = 2;
 
-    protected LivingParticleEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
+    protected LivingParticleEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
         super(type, worldIn);
     }
 

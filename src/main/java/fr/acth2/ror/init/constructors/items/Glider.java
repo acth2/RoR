@@ -71,8 +71,7 @@ public class Glider extends Item {
 
     public static boolean isHoldingGlider(PlayerEntity player) {
         ItemStack mainHand = player.getMainHandItem();
-        ItemStack offHand = player.getOffhandItem();
-        return mainHand.getItem() instanceof Glider || offHand.getItem() instanceof Glider;
+        return mainHand.getItem() instanceof Glider;
     }
 
     private static void spawnGlideParticles(PlayerEntity player) {

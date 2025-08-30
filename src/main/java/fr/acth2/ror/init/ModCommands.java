@@ -42,7 +42,6 @@ public class ModCommands  {
                                     builder.suggest("sealed_treasure_t2");
                                     builder.suggest("sealed_treasure_t3");
                                     builder.suggest("skyria_tower");
-                                    builder.suggest("skyria_house");
                                     return builder.buildFuture();
                                 })
                                 .executes(context -> listStructures(

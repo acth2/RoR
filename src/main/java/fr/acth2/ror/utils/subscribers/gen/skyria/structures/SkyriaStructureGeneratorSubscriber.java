@@ -110,14 +110,7 @@ public class SkyriaStructureGeneratorSubscriber {
                 new ResourceLocation(References.MODID + ":skyria_tower"),
                 60, 80,
                 allList,
-                500
-        ));
-
-        list_structures.add(new Structure(
-                new ResourceLocation(References.MODID + ":skyria_house"),
-                60, 80,
-                allList,
-                500
+                550
         ));
     }
 

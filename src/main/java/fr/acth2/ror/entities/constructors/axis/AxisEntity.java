@@ -77,43 +77,54 @@ public class AxisEntity extends MonsterEntity {
         super.tick();
 
         if (!this.level.isClientSide && this.isAlive() && this.getTarget() != null) {
-            LivingEntity target = this.getTarget();
-            long currentTime = System.currentTimeMillis();
+            boolean hasNearbyAxisEntities = !this.level.getEntitiesOfClass(
+                    AxisEntity.class,
+                    this.getBoundingBox().inflate(16.0),
+                    entity -> entity != this && entity.isAlive()
+            ).isEmpty();
 
-            if (pullingStartTime == -1) {
-                pullingStartTime = currentTime;
-                isPulling = true;
-            }
-            long elapsed = currentTime - pullingStartTime;
-            if (isPulling) {
-                if (elapsed < PULL_DURATION) {
-                    isVulnerable = true;
+            if (!hasNearbyAxisEntities) {
+                LivingEntity target = this.getTarget();
+                long currentTime = System.currentTimeMillis();
 
-                    double deltaX = this.getX() - target.getX();
-                    double deltaY = this.getY() - target.getY();
-                    double deltaZ = this.getZ() - target.getZ();
+                if (pullingStartTime == -1) {
+                    pullingStartTime = currentTime;
+                    isPulling = true;
+                }
 
-                    double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ);
-                    if (distance > 0) {
-                        double moveX = deltaX / distance * ATTRACTION_STRENGTH;
-                        double moveY = deltaY / distance * ATTRACTION_STRENGTH;
-                        double moveZ = deltaZ / distance * ATTRACTION_STRENGTH;
+                long elapsed = currentTime - pullingStartTime;
 
-                        target.teleportTo(
-                                target.getX() + moveX,
-                                target.getY() + moveY,
-                                target.getZ() + moveZ
-                        );
+                if (isPulling) {
+                    if (elapsed < PULL_DURATION) {
+                        isVulnerable = true;
+
+                        double deltaX = this.getX() - target.getX();
+                        double deltaY = this.getY() - target.getY();
+                        double deltaZ = this.getZ() - target.getZ();
+
+                        double distanceSquared = deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ;
+                        if (distanceSquared > 0) {
+                            double distance = Math.sqrt(distanceSquared);
+                            double moveX = deltaX / distance * ATTRACTION_STRENGTH;
+                            double moveY = deltaY / distance * ATTRACTION_STRENGTH;
+                            double moveZ = deltaZ / distance * ATTRACTION_STRENGTH;
+
+                            target.teleportTo(
+                                    target.getX() + moveX,
+                                    target.getY() + moveY,
+                                    target.getZ() + moveZ
+                            );
+                        }
+                    } else {
+                        isPulling = false;
+                        isVulnerable = false;
+                        pullingStartTime = currentTime;
                     }
                 } else {
-                    isPulling = false;
-                    isVulnerable = false;
-                    pullingStartTime = currentTime;
-                }
-            } else {
-                if (elapsed >= COOLDOWN_DURATION) {
-                    isPulling = true;
-                    pullingStartTime = currentTime;
+                    if (elapsed >= COOLDOWN_DURATION) {
+                        isPulling = true;
+                        pullingStartTime = currentTime;
+                    }
                 }
             }
         }

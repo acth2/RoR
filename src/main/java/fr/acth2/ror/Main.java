@@ -7,6 +7,8 @@ import fr.acth2.ror.proxy.CommonProxy;
 import fr.acth2.ror.utils.ParticleConfig;
 import fr.acth2.ror.utils.References;
 import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
+import fr.acth2.ror.utils.subscribers.gen.skyria.SkyriaMonsterSpawnerSubscriber;
+import fr.acth2.ror.utils.subscribers.gen.utils.MobSpawnData;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;

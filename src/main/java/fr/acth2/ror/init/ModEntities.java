@@ -32,6 +32,7 @@ import fr.acth2.ror.entities.entity.rift.EntityRiftV2;
 import fr.acth2.ror.entities.entity.se.EntitySkyEjector;
 import fr.acth2.ror.entities.entity.seeker.EntitySeeker;
 import fr.acth2.ror.entities.entity.silker.EntitySilker;
+import fr.acth2.ror.entities.entity.skyder.EntitySkyder;
 import fr.acth2.ror.entities.entity.traders.EntitySkyriaTrader;
 import fr.acth2.ror.entities.entity.traveler.EntityTraveler;
 import fr.acth2.ror.entities.entity.rift.EntityRift;
@@ -296,6 +297,12 @@ public class ModEntities {
                     .build("skyria_trader")
     );
 
+    public static final RegistryObject<EntityType<EntitySkyder>> SKYDER = ENTITY_TYPES.register("skyder", () ->
+            EntityType.Builder.<EntitySkyder>of(EntitySkyder::new, EntityClassification.CREATURE)
+                    .sized(1.0F, 1.8F)
+                    .build("skyder")
+    );
+
     public static void register(IEventBus modEventBus) {
         ModEntities.ENTITY_TYPES.register(modEventBus);
 
@@ -367,6 +374,7 @@ public class ModEntities {
         SkyriaMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(SKY_EJECTOR, 100, null));
         SkyriaMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(FLYER, 25, null));
         SkyriaMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(AXIS, 15, null));
+        SkyriaMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(SKYDER, 100, null));
 
         // BLOOD SUN
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(BLOOD_INFECTIONER, 100, null, 1));
@@ -375,3 +383,5 @@ public class ModEntities {
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(BROKEN_INSURRECTIONIST, 100, null, 0));
     }
 }
+///execute in ror:skyria run teleport Dev 602 104 -118
+//-443095963033985164

@@ -32,6 +32,7 @@ import fr.acth2.ror.entities.renderer.rift.RiftV2Renderer;
 import fr.acth2.ror.entities.renderer.se.SkyEjectorRenderer;
 import fr.acth2.ror.entities.renderer.seeker.SeekerRenderer;
 import fr.acth2.ror.entities.renderer.silker.SilkerRenderer;
+import fr.acth2.ror.entities.renderer.skyder.SkyderRenderer;
 import fr.acth2.ror.entities.renderer.trader.SkyriaTraderRenderer;
 import fr.acth2.ror.entities.renderer.traveler.TravelerRenderer;
 import fr.acth2.ror.entities.renderer.rift.RiftRenderer;
@@ -103,6 +104,7 @@ public class ClientEventSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.EXAMPLE_PARTICLE.get(), ExampleParticleRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.LIVING_PARTICLE.get(), LivingParticleRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.SKYRIA_TRADER.get(), SkyriaTraderRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.SKYDER.get(), SkyderRenderer::new);
 
         event.enqueueWork(() -> {
             ItemModelsProperties.register(

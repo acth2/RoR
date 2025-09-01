@@ -42,6 +42,7 @@ public class ModCommands  {
                                     builder.suggest("sealed_treasure_t2");
                                     builder.suggest("sealed_treasure_t3");
                                     builder.suggest("skyria_tower");
+                                    builder.suggest("skyria_house");
                                     return builder.buildFuture();
                                 })
                                 .executes(context -> listStructures(
@@ -86,7 +87,7 @@ public class ModCommands  {
 
     private static int showStructuresUsage(CommandSource source) {
         source.sendFailure(new StringTextComponent(TextFormatting.RED + "Usage: /rorstruc <structure_id>"));
-        source.sendFailure(new StringTextComponent(TextFormatting.RED + "Available structures: sealed_treasure_t1, sealed_treasure_t2, sealed_treasure_t3"));
+        source.sendFailure(new StringTextComponent(TextFormatting.RED + "Available structures: sealed_treasure_t1, sealed_treasure_t2, sealed_treasure_t3, skyria_house, skyria_tower"));
         return 1;
     }
 

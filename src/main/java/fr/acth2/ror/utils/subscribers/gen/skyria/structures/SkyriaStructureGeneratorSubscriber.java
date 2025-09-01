@@ -112,6 +112,13 @@ public class SkyriaStructureGeneratorSubscriber {
                 allList,
                 350
         ));
+
+        list_structures.add(new Structure(
+                new ResourceLocation(References.MODID + ":skyria_house"),
+                60, 80,
+                allList,
+                350
+        ));
     }
 
     @SubscribeEvent

@@ -4,10 +4,13 @@ import fr.acth2.ror.init.constructors.blocks.*;
 import fr.acth2.ror.utils.References;
 import fr.acth2.ror.utils.subscribers.gen.skyria.SkyriaTeleporter;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Rarity;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -35,6 +38,24 @@ public class ModBlocks {
             RestorationStation::new
     );
 
+    public static final RegistryObject<Block> VESSEL_PLACER = BLOCKS.register("vessel_placer",
+            () -> new VesselPlacer(Block.Properties.of(Material.STONE, MaterialColor.STONE)
+                    .strength(1.5f, 6.0f)
+                    .sound(SoundType.STONE)
+                    .harvestLevel(1)
+                    .harvestTool(ToolType.PICKAXE)
+                    .requiresCorrectToolForDrops()));
+
+
+    public static final RegistryObject<Block> REALM_REMNANT = BLOCKS.register("realm_remnant",
+            () -> new Block(Block.Properties.of(Material.STONE, MaterialColor.STONE)
+                    .strength(2.0f, 8.0f)
+                    .sound(SoundType.STONE)
+                    .harvestLevel(1)
+                    .harvestTool(ToolType.PICKAXE)
+                    .requiresCorrectToolForDrops()));
+
+
     public static final RegistryObject<Block> INFRANIUM_ORE = BLOCKS.register("infranium_ore", InfraniumOre::new);
     public static final RegistryObject<Block> GEFRANIUM_ORE = BLOCKS.register("gefranium_ore", GefraniumOre::new);
     public static final RegistryObject<Block> ORONIUM_ORE = BLOCKS.register("oronium_ore", OroniumOre::new);
@@ -54,19 +75,33 @@ public class ModBlocks {
 
     );
 
+    public static final RegistryObject<Block> SKYRIA_PORTAL = BLOCKS.register("skyria_portal",
+            () -> new SkyriaPortalBlock(Block.Properties.of(Material.PORTAL)
+                    .noCollission()
+                    .randomTicks()
+                    .strength(-1.0F)
+                    .sound(SoundType.GLASS)
+                    .lightLevel(state -> 11)));
 
-    public static final RegistryObject<Block> REALM_REMNANT = BLOCKS.register("realm_remnant",
-            () -> new Block(Block.Properties.of(Material.METAL).strength(1.5f, 6.0f))
-    );
-
-    public static final RegistryObject<Block> VESSEL_PLACER = BLOCKS.register("vessel_placer",
-            () -> new Block(Block.Properties.of(Material.METAL).strength(1.5f, 6.0f))
-    );
-
+    public static final RegistryObject<Block> OVERWORLD_PORTAL = BLOCKS.register("overworld_portal",
+            () -> new OverworldPortalBlock(Block.Properties.of(Material.PORTAL)
+                    .noCollission()
+                    .randomTicks()
+                    .strength(-1.0F)
+                    .sound(SoundType.GLASS)
+                    .lightLevel(state -> 11)));
 
     public static final RegistryObject<Block> SKYRIA_AIR = BLOCKS.register("skyria_air", SkyriaAir::new);
 
     public static final RegistryObject<Block> CLOUD_PIECE = BLOCKS.register("cloud_piece", CloudPiece::new);
+
+    public static final RegistryObject<Item> SKYRIA_PORTAL_ITEM = ITEMS.register("skyria_portal",
+            () -> new BlockItem(SKYRIA_PORTAL.get(), new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> OVERWORLD_PORTAL_ITEM = ITEMS.register("overworld_portal",
+            () -> new BlockItem(OVERWORLD_PORTAL.get(), new Item.Properties())
+    );
 
     public static final RegistryObject<Item> CLOUD_PIECE_ITEM = ITEMS.register("cloud_piece",
             () -> new BlockItem(CLOUD_PIECE.get(), new Item.Properties())

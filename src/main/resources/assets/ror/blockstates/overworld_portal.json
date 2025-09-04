@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "axis=z": { "model": "ror:block/overworld_portal" },
+    "axis=x": { "model": "ror:block/overworld_portal", "y": 90 }
+  }
+}

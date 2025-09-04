@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "axis=z": { "model": "ror:block/skyria_portal" },
+    "axis=x": { "model": "ror:block/skyria_portal", "y": 90 }
+  }
+}

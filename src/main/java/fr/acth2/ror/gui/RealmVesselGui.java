@@ -2,27 +2,24 @@ package fr.acth2.ror.gui;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-import fr.acth2.ror.init.ModDimensions;
+import fr.acth2.ror.init.ModNetworkHandler;
+import fr.acth2.ror.network.realmvessel.DimensionSyncPacket;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.*;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.common.util.ITeleporter;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import java.util.function.Function;
 
 public class RealmVesselGui extends Screen {
 
     private static PlayerEntity player;
+    private ItemStack realmVesselItem;
     private float zoomLevel = 1.0f;
     private final float minZoom = 0.5f;
     private final float maxZoom = 3.0f;
@@ -47,12 +44,14 @@ public class RealmVesselGui extends Screen {
     private String errorMessage = "";
     private long errorDisplayTime = 0;
     private static final long ERROR_DISPLAY_DURATION = 2000;
-
     private float currentImageFadeAlpha = 1.0f;
+    private Hand hand;
 
-    public RealmVesselGui(PlayerEntity player) {
+    public RealmVesselGui(PlayerEntity player, ItemStack realmVesselItem, Hand hand) {
         super(new StringTextComponent("Realm Vessel"));
         RealmVesselGui.player = player;
+        this.realmVesselItem = realmVesselItem;
+        this.hand = hand;
     }
 
     @Override
@@ -97,7 +96,7 @@ public class RealmVesselGui extends Screen {
         String zoomText = String.format("Zoom: %.1fx", zoomLevel);
         drawString(matrixStack, this.font, zoomText, 10, 10, 0xFFFFFF);
 
-        drawString(matrixStack, this.font, "Mouse wheel to zoom | Click and drag to move | Right-click to teleport", 10, 25, 0xCCCCCC);
+        drawString(matrixStack, this.font, "Mouse wheel to zoom | Click and drag to move | Click to select dimension", 10, 25, 0xCCCCCC);
 
         if (player != null) {
             String debugInfo = String.format("Y: %.1f | Skyria Access: %s", player.getY(), hasSkyriaAccess(player));
@@ -157,11 +156,11 @@ public class RealmVesselGui extends Screen {
         }
 
         if (overworldHovered && currentImageFadeAlpha > 0.7f) {
-            drawImageTooltip(matrixStack, mouseX, mouseY, "Overworld", "click to travel", OVERWORLD, true);
+            drawImageTooltip(matrixStack, mouseX, mouseY, "Overworld", "click to select", OVERWORLD, true);
         }
         if (skyriaHovered && currentImageFadeAlpha > 0.7f) {
             boolean hasSkyriaAccess = hasSkyriaAccess(player);
-            String description = hasSkyriaAccess ? "click to travel" : "To travel in Skyria, you will need to advent high in the sky";
+            String description = hasSkyriaAccess ? "click to select" : "To select Skyria, you will need to advent high in the sky";
             drawImageTooltip(matrixStack, mouseX, mouseY, "Skyria", description, SKYRIA, hasSkyriaAccess);
         }
 
@@ -240,19 +239,22 @@ public class RealmVesselGui extends Screen {
         String readableDescription;
 
         if (hasAccess) {
-            readableDescription = obfuscateText("Right-click to travel to " + realmName, currentImageFadeAlpha);
+            readableDescription = obfuscateText("Click to select " + realmName + " for the Realm Vessel", currentImageFadeAlpha);
             tooltip.add(new StringTextComponent(readableDescription).withStyle(TextFormatting.GRAY));
         } else {
-            readableDescription = obfuscateText("To enter " + realmName + ", " + realmDescription, currentImageFadeAlpha);
+            readableDescription = obfuscateText("To select " + realmName + ", " + realmDescription, currentImageFadeAlpha);
             tooltip.add(new StringTextComponent(readableDescription).withStyle(TextFormatting.GRAY));
         }
 
-        if (player != null && player.level != null) {
-            ResourceLocation currentDimension = player.level.dimension().location();
-            if (currentDimension.equals(dimension)) {
-                tooltip.add(new StringTextComponent(""));
-                String currentRealmText = obfuscateText("You are currently in this Realm", currentImageFadeAlpha);
-                tooltip.add(new StringTextComponent(currentRealmText).withStyle(TextFormatting.AQUA));
+        if (realmVesselItem != null && realmVesselItem.hasTag()) {
+            CompoundNBT nbt = realmVesselItem.getTag();
+            if (nbt.contains("SelectedDimension")) {
+                String selectedDim = nbt.getString("SelectedDimension");
+                if (selectedDim.equals(dimension.toString())) {
+                    tooltip.add(new StringTextComponent(""));
+                    String currentRealmText = obfuscateText("Currently selected for this Realm Vessel", currentImageFadeAlpha);
+                    tooltip.add(new StringTextComponent(currentRealmText).withStyle(TextFormatting.AQUA));
+                }
             }
         }
 
@@ -298,7 +300,6 @@ public class RealmVesselGui extends Screen {
             boolean overworldClicked = isMouseOverImage((int)mouseX, (int)mouseY, overworldX, overworldY, smallImageSize, smallImageSize);
             boolean skyriaClicked = isMouseOverImage((int)mouseX, (int)mouseY, skyriaX, skyriaY, smallImageSize, smallImageSize);
 
-            // Check if images are visible before processing clicks
             float imageFadeAlpha;
             if (zoomLevel <= 1.0f) {
                 imageFadeAlpha = 0.0f;
@@ -308,13 +309,12 @@ public class RealmVesselGui extends Screen {
                 imageFadeAlpha = (zoomLevel - 1.0f) / (maxZoom - 1.0f);
             }
 
-            // Only process clicks if images are visible (above 10% opacity)
             if (imageFadeAlpha > 0.1f) {
                 if (overworldClicked) {
                     if (player != null) {
-                        player.sendMessage(new StringTextComponent("Teleporting to Overworld..."), player.getUUID());
+                        setSelectedDimension(OVERWORLD);
+                        player.sendMessage(new StringTextComponent("Selected Overworld for the Realm Vessel"), player.getUUID());
                     }
-                    teleportToDimension(OVERWORLD);
                     this.minecraft.setScreen(null);
                     return true;
                 }
@@ -325,7 +325,8 @@ public class RealmVesselGui extends Screen {
                         if (!hasSkyriaAccess(player)) {
                             grantSkyriaAccess(player);
                         }
-                        teleportToDimension(SKYRIA);
+                        setSelectedDimension(SKYRIA);
+                        player.sendMessage(new StringTextComponent("Selected Skyria for the Realm Vessel"), player.getUUID());
                         this.minecraft.setScreen(null);
                         return true;
                     } else {
@@ -343,6 +344,33 @@ public class RealmVesselGui extends Screen {
         return super.mouseClicked(mouseX, mouseY, button);
     }
 
+    private void setSelectedDimension(ResourceLocation dimension) {
+        if (realmVesselItem != null && player != null && hand != null) {
+            String dimensionName = getDimensionName(dimension.toString());
+            TextFormatting color = dimensionName.equals("Skyria") ? TextFormatting.AQUA : TextFormatting.GREEN;
+            realmVesselItem.setHoverName(new StringTextComponent("Realm Vessel: " + dimensionName).withStyle(color));
+
+            CompoundNBT nbt = realmVesselItem.getOrCreateTag();
+            nbt.putString("SelectedDimension", dimension.toString());
+            realmVesselItem.setTag(nbt);
+
+            System.out.println("Client updated Realm Vessel to: " + dimensionName);
+            ModNetworkHandler.INSTANCE.sendToServer(new DimensionSyncPacket(dimension.toString(), hand));
+
+            this.minecraft.setScreen(null);
+        }
+    }
+
+    private String getDimensionName(String dimensionId) {
+        if (dimensionId.equals("minecraft:overworld")) {
+            return "Overworld";
+        } else if (dimensionId.equals("ror:skyria")) {
+            return "Skyria";
+        } else {
+            return "Unknown";
+        }
+    }
+
     private boolean hasSkyriaAccess(PlayerEntity player) {
         if (player == null) return false;
         return playerSkyriaAccess.getOrDefault(player.getUUID(), false);
@@ -355,53 +383,6 @@ public class RealmVesselGui extends Screen {
     private void grantSkyriaAccess(PlayerEntity player) {
         if (player != null) {
             playerSkyriaAccess.put(player.getUUID(), true);
-        }
-    }
-
-    private void teleportToDimension(ResourceLocation dimension) {
-        if (player == null || player.level.isClientSide) {
-            showErrorMessage("Cannot teleport - client side or null player");
-            return;
-        }
-
-        try {
-            if (dimension.equals(OVERWORLD)) {
-                if (!player.level.dimension().equals(World.OVERWORLD)) {
-                    ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
-                    ServerWorld overworld = serverPlayer.getServer().getLevel(World.OVERWORLD);
-                    if (overworld != null) {
-                        serverPlayer.teleportTo(overworld, player.getX(), player.getY(), player.getZ(), player.yRot, player.xRot);
-                        player.sendMessage(new StringTextComponent("Teleported to Overworld!"), player.getUUID());
-                    }
-                }
-            } else if (dimension.equals(SKYRIA)) {
-                if (!player.level.dimension().equals(SKYRIA)) {
-                    ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
-                    ServerWorld targetWorld = serverPlayer.getServer().getLevel(ModDimensions.SKYRIA);
-
-                    if (targetWorld != null) {
-                        serverPlayer.changeDimension(targetWorld, new ITeleporter() {
-                            @Override
-                            public Entity placeEntity(Entity entity, ServerWorld currentWorld, ServerWorld destWorld, float yaw, Function<Boolean, Entity> repositionEntity) {
-                                Entity repositionedEntity = repositionEntity.apply(false);
-                                if (repositionedEntity != null) {
-                                    repositionedEntity.teleportTo(
-                                            repositionedEntity.getX(),
-                                            200.0,
-                                            repositionedEntity.getZ()
-                                    );
-                                }
-                                return repositionedEntity;
-                            }
-                        });
-                        player.sendMessage(new StringTextComponent("Teleported to Skyria at high altitude!"), player.getUUID());
-                    } else {
-                        showErrorMessage("Skyria dimension not found!");
-                    }
-                }
-            }
-        } catch (Exception e) {
-            showErrorMessage("Teleportation error: " + e.getMessage());
         }
     }
 

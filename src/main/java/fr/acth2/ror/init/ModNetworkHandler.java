@@ -2,6 +2,7 @@ package fr.acth2.ror.init;
 
 import fr.acth2.ror.network.coins.RequestCoinSyncPacket;
 import fr.acth2.ror.network.coins.SyncCoinsPacket;
+import fr.acth2.ror.network.realmvessel.DimensionSyncPacket;
 import fr.acth2.ror.network.skills.RequestLevelUpPacket;
 import fr.acth2.ror.network.skills.RequestSyncPlayerStatsPacket;
 import fr.acth2.ror.network.skills.SyncPlayerStatsPacket;
@@ -55,6 +56,11 @@ public class ModNetworkHandler {
                 DodgePacket::decode,
                 DodgePacket::handle
         );
+
+        INSTANCE.registerMessage(id++, DimensionSyncPacket.class,
+                DimensionSyncPacket::encode,
+                DimensionSyncPacket::decode,
+                DimensionSyncPacket::handle);
     }
 
     public static <MSG> void sendToClient(MSG packet, ServerPlayerEntity player) {

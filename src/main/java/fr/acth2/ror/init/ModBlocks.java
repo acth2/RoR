@@ -54,6 +54,16 @@ public class ModBlocks {
 
     );
 
+
+    public static final RegistryObject<Block> REALM_REMNANT = BLOCKS.register("realm_remnant",
+            () -> new Block(Block.Properties.of(Material.METAL).strength(1.5f, 6.0f))
+    );
+
+    public static final RegistryObject<Block> VESSEL_PLACER = BLOCKS.register("vessel_placer",
+            () -> new Block(Block.Properties.of(Material.METAL).strength(1.5f, 6.0f))
+    );
+
+
     public static final RegistryObject<Block> SKYRIA_AIR = BLOCKS.register("skyria_air", SkyriaAir::new);
 
     public static final RegistryObject<Block> CLOUD_PIECE = BLOCKS.register("cloud_piece", CloudPiece::new);
@@ -66,6 +76,13 @@ public class ModBlocks {
             () -> new BlockItem(SKYRIA_BRICK.get(), new Item.Properties())
     );
 
+    public static final RegistryObject<Item> REALM_REMNANT_ITEM = ITEMS.register("realm_remnant",
+            () -> new BlockItem(REALM_REMNANT.get(), new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> VESSEL_PLACER_ITEM = ITEMS.register("vessel_placer",
+            () -> new BlockItem(VESSEL_PLACER.get(), new Item.Properties())
+    );
 
     public static final RegistryObject<Item> POLISHED_SKYRIA_BRICK_ITEM = ITEMS.register("polished_skyria_brick",
             () -> new BlockItem(POLISHED_SKYRIA_BRICK.get(), new Item.Properties())

@@ -2,6 +2,7 @@ package fr.acth2.ror.gui;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import fr.acth2.ror.init.ModDimensions;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,7 +17,6 @@ import net.minecraftforge.common.util.ITeleporter;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 import java.util.UUID;
 import java.util.function.Function;
 
@@ -42,7 +42,6 @@ public class RealmVesselGui extends Screen {
 
     private static final Map<UUID, Boolean> playerSkyriaAccess = new HashMap<>();
 
-    private int overworldX, overworldY, skyriaX, skyriaY;
     private int smallImageSize = 80;
 
     private String errorMessage = "";
@@ -132,11 +131,10 @@ public class RealmVesselGui extends Screen {
         if (imageFadeAlpha > 0.01f) {
             smallImageSize = 80;
 
-            overworldX = centerX - (smallImageSize / 2);
-            overworldY = centerY - (smallImageSize / 2);
-
-            skyriaX = centerX - (smallImageSize / 2);
-            skyriaY = imageY + 100;
+            int overworldX = centerX - (smallImageSize / 2);
+            int overworldY = centerY - (smallImageSize / 2);
+            int skyriaX = centerX - (smallImageSize / 2);
+            int skyriaY = imageY + 100;
 
             overworldHovered = isMouseOverImage(mouseX, mouseY, overworldX, overworldY, smallImageSize, smallImageSize);
             skyriaHovered = isMouseOverImage(mouseX, mouseY, skyriaX, skyriaY, smallImageSize, smallImageSize);
@@ -158,12 +156,12 @@ public class RealmVesselGui extends Screen {
             RenderSystem.disableBlend();
         }
 
-        if (overworldHovered) {
+        if (overworldHovered && currentImageFadeAlpha > 0.7f) {
             drawImageTooltip(matrixStack, mouseX, mouseY, "Overworld", "click to travel", OVERWORLD, true);
         }
-        if (skyriaHovered) {
+        if (skyriaHovered && currentImageFadeAlpha > 0.7f) {
             boolean hasSkyriaAccess = hasSkyriaAccess(player);
-            String description = hasSkyriaAccess ? "click to travel" : "You need to climb high in the sky (Y=100+)";
+            String description = hasSkyriaAccess ? "click to travel" : "To travel in Skyria, you will need to advent high in the sky";
             drawImageTooltip(matrixStack, mouseX, mouseY, "Skyria", description, SKYRIA, hasSkyriaAccess);
         }
 
@@ -190,18 +188,36 @@ public class RealmVesselGui extends Screen {
     }
 
     private String obfuscateText(String text, float fadeAlpha) {
-        if (fadeAlpha > 0.7f) {
+        float readability = fadeAlpha;
+
+        if (readability > 0.7f) {
             return text;
         }
 
+        if (readability < 0.1f) {
+            StringBuilder fullObfuscated = new StringBuilder();
+            for (int i = 0; i < text.length(); i++) {
+                fullObfuscated.append('#');
+            }
+            return fullObfuscated.toString();
+        }
+
+        float obfuscationProgress = (0.7f - readability) / 0.6f;
+        int charsToObfuscate = (int)(text.length() * obfuscationProgress);
+
         StringBuilder obfuscated = new StringBuilder();
-        int charsToKeep = (int)(text.length() * (fadeAlpha / 1.3f));
 
         for (int i = 0; i < text.length(); i++) {
-            if (i < charsToKeep) {
-                obfuscated.append(text.charAt(i));
+            char originalChar = text.charAt(i);
+
+            if (Character.isLetterOrDigit(originalChar)) {
+                if (i >= text.length() - charsToObfuscate) {
+                    obfuscated.append('#');
+                } else {
+                    obfuscated.append(originalChar);
+                }
             } else {
-                obfuscated.append("");
+                obfuscated.append(originalChar);
             }
         }
 
@@ -245,45 +261,80 @@ public class RealmVesselGui extends Screen {
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        if (button == 1) {
+        if (button == 0) {
+            int scaledWidth = this.width;
+            int scaledHeight = this.height;
+
+            int originalWidth = 636;
+            int originalHeight = 602;
+
+            float baseScale = 0.7f;
+            float effectiveScale = baseScale * zoomLevel;
+            int maxWidth = (int)(scaledWidth * effectiveScale);
+            int maxHeight = (int)(scaledHeight * effectiveScale);
+
+            float aspectRatio = (float)originalWidth / originalHeight;
+            int imageWidth, imageHeight;
+
+            if (maxWidth / aspectRatio <= maxHeight) {
+                imageWidth = maxWidth;
+                imageHeight = (int)(maxWidth / aspectRatio);
+            } else {
+                imageHeight = maxHeight;
+                imageWidth = (int)(maxHeight * aspectRatio);
+            }
+
+            int imageX = (scaledWidth - imageWidth) / 2 + panX;
+            int imageY = (scaledHeight - imageHeight) / 2 + panY;
+
+            int centerX = imageX + (imageWidth / 2);
+            int centerY = imageY + (imageHeight / 2);
+
+            int overworldX = centerX - (smallImageSize / 2);
+            int overworldY = centerY - (smallImageSize / 2);
+            int skyriaX = centerX - (smallImageSize / 2);
+            int skyriaY = imageY + 100;
+
             boolean overworldClicked = isMouseOverImage((int)mouseX, (int)mouseY, overworldX, overworldY, smallImageSize, smallImageSize);
             boolean skyriaClicked = isMouseOverImage((int)mouseX, (int)mouseY, skyriaX, skyriaY, smallImageSize, smallImageSize);
 
-            if (overworldClicked) {
-                if (player != null) {
-                    player.sendMessage(new StringTextComponent("Teleporting to Overworld..."), player.getUUID());
-                }
-                teleportToDimension(OVERWORLD);
-                this.minecraft.setScreen(null);
-                return true;
+            // Check if images are visible before processing clicks
+            float imageFadeAlpha;
+            if (zoomLevel <= 1.0f) {
+                imageFadeAlpha = 0.0f;
+            } else if (zoomLevel >= maxZoom) {
+                imageFadeAlpha = 1.0f;
+            } else {
+                imageFadeAlpha = (zoomLevel - 1.0f) / (maxZoom - 1.0f);
             }
 
-            if (skyriaClicked) {
-                boolean canAccess = hasSkyriaAccess(player) || checkSkyriaConditions(player);
-
-                if (player != null) {
-                    player.sendMessage(new StringTextComponent("Skyria access check: " + canAccess +
-                            " | Y: " + player.getY() + " | Has access: " + hasSkyriaAccess(player)), player.getUUID());
-                }
-
-                if (canAccess) {
-                    if (!hasSkyriaAccess(player)) {
-                        grantSkyriaAccess(player);
-                        if (player != null) {
-                            player.sendMessage(new StringTextComponent("Skyria access granted!"), player.getUUID());
-                        }
+            // Only process clicks if images are visible (above 10% opacity)
+            if (imageFadeAlpha > 0.1f) {
+                if (overworldClicked) {
+                    if (player != null) {
+                        player.sendMessage(new StringTextComponent("Teleporting to Overworld..."), player.getUUID());
                     }
-                    teleportToDimension(SKYRIA);
+                    teleportToDimension(OVERWORLD);
                     this.minecraft.setScreen(null);
                     return true;
-                } else {
-                    showErrorMessage("You need to be at Y=100 or higher to access Skyria!");
-                    return true;
+                }
+
+                if (skyriaClicked) {
+                    boolean canAccess = hasSkyriaAccess(player) || checkSkyriaConditions(player);
+                    if (canAccess) {
+                        if (!hasSkyriaAccess(player)) {
+                            grantSkyriaAccess(player);
+                        }
+                        teleportToDimension(SKYRIA);
+                        this.minecraft.setScreen(null);
+                        return true;
+                    } else {
+                        showErrorMessage("You need to be higher to access Skyria!");
+                        return true;
+                    }
                 }
             }
-        }
 
-        if (button == 0) {
             this.isDragging = true;
             this.lastMouseX = (int)mouseX;
             this.lastMouseY = (int)mouseY;
@@ -315,36 +366,38 @@ public class RealmVesselGui extends Screen {
 
         try {
             if (dimension.equals(OVERWORLD)) {
-                ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
-                ServerWorld overworld = serverPlayer.getServer().getLevel(World.OVERWORLD);
-                if (overworld != null) {
-                    serverPlayer.teleportTo(overworld, player.getX(), player.getY(), player.getZ(), player.yRot, player.xRot);
-                    player.sendMessage(new StringTextComponent("Teleported to Overworld!"), player.getUUID());
+                if (!player.level.dimension().equals(World.OVERWORLD)) {
+                    ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
+                    ServerWorld overworld = serverPlayer.getServer().getLevel(World.OVERWORLD);
+                    if (overworld != null) {
+                        serverPlayer.teleportTo(overworld, player.getX(), player.getY(), player.getZ(), player.yRot, player.xRot);
+                        player.sendMessage(new StringTextComponent("Teleported to Overworld!"), player.getUUID());
+                    }
                 }
             } else if (dimension.equals(SKYRIA)) {
-                ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
-                ResourceLocation dimensionRL = new ResourceLocation("ror", "skyria");
-                RegistryKey<World> skyriaKey = RegistryKey.create(Registry.DIMENSION_REGISTRY, dimensionRL);
-                ServerWorld targetWorld = serverPlayer.getServer().getLevel(skyriaKey);
+                if (!player.level.dimension().equals(SKYRIA)) {
+                    ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
+                    ServerWorld targetWorld = serverPlayer.getServer().getLevel(ModDimensions.SKYRIA);
 
-                if (targetWorld != null) {
-                    serverPlayer.changeDimension(targetWorld, new ITeleporter() {
-                        @Override
-                        public Entity placeEntity(Entity entity, ServerWorld currentWorld, ServerWorld destWorld, float yaw, Function<Boolean, Entity> repositionEntity) {
-                            Entity repositionedEntity = repositionEntity.apply(false);
-                            if (repositionedEntity != null) {
-                                repositionedEntity.teleportTo(
-                                        repositionedEntity.getX(),
-                                        200.0,
-                                        repositionedEntity.getZ()
-                                );
+                    if (targetWorld != null) {
+                        serverPlayer.changeDimension(targetWorld, new ITeleporter() {
+                            @Override
+                            public Entity placeEntity(Entity entity, ServerWorld currentWorld, ServerWorld destWorld, float yaw, Function<Boolean, Entity> repositionEntity) {
+                                Entity repositionedEntity = repositionEntity.apply(false);
+                                if (repositionedEntity != null) {
+                                    repositionedEntity.teleportTo(
+                                            repositionedEntity.getX(),
+                                            200.0,
+                                            repositionedEntity.getZ()
+                                    );
+                                }
+                                return repositionedEntity;
                             }
-                            return repositionedEntity;
-                        }
-                    });
-                    player.sendMessage(new StringTextComponent("Teleported to Skyria at high altitude!"), player.getUUID());
-                } else {
-                    showErrorMessage("Skyria dimension not found!");
+                        });
+                        player.sendMessage(new StringTextComponent("Teleported to Skyria at high altitude!"), player.getUUID());
+                    } else {
+                        showErrorMessage("Skyria dimension not found!");
+                    }
                 }
             }
         } catch (Exception e) {

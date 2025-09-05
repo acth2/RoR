@@ -1,6 +1,7 @@
 package fr.acth2.ror.init.constructors.items;
 
 import fr.acth2.ror.gui.RealmVesselGui;
+import fr.acth2.ror.utils.DimensionAccessManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
@@ -39,10 +40,28 @@ public class RealmsVessel extends Item {
 
         if (world.isClientSide) {
             openGui(player, itemStack, hand);
+        } else {
+            if (checkSkyriaConditions(player) && !hasSkyriaAccess(player)) {
+                grantSkyriaAccess(player);
+                player.sendMessage(new StringTextComponent("Your essence synced with another realm!").withStyle(TextFormatting.AQUA), player.getUUID());
+            }
         }
 
         return ActionResult.success(itemStack);
     }
+
+    private boolean hasSkyriaAccess(PlayerEntity player) {
+        return DimensionAccessManager.hasSkyriaAccess(player);
+    }
+
+    private boolean checkSkyriaConditions(PlayerEntity player) {
+        return DimensionAccessManager.checkSkyriaConditions(player);
+    }
+
+    private void grantSkyriaAccess(PlayerEntity player) {
+        DimensionAccessManager.grantSkyriaAccess(player);
+    }
+
 
     @OnlyIn(Dist.CLIENT)
     private void openGui(PlayerEntity player, ItemStack itemStack, Hand hand) {

@@ -5,16 +5,14 @@ import fr.acth2.ror.init.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.NetherPortalBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.text.StringTextComponent;
@@ -42,7 +40,7 @@ public class VesselPlacer extends Block {
 
                     if (isPortalBuilt(world, pos)) {
                         if (activatePortal(world, pos, dimensionId, player)) {
-                            player.sendMessage(new StringTextComponent("Portal activated to " + getDimensionName(dimensionId)).withStyle(TextFormatting.GREEN), player.getUUID());
+                            player.sendMessage(new StringTextComponent("The realm vessel has been synced with " + getDimensionName(dimensionId)).withStyle(TextFormatting.GREEN), player.getUUID());
 
                             if (!player.isCreative()) {
                                 itemStack.shrink(1);
@@ -54,11 +52,11 @@ public class VesselPlacer extends Block {
                             return ActionResultType.FAIL;
                         }
                     } else {
-                        player.sendMessage(new StringTextComponent("Portal structure is incomplete").withStyle(TextFormatting.YELLOW), player.getUUID());
+                        player.sendMessage(new StringTextComponent("The realm vessel is response less").withStyle(TextFormatting.GRAY), player.getUUID());
                         return ActionResultType.FAIL;
                     }
                 } else {
-                    player.sendMessage(new StringTextComponent("Realm Vessel is not configured. Right-click to select a dimension first.").withStyle(TextFormatting.YELLOW), player.getUUID());
+                    player.sendMessage(new StringTextComponent("The realm vessel dont have any instruction..").withStyle(TextFormatting.YELLOW), player.getUUID());
                     return ActionResultType.FAIL;
                 }
             }
@@ -128,8 +126,6 @@ public class VesselPlacer extends Block {
                 ModBlocks.SKYRIA_PORTAL.get() : ModBlocks.OVERWORLD_PORTAL.get();
         boolean isNorthSouth = checkNorthSouthOrientation(world, centerPos);
 
-        System.out.println("Creating portal with orientation: " + (isNorthSouth ? "North-South" : "East-West"));
-
         clearExistingPortalBlocks(world, centerPos, isNorthSouth);
 
         if (isNorthSouth) {
@@ -144,11 +140,8 @@ public class VesselPlacer extends Block {
         boolean isEastWest = checkEastWestOrientation(world, centerPos);
 
         if (!isNorthSouth && !isEastWest) {
-            System.out.println("Portal orientation not detected");
             return false;
         }
-
-        System.out.println("Portal orientation: " + (isNorthSouth ? "North-South" : "East-West"));
 
         if (isNorthSouth) {
             return checkNorthSouthPortal(world, centerPos);
@@ -178,12 +171,10 @@ public class VesselPlacer extends Block {
             BlockPos checkPos = new BlockPos(centerPos.getX(), centerPos.getY(), centerPos.getZ() + z);
             if (z == 0) {
                 if (!world.getBlockState(checkPos).getBlock().equals(ModBlocks.VESSEL_PLACER.get())) {
-                    System.out.println("Missing vessel_placer at bottom center");
                     return false;
                 }
             } else {
                 if (!world.getBlockState(checkPos).getBlock().equals(ModBlocks.REALM_REMNANT.get())) {
-                    System.out.println("Missing realm_remnant at bottom row, z=" + z);
                     return false;
                 }
             }
@@ -192,7 +183,6 @@ public class VesselPlacer extends Block {
         for (int z = -2; z <= 2; z++) {
             BlockPos checkPos = new BlockPos(centerPos.getX(), centerPos.getY() + 4, centerPos.getZ() + z);
             if (!world.getBlockState(checkPos).getBlock().equals(ModBlocks.REALM_REMNANT.get())) {
-                System.out.println("Missing realm_remnant at top row, z=" + z);
                 return false;
             }
         }
@@ -200,13 +190,11 @@ public class VesselPlacer extends Block {
         for (int y = 1; y <= 3; y++) {
             BlockPos leftPos = new BlockPos(centerPos.getX(), centerPos.getY() + y, centerPos.getZ() - 2);
             if (!world.getBlockState(leftPos).getBlock().equals(ModBlocks.REALM_REMNANT.get())) {
-                System.out.println("Missing realm_remnant at left column, y=" + y);
                 return false;
             }
 
             BlockPos rightPos = new BlockPos(centerPos.getX(), centerPos.getY() + y, centerPos.getZ() + 2);
             if (!world.getBlockState(rightPos).getBlock().equals(ModBlocks.REALM_REMNANT.get())) {
-                System.out.println("Missing realm_remnant at right column, y=" + y);
                 return false;
             }
         }
@@ -216,7 +204,6 @@ public class VesselPlacer extends Block {
                 BlockPos checkPos = new BlockPos(centerPos.getX(), centerPos.getY() + y, centerPos.getZ() + z);
                 if (world.getBlockState(checkPos).getBlock().equals(ModBlocks.REALM_REMNANT.get()) ||
                         world.getBlockState(checkPos).getBlock().equals(ModBlocks.VESSEL_PLACER.get())) {
-                    System.out.println("Inner area not empty at y=" + y + ", z=" + z);
                     return false;
                 }
             }
@@ -230,12 +217,10 @@ public class VesselPlacer extends Block {
             BlockPos checkPos = new BlockPos(centerPos.getX() + x, centerPos.getY(), centerPos.getZ());
             if (x == 0) {
                 if (!world.getBlockState(checkPos).getBlock().equals(ModBlocks.VESSEL_PLACER.get())) {
-                    System.out.println("Missing vessel_placer at bottom center");
                     return false;
                 }
             } else {
                 if (!world.getBlockState(checkPos).getBlock().equals(ModBlocks.REALM_REMNANT.get())) {
-                    System.out.println("Missing realm_remnant at bottom row, x=" + x);
                     return false;
                 }
             }
@@ -244,7 +229,6 @@ public class VesselPlacer extends Block {
         for (int x = -2; x <= 2; x++) {
             BlockPos checkPos = new BlockPos(centerPos.getX() + x, centerPos.getY() + 4, centerPos.getZ());
             if (!world.getBlockState(checkPos).getBlock().equals(ModBlocks.REALM_REMNANT.get())) {
-                System.out.println("Missing realm_remnant at top row, x=" + x);
                 return false;
             }
         }
@@ -252,13 +236,11 @@ public class VesselPlacer extends Block {
         for (int y = 1; y <= 3; y++) {
             BlockPos leftPos = new BlockPos(centerPos.getX() - 2, centerPos.getY() + y, centerPos.getZ());
             if (!world.getBlockState(leftPos).getBlock().equals(ModBlocks.REALM_REMNANT.get())) {
-                System.out.println("Missing realm_remnant at left column, y=" + y);
                 return false;
             }
 
             BlockPos rightPos = new BlockPos(centerPos.getX() + 2, centerPos.getY() + y, centerPos.getZ());
             if (!world.getBlockState(rightPos).getBlock().equals(ModBlocks.REALM_REMNANT.get())) {
-                System.out.println("Missing realm_remnant at right column, y=" + y);
                 return false;
             }
         }
@@ -268,7 +250,6 @@ public class VesselPlacer extends Block {
                 BlockPos checkPos = new BlockPos(centerPos.getX() + x, centerPos.getY() + y, centerPos.getZ());
                 if (world.getBlockState(checkPos).getBlock().equals(ModBlocks.REALM_REMNANT.get()) ||
                         world.getBlockState(checkPos).getBlock().equals(ModBlocks.VESSEL_PLACER.get())) {
-                    System.out.println("Inner area not empty at y=" + y + ", x=" + x);
                     return false;
                 }
             }
@@ -302,19 +283,51 @@ public class VesselPlacer extends Block {
     }
 
     private void createNorthSouthPortal(World world, BlockPos centerPos, Block portalBlock) {
+        BlockState portalState = portalBlock.defaultBlockState();
+
+        if (portalState.hasProperty(NetherPortalBlock.AXIS)) {
+            portalState = portalState.setValue(NetherPortalBlock.AXIS, Direction.Axis.Z);
+        }
+        else if (portalState.hasProperty(BlockStateProperties.HORIZONTAL_AXIS)) {
+            portalState = portalState.setValue(BlockStateProperties.HORIZONTAL_AXIS, Direction.Axis.Z);
+        }
+        else if (portalState.hasProperty(BlockStateProperties.HORIZONTAL_FACING)) {
+            portalState = portalState.setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH);
+        }
+        else {
+        }
+
         for (int z = -1; z <= 1; z++) {
             for (int y = 1; y <= 3; y++) {
                 BlockPos portalPos = new BlockPos(centerPos.getX(), centerPos.getY() + y, centerPos.getZ() + z);
-                world.setBlock(portalPos, portalBlock.defaultBlockState(), 3);
+                world.setBlock(portalPos, portalState, 3);
             }
         }
     }
 
     private void createEastWestPortal(World world, BlockPos centerPos, Block portalBlock) {
+        BlockState portalState = portalBlock.defaultBlockState();
+
+        if (portalState.hasProperty(NetherPortalBlock.AXIS)) {
+            portalState = portalState.setValue(NetherPortalBlock.AXIS, Direction.Axis.X);
+            System.out.println("Set AXIS to X for east-west portal");
+        }
+        else if (portalState.hasProperty(BlockStateProperties.HORIZONTAL_AXIS)) {
+            portalState = portalState.setValue(BlockStateProperties.HORIZONTAL_AXIS, Direction.Axis.X);
+            System.out.println("Set HORIZONTAL_AXIS to X for east-west portal");
+        }
+        else if (portalState.hasProperty(BlockStateProperties.HORIZONTAL_FACING)) {
+            portalState = portalState.setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST);
+            System.out.println("Set HORIZONTAL_FACING to EAST for east-west portal");
+        }
+        else {
+            System.out.println("No rotation property found for east-west portal");
+        }
+
         for (int x = -1; x <= 1; x++) {
             for (int y = 1; y <= 3; y++) {
                 BlockPos portalPos = new BlockPos(centerPos.getX() + x, centerPos.getY() + y, centerPos.getZ());
-                world.setBlock(portalPos, portalBlock.defaultBlockState(), 3);
+                world.setBlock(portalPos, portalState, 3);
             }
         }
     }

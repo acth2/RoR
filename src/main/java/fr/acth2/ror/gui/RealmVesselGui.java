@@ -12,10 +12,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.*;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-
 public class RealmVesselGui extends Screen {
 
     private static PlayerEntity player;
@@ -36,8 +32,6 @@ public class RealmVesselGui extends Screen {
     private static final ResourceLocation OVERWORLD_IMAGE = new ResourceLocation("ror", "textures/gui/overworld.png");
     private static final ResourceLocation SKYRIA_IMAGE = new ResourceLocation("ror", "textures/gui/skyria.png");
     private static final ResourceLocation SKYRIA_UNLOCKED_IMAGE = new ResourceLocation("ror", "textures/gui/skyria2.png");
-
-    private static final Map<UUID, Boolean> playerSkyriaAccess = new HashMap<>();
 
     private int smallImageSize = 80;
 
@@ -98,11 +92,6 @@ public class RealmVesselGui extends Screen {
 
         drawString(matrixStack, this.font, "Mouse wheel to zoom | Click and drag to move | Click to select dimension", 10, 25, 0xCCCCCC);
 
-        if (player != null) {
-            String debugInfo = String.format("Y: %.1f | Skyria Access: %s", player.getY(), hasSkyriaAccess(player));
-            drawString(matrixStack, this.font, debugInfo, 10, 40, 0xFFFF00);
-        }
-
         if (!errorMessage.isEmpty() && System.currentTimeMillis() - errorDisplayTime < ERROR_DISPLAY_DURATION) {
             int errorY = scaledHeight - 30;
             drawString(matrixStack, this.font, errorMessage, 10, errorY, 0xFF0000);
@@ -146,7 +135,7 @@ public class RealmVesselGui extends Screen {
             this.minecraft.getTextureManager().bind(OVERWORLD_IMAGE);
             blit(matrixStack, overworldX, overworldY, smallImageSize, smallImageSize, 0, 0, 256, 256, 256, 256);
 
-            boolean hasSkyriaAccess = hasSkyriaAccess(player);
+            boolean hasSkyriaAccess = hasSkyriaAccess();
             ResourceLocation skyriaTexture = hasSkyriaAccess ? SKYRIA_UNLOCKED_IMAGE : SKYRIA_IMAGE;
             this.minecraft.getTextureManager().bind(skyriaTexture);
             blit(matrixStack, skyriaX, skyriaY, smallImageSize, smallImageSize, 0, 0, 256, 256, 256, 256);
@@ -159,8 +148,8 @@ public class RealmVesselGui extends Screen {
             drawImageTooltip(matrixStack, mouseX, mouseY, "Overworld", "click to select", OVERWORLD, true);
         }
         if (skyriaHovered && currentImageFadeAlpha > 0.7f) {
-            boolean hasSkyriaAccess = hasSkyriaAccess(player);
-            String description = hasSkyriaAccess ? "click to select" : "To select Skyria, you will need to advent high in the sky";
+            boolean hasSkyriaAccess = hasSkyriaAccess();
+            String description = hasSkyriaAccess ? "click to select" : "you will need to advent high in the sky";
             drawImageTooltip(matrixStack, mouseX, mouseY, "Skyria", description, SKYRIA, hasSkyriaAccess);
         }
 
@@ -320,10 +309,10 @@ public class RealmVesselGui extends Screen {
                 }
 
                 if (skyriaClicked) {
-                    boolean canAccess = hasSkyriaAccess(player) || checkSkyriaConditions(player);
+                    boolean canAccess = hasSkyriaAccess() || checkSkyriaConditions(player);
                     if (canAccess) {
-                        if (!hasSkyriaAccess(player)) {
-                            grantSkyriaAccess(player);
+                        if (!hasSkyriaAccess()) {
+                            grantSkyriaAccess();
                         }
                         setSelectedDimension(SKYRIA);
                         player.sendMessage(new StringTextComponent("Selected Skyria for the Realm Vessel"), player.getUUID());
@@ -352,6 +341,12 @@ public class RealmVesselGui extends Screen {
 
             CompoundNBT nbt = realmVesselItem.getOrCreateTag();
             nbt.putString("SelectedDimension", dimension.toString());
+
+            // If selecting Skyria, also grant permanent access
+            if (dimension.equals(SKYRIA)) {
+                nbt.putBoolean("HasSkyriaAccess", true);
+            }
+
             realmVesselItem.setTag(nbt);
 
             System.out.println("Client updated Realm Vessel to: " + dimensionName);
@@ -371,18 +366,22 @@ public class RealmVesselGui extends Screen {
         }
     }
 
-    private boolean hasSkyriaAccess(PlayerEntity player) {
-        if (player == null) return false;
-        return playerSkyriaAccess.getOrDefault(player.getUUID(), false);
+    private boolean hasSkyriaAccess() {
+        if (realmVesselItem == null) return false;
+
+        CompoundNBT nbt = realmVesselItem.getOrCreateTag();
+        return nbt.getBoolean("HasSkyriaAccess");
     }
 
     private boolean checkSkyriaConditions(PlayerEntity player) {
         return player != null && player.getY() >= 100.0;
     }
 
-    private void grantSkyriaAccess(PlayerEntity player) {
-        if (player != null) {
-            playerSkyriaAccess.put(player.getUUID(), true);
+    private void grantSkyriaAccess() {
+        if (realmVesselItem != null) {
+            CompoundNBT nbt = realmVesselItem.getOrCreateTag();
+            nbt.putBoolean("HasSkyriaAccess", true);
+            realmVesselItem.setTag(nbt);
         }
     }
 

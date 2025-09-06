@@ -55,7 +55,6 @@ public class EntityCaveSucker extends SeekerEntity implements IAnimatable {
         super.tick();
         PlayerEntity player = this.level.getNearestPlayer(this, 20.0D);
         if (player != null) {
-            System.out.println("Looking at player: " + player.getName().getString());
             this.getLookControl().setLookAt(player, 30.0F, 30.0F);
         }
     }

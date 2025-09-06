@@ -1,6 +1,14 @@
 {
   "variants": {
-    "axis=z": { "model": "ror:block/skyria_portal" },
-    "axis=x": { "model": "ror:block/skyria_portal", "y": 90 }
+    "axis=x,frame=0": { "model": "ror:block/skyria_portal_0", "y": 90 },
+    "axis=x,frame=1": { "model": "ror:block/skyria_portal_1", "y": 90 },
+    "axis=x,frame=2": { "model": "ror:block/skyria_portal_2", "y": 90 },
+    "axis=x,frame=3": { "model": "ror:block/skyria_portal_3", "y": 90 },
+    "axis=x,frame=4": { "model": "ror:block/skyria_portal_4", "y": 90 },
+    "axis=z,frame=0": { "model": "ror:block/skyria_portal_0" },
+    "axis=z,frame=1": { "model": "ror:block/skyria_portal_1" },
+    "axis=z,frame=2": { "model": "ror:block/skyria_portal_2" },
+    "axis=z,frame=3": { "model": "ror:block/skyria_portal_3" },
+    "axis=z,frame=4": { "model": "ror:block/skyria_portal_4" }
   }
 }

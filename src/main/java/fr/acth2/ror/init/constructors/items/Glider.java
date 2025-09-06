@@ -61,6 +61,7 @@ public class Glider extends Item {
                 }
 
                 player.setDeltaMovement(newMotion);
+                player.fallDistance = 0.0F;
 
                 if (player.level.isClientSide) {
                     spawnGlideParticles(player);

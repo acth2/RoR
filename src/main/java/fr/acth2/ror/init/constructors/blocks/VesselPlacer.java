@@ -41,11 +41,6 @@ public class VesselPlacer extends Block {
                     if (isPortalBuilt(world, pos)) {
                         if (activatePortal(world, pos, dimensionId, player)) {
                             player.sendMessage(new StringTextComponent("The realm vessel has been synced with " + getDimensionName(dimensionId)).withStyle(TextFormatting.GREEN), player.getUUID());
-
-                            if (!player.isCreative()) {
-                                itemStack.shrink(1);
-                            }
-
                             return ActionResultType.SUCCESS;
                         } else {
                             player.sendMessage(new StringTextComponent("Failed to activate portal").withStyle(TextFormatting.RED), player.getUUID());

@@ -161,6 +161,18 @@ public class MainMenuGui extends Screen {
         return 0;
     }
 
+    public static int calculateStrengthFromModifiers(PlayerEntity player) {
+        ModifiableAttributeInstance maxStrAttribute = player.getAttribute(Attributes.ATTACK_DAMAGE);
+        if (maxStrAttribute != null) {
+            AttributeModifier strModifier = maxStrAttribute.getModifier(References.STRENGTH_MODIFIER_UUID);
+            if (strModifier != null) {
+                double modifierValue = strModifier.getAmount();
+                return (int) (modifierValue * References.STRENGTH_REDUCER);
+            }
+        }
+        return 0;
+    }
+
     private String getParticleButtonText() {
         return WorldParticleHandler.areParticlesEnabled() ?
                 "Disable World Particles" : "Enable World Particles";
@@ -170,7 +182,7 @@ public class MainMenuGui extends Screen {
         if (playerStats != null) {
             healthButton.setMessage(new StringTextComponent(playerStats.getHealth() >= 100 ? "MAX" : "Health: " + playerStats.getHealth() + " (Cost: " + playerStats.getLevelUpCost("health") + ")"));
             dexterityButton.setMessage(new StringTextComponent(playerStats.getDexterity() >= 25 ? "MAX" : "Dexterity: " + playerStats.getDexterity() + " (Cost: " + playerStats.getLevelUpCost("dexterity") + ")"));
-            strengthButton.setMessage(new StringTextComponent(playerStats.getStrength() >= 30 ? "MAX" : "Strength: " + "??" + " (Cost: " + playerStats.getLevelUpCost("strength") + ")"));
+            strengthButton.setMessage(new StringTextComponent(playerStats.getStrength() >= 30 ? "MAX" : "Strength: " + playerStats.getStrength() + " (Cost: " + playerStats.getLevelUpCost("strength") + ")"));
 
 
             if (playerStats.getHealth() >= 100) {

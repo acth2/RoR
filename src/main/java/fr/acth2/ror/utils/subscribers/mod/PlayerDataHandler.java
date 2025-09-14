@@ -94,5 +94,17 @@ public class PlayerDataHandler {
                     AttributeModifier.Operation.ADDITION
             ));
         }
+
+        ModifiableAttributeInstance maxStrAttribute = player.getAttribute(Attributes.ATTACK_DAMAGE);
+        if (maxStrAttribute != null) {
+            maxStrAttribute.removeModifier(References.STRENGTH_MODIFIER_UUID);
+
+            maxStrAttribute.addPermanentModifier(new AttributeModifier(
+                    References.STRENGTH_MODIFIER_UUID,
+                    "player_dex_modifier",
+                    (double) playerStats.getDexterity() / References.STRENGTH_REDUCER,
+                    AttributeModifier.Operation.ADDITION
+            ));
+        }
     }
 }

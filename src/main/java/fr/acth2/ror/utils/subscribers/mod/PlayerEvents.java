@@ -73,7 +73,9 @@ public class PlayerEvents {
     @SubscribeEvent
     public static void onPlayerLoggedIn(net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent event) {
         loadDexterityModifier(event.getPlayer());
+        loadStrengthModifier(event.getPlayer());
         PlayerStats.get(event.getPlayer()).setDexterity(MainMenuGui.calculateDexterityFromModifiers(event.getPlayer()));
+        PlayerStats.get(event.getPlayer()).setStrengthModifierValue(MainMenuGui.calculateStrengthFromModifiers(event.getPlayer()));
         if (event.getPlayer() instanceof ServerPlayerEntity) {
             ServerPlayerEntity player = (ServerPlayerEntity) event.getPlayer();
             PlayerStats stats = PlayerStats.get(player);
@@ -87,9 +89,9 @@ public class PlayerEvents {
             PlayerEntity player = (PlayerEntity) event.getEntity();
             PlayerStats playerStats = PlayerStats.get(player);
 
-            int randomGoal = (int) (Math.random() * 120);
+            int randomGoal = (int) (Math.random() * 170);
             for (int i = 0; i < playerStats.getDexterity(); i++) {
-                int randomTry = (int) (Math.random() * 100);
+                int randomTry = (int) (Math.random() * 150);
                 if (randomTry == randomGoal && !player.isSwimming() &&
                         !event.getSource().isBypassArmor() &&
                         !event.getSource().isExplosion() &&
@@ -148,6 +150,7 @@ public class PlayerEvents {
     @SubscribeEvent
     public static void onPlayerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
         saveDexterityModifier(event.getPlayer());
+        saveStrengthModifier(event.getPlayer());
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -159,6 +162,7 @@ public class PlayerEvents {
                 PlayerEntity player = minecraft.player;
                 if (player != null) {
                     saveDexterityModifier(player);
+                    saveStrengthModifier(player);
                 }
             }
         }
@@ -177,6 +181,19 @@ public class PlayerEvents {
         }
     }
 
+    private static void saveStrengthModifier(PlayerEntity player) {
+        PlayerStats stats = PlayerStats.get(player);
+        if (stats != null) {
+            ModifiableAttributeInstance maxStrAttribute = player.getAttribute(Attributes.ATTACK_DAMAGE);
+            if (maxStrAttribute != null) {
+                AttributeModifier strModifier = maxStrAttribute.getModifier(References.STRENGTH_MODIFIER_UUID);
+                if (strModifier != null) {
+                    stats.setStrengthModifierValue(strModifier.getAmount());
+                }
+            }
+        }
+    }
+
     private static void loadDexterityModifier(PlayerEntity player) {
         PlayerStats stats = PlayerStats.get(player);
         if (stats != null) {
@@ -187,6 +204,22 @@ public class PlayerEvents {
                         References.DEXTERITY_MODIFIER_UUID,
                         "player_dex_modifier",
                         stats.getDexterityModifierValue(),
+                        AttributeModifier.Operation.ADDITION
+                ));
+            }
+        }
+    }
+
+    private static void loadStrengthModifier(PlayerEntity player) {
+        PlayerStats stats = PlayerStats.get(player);
+        if (stats != null) {
+            ModifiableAttributeInstance maxStrAttribute = player.getAttribute(Attributes.ATTACK_DAMAGE);
+            if (maxStrAttribute != null) {
+                maxStrAttribute.removeModifier(References.STRENGTH_MODIFIER_UUID);
+                maxStrAttribute.addPermanentModifier(new AttributeModifier(
+                        References.STRENGTH_MODIFIER_UUID,
+                        "player_str_modifier",
+                        stats.getStrengthModifierValue(),
                         AttributeModifier.Operation.ADDITION
                 ));
             }

@@ -39,9 +39,10 @@ public class Main implements IMixinConnector {
     public Main() {
         MixinBootstrap.init();
         Mixins.addConfiguration("mixins.ror.json");
-
         References.HEALTH_MODIFIER_UUID = UUID.randomUUID();
         References.DEXTERITY_MODIFIER_UUID = UUID.randomUUID();
+        References.STRENGTH_MODIFIER_UUID = UUID.randomUUID();
+
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 
         GeckoLib.initialize();

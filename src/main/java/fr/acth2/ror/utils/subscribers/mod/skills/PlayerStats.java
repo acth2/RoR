@@ -25,6 +25,7 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
     private int strength;
     private boolean hasDoubleJumped;
     private double dexterityModifierValue;
+    private double strengthModifierValue;
     private boolean isFirstUpgrade = true;
 
     public PlayerStats(int level, int health, int dexterity, int strength) {
@@ -34,6 +35,7 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
         this.strength = strength;
         this.hasDoubleJumped = false;
         this.dexterityModifierValue = 0.0;
+        this.strengthModifierValue = 0.0;
     }
 
 
@@ -53,8 +55,16 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
         return dexterityModifierValue;
     }
 
+    public double getStrengthModifierValue() {
+        return strengthModifierValue;
+    }
+
     public void setDexterityModifierValue(double dexterityModifierValue) {
         this.dexterityModifierValue = dexterityModifierValue;
+    }
+
+    public void setStrengthModifierValue(double strengthModifierValue) {
+        this.strengthModifierValue = strengthModifierValue;
     }
 
     public int getHealth() {
@@ -124,6 +134,17 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
                     break;
                 case "strength":
                     stats.setStrength(stats.getStrength() + 1);
+                    System.out.println("Dexterity stat increased to: " + stats.getDexterity());
+                    ModifiableAttributeInstance maxStrengthAttribute = player.getAttribute(Attributes.ATTACK_DAMAGE);
+                    if (maxStrengthAttribute != null) {
+                        maxStrengthAttribute.removeModifier(References.STRENGTH_MODIFIER_UUID);
+                        maxStrengthAttribute.addPermanentModifier(new AttributeModifier(
+                                References.STRENGTH_MODIFIER_UUID,
+                                "player_dex_modifier",
+                                (double) stats.getDexterity() / References.STRENGTH_REDUCER,
+                                AttributeModifier.Operation.ADDITION
+                        ));
+                    }
                     break;
                 default:
                     throw new IllegalArgumentException("Invalid stat: " + stat);
@@ -165,8 +186,9 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
         level = nbt.getInt("level");
         health = nbt.getInt("health");
         dexterity = nbt.getInt("dexterity");
-        dexterity = nbt.getInt("strength");
+        strength = nbt.getInt("strength");
         dexterityModifierValue = nbt.getDouble("dexterityModifierValue");
+        strengthModifierValue = nbt.getDouble("strengthModifierValue");
     }
 
     public void setHealth(int health) {

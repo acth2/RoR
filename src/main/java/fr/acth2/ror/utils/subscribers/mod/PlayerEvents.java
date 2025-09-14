@@ -93,11 +93,8 @@ public class PlayerEvents {
             for (int i = 0; i < playerStats.getDexterity(); i++) {
                 int randomTry = (int) (Math.random() * 150);
                 if (randomTry == randomGoal && !player.isSwimming() &&
-                        !event.getSource().isBypassArmor() &&
                         !event.getSource().isExplosion() &&
                         !event.getSource().isFire() &&
-                        !event.getSource().isMagic() &&
-                        !event.getSource().isProjectile() &&
                         event.getSource().getEntity() != null &&
                         !player.isDeadOrDying()) {
 

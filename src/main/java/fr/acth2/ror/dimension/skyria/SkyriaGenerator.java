@@ -113,6 +113,10 @@ public class SkyriaGenerator extends ChunkGenerator {
         int chunkX = chunk.getPos().x;
         int chunkZ = chunk.getPos().z;
 
+        if (chunkX == 0 && chunkZ == 0) {
+            generate00SpawnPos(chunk);
+        }
+
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++) {
                 int worldX = chunkX * 16 + x;
@@ -232,6 +236,20 @@ public class SkyriaGenerator extends ChunkGenerator {
                         Blocks.CHORUS_PLANT.defaultBlockState(), false);
             }
         }
+    }
+
+    private void generate00SpawnPos(IChunk chunk) {
+        /*
+        System.out.println("Current chunk: " + chunk.getPos());
+        chunk.setBlockState(new BlockPos(0, 110, 0), ModBlocks.POLISHED_SKYRIA_BRICK.get().defaultBlockState(), false);
+
+        for (int x = -1; x <= 1; x++) {
+            for (int z = -1; z <= 1; z++) {
+                if (x == 0 && z == 0) continue;
+                chunk.setBlockState(new BlockPos(x, 110, z), ModBlocks.SKYRIA_BRICK.get().defaultBlockState(), false);
+            }
+        }
+        */
     }
 
 

@@ -87,10 +87,18 @@ public class PlayerEvents {
             PlayerEntity player = (PlayerEntity) event.getEntity();
             PlayerStats playerStats = PlayerStats.get(player);
 
-            int randomGoal = (int) (Math.random() * 45);
+            int randomGoal = (int) (Math.random() * 120);
             for (int i = 0; i < playerStats.getDexterity(); i++) {
-                int randomTry = (int) (Math.random() * 75);
-                if (randomTry == randomGoal && !player.isSwimming() && !player.isFallFlying() && !player.isDeadOrDying() && !player.isInLava()) {
+                int randomTry = (int) (Math.random() * 100);
+                if (randomTry == randomGoal && !player.isSwimming() &&
+                        !event.getSource().isBypassArmor() &&
+                        !event.getSource().isExplosion() &&
+                        !event.getSource().isFire() &&
+                        !event.getSource().isMagic() &&
+                        !event.getSource().isProjectile() &&
+                        event.getSource().getEntity() != null &&
+                        !player.isDeadOrDying()) {
+
                     event.setCanceled(true);
                     player.sendMessage(ITextComponent.nullToEmpty("You dodged the attack thanks to your dexterity"), player.getUUID());
 
@@ -102,8 +110,8 @@ public class PlayerEvents {
             }
         }
     }
-    @SubscribeEvent
 
+    @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         PlayerEntity player = event.player;
         if (event.phase == TickEvent.Phase.END && event.player != null && !event.player.isDeadOrDying()) {

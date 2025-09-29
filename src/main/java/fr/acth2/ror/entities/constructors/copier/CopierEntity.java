@@ -3,6 +3,7 @@ package fr.acth2.ror.entities.constructors.copier;
 import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -10,12 +11,15 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.particles.IParticleData;
+import net.minecraft.particles.RedstoneParticleData;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nullable;
 import java.util.Comparator;
@@ -28,6 +32,7 @@ public class CopierEntity extends MonsterEntity {
     private Vector3d lastPlayerPosition;
     private boolean hasTeleported = false;
     private Vector3d positionOffset = Vector3d.ZERO;
+    private int attackCooldown = 0;
 
     protected CopierEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
@@ -41,12 +46,18 @@ public class CopierEntity extends MonsterEntity {
     @Override
     protected void registerGoals() {
         super.registerGoals();
+        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, false));
         this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
     }
 
     @Override
     public void tick() {
         super.tick();
+
+        if (attackCooldown > 0) {
+            attackCooldown--;
+        }
 
         if (!this.level.isClientSide) {
             if (!hasTeleported) {
@@ -54,9 +65,13 @@ public class CopierEntity extends MonsterEntity {
             } else if (targetPlayer != null && targetPlayer.isAlive()) {
                 mimicPlayerMovement();
                 checkCollision();
+
+                double distance = this.distanceTo(targetPlayer);
+                this.setGlowing(distance < 0.25);
             } else {
                 hasTeleported = false;
                 targetPlayer = null;
+                this.setGlowing(false);
             }
         }
     }
@@ -120,17 +135,16 @@ public class CopierEntity extends MonsterEntity {
         this.yHeadRot = targetPlayer.yHeadRot;
 
         this.setDeltaMovement(targetPlayer.getDeltaMovement());
-
         if (targetPlayer.isOnGround()) {
             this.setOnGround(true);
         }
     }
 
     private void checkCollision() {
-        if (targetPlayer != null && targetPlayer.isAlive()) {
+        if (targetPlayer != null && targetPlayer.isAlive() && attackCooldown == 0) {
             double distance = this.distanceTo(targetPlayer);
 
-            if (distance < 1.5) {
+            if (distance <= 0.0) {
                 boolean attacked = targetPlayer.hurt(DamageSource.mobAttack(this),
                         (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
 
@@ -138,11 +152,25 @@ public class CopierEntity extends MonsterEntity {
                     this.playSound(SoundEvents.PLAYER_ATTACK_STRONG, 1.0F, 1.0F);
 
                     Vector3d knockbackDir = targetPlayer.position().subtract(this.position()).normalize();
-                    targetPlayer.setDeltaMovement(knockbackDir.x * 0.5, 0.3, knockbackDir.z * 0.5);
+                    targetPlayer.setDeltaMovement(knockbackDir.x * 3, 0.3, knockbackDir.z * 3);
+
+                    attackCooldown = 20;
+                    System.out.println("Attacked player! Distance: " + distance + ", Cooldown set");
                 }
+            } else {
+                teleportBehindPlayer();
             }
         }
     }
+
+    @Override
+    public boolean canAttack(LivingEntity p_213336_1_) {
+        sendColoredParticle(this.level, 0, 0, 0, 25, 25, 25, 10, 3);
+        sendColoredParticle(this.level, 0, 1, 0, 25, 25, 25, 10, 3);
+        sendColoredParticle(this.level, 0, -1, 0, 25, 25, 25, 10, 3);
+        return super.canAttack(p_213336_1_);
+    }
+
 
     @Override
     public boolean causeFallDamage(float p_225503_1_, float p_225503_2_) {
@@ -183,6 +211,6 @@ public class CopierEntity extends MonsterEntity {
         return MobEntity.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 1.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.26D)
-                .add(Attributes.ATTACK_DAMAGE, 6.0D);
+                .add(Attributes.ATTACK_DAMAGE, 10.0D);
     }
 }

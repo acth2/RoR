@@ -307,7 +307,7 @@ public class ModEntities {
     public static final RegistryObject<EntityType<EntityCopier>> COPIER = ENTITY_TYPES.register("copier", () ->
             EntityType.Builder.<EntityCopier>of(EntityCopier::new, EntityClassification.CREATURE)
                     .sized(1.0F, 1.8F)
-                    .build("skyder")
+                    .build("copier")
     );
 
     public static void register(IEventBus modEventBus) {

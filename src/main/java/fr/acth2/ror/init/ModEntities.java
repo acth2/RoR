@@ -10,6 +10,7 @@ import fr.acth2.ror.entities.entity.bri.EntityBrokenInsurrectionist;
 import fr.acth2.ror.entities.entity.cavesucker.EntityCaveSucker;
 import fr.acth2.ror.entities.entity.cg.EntityCoinGiver;
 import fr.acth2.ror.entities.entity.clucker.EntityClucker;
+import fr.acth2.ror.entities.entity.copier.EntityCopier;
 import fr.acth2.ror.entities.entity.corrupted.EntityCorrupted;
 import fr.acth2.ror.entities.entity.curser.EntityCurser;
 import fr.acth2.ror.entities.entity.despiter.EntityDespiter;
@@ -299,6 +300,12 @@ public class ModEntities {
 
     public static final RegistryObject<EntityType<EntitySkyder>> SKYDER = ENTITY_TYPES.register("skyder", () ->
             EntityType.Builder.<EntitySkyder>of(EntitySkyder::new, EntityClassification.CREATURE)
+                    .sized(1.0F, 1.8F)
+                    .build("skyder")
+    );
+
+    public static final RegistryObject<EntityType<EntityCopier>> COPIER = ENTITY_TYPES.register("copier", () ->
+            EntityType.Builder.<EntityCopier>of(EntityCopier::new, EntityClassification.CREATURE)
                     .sized(1.0F, 1.8F)
                     .build("skyder")
     );

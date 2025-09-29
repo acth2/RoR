@@ -9,6 +9,7 @@ import fr.acth2.ror.entities.renderer.bri.BrokenInsurrectionistRenderer;
 import fr.acth2.ror.entities.renderer.cavesucker.CaveSuckerRenderer;
 import fr.acth2.ror.entities.renderer.cg.CoinGiverRenderer;
 import fr.acth2.ror.entities.renderer.clucker.CluckerRenderer;
+import fr.acth2.ror.entities.renderer.copier.CopierRenderer;
 import fr.acth2.ror.entities.renderer.corrupted.CorruptedRenderer;
 import fr.acth2.ror.entities.renderer.curser.CurserRenderer;
 import fr.acth2.ror.entities.renderer.bo.BadOmenRenderer;
@@ -105,6 +106,7 @@ public class ClientEventSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.LIVING_PARTICLE.get(), LivingParticleRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.SKYRIA_TRADER.get(), SkyriaTraderRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.SKYDER.get(), SkyderRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.COPIER.get(), CopierRenderer::new);
 
         event.enqueueWork(() -> {
             ItemModelsProperties.register(

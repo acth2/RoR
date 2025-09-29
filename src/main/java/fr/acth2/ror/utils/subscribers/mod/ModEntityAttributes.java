@@ -10,6 +10,7 @@ import fr.acth2.ror.entities.constructors.bri.BrokenInsurrectionistEntity;
 import fr.acth2.ror.entities.constructors.cavesucker.CaveSuckerEntity;
 import fr.acth2.ror.entities.constructors.cg.CoinGiverEntity;
 import fr.acth2.ror.entities.constructors.clucker.CluckerEntity;
+import fr.acth2.ror.entities.constructors.copier.CopierEntity;
 import fr.acth2.ror.entities.constructors.corrupted.CorruptedEntity;
 import fr.acth2.ror.entities.constructors.curser.CurserEntity;
 import fr.acth2.ror.entities.constructors.despiter.DespiterEntity;
@@ -91,5 +92,6 @@ public class ModEntityAttributes {
         event.put(ModEntities.LIVING_PARTICLE.get(), LivingParticleEntity.createAttributes().build());
         event.put(ModEntities.SKYRIA_TRADER.get(), SkyriaTraderEntity.createAttributes().build());
         event.put(ModEntities.SKYDER.get(), SkyderEntity.createAttributes().build());
+        event.put(ModEntities.COPIER.get(), CopierEntity.createAttributes().build());
     }
 }

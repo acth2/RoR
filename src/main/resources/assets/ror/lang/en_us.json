@@ -95,6 +95,7 @@
   "entity.ror.living_particle": "Living Particle",
   "entity.ror.skyria_trader": "Skyria Trader",
   "entity.ror.skyder": "Skyder",
+  "entity.ror.copier": "Copier",
   "key.ror.mm": "Main menu",
   "key.categories.ror": "Ruins of Realms",
   "tooltip.ror.avarice.damage_range": "Damage: %s - %s",

@@ -366,6 +366,7 @@ public class ModEntities {
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(LAVA_BEING, 100, Blocks.LAVA));
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CAVE_SUCKER, 100, null));
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CORRUPTED, 100, null));
+        CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(COPIER, 100, null));
 
         // RARE CAVE MONSTER GENERATION
 

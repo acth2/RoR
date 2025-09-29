@@ -59,6 +59,15 @@ public class CopierEntity extends MonsterEntity {
             attackCooldown--;
         }
 
+        if (targetPlayer != null && targetPlayer.getHealth() <= 5 && hasTeleported) {
+            sendColoredParticle((ServerWorld) this.level, 0, 0, 0, 25, 25, 25, 10);
+            sendColoredParticle((ServerWorld) this.level, 0, 1, 0, 25, 25, 25, 10);
+            sendColoredParticle((ServerWorld) this.level, 0, -1, 0, 25, 25, 25, 10);
+
+            this.setHealth(0.0F);
+            this.kill();
+        }
+
         if (!this.level.isClientSide) {
             if (!hasTeleported) {
                 findAndTeleportToPlayer();
@@ -92,22 +101,24 @@ public class CopierEntity extends MonsterEntity {
     private void teleportBehindPlayer() {
         if (targetPlayer == null) return;
 
-        Vector3d playerLook = targetPlayer.getLookAngle();
-        Vector3d horizontalLook = new Vector3d(playerLook.x, 0, playerLook.z).normalize();
+        if (!targetPlayer.isCrouching() && !targetPlayer.isCreative() && !targetPlayer.isSpectator()) {
+            Vector3d playerLook = targetPlayer.getLookAngle();
+            Vector3d horizontalLook = new Vector3d(playerLook.x, 0, playerLook.z).normalize();
 
-        Vector3d behindPlayer = targetPlayer.position()
-                .subtract(horizontalLook.x * 2, 0, horizontalLook.z * 2);
+            Vector3d behindPlayer = targetPlayer.position()
+                    .subtract(horizontalLook.x * 2, 0, horizontalLook.z * 2);
 
-        double correctY = findCorrectYPosition(behindPlayer);
+            double correctY = findCorrectYPosition(behindPlayer);
 
-        positionOffset = new Vector3d(behindPlayer.x - targetPlayer.position().x,
-                correctY - targetPlayer.position().y,
-                behindPlayer.z - targetPlayer.position().z);
+            positionOffset = new Vector3d(behindPlayer.x - targetPlayer.position().x,
+                    correctY - targetPlayer.position().y,
+                    behindPlayer.z - targetPlayer.position().z);
 
-        this.teleportTo(behindPlayer.x, correctY, behindPlayer.z);
-        lastPlayerPosition = targetPlayer.position();
+            this.teleportTo(behindPlayer.x, correctY, behindPlayer.z);
+            lastPlayerPosition = targetPlayer.position();
 
-        hasTeleported = true;
+            hasTeleported = true;
+        }
     }
 
     private double findCorrectYPosition(Vector3d position) {
@@ -155,7 +166,6 @@ public class CopierEntity extends MonsterEntity {
                     targetPlayer.setDeltaMovement(knockbackDir.x * 3, 0.3, knockbackDir.z * 3);
 
                     attackCooldown = 20;
-                    System.out.println("Attacked player! Distance: " + distance + ", Cooldown set");
                 }
             } else {
                 teleportBehindPlayer();
@@ -163,14 +173,18 @@ public class CopierEntity extends MonsterEntity {
         }
     }
 
-    @Override
-    public boolean canAttack(LivingEntity p_213336_1_) {
-        sendColoredParticle(this.level, 0, 0, 0, 25, 25, 25, 10, 3);
-        sendColoredParticle(this.level, 0, 1, 0, 25, 25, 25, 10, 3);
-        sendColoredParticle(this.level, 0, -1, 0, 25, 25, 25, 10, 3);
-        return super.canAttack(p_213336_1_);
-    }
+    public void sendColoredParticle(ServerWorld world, int offsetX, int offsetY, int offsetZ,
+                                    float red, float green, float blue, int count) {
+        IParticleData particleData = new RedstoneParticleData(red, green, blue, 10.0f);
 
+        world.sendParticles(
+                particleData,
+                this.getX() + offsetX, this.getY() + offsetY, this.getZ() + offsetZ,
+                count,
+                0.1, 0.1, 0.1,
+                0.05
+        );
+    }
 
     @Override
     public boolean causeFallDamage(float p_225503_1_, float p_225503_2_) {

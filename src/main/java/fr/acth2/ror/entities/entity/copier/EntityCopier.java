@@ -40,7 +40,7 @@ public class EntityCopier extends CopierEntity implements IAnimatable {
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         event.getController().setAnimation(
-                new AnimationBuilder().addAnimation("animation.copier.move", true));
+                new AnimationBuilder().addAnimation("animation.copier.idle", true));
         return PlayState.CONTINUE;
     }
 

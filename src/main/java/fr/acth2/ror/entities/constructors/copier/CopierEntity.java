@@ -60,9 +60,11 @@ public class CopierEntity extends MonsterEntity {
         }
 
         if (targetPlayer != null && targetPlayer.getHealth() <= 5 && hasTeleported) {
-            sendColoredParticle((ServerWorld) this.level, 0, 0, 0, 25, 25, 25, 10);
-            sendColoredParticle((ServerWorld) this.level, 0, 1, 0, 25, 25, 25, 10);
-            sendColoredParticle((ServerWorld) this.level, 0, -1, 0, 25, 25, 25, 10);
+            sendColoredParticle((ServerWorld) this.level, 0, 0, 0, 0, 0, 0, 10);
+            sendColoredParticle((ServerWorld) this.level, 0, 1, 0, 0, 0, 0, 10);
+            sendColoredParticle((ServerWorld) this.level, 0, -1, 0, 0, 0, 0, 10);
+
+            this.playSound(SoundEvents.AMBIENT_CAVE, 1.0F, 1.0F);
 
             this.setHealth(0.0F);
             this.kill();
@@ -204,7 +206,7 @@ public class CopierEntity extends MonsterEntity {
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ANVIL_DESTROY;
+        return SoundEvents.AMBIENT_CAVE;
     }
 
     public int getAmbientSoundInterval() {

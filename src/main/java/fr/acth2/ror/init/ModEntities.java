@@ -300,7 +300,7 @@ public class ModEntities {
 
     public static final RegistryObject<EntityType<EntitySkyder>> SKYDER = ENTITY_TYPES.register("skyder", () ->
             EntityType.Builder.<EntitySkyder>of(EntitySkyder::new, EntityClassification.CREATURE)
-                    .sized(1.0F, 1.8F)
+                    .sized(1.0F, 3.0F)
                     .build("skyder")
     );
 

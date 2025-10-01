@@ -1,8 +1,10 @@
 package fr.acth2.ror.init;
 
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
+import fr.acth2.ror.events.ServerEventManager;
 import fr.acth2.ror.gui.coins.CoinsManager;
 import fr.acth2.ror.utils.subscribers.gen.utils.data.GeneratedStructuresData;
 import net.minecraft.command.CommandSource;
@@ -49,6 +51,36 @@ public class ModCommands  {
                                         context.getSource(),
                                         StringArgumentType.getString(context, "structure_id")
                                 ))));
+
+
+        dispatcher.register(
+                Commands.literal("triggerevent")
+                        .then(Commands.argument("event", StringArgumentType.string())
+                                .then(Commands.argument("active", BoolArgumentType.bool())
+                                        .executes(context -> {
+                                            String event = StringArgumentType.getString(context, "event");
+                                            boolean active = BoolArgumentType.getBool(context, "active");
+                                            ServerEventManager.forceEvent(event, active);
+                                            context.getSource().sendSuccess(
+                                                    new StringTextComponent(
+                                                            "Event " + event + " set to " + active
+                                                    ), true
+                                            );
+                                            return 1;
+                                        })
+                                )
+                        )
+                        .then(Commands.literal("status")
+                                .executes(context -> {
+                                    String status = ServerEventManager.getEventStatus();
+                                    context.getSource().sendSuccess(
+                                            new StringTextComponent("Event Status: " + status),
+                                            true
+                                    );
+                                    return 1;
+                                })
+                        )
+        );
     }
 
     private static int listStructures(CommandSource source, String structureId) {

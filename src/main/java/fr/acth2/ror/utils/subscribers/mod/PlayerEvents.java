@@ -3,6 +3,7 @@ package fr.acth2.ror.utils.subscribers.mod;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import fr.acth2.ror.entities.constructors.ExampleInvaderEntity;
+import fr.acth2.ror.events.ServerEventManager;
 import fr.acth2.ror.gui.MainMenuGui;
 import fr.acth2.ror.gui.coins.CoinsManager;
 import fr.acth2.ror.init.ModNetworkHandler;
@@ -80,6 +81,18 @@ public class PlayerEvents {
             ServerPlayerEntity player = (ServerPlayerEntity) event.getPlayer();
             PlayerStats stats = PlayerStats.get(player);
             ModNetworkHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new SyncPlayerStatsPacket(stats));
+
+            ServerEventManager.syncEventsToPlayer(player);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerChangedDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
+        if (event.getPlayer() instanceof ServerPlayerEntity) {
+            ServerPlayerEntity player = (ServerPlayerEntity) event.getPlayer();
+            player.getServer().execute(() -> {
+                ServerEventManager.syncEventsToPlayer(player);
+            });
         }
     }
 

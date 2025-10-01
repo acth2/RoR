@@ -2,6 +2,7 @@ package fr.acth2.ror.init;
 
 import fr.acth2.ror.network.coins.RequestCoinSyncPacket;
 import fr.acth2.ror.network.coins.SyncCoinsPacket;
+import fr.acth2.ror.network.event.EventSyncPacket;
 import fr.acth2.ror.network.realmvessel.DimensionSyncPacket;
 import fr.acth2.ror.network.skills.RequestLevelUpPacket;
 import fr.acth2.ror.network.skills.RequestSyncPlayerStatsPacket;
@@ -9,6 +10,7 @@ import fr.acth2.ror.network.skills.SyncPlayerStatsPacket;
 import fr.acth2.ror.network.skills.dexterity.DodgePacket;
 import fr.acth2.ror.network.traveler.PurchaseItemPacket;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
@@ -61,9 +63,22 @@ public class ModNetworkHandler {
                 DimensionSyncPacket::encode,
                 DimensionSyncPacket::decode,
                 DimensionSyncPacket::handle);
+
+        INSTANCE.registerMessage(id++, EventSyncPacket.class,
+                EventSyncPacket::encode,
+                EventSyncPacket::decode,
+                EventSyncPacket::handle);
     }
 
     public static <MSG> void sendToClient(MSG packet, ServerPlayerEntity player) {
         INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), packet);
+    }
+
+    public static <MSG> void sendToAllInWorld(MSG packet, ServerWorld world) {
+        INSTANCE.send(PacketDistributor.DIMENSION.with(world::dimension), packet);
+    }
+
+    public static <MSG> void sendToAll(MSG packet) {
+        INSTANCE.send(PacketDistributor.ALL.noArg(), packet);
     }
 }

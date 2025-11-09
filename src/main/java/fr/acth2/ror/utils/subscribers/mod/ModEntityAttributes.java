@@ -34,6 +34,7 @@ import fr.acth2.ror.entities.constructors.se.SkyEjectorEntity;
 import fr.acth2.ror.entities.constructors.seeker.SeekerEntity;
 import fr.acth2.ror.entities.constructors.silker.SilkerEntity;
 import fr.acth2.ror.entities.constructors.skyder.SkyderEntity;
+import fr.acth2.ror.entities.constructors.spying.SpyingEntity;
 import fr.acth2.ror.entities.constructors.traders.SkyriaTraderEntity;
 import fr.acth2.ror.entities.constructors.traveler.TravelerEntity;
 import fr.acth2.ror.entities.constructors.rift.RiftEntity;
@@ -93,5 +94,6 @@ public class ModEntityAttributes {
         event.put(ModEntities.SKYRIA_TRADER.get(), SkyriaTraderEntity.createAttributes().build());
         event.put(ModEntities.SKYDER.get(), SkyderEntity.createAttributes().build());
         event.put(ModEntities.COPIER.get(), CopierEntity.createAttributes().build());
+        event.put(ModEntities.SPYING.get(), SpyingEntity.createAttributes().build());
     }
 }

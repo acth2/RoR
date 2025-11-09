@@ -34,6 +34,7 @@ import fr.acth2.ror.entities.entity.se.EntitySkyEjector;
 import fr.acth2.ror.entities.entity.seeker.EntitySeeker;
 import fr.acth2.ror.entities.entity.silker.EntitySilker;
 import fr.acth2.ror.entities.entity.skyder.EntitySkyder;
+import fr.acth2.ror.entities.entity.spying.EntitySpying;
 import fr.acth2.ror.entities.entity.traders.EntitySkyriaTrader;
 import fr.acth2.ror.entities.entity.traveler.EntityTraveler;
 import fr.acth2.ror.entities.entity.rift.EntityRift;
@@ -308,6 +309,12 @@ public class ModEntities {
             EntityType.Builder.<EntityCopier>of(EntityCopier::new, EntityClassification.CREATURE)
                     .sized(1.0F, 1.8F)
                     .build("copier")
+    );
+
+    public static final RegistryObject<EntityType<EntitySpying>> SPYING = ENTITY_TYPES.register("spying", () ->
+            EntityType.Builder.<EntitySpying>of(EntitySpying::new, EntityClassification.CREATURE)
+                    .sized(1.0F, 1.8F)
+                    .build("spying")
     );
 
     public static void register(IEventBus modEventBus) {

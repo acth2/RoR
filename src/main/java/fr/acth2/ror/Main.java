@@ -65,8 +65,6 @@ public class Main implements IMixinConnector {
         proxy.setup();
     }
 
-
-
     @SubscribeEvent
     public void onRegisterCommands(RegisterCommandsEvent event) {
         ModCommands.register(event.getDispatcher());

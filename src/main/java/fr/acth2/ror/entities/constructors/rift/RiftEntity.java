@@ -8,7 +8,6 @@ import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
@@ -19,6 +18,8 @@ import net.minecraft.world.server.ServerWorld;
 import javax.annotation.Nullable;
 
 public class RiftEntity extends CreatureEntity {
+
+    private int lifeTime = 0;
 
     protected RiftEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
         super(type, worldIn);
@@ -61,25 +62,32 @@ public class RiftEntity extends CreatureEntity {
 
     @Override
     public void tick() {
-        if (!this.level.isClientSide && this.isAlive()) {
-            ServerWorld serverWorld = (ServerWorld) this.level;
-            serverWorld.sendParticles(
-                    ParticleTypes.ASH,
-                    this.getX(), this.getY(), this.getZ(),
-                    10,
-                    0.2, 0.2, 0.2,
-                    0.1
-            );
-
-            serverWorld.sendParticles(
-                    ParticleTypes.NAUTILUS,
-                    this.getX(), this.getY(), this.getZ(),
-                    50,
-                    0.5, 0.5, 0.5,
-                    0.2
-            );
-        }
         super.tick();
+        if (!this.level.isClientSide) {
+            if (this.lifeTime++ >= 1200) {
+                this.remove();
+                return;
+            }
+
+            if (this.isAlive()) {
+                ServerWorld serverWorld = (ServerWorld) this.level;
+                serverWorld.sendParticles(
+                        ParticleTypes.ASH,
+                        this.getX(), this.getY(), this.getZ(),
+                        10,
+                        0.2, 0.2, 0.2,
+                        0.1
+                );
+
+                serverWorld.sendParticles(
+                        ParticleTypes.NAUTILUS,
+                        this.getX(), this.getY(), this.getZ(),
+                        50,
+                        0.5, 0.5, 0.5,
+                        0.2
+                );
+            }
+        }
     }
 
     @Nullable

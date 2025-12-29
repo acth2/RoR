@@ -11,12 +11,12 @@ public class EntitySpyingModel extends AnimatedGeoModel<EntitySpying> {
 
     @Override
     public ResourceLocation getModelLocation(EntitySpying object) {
-        return new ResourceLocation(References.MODID, "geo/empty.geo.json");
+        return new ResourceLocation(References.MODID, "geo/spying.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureLocation(EntitySpying object) {
-        return new ResourceLocation(References.MODID, "textures/entity/empty.png");
+        return new ResourceLocation(References.MODID, "textures/entity/spying/spying.png");
     }
 
     @Override

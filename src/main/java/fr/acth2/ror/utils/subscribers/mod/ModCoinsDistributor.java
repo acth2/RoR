@@ -6,11 +6,14 @@ import fr.acth2.ror.entities.constructors.bo.BadOmenEntity;
 import fr.acth2.ror.entities.constructors.cg.CoinGiverEntity;
 import fr.acth2.ror.entities.constructors.clucker.CluckerEntity;
 import fr.acth2.ror.entities.constructors.curser.CurserEntity;
+import fr.acth2.ror.entities.constructors.grasser.GrasserEntity;
 import fr.acth2.ror.entities.constructors.hopper.HopperEntity;
+import fr.acth2.ror.entities.constructors.lavabeing.LavaBeingEntity;
 import fr.acth2.ror.entities.constructors.lc.LostCaverEntity;
 import fr.acth2.ror.entities.constructors.mw.MajorWickedEntity;
 import fr.acth2.ror.entities.constructors.ookla.OoklaEntity;
 import fr.acth2.ror.entities.constructors.rc.RustedCoreEntity;
+import fr.acth2.ror.entities.constructors.se.SkyEjectorEntity;
 import fr.acth2.ror.entities.constructors.silker.SilkerEntity;
 import fr.acth2.ror.entities.constructors.wicked.WickedEntity;
 import fr.acth2.ror.entities.constructors.woodfall.WoodFallEntity;
@@ -68,7 +71,9 @@ public class ModCoinsDistributor {
             case "Clucker":
             case "Hopper":
             case "Silker":
-            case "WoodFall": return 50;
+            case "WoodFall":
+            case "Grasser":
+                return 50;
             case "LostCaver":
             case "Wicked":
             case "WoodSpirit": return 70;
@@ -78,12 +83,14 @@ public class ModCoinsDistributor {
             case "BadOmen":
             case "MajorWicked":
             case "IronGolem":
+            case "LavaBeing":
                 return 250;
             case "Mimic":
                 return 500;
             case "ShatteredInvader":
                 return 2000;
-
+            case "SkyEjector":
+                return 100;
             default: return 5;
         }
     }
@@ -115,7 +122,9 @@ public class ModCoinsDistributor {
         if (entity instanceof MajorWickedEntity) return "MajorWicked";
         if (entity instanceof SilkerEntity) return "Silker";
         if (entity instanceof ExampleInvaderEntity) return "ShatteredInvader";
-
+        if (entity instanceof SkyEjectorEntity) return "SkyEjector";
+        if (entity instanceof LavaBeingEntity) return "LavaBeing";
+        if (entity instanceof GrasserEntity) return "Grasser";
         return "Unknown";
     }
 }

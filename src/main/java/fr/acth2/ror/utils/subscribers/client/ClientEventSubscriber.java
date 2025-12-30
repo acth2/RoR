@@ -6,6 +6,7 @@ import fr.acth2.ror.entities.renderer.aquamarin.AquamarinRenderer;
 import fr.acth2.ror.entities.renderer.axis.AxisRenderer;
 import fr.acth2.ror.entities.renderer.bi.BloodInfectionerRenderer;
 import fr.acth2.ror.entities.renderer.bri.BrokenInsurrectionistRenderer;
+import fr.acth2.ror.entities.renderer.catapleer.CatapleerRenderer;
 import fr.acth2.ror.entities.renderer.cavesucker.CaveSuckerRenderer;
 import fr.acth2.ror.entities.renderer.cg.CoinGiverRenderer;
 import fr.acth2.ror.entities.renderer.clucker.CluckerRenderer;
@@ -109,6 +110,7 @@ public class ClientEventSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.SKYDER.get(), SkyderRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.COPIER.get(), CopierRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.SPYING.get(), SpyingRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.CATAPLEER.get(), CatapleerRenderer::new);
 
         event.enqueueWork(() -> {
             ItemModelsProperties.register(

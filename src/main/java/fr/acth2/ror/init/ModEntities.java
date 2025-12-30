@@ -7,6 +7,7 @@ import fr.acth2.ror.entities.entity.axis.EntityAxis;
 import fr.acth2.ror.entities.entity.bi.EntityBloodInfectioner;
 import fr.acth2.ror.entities.entity.bo.EntityBadOmen;
 import fr.acth2.ror.entities.entity.bri.EntityBrokenInsurrectionist;
+import fr.acth2.ror.entities.entity.catapleer.EntityCatapleer;
 import fr.acth2.ror.entities.entity.cavesucker.EntityCaveSucker;
 import fr.acth2.ror.entities.entity.cg.EntityCoinGiver;
 import fr.acth2.ror.entities.entity.clucker.EntityClucker;
@@ -317,6 +318,12 @@ public class ModEntities {
                     .build("spying")
     );
 
+    public static final RegistryObject<EntityType<EntityCatapleer>> CATAPLEER = ENTITY_TYPES.register("catapleer", () ->
+            EntityType.Builder.<EntityCatapleer>of(EntityCatapleer::new, EntityClassification.CREATURE)
+                    .sized(1.0F, 1.2F)
+                    .build("spying")
+    );
+
     public static void register(IEventBus modEventBus) {
         ModEntities.ENTITY_TYPES.register(modEventBus);
 
@@ -374,6 +381,8 @@ public class ModEntities {
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CAVE_SUCKER, 100, null));
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CORRUPTED, 100, null));
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(COPIER, 100, null));
+        CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(SPYING, 100, null));
+        CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CATAPLEER, 100, null));
 
         // RARE CAVE MONSTER GENERATION
 

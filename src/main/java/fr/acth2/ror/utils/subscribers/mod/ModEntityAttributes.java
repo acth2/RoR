@@ -7,6 +7,7 @@ import fr.acth2.ror.entities.constructors.axis.AxisEntity;
 import fr.acth2.ror.entities.constructors.bi.BloodInfectionerEntity;
 import fr.acth2.ror.entities.constructors.bo.BadOmenEntity;
 import fr.acth2.ror.entities.constructors.bri.BrokenInsurrectionistEntity;
+import fr.acth2.ror.entities.constructors.catapleer.CatapleerEntity;
 import fr.acth2.ror.entities.constructors.cavesucker.CaveSuckerEntity;
 import fr.acth2.ror.entities.constructors.cg.CoinGiverEntity;
 import fr.acth2.ror.entities.constructors.clucker.CluckerEntity;
@@ -95,5 +96,6 @@ public class ModEntityAttributes {
         event.put(ModEntities.SKYDER.get(), SkyderEntity.createAttributes().build());
         event.put(ModEntities.COPIER.get(), CopierEntity.createAttributes().build());
         event.put(ModEntities.SPYING.get(), SpyingEntity.createAttributes().build());
+        event.put(ModEntities.CATAPLEER.get(), CatapleerEntity.createAttributes().build());
     }
 }

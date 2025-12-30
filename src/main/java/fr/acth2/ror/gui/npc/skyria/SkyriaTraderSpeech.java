@@ -17,7 +17,7 @@ public class SkyriaTraderSpeech extends Screen {
     public SkyriaTraderSpeech(PlayerEntity player) {
         super(new StringTextComponent("Ruins of Realms - Skyria Trader"));
         this.player = player;
-        this.npcText = "A new client! Here check my shop.";
+        this.npcText = "A new client! Here take a look!";
         this.playerResponses = new String[]{"Open shop", "No"};
     }
 

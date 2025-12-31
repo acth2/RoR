@@ -27,8 +27,8 @@ public class SkyriaTraderShopScreen extends Screen {
         super(new StringTextComponent("Shop"));
         this.player = player;
 
-        shopItems.add(new ShopItem(new ItemStack(Items.CHORUS_FRUIT), 100));
-        shopItems.add(new ShopItem(new ItemStack(Items.COOKED_BEEF), 35));
+        shopItems.add(new ShopItem(new ItemStack(Items.CHORUS_FRUIT), 35));
+        shopItems.add(new ShopItem(new ItemStack(ModItems.GRAVITATIONAL_PULSAR.get()), 100));
         shopItems.add(new ShopItem(new ItemStack(ModItems.GLIDER.get()), 1000));
         shopItems.add(new ShopItem(new ItemStack(ModItems.ORONIUM_SWORD.get()), 300));
     }

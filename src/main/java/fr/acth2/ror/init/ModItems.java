@@ -49,6 +49,10 @@ public class ModItems {
             () -> new Glider(new Item.Properties())
     );
 
+    public static final RegistryObject<Item> GRAVITATIONAL_PULSAR = ITEMS.register("gravitational_pulsar",
+            () -> new GravitationalPulsar(new Item.Properties())
+    );
+
     public static final RegistryObject<Item> INFRANIUM_INGOT = ITEMS.register("infranium_ingot",
             () -> new Item(new Item.Properties()));
 

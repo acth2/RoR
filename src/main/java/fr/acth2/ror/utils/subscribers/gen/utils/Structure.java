@@ -9,6 +9,7 @@ import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -121,42 +122,28 @@ public class Structure {
     }
 
     private void generateCylinder(ISeedReader world, BlockPos center, StructureParser.StructureDefinition.BlockEntry entry) {
-        world.getLevel().getServer().execute(() -> {
-            try {
-                for (int y = 0; y < entry.height; y++) {
-                    for (int x = -entry.radius; x <= entry.radius; x++) {
-                        for (int z = -entry.radius; z <= entry.radius; z++) {
-                            if (x*x + z*z <= entry.radius*entry.radius) {
-                                BlockPos pos = center.offset(x, y, z);
-                                BlockState state = getBlockState(entry.block);
+        List<BlockToPlace> blocksToPlace = new ArrayList<>();
+        for (int y = 0; y < entry.height; y++) {
+            for (int x = -entry.radius; x <= entry.radius; x++) {
+                for (int z = -entry.radius; z <= entry.radius; z++) {
+                    if (x*x + z*z <= entry.radius*entry.radius) {
+                        BlockPos pos = center.offset(x, y, z);
+                        BlockState state = getBlockState(entry.block);
 
-                                if (entry.layers != null) {
-                                    if (y == entry.height-1 && entry.layers.top != null) {
-                                        state = getBlockState(entry.layers.top);
-                                    }
-                                    else if (y == 0 && entry.layers.bottom != null) {
-                                        state = getBlockState(entry.layers.bottom);
-                                    }
-                                }
-
-                                world.setBlock(pos, state, 2);
+                        if (entry.layers != null) {
+                            if (y == entry.height-1 && entry.layers.top != null) {
+                                state = getBlockState(entry.layers.top);
+                            }
+                            else if (y == 0 && entry.layers.bottom != null) {
+                                state = getBlockState(entry.layers.bottom);
                             }
                         }
-                    }
-
-                    if (y % 3 == 0) {
-                        try {
-                            Thread.sleep(5);
-                        } catch (InterruptedException e) {
-                            Thread.currentThread().interrupt();
-                            return;
-                        }
+                        blocksToPlace.add(new BlockToPlace(pos, state));
                     }
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
-        });
+        }
+        PhasedBlockPlacer.addToQueue(blocksToPlace);
     }
 
     private void generateHollowBox(ISeedReader world, BlockPos center, StructureParser.StructureDefinition.BlockEntry entry) {
@@ -164,6 +151,7 @@ public class Structure {
             return;
         }
 
+        List<BlockToPlace> blocksToPlace = new ArrayList<>();
         StructureParser.StructureDefinition.HollowBoxEntry hollowConfig = entry.hollow_box;
         StructureParser.StructureDefinition.EntranceEntry entranceConfig = entry.entrance;
         StructureParser.StructureDefinition.PlatformEntry platformConfig = entry.platform;
@@ -179,9 +167,6 @@ public class Structure {
         BlockState railingBlock = getBlockState(platformConfig != null && platformConfig.railing ? platformConfig.railing_block : "minecraft:stone_wall");
         BlockState airBlock = getBlockState("minecraft:air");
 
-        long startTime = System.currentTimeMillis();
-        int blocksPlaced = 0;
-
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 for (int z = 0; z < length; z++) {
@@ -191,48 +176,37 @@ public class Structure {
                     boolean hasPlatform = platformConfig != null && platformConfig.enabled;
 
                     if (shouldMakeAirRoof && !hasPlatform) {
-                        world.setBlock(pos, airBlock, 2);
-                        blocksPlaced++;
+                        blocksToPlace.add(new BlockToPlace(pos, airBlock));
                         continue;
                     }
 
                     if (entranceConfig != null && isEntrancePosition(x, y, z, width, height, length, entranceConfig)) {
-                        world.setBlock(pos, airBlock, 2);
-                        blocksPlaced++;
+                        blocksToPlace.add(new BlockToPlace(pos, airBlock));
                         continue;
                     }
 
                     BlockState stateToPlace = determineHollowBoxBlock(x, y, z, width, height, length,
                             cornerBlock, edgeBlock, faceBlock, interiorBlock);
 
-                    world.setBlock(pos, stateToPlace, 2);
-                    blocksPlaced++;
+                    blocksToPlace.add(new BlockToPlace(pos, stateToPlace));
                 }
-            }
-
-            if (y % 5 == 0) {
-                System.out.println("Generated layer " + y + "/" + height);
             }
         }
 
         if (platformConfig != null && platformConfig.enabled) {
             generatePlatform(world, center, width, height, length, platformConfig,
-                    platformBlock, railingBlock, cornerBlock, edgeBlock, faceBlock);
+                    platformBlock, railingBlock, cornerBlock, edgeBlock, faceBlock, blocksToPlace);
         }
-
-        long duration = System.currentTimeMillis() - startTime;
-        System.out.println("Hollow box generation completed: " + blocksPlaced + " blocks in " + duration + "ms");
+        PhasedBlockPlacer.addToQueue(blocksToPlace);
     }
 
     private void generatePlatform(ISeedReader world, BlockPos center, int width, int height, int length,
                                   StructureParser.StructureDefinition.PlatformEntry platformConfig, BlockState platformBlock, BlockState railingBlock,
-                                  BlockState cornerBlock, BlockState edgeBlock, BlockState faceBlock) {
+                                  BlockState cornerBlock, BlockState edgeBlock, BlockState faceBlock, List<BlockToPlace> blocksToPlace) {
 
-        System.out.println("Generating platform...");
         int platformY = height - 1;
         int platformThickness = platformConfig.thickness;
         BlockState airBlock = getBlockState("minecraft:air");
-        int blocksPlaced = 0;
 
         for (int layer = 0; layer < platformThickness; layer++) {
             int currentY = platformY + layer;
@@ -243,8 +217,7 @@ public class Structure {
 
                     boolean isCenter = (x == width/2 && z == length/2);
                     if (isCenter && layer == 0) {
-                        world.setBlock(pos, airBlock, 2);
-                        blocksPlaced++;
+                        blocksToPlace.add(new BlockToPlace(pos, airBlock));
                         continue;
                     }
 
@@ -257,14 +230,13 @@ public class Structure {
 
                     if (layer == platformThickness - 1 && platformConfig.railing && isEdge) {
                         if (isCorner) {
-                            world.setBlock(pos, cornerBlock, 2);
+                            blocksToPlace.add(new BlockToPlace(pos, cornerBlock));
                         } else {
-                            world.setBlock(pos, railingBlock, 2);
+                            blocksToPlace.add(new BlockToPlace(pos, railingBlock));
                         }
                     } else {
-                        world.setBlock(pos, platformBlock, 2);
+                        blocksToPlace.add(new BlockToPlace(pos, platformBlock));
                     }
-                    blocksPlaced++;
                 }
             }
         }
@@ -285,17 +257,15 @@ public class Structure {
 
                         if (isCornerX && isCornerZ) {
                             BlockPos pos = center.offset(x - width/2, currentY, z - length/2);
-                            world.setBlock(pos, cornerBlock, 2);
+                            blocksToPlace.add(new BlockToPlace(pos, cornerBlock));
                         } else if (isCornerX || isCornerZ) {
                             BlockPos pos = center.offset(x - width/2, currentY, z - length/2);
-                            world.setBlock(pos, edgeBlock, 2);
+                            blocksToPlace.add(new BlockToPlace(pos, edgeBlock));
                         }
-                        blocksPlaced++;
                     }
                 }
             }
         }
-        System.out.println("Platform generation completed: " + blocksPlaced + " blocks");
     }
 
     private boolean isEntrancePosition(int x, int y, int z, int width, int height, int length, StructureParser.StructureDefinition.EntranceEntry entranceConfig) {

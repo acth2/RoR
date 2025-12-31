@@ -44,12 +44,12 @@ public class ServerEventManager {
             }
 
             if (worldTime >= 0 && worldTime <= 100 && bloodSunPicked == -1) {
-                bloodSunPicked = random.nextInt(2); // 0 or 1 (50% chance)
+                bloodSunPicked = random.nextInt(50);
                 System.out.println("Decided Blood Sun event: " + (bloodSunPicked == 0 ? "ACTIVE" : "inactive"));
             }
 
             if (worldTime >= 13000 && worldTime <= 13100 && brokenMoonPicked == -1) {
-                brokenMoonPicked = random.nextInt(2); // 0 or 1 (50% chance)
+                brokenMoonPicked = random.nextInt(85);
                 System.out.println("Decided Broken Moon event: " + (brokenMoonPicked == 0 ? "ACTIVE" : "inactive"));
             }
 

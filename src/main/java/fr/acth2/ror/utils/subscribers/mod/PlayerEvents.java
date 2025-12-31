@@ -27,9 +27,8 @@ import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.Util;
+import net.minecraft.util.text.*;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
@@ -37,14 +36,17 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.PacketDistributor;
+import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import org.lwjgl.opengl.GL11;
 
 import java.util.Random;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @Mod.EventBusSubscriber
@@ -134,12 +136,14 @@ public class PlayerEvents {
             }
         }
 
+        if (event.player.level.isClientSide) return;
+
         if (References.brokenMoonWarning && References.brokenMoonPicked == 0 && atomicBrokenMoonWarning.get()) {
             player.playSound(ModSoundEvents.BROKEN_MOON_AMBIENT.get(), 1.0F, 1.0F);
         }
 
         if (References.brokenMoonWarning && References.brokenMoonPicked == 0 && atomicBrokenMoonWarning.getAndSet(false)) {
-            player.sendMessage(ITextComponent.nullToEmpty(TextFormatting.GOLD + "BROKEN MOON ENTRY MESSAGE"), player.getUUID());
+            broadcastMessage(new StringTextComponent(TextFormatting.GOLD + "BROKEN MOON ENTRY MESSAGE"));
         } else if (!References.brokenMoonWarning) {
             atomicBrokenMoonWarning.set(true);
         }
@@ -151,9 +155,16 @@ public class PlayerEvents {
         }
 
         if (References.event1Warning && References.event1Picked == 0 && atomicEvent1Warning.getAndSet(false)) {
-            player.sendMessage(ITextComponent.nullToEmpty(TextFormatting.DARK_RED + "EVENT1 ENTRY MESSAGE"), player.getUUID());
+            broadcastMessage(new StringTextComponent(TextFormatting.DARK_RED + "EVENT1 ENTRY MESSAGE"));
         } else if (!References.event1Warning) {
             atomicEvent1Warning.set(true);
+        }
+    }
+
+    private static void broadcastMessage(ITextComponent message) {
+        MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
+        if (server != null) {
+            server.getPlayerList().broadcastMessage(message, ChatType.SYSTEM, Util.NIL_UUID);
         }
     }
 

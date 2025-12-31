@@ -59,9 +59,16 @@ public class ModBlocks {
     public static final RegistryObject<Block> INFRANIUM_ORE = BLOCKS.register("infranium_ore", InfraniumOre::new);
     public static final RegistryObject<Block> GEFRANIUM_ORE = BLOCKS.register("gefranium_ore", GefraniumOre::new);
     public static final RegistryObject<Block> ORONIUM_ORE = BLOCKS.register("oronium_ore", OroniumOre::new);
+    public static final RegistryObject<Block> RADIUM_ORE = BLOCKS.register("radium_ore", RadiumOre::new);
 
     public static final RegistryObject<Block> GEFRANIUM_BLOCK = BLOCKS.register("gefranium_block",
             () -> new Block(Block.Properties.of(Material.METAL).strength(0.7f, 4.5f))
+
+    );
+
+    public static final RegistryObject<Block> RADIUM_BLOCK = BLOCKS.register("radium_block",
+            () -> new Block(Block.Properties.of(Material.METAL).strength(0.7f, 4.5f)
+                    .lightLevel(state -> 5))
 
     );
 
@@ -140,6 +147,10 @@ public class ModBlocks {
 
     public static final RegistryObject<Item> GEFRANIUM_BLOCK_ITEM = ITEMS.register("gefranium_block",
             () -> new BlockItem(GEFRANIUM_BLOCK.get(), new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> RADIUM_BLOCK_ITEM = ITEMS.register("radium_block",
+            () -> new BlockItem(RADIUM_BLOCK.get(), new Item.Properties())
     );
 
     public static final RegistryObject<Item> ORONIUM_BLOCK_ITEM = ITEMS.register("oronium_block",

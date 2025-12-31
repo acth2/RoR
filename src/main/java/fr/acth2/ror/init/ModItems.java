@@ -41,6 +41,9 @@ public class ModItems {
     public static final RegistryObject<Item> ORONIUM_ORE = ITEMS.register("oronium_ore",
             () -> new BlockItem(ModBlocks.ORONIUM_ORE.get(), new Item.Properties()));
 
+    public static final RegistryObject<Item> RADIUM_ORE = ITEMS.register("radium_ore",
+            () -> new BlockItem(ModBlocks.RADIUM_ORE.get(), new Item.Properties()));
+
     public static final RegistryObject<Item> REALMS_VESSEL = ITEMS.register("realms_vessel",
             () -> new RealmsVessel(new Item.Properties())
     );

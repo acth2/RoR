@@ -113,7 +113,7 @@ public class RiftV2Entity extends CreatureEntity {
     }
 
     public int getAmbientSoundInterval() {
-        return 60;
+        return 240;
     }
 
     @Override

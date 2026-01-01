@@ -8,7 +8,7 @@ public class MobSpawnData {
     private final RegistryObject<? extends EntityType<?>> entityType;
     private final int spawnChance;
     private final Block requiredBlock;
-    // 0 = broken-moon / 1 = blood-sun
+    // -1 = false  / 0 = broken-moon / 1 = blood-sun
     private final int eventInteger;
 
     public MobSpawnData(RegistryObject<? extends EntityType<?>> entityTypeRegistryObject, int spawnChance, Block requiredBlock) {
@@ -35,5 +35,9 @@ public class MobSpawnData {
 
     public int getEventID () {
         return eventInteger;
+    }
+
+    public int getSpawnChance() {
+        return spawnChance;
     }
 }

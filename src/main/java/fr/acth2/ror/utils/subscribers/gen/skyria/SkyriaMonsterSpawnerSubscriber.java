@@ -108,7 +108,8 @@ public class SkyriaMonsterSpawnerSubscriber {
     }
 
     private static void trySpawnPlayerLevelEntity(ServerWorld world, BlockPos pos) {
-        MobSpawnData chosenMobData = mobListLV1.get(world.random.nextInt(mobListLV1.size()));
+        MobSpawnData chosenMobData = getWeightedRandomMob(world.random);
+        if (chosenMobData == null) return;
 
         BlockPos belowPos = pos.below();
         if (chosenMobData.getRequiredBlock() != null && world.getBlockState(belowPos).getBlock() != chosenMobData.getRequiredBlock()) {
@@ -124,4 +125,23 @@ public class SkyriaMonsterSpawnerSubscriber {
         world.addFreshEntityWithPassengers(chosenEntity);
     }
 
+    private static MobSpawnData getWeightedRandomMob(Random random) {
+        int totalWeight = 0;
+        for (MobSpawnData data : mobListLV1) {
+            totalWeight += data.getSpawnChance();
+        }
+
+        if (totalWeight <= 0) return null;
+
+        int randomWeight = random.nextInt(totalWeight);
+        int currentWeight = 0;
+
+        for (MobSpawnData data : mobListLV1) {
+            currentWeight += data.getSpawnChance();
+            if (randomWeight < currentWeight) {
+                return data;
+            }
+        }
+        return null;
+    }
 }

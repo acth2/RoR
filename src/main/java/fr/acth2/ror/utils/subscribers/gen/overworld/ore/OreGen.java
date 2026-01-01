@@ -38,11 +38,24 @@ public class OreGen {
                         4
                 ))
                 .decorated(Placement.DEPTH_AVERAGE.configured(new DepthAverageConfig(
-                        30,
+                        40,
                         5
                 )))
                 .squared()
                 .count(4);
+
+        ConfiguredFeature<?, ?> radiumOre = Feature.ORE
+                .configured(new OreFeatureConfig(
+                        OreFeatureConfig.FillerBlockType.NATURAL_STONE,
+                        ModBlocks.GEFRANIUM_ORE.get().defaultBlockState(),
+                        4
+                ))
+                .decorated(Placement.DEPTH_AVERAGE.configured(new DepthAverageConfig(
+                        30,
+                        5
+                )))
+                .squared()
+                .count(6);
 
         event.getGeneration().addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, infraniumOre);
     }

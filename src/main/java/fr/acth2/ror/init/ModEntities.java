@@ -337,76 +337,73 @@ public class ModEntities {
         // OVERWORLD
 
         // DAY MONSTER GENERATION
-        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(HOPPER, 45, null));
-        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(GRASSER, 100, Blocks.GRASS_BLOCK));
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(HOPPER, 85, null));
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(GRASSER, 65, Blocks.GRASS_BLOCK));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(RUSTED_CORE, 25, Blocks.GRASS_BLOCK));
-        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOOD_SPIRIT, 1, Blocks.GRASS_BLOCK));
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOOD_SPIRIT, 15, Blocks.GRASS_BLOCK));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CLUCKER, 100, Blocks.SAND));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(AQUAMARIN, 100, Blocks.WATER));
-        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(FUSSLE, 50, Blocks.GRASS_BLOCK));
-        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(ECHO, 100, null));
-        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(HOWLER, 100, Blocks.GRASS_BLOCK));
-        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(DESPITER, 100, null));
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(FUSSLE, 12, Blocks.GRASS_BLOCK));
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(ECHO, 10, null));
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(HOWLER, 60, Blocks.GRASS_BLOCK));
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(DESPITER, 50, null));
 
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(FUSSLE, 75, Blocks.COARSE_DIRT));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(FUSSLE, 75, Blocks.PODZOL));
-        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(RUSTED_CORE, 75, Blocks.COARSE_DIRT));
-        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(RUSTED_CORE, 75, Blocks.PODZOL));
 
-        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL, 300, Blocks.VINE));
-        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL, 300, Blocks.LILY_PAD));
-        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL_SOLIDER, 1000, Blocks.LILY_PAD));
-        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL_SOLIDER, 1000, Blocks.VINE));
-        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL_SOLIDER, 5000, Blocks.MOSSY_COBBLESTONE));
-        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(RIFT_V2, 100, null));
-        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(LIVING_PARTICLE, 100, null));
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL, 100, Blocks.VINE));
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL, 100, Blocks.LILY_PAD));
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL_SOLIDER, 100, Blocks.LILY_PAD));
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL_SOLIDER, 100, Blocks.VINE));
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL_SOLIDER, 100, Blocks.MOSSY_COBBLESTONE));
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(RIFT_V2, 24, null));
+        DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(LIVING_PARTICLE, 24, null));
 
         // NIGHT MONSTER GENERATION
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CLUCKER, 100, Blocks.SAND));
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CURSER, 1, Blocks.RED_SAND));
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CURSER, 1, Blocks.TERRACOTTA));
-        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(GHOST, 100, null));
+        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(GHOST, 45, null));
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(AQUAMARIN, 100, Blocks.WATER));
-        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(SILKER, 85, null));
+        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(SILKER, 50, null));
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(MAJOR_WICKED, 25, Blocks.STONE));
-        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(RIFT, 100, null));
+        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(RIFT, 24, null));
 
-        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL, 500, Blocks.VINE));
-        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL, 500, Blocks.LILY_PAD));
-        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL_SOLIDER, 1000, Blocks.LILY_PAD));
-        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL_SOLIDER, 1000, Blocks.VINE));
-        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL_SOLIDER, 5000, Blocks.MOSSY_COBBLESTONE));
+        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL, 100, Blocks.VINE));
+        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL, 100, Blocks.LILY_PAD));
+        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL_SOLIDER, 100, Blocks.LILY_PAD));
+        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL_SOLIDER, 100, Blocks.VINE));
+        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL_SOLIDER, 100, Blocks.MOSSY_COBBLESTONE));
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(OOKLA, 25, null));
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(BAD_OMEN, 1, Blocks.AIR));
 
         // CAVE MONSTER GENERATION
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(LOST_CAVER, 25, null));
-        CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WICKED, 100, null));
+        CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WICKED, 50, null));
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(SEEKER, 50, null));
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(MAJOR_WICKED, 25, Blocks.STONE));
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(LAVA_BEING, 100, Blocks.LAVA));
-        CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CAVE_SUCKER, 100, null));
-        CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CORRUPTED, 100, null));
-        CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(COPIER, 100, null));
-        CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(SPYING, 100, null));
-        CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CATAPLEER, 100, null));
-        CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(RADIUM_MIMESIS, 100, null));
+        CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CAVE_SUCKER, 25, null));
+        CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CORRUPTED, 15, null));
+        CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(COPIER, 15, null));
+        CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(SPYING, 15, null));
+        CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CATAPLEER, 25, null));
+        CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(RADIUM_MIMESIS, 25, null));
 
         // RARE CAVE MONSTER GENERATION
-
         RareCaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(MIMIC, 100, null));
 
         // NPC CREATURE GENERATION
-        NPCSpawnSubscriber.mobListLV1.add(new MobSpawnData(TRAVELER, 50, null));
+        NPCSpawnSubscriber.mobListLV1.add(new MobSpawnData(TRAVELER, 100, null));
 
         // BUFFS GENERATION
-        BuffsSpawnSubscriber.mobListLV1.add(new MobSpawnData(COIN_GIVER, 50, null));
+        BuffsSpawnSubscriber.mobListLV1.add(new MobSpawnData(COIN_GIVER, 100, null));
 
         // SKYRIA
-        SkyriaMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(SKY_EJECTOR, 100, null));
-        SkyriaMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(FLYER, 25, null));
-        SkyriaMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(AXIS, 15, null));
-        SkyriaMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(SKYDER, 100, null));
+        SkyriaMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(SKY_EJECTOR, 50, null));
+        SkyriaMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(FLYER, 50, null));
+        SkyriaMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(AXIS, 25, null));
+        SkyriaMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(SKYDER, 50, null));
 
         // BLOOD SUN
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(BLOOD_INFECTIONER, 100, null, 1));

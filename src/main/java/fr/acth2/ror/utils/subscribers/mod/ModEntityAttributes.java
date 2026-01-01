@@ -31,6 +31,7 @@ import fr.acth2.ror.entities.constructors.mw.MajorWickedEntity;
 import fr.acth2.ror.entities.constructors.ookla.OoklaEntity;
 import fr.acth2.ror.entities.constructors.rc.RustedCoreEntity;
 import fr.acth2.ror.entities.constructors.rift.RiftV2Entity;
+import fr.acth2.ror.entities.constructors.rm.RadiumMimesisEntity;
 import fr.acth2.ror.entities.constructors.se.SkyEjectorEntity;
 import fr.acth2.ror.entities.constructors.seeker.SeekerEntity;
 import fr.acth2.ror.entities.constructors.silker.SilkerEntity;
@@ -97,5 +98,6 @@ public class ModEntityAttributes {
         event.put(ModEntities.COPIER.get(), CopierEntity.createAttributes().build());
         event.put(ModEntities.SPYING.get(), SpyingEntity.createAttributes().build());
         event.put(ModEntities.CATAPLEER.get(), CatapleerEntity.createAttributes().build());
+        event.put(ModEntities.RADIUM_MIMESIS.get(), RadiumMimesisEntity.createAttributes().build());
     }
 }

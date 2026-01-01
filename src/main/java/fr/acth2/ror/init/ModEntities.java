@@ -31,6 +31,7 @@ import fr.acth2.ror.entities.entity.mw.EntityMajorWicked;
 import fr.acth2.ror.entities.entity.ookla.EntityOokla;
 import fr.acth2.ror.entities.entity.rc.EntityRustedCore;
 import fr.acth2.ror.entities.entity.rift.EntityRiftV2;
+import fr.acth2.ror.entities.entity.rm.EntityRadiumMimesis;
 import fr.acth2.ror.entities.entity.se.EntitySkyEjector;
 import fr.acth2.ror.entities.entity.seeker.EntitySeeker;
 import fr.acth2.ror.entities.entity.silker.EntitySilker;
@@ -321,7 +322,13 @@ public class ModEntities {
     public static final RegistryObject<EntityType<EntityCatapleer>> CATAPLEER = ENTITY_TYPES.register("catapleer", () ->
             EntityType.Builder.<EntityCatapleer>of(EntityCatapleer::new, EntityClassification.CREATURE)
                     .sized(1.0F, 1.2F)
-                    .build("spying")
+                    .build("catapleer")
+    );
+
+    public static final RegistryObject<EntityType<EntityRadiumMimesis>> RADIUM_MIMESIS = ENTITY_TYPES.register("radium_mimesis", () ->
+            EntityType.Builder.<EntityRadiumMimesis>of(EntityRadiumMimesis::new, EntityClassification.CREATURE)
+                    .sized(1.0F, 1.2F)
+                    .build("radium_mimesis")
     );
 
     public static void register(IEventBus modEventBus) {
@@ -383,6 +390,7 @@ public class ModEntities {
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(COPIER, 100, null));
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(SPYING, 100, null));
         CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CATAPLEER, 100, null));
+        CaveMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(RADIUM_MIMESIS, 100, null));
 
         // RARE CAVE MONSTER GENERATION
 

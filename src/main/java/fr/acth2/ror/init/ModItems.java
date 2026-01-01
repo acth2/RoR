@@ -62,6 +62,9 @@ public class ModItems {
     public static final RegistryObject<Item> GEFRANIUM_INGOT = ITEMS.register("gefranium_ingot",
             () -> new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> RADIUM_INGOT = ITEMS.register("radium_ingot",
+            () -> new Item(new Item.Properties()));
+
     public static final RegistryObject<Item> ORONIUM_INGOT = ITEMS.register("oronium_ingot",
             () -> new Item(new Item.Properties()));
 

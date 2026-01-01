@@ -31,6 +31,7 @@ import fr.acth2.ror.entities.renderer.mw.MajorWickedRenderer;
 import fr.acth2.ror.entities.renderer.ookla.OoklaRenderer;
 import fr.acth2.ror.entities.renderer.rc.RustedCoreRenderer;
 import fr.acth2.ror.entities.renderer.rift.RiftV2Renderer;
+import fr.acth2.ror.entities.renderer.rm.RadiumMimesisRenderer;
 import fr.acth2.ror.entities.renderer.se.SkyEjectorRenderer;
 import fr.acth2.ror.entities.renderer.seeker.SeekerRenderer;
 import fr.acth2.ror.entities.renderer.silker.SilkerRenderer;
@@ -111,6 +112,7 @@ public class ClientEventSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.COPIER.get(), CopierRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.SPYING.get(), SpyingRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.CATAPLEER.get(), CatapleerRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.RADIUM_MIMESIS.get(), RadiumMimesisRenderer::new);
 
         event.enqueueWork(() -> {
             ItemModelsProperties.register(

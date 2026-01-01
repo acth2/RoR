@@ -6,7 +6,6 @@ import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
-import net.minecraft.world.gen.placement.DepthAverageConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.placement.TopSolidRangeConfig;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
@@ -22,41 +21,34 @@ public class OreGen {
                 .configured(new OreFeatureConfig(
                         OreFeatureConfig.FillerBlockType.NATURAL_STONE,
                         ModBlocks.INFRANIUM_ORE.get().defaultBlockState(),
-                        4
+                        8 // vein size
                 ))
-                .decorated(Placement.DEPTH_AVERAGE.configured(new DepthAverageConfig(
-                        50,
-                        5
-                )))
+                .decorated(Placement.RANGE.configured(new TopSolidRangeConfig(0, 0, 64)))
                 .squared()
-                .count(6);
+                .count(20); // per chunk
 
         ConfiguredFeature<?, ?> gefraniumOre = Feature.ORE
                 .configured(new OreFeatureConfig(
                         OreFeatureConfig.FillerBlockType.NATURAL_STONE,
                         ModBlocks.GEFRANIUM_ORE.get().defaultBlockState(),
-                        4
+                        7
                 ))
-                .decorated(Placement.DEPTH_AVERAGE.configured(new DepthAverageConfig(
-                        40,
-                        5
-                )))
+                .decorated(Placement.RANGE.configured(new TopSolidRangeConfig(0, 0, 50)))
                 .squared()
-                .count(4);
+                .count(16);
 
         ConfiguredFeature<?, ?> radiumOre = Feature.ORE
                 .configured(new OreFeatureConfig(
                         OreFeatureConfig.FillerBlockType.NATURAL_STONE,
-                        ModBlocks.GEFRANIUM_ORE.get().defaultBlockState(),
-                        4
-                ))
-                .decorated(Placement.DEPTH_AVERAGE.configured(new DepthAverageConfig(
-                        30,
+                        ModBlocks.RADIUM_ORE.get().defaultBlockState(),
                         5
-                )))
+                ))
+                .decorated(Placement.RANGE.configured(new TopSolidRangeConfig(0, 0, 24)))
                 .squared()
-                .count(6);
+                .count(8);
 
         event.getGeneration().addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, infraniumOre);
+        event.getGeneration().addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, gefraniumOre);
+        event.getGeneration().addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, radiumOre);
     }
 }

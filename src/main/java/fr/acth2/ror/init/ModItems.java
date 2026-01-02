@@ -8,6 +8,8 @@ import fr.acth2.ror.init.constructors.armor.ghost.GhostArmorMaterial;
 import fr.acth2.ror.init.constructors.armor.ghost.GhostBoots;
 import fr.acth2.ror.init.constructors.armor.oronium.OroniumArmor;
 import fr.acth2.ror.init.constructors.armor.oronium.OroniumArmorMaterial;
+import fr.acth2.ror.init.constructors.armor.radium.RadiumArmor;
+import fr.acth2.ror.init.constructors.armor.radium.RadiumArmorMaterial;
 import fr.acth2.ror.init.constructors.armor.seeker.SeekerArmorMaterial;
 import fr.acth2.ror.init.constructors.armor.seeker.SeekerHelmet;
 import fr.acth2.ror.init.constructors.armor.unstable.UnstableArmorMaterial;
@@ -159,6 +161,15 @@ public class ModItems {
             () -> new GefraniumArmor(GefraniumArmorMaterial.GEFRANIUM, EquipmentSlotType.LEGS, new Item.Properties()));
     public static final RegistryObject<Item> GEFRANIUM_BOOTS = ITEMS.register("gefranium_boots",
             () -> new GefraniumArmor(GefraniumArmorMaterial.GEFRANIUM, EquipmentSlotType.FEET, new Item.Properties()));
+
+    public static final RegistryObject<Item> RADIUM_HELMET = ITEMS.register("radium_helmet",
+            () -> new RadiumArmor(RadiumArmorMaterial.RADIUM, EquipmentSlotType.HEAD, new Item.Properties()));
+    public static final RegistryObject<Item> RADIUM_CHESTPLATE = ITEMS.register("radium_chestplate",
+            () -> new RadiumArmor(RadiumArmorMaterial.RADIUM, EquipmentSlotType.CHEST, new Item.Properties()));
+    public static final RegistryObject<Item> RADIUM_LEGGINGS = ITEMS.register("radium_leggings",
+            () -> new RadiumArmor(RadiumArmorMaterial.RADIUM, EquipmentSlotType.LEGS, new Item.Properties()));
+    public static final RegistryObject<Item> RADIUM_BOOTS = ITEMS.register("radium_boots",
+            () -> new RadiumArmor(RadiumArmorMaterial.RADIUM, EquipmentSlotType.FEET, new Item.Properties()));
 
     public static final RegistryObject<Item> GHOST_BOOTS = ITEMS.register("ghost_boots",
             () -> new GhostBoots(GhostArmorMaterial.GHOST, EquipmentSlotType.FEET, new Item.Properties()));

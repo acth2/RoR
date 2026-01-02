@@ -1,4 +1,4 @@
-package fr.acth2.ror.init.constructors.armor.oronium;
+package fr.acth2.ror.init.constructors.armor.radium;
 
 import fr.acth2.ror.init.ModItems;
 import fr.acth2.ror.utils.References;
@@ -12,9 +12,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.function.Supplier;
 
-public enum OroniumArmorMaterial implements IArmorMaterial {
-    ORONIUM(References.MODID + ":oronium", 25, new int[]{4, 6, 6, 2}, 11, SoundEvents.ARMOR_EQUIP_IRON, 0.00F, () -> {
-        return Ingredient.of(ModItems.GEFRANIUM_INGOT.get());
+public enum RadiumArmorMaterial implements IArmorMaterial {
+    RADIUM(References.MODID + ":radium", 25, new int[]{4, 7, 7, 3}, 10, SoundEvents.ARMOR_EQUIP_IRON, 0.0F, () -> {
+        return Ingredient.of(ModItems.RADIUM_INGOT.get());
     });
 
     private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};
@@ -26,7 +26,7 @@ public enum OroniumArmorMaterial implements IArmorMaterial {
     private final float toughness;
     private final Supplier<Ingredient> repairMaterial;
 
-    OroniumArmorMaterial(String name, int maxDamageFactor, int[] damageReductionAmountArray, int enchantability, SoundEvent soundEvent, float toughness, Supplier<Ingredient> repairMaterial) {
+    RadiumArmorMaterial(String name, int maxDamageFactor, int[] damageReductionAmountArray, int enchantability, SoundEvent soundEvent, float toughness, Supplier<Ingredient> repairMaterial) {
         this.name = name;
         this.maxDamageFactor = maxDamageFactor;
         this.damageReductionAmountArray = damageReductionAmountArray;
@@ -69,11 +69,11 @@ public enum OroniumArmorMaterial implements IArmorMaterial {
 
     @Override
     public float getToughness() {
-        return toughness;
+        return 0.0F;
     }
 
     @Override
     public float getKnockbackResistance() {
-        return 0.00F;
+        return 0.0F;
     }
 }

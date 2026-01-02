@@ -8,6 +8,7 @@ import fr.acth2.ror.gui.MainMenuGui;
 import fr.acth2.ror.gui.coins.CoinsManager;
 import fr.acth2.ror.init.ModItems;
 import fr.acth2.ror.init.ModNetworkHandler;
+import fr.acth2.ror.init.constructors.armor.radium.RadiumArmor;
 import fr.acth2.ror.init.constructors.items.Glider;
 import fr.acth2.ror.init.constructors.items.RadiumScimtar;
 import fr.acth2.ror.init.constructors.items.RadiumSword;
@@ -24,12 +25,16 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldVertexBufferUploader;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.*;
@@ -104,7 +109,7 @@ public class PlayerEvents {
     }
 
     @SubscribeEvent
-    public static void onLivingHurt(LivingHurtEvent event) {
+    public static void radiumManager(LivingHurtEvent event) {
         if (event.getSource().getEntity() instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) event.getSource().getEntity();
             ItemStack heldItem = player.getMainHandItem();
@@ -123,7 +128,27 @@ public class PlayerEvents {
                 float ratio = dynamicDamage / baseDamage;
                 event.setAmount(event.getAmount() * ratio);
             }
+
+            LivingEntity target = event.getEntityLiving();
+            if (isWearingFullRadiumSet(player)) {
+                target.addEffect(new EffectInstance(Effects.WITHER, 100, 1));
+            }
         }
+    }
+
+    private static boolean isWearingFullRadiumSet(PlayerEntity player) {
+        for (EquipmentSlotType slot : new EquipmentSlotType[]{
+                EquipmentSlotType.HEAD,
+                EquipmentSlotType.CHEST,
+                EquipmentSlotType.LEGS,
+                EquipmentSlotType.FEET
+        }) {
+            ItemStack stack = player.getItemBySlot(slot);
+            if (!(stack.getItem() instanceof RadiumArmor)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @SubscribeEvent

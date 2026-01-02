@@ -33,9 +33,11 @@ public class RequestLevelUpPacket {
                 int coins = CoinsManager.getCoins(player);
 
                 if (stats.canLevelUp(packet.stat, coins)) {
-                    stats.levelUp(packet.stat, player);
-                    CoinsManager.removeCoins(player, stats.getLevelUpCost(packet.stat));
-                    ModNetworkHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new SyncPlayerStatsPacket(stats));
+                    if (coins >= stats.getLevelUpCost(packet.stat)) {
+                        stats.levelUp(packet.stat, player);
+                        CoinsManager.removeCoins(player, stats.getLevelUpCost(packet.stat));
+                        ModNetworkHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new SyncPlayerStatsPacket(stats));
+                    }
                 }
             }
         });

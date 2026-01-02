@@ -124,8 +124,8 @@ public class ModCommands  {
     }
 
     private static int modifyCoins(CommandSource source, ServerPlayerEntity player, int amount) {
-        source.sendSuccess(new StringTextComponent("Changed " + player.getName().getString() + "'s coins to " + amount), true);
         CoinsManager.setCoins(player, amount);
+        source.sendSuccess(new StringTextComponent("Changed " + player.getName().getString() + "'s coins to " + amount), true);
 
         player.sendMessage(new StringTextComponent("Your coins have been put to " + amount + " by an administrator"), player.getUUID());
         return 1;

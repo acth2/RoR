@@ -42,7 +42,7 @@ public class ItemExample extends Item {
                     }
                 });
             } else {
-                serverPlayer.sendMessage(new StringTextComponent("ahhhh a mistake has been made in the code"), serverPlayer.getUUID());
+                serverPlayer.sendMessage(new StringTextComponent("a mistake has been made in the code, send log to discord."), serverPlayer.getUUID());
             }
         }
         return ActionResult.success(player.getItemInHand(hand));

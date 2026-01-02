@@ -1,12 +1,10 @@
 package fr.acth2.ror.utils.subscribers.mod.skills;
 
-import fr.acth2.ror.gui.MainMenuGui;
 import fr.acth2.ror.gui.coins.CoinsManager;
 import fr.acth2.ror.init.ModNetworkHandler;
 import fr.acth2.ror.network.skills.SyncPlayerStatsPacket;
 import fr.acth2.ror.utils.References;
 import fr.acth2.ror.utils.subscribers.client.PlayerStatsCapability;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
@@ -26,7 +24,6 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
     private boolean hasDoubleJumped;
     private double dexterityModifierValue;
     private double strengthModifierValue;
-    private boolean isFirstUpgrade = true;
 
     public PlayerStats(int level, int health, int dexterity, int strength) {
         this.level = level;
@@ -105,7 +102,7 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
         if (stats.canLevelUp(stat, coins)) {
             switch (stat) {
                 case "health":
-                    stats.setHealth(stats.getHealth() + 2);
+                    stats.setHealth(stats.getHealth() + 1);
                     System.out.println("Health stat increased to: " + stats.getHealth());
                     ModifiableAttributeInstance maxHealthAttribute = player.getAttribute(Attributes.MAX_HEALTH);
                     if (maxHealthAttribute != null) {
@@ -134,14 +131,14 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
                     break;
                 case "strength":
                     stats.setStrength(stats.getStrength() + 1);
-                    System.out.println("Dexterity stat increased to: " + stats.getDexterity());
+                    System.out.println("Strength stat increased to: " + stats.getStrength());
                     ModifiableAttributeInstance maxStrengthAttribute = player.getAttribute(Attributes.ATTACK_DAMAGE);
                     if (maxStrengthAttribute != null) {
                         maxStrengthAttribute.removeModifier(References.STRENGTH_MODIFIER_UUID);
                         maxStrengthAttribute.addPermanentModifier(new AttributeModifier(
                                 References.STRENGTH_MODIFIER_UUID,
                                 "player_dex_modifier",
-                                (double) stats.getDexterity() / References.STRENGTH_REDUCER,
+                                (double) stats.getStrength() / References.STRENGTH_REDUCER,
                                 AttributeModifier.Operation.ADDITION
                         ));
                     }
@@ -152,17 +149,6 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
 
             stats.setLevel(stats.getLevel() + 1);
             CoinsManager.removeCoins((ServerPlayerEntity) player, stats.getLevelUpCost(stat));
-
-            if (isFirstUpgrade) {
-                isFirstUpgrade = false;
-                if (player.level.isClientSide) {
-                    Minecraft minecraft = Minecraft.getInstance();
-                    if (minecraft.screen instanceof MainMenuGui) {
-                        MainMenuGui gui = (MainMenuGui) minecraft.screen;
-                        gui.updateStats(stats.getLevel(), stats.getHealth(), stats.getDexterity(), stats.getStrength());
-                    }
-                }
-            }
 
             if (player instanceof ServerPlayerEntity) {
                 ModNetworkHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) player), new SyncPlayerStatsPacket(stats));

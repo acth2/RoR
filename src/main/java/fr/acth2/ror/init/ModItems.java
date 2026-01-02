@@ -65,6 +65,9 @@ public class ModItems {
     public static final RegistryObject<Item> RADIUM_INGOT = ITEMS.register("radium_ingot",
             () -> new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> INFRANIUM_STICK = ITEMS.register("infranium_stick",
+            () -> new Item(new Item.Properties()));
+
     public static final RegistryObject<Item> ORONIUM_INGOT = ITEMS.register("oronium_ingot",
             () -> new Item(new Item.Properties()));
 
@@ -72,6 +75,13 @@ public class ModItems {
             () -> new WickedStaff(new Item.Properties())
     );
 
+    public static final RegistryObject<Item> RADIUM_SWORD = ITEMS.register("radium_sword",
+            () -> new RadiumSword(new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> RADIUM_SCIMTAR = ITEMS.register("radium_scimtar",
+            () -> new RadiumScimtar(new Item.Properties())
+    );
 
     public static final RegistryObject<Item> TRANSLUCENT_INGOT = ITEMS.register("translucent_ingot",
             () -> new Item(new Item.Properties()));
@@ -95,6 +105,7 @@ public class ModItems {
 
     public static final RegistryObject<Item> HOPPER_SWORD = ITEMS.register("hopper_sword",
             () -> new SwordItem(HopperItemTier.HOPPER, 6, -1.9F, new Item.Properties()));
+
     public static final RegistryObject<Item> INFRANIUM_PICKAXE = ITEMS.register("infranium_pickaxe",
             () -> new PickaxeItem(InfraniumItemTier.INFRANIUM, 3, -2.8F, new Item.Properties()));
     public static final RegistryObject<Item> INFRANIUM_AXE = ITEMS.register("infranium_axe",

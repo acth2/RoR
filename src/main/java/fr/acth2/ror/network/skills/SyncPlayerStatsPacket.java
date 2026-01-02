@@ -3,6 +3,7 @@ package fr.acth2.ror.network.skills;
 import fr.acth2.ror.gui.MainMenuGui;
 import fr.acth2.ror.utils.subscribers.mod.skills.PlayerStats;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
 
@@ -42,6 +43,15 @@ public class SyncPlayerStatsPacket {
     public static void handle(SyncPlayerStatsPacket packet, Supplier<NetworkEvent.Context> context) {
         context.get().enqueueWork(() -> {
             Minecraft minecraft = Minecraft.getInstance();
+            PlayerEntity player = minecraft.player;
+            if (player != null) {
+                PlayerStats stats = PlayerStats.get(player);
+                stats.setLevel(packet.level);
+                stats.setHealth(packet.health);
+                stats.setDexterity(packet.dexterity);
+                stats.setStrength(packet.strength);
+            }
+
             if (minecraft.screen instanceof MainMenuGui) {
                 MainMenuGui gui = (MainMenuGui) minecraft.screen;
                 gui.updateStats(packet.level, packet.health, packet.dexterity, packet.strength);

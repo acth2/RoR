@@ -180,7 +180,7 @@ public class MainMenuGui extends Screen {
 
     private void updateButtonCosts() {
         if (playerStats != null) {
-            healthButton.setMessage(new StringTextComponent(playerStats.getHealth() >= 100 ? "MAX" : "Health: " + playerStats.getHealth() + " (Cost: " + playerStats.getLevelUpCost("health") + ")"));
+            healthButton.setMessage(new StringTextComponent(playerStats.getHealth() >= 100 ? "MAX" : "Health: " + playerStats.getHealth()  + " (Cost: " + playerStats.getLevelUpCost("health") + ")"));
             dexterityButton.setMessage(new StringTextComponent(playerStats.getDexterity() >= 25 ? "MAX" : "Dexterity: " + playerStats.getDexterity() + " (Cost: " + playerStats.getLevelUpCost("dexterity") + ")"));
             strengthButton.setMessage(new StringTextComponent(playerStats.getStrength() >= 30 ? "MAX" : "Strength: " + playerStats.getStrength() + " (Cost: " + playerStats.getLevelUpCost("strength") + ")"));
 

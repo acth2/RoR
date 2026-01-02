@@ -6,8 +6,11 @@ import fr.acth2.ror.entities.constructors.ExampleInvaderEntity;
 import fr.acth2.ror.events.ServerEventManager;
 import fr.acth2.ror.gui.MainMenuGui;
 import fr.acth2.ror.gui.coins.CoinsManager;
+import fr.acth2.ror.init.ModItems;
 import fr.acth2.ror.init.ModNetworkHandler;
 import fr.acth2.ror.init.constructors.items.Glider;
+import fr.acth2.ror.init.constructors.items.RadiumScimtar;
+import fr.acth2.ror.init.constructors.items.RadiumSword;
 import fr.acth2.ror.network.skills.SyncPlayerStatsPacket;
 import fr.acth2.ror.network.skills.dexterity.DodgePacket;
 import fr.acth2.ror.utils.References;
@@ -26,6 +29,7 @@ import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.*;
@@ -54,6 +58,7 @@ public class PlayerEvents {
 
     private static final AtomicBoolean atomicBrokenMoonWarning = new AtomicBoolean(true);
     private static final AtomicBoolean atomicEvent1Warning = new AtomicBoolean(true);
+    private static int saveTimer = 0;
 
     @SubscribeEvent
     public static void onAttachCapabilities(AttachCapabilitiesEvent<Entity> event) {
@@ -95,6 +100,29 @@ public class PlayerEvents {
             player.getServer().execute(() -> {
                 ServerEventManager.syncEventsToPlayer(player);
             });
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLivingHurt(LivingHurtEvent event) {
+        if (event.getSource().getEntity() instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) event.getSource().getEntity();
+            ItemStack heldItem = player.getMainHandItem();
+            if (heldItem.getItem() instanceof RadiumSword) {
+                PlayerStats stats = PlayerStats.get(player);
+                float baseDamage = 6.0f;
+                float dynamicDamage = 8 + (stats.getStrength() / 4.0f);
+                float ratio = dynamicDamage / baseDamage;
+                event.setAmount(event.getAmount() * ratio);
+            }
+
+            if (heldItem.getItem() instanceof RadiumScimtar) {
+                PlayerStats stats = PlayerStats.get(player);
+                float baseDamage = 6.0f;
+                float dynamicDamage = 5 + (stats.getDexterity() / 5.0f);
+                float ratio = dynamicDamage / baseDamage;
+                event.setAmount(event.getAmount() * ratio);
+            }
         }
     }
 
@@ -179,11 +207,19 @@ public class PlayerEvents {
     public static void onClientTick(TickEvent.ClientTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
             Minecraft minecraft = Minecraft.getInstance();
-            if (minecraft.screen instanceof MainMenuGui) {
-                PlayerEntity player = minecraft.player;
-                if (player != null) {
+            PlayerEntity player = minecraft.player;
+
+            if (player != null) {
+                if (minecraft.screen instanceof MainMenuGui) {
                     saveDexterityModifier(player);
                     saveStrengthModifier(player);
+                }
+
+                saveTimer++;
+                if (saveTimer >= 6000) {
+                    saveDexterityModifier(player);
+                    saveStrengthModifier(player);
+                    saveTimer = 0;
                 }
             }
         }

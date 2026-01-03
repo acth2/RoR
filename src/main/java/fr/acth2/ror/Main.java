@@ -57,7 +57,7 @@ public class Main implements IMixinConnector {
         modEventBus.addListener(this::setup);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ParticleConfig.SPEC);
         MinecraftForge.EVENT_BUS.register(this);
-    }
+    }   
 
     private void setup(FMLCommonSetupEvent event) {
         ModNetworkHandler.registerPackets();

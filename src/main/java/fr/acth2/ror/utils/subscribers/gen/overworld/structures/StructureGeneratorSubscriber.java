@@ -79,6 +79,11 @@ public class StructureGeneratorSubscriber {
         if (!(event.getWorld() instanceof ServerWorld)) return;
 
         ServerWorld world = (ServerWorld) event.getWorld();
+        ResourceLocation dimensionId = new ResourceLocation(References.MODID, "ed");
+        if (!world.dimension().location().equals(dimensionId)) {
+            return;
+        }
+
         IChunk chunk = event.getChunk();
         if (chunk.getStatus() != ChunkStatus.FULL) return;
 

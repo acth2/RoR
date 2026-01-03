@@ -19,6 +19,8 @@ import fr.acth2.ror.init.constructors.tools.*;
 import fr.acth2.ror.utils.References;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -75,6 +77,14 @@ public class ModItems {
 
     public static final RegistryObject<Item> WICKED_STAFF = ITEMS.register("wicked_staff",
             () -> new WickedStaff(new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> DESPITER_BRANCH = ITEMS.register("despiter_branch",
+            () -> new Item(new Item.Properties().food(new Food.Builder()
+                    .nutrition(4)
+                    .saturationMod(0.3F)
+                    .effect(() -> new EffectInstance(Effects.DAMAGE_BOOST, 900, 0), 1.0F)
+                    .build()))
     );
 
     public static final RegistryObject<Item> RADIUM_SWORD = ITEMS.register("radium_sword",

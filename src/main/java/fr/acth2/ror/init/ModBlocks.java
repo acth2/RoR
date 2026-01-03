@@ -55,6 +55,13 @@ public class ModBlocks {
                     .harvestTool(ToolType.PICKAXE)
                     .requiresCorrectToolForDrops()));
 
+    public static final RegistryObject<Block> POWER_CONTAINER = BLOCKS.register("power_container",
+            () -> new Block(Block.Properties.of(Material.STONE, MaterialColor.STONE)
+                    .strength(2.0f, 8.0f)
+                    .sound(SoundType.STONE)
+                    .harvestLevel(1)
+                    .harvestTool(ToolType.PICKAXE)
+                    .requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> INFRANIUM_ORE = BLOCKS.register("infranium_ore", InfraniumOre::new);
     public static final RegistryObject<Block> GEFRANIUM_ORE = BLOCKS.register("gefranium_ore", GefraniumOre::new);
@@ -120,6 +127,10 @@ public class ModBlocks {
 
     public static final RegistryObject<Item> REALM_REMNANT_ITEM = ITEMS.register("realm_remnant",
             () -> new BlockItem(REALM_REMNANT.get(), new Item.Properties())
+    );
+
+        public static final RegistryObject<Item> POWER_CONTAINER_ITEM = ITEMS.register("power_container",
+            () -> new BlockItem(POWER_CONTAINER.get(), new Item.Properties())
     );
 
     public static final RegistryObject<Item> VESSEL_PLACER_ITEM = ITEMS.register("vessel_placer",

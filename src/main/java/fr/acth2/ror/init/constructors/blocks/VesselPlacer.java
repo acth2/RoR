@@ -2,29 +2,40 @@ package fr.acth2.ror.init.constructors.blocks;
 
 import fr.acth2.ror.init.ModBlocks;
 import fr.acth2.ror.init.ModItems;
+import fr.acth2.ror.init.constructors.blocks.tile.VesselPlacerTileEntity;
+import fr.acth2.ror.utils.subscribers.mod.PortalScanner;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.NetherPortalBlock;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 
-import java.util.Random;
+import javax.annotation.Nullable;
 
 public class VesselPlacer extends Block {
     public VesselPlacer(Properties properties) {
         super(properties);
+    }
+
+    @Override
+    public boolean hasTileEntity(BlockState state) {
+        return true;
+    }
+
+    @Nullable
+    @Override
+    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+        return new VesselPlacerTileEntity();
     }
 
     @Override
@@ -36,9 +47,8 @@ public class VesselPlacer extends Block {
                 String dimensionId = getDimensionFromItemName(itemStack);
 
                 if (dimensionId != null) {
-                    System.out.println("Detected dimension from item name: " + dimensionId);
-
-                    if (isPortalBuilt(world, pos)) {
+                    String scanResult = PortalScanner.scan(world, pos);
+                    if (scanResult.isEmpty()) {
                         if (activatePortal(world, pos, dimensionId, player)) {
                             player.sendMessage(new StringTextComponent("The realm vessel has been synced with " + getDimensionName(dimensionId)).withStyle(TextFormatting.GREEN), player.getUUID());
                             return ActionResultType.SUCCESS;
@@ -47,7 +57,7 @@ public class VesselPlacer extends Block {
                             return ActionResultType.FAIL;
                         }
                     } else {
-                        player.sendMessage(new StringTextComponent("The realm vessel is response less").withStyle(TextFormatting.GRAY), player.getUUID());
+                        player.sendMessage(new StringTextComponent(scanResult).withStyle(TextFormatting.RED), player.getUUID());
                         return ActionResultType.FAIL;
                     }
                 } else {
@@ -64,56 +74,27 @@ public class VesselPlacer extends Block {
     private String getDimensionFromItemName(ItemStack itemStack) {
         if (itemStack.hasCustomHoverName()) {
             String displayName = itemStack.getHoverName().getString();
-
-            if (displayName.contains("Skyria")) {
-                return "ror:skyria";
-            } else if (displayName.contains("Overworld")) {
-                return "minecraft:overworld";
-            }
+            if (displayName.contains("Skyria")) return "ror:skyria";
+            if (displayName.contains("Overworld")) return "minecraft:overworld";
         }
-
         if (itemStack.hasTag() && itemStack.getTag().contains("SelectedDimension")) {
             return itemStack.getTag().getString("SelectedDimension");
         }
-
         return null;
     }
 
     private String getDimensionName(String dimensionId) {
-        if (dimensionId.equals("minecraft:overworld")) {
-            return "Overworld";
-        } else if (dimensionId.equals("ror:skyria")) {
-            return "Skyria";
-        } else {
-            return dimensionId;
-        }
-    }
-
-    private void spawnActivationParticles(World world, BlockPos pos) {
-        Random random = world.random;
-        for (int i = 0; i < 64; ++i) {
-            double x = pos.getX() + 0.5 + (random.nextDouble() - 0.5) * 5.0;
-            double y = pos.getY() + 0.5 + random.nextDouble() * 5.0;
-            double z = pos.getZ() + 0.5 + (random.nextDouble() - 0.5) * 5.0;
-
-            world.addParticle(ParticleTypes.PORTAL, x, y, z,
-                    (random.nextDouble() - 0.5) * 2.0,
-                    -random.nextDouble(),
-                    (random.nextDouble() - 0.5) * 2.0);
-        }
+        if (dimensionId.equals("minecraft:overworld")) return "Overworld";
+        if (dimensionId.equals("ror:skyria")) return "Skyria";
+        return dimensionId;
     }
 
     private boolean activatePortal(World world, BlockPos pos, String dimensionId, PlayerEntity player) {
-        if (world.isClientSide) {
-            spawnActivationParticles(world, pos);
-            world.playSound(player, pos, SoundEvents.PORTAL_TRIGGER, SoundCategory.BLOCKS, 1.0F, 1.0F);
-            return true;
-        } else {
-            ServerWorld serverWorld = (ServerWorld) world;
+        if (!world.isClientSide) {
             createPortalBlocks(world, pos, dimensionId);
-
-            return true;
         }
+        world.playSound(player, pos, SoundEvents.PORTAL_TRIGGER, SoundCategory.BLOCKS, 1.0F, 1.0F);
+        return true;
     }
 
     private void createPortalBlocks(World world, BlockPos centerPos, String dimensionId) {
@@ -127,21 +108,6 @@ public class VesselPlacer extends Block {
             createNorthSouthPortal(world, centerPos, portalBlock);
         } else {
             createEastWestPortal(world, centerPos, portalBlock);
-        }
-    }
-
-    private boolean isPortalBuilt(World world, BlockPos centerPos) {
-        boolean isNorthSouth = checkNorthSouthOrientation(world, centerPos);
-        boolean isEastWest = checkEastWestOrientation(world, centerPos);
-
-        if (!isNorthSouth && !isEastWest) {
-            return false;
-        }
-
-        if (isNorthSouth) {
-            return checkNorthSouthPortal(world, centerPos);
-        } else {
-            return checkEastWestPortal(world, centerPos);
         }
     }
 
@@ -324,17 +290,6 @@ public class VesselPlacer extends Block {
                 BlockPos portalPos = new BlockPos(centerPos.getX() + x, centerPos.getY() + y, centerPos.getZ());
                 world.setBlock(portalPos, portalState, 3);
             }
-        }
-    }
-
-    @Override
-    public void animateTick(BlockState state, World world, BlockPos pos, Random random) {
-        if (random.nextInt(100) == 0) {
-            double x = pos.getX() + 0.5 + (random.nextDouble() - 0.5);
-            double y = pos.getY() + 1.0;
-            double z = pos.getZ() + 0.5 + (random.nextDouble() - 0.5);
-
-            world.addParticle(ParticleTypes.ENCHANT, x, y, z, 0.0, 0.1, 0.0);
         }
     }
 }

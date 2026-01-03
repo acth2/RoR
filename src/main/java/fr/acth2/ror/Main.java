@@ -51,6 +51,7 @@ public class Main implements IMixinConnector {
         ModBlocks.register(modEventBus);
         ModEntities.register(modEventBus);
         ModSoundEvents.register(modEventBus);
+        ModTileEntities.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.addListener(this::onServerStarting);
         DiaryManager.registerAutosave();

@@ -2,14 +2,12 @@ package fr.acth2.ror.init;
 
 import fr.acth2.ror.init.constructors.blocks.*;
 import fr.acth2.ror.utils.References;
-import fr.acth2.ror.utils.subscribers.gen.skyria.SkyriaTeleporter;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.Rarity;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
@@ -46,6 +44,14 @@ public class ModBlocks {
                     .harvestTool(ToolType.PICKAXE)
                     .requiresCorrectToolForDrops()));
 
+    public static final RegistryObject<Block> VESSEL_PLACER_SKIN0 = BLOCKS.register("vessel_placer_skin0",
+            () -> new VesselPlacerSkinBlock(Block.Properties.of(Material.STONE, MaterialColor.STONE)
+                    .strength(1.5f, 6.0f)
+                    .sound(SoundType.STONE)
+                    .harvestLevel(1)
+                    .harvestTool(ToolType.PICKAXE)
+                    .requiresCorrectToolForDrops()));
+
 
     public static final RegistryObject<Block> REALM_REMNANT = BLOCKS.register("realm_remnant",
             () -> new Block(Block.Properties.of(Material.STONE, MaterialColor.STONE)
@@ -56,7 +62,7 @@ public class ModBlocks {
                     .requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> POWER_CONTAINER = BLOCKS.register("power_container",
-            () -> new Block(Block.Properties.of(Material.STONE, MaterialColor.STONE)
+            () -> new PowerContainerBlock(Block.Properties.of(Material.STONE, MaterialColor.STONE)
                     .strength(2.0f, 8.0f)
                     .sound(SoundType.STONE)
                     .harvestLevel(1)
@@ -135,6 +141,10 @@ public class ModBlocks {
 
     public static final RegistryObject<Item> VESSEL_PLACER_ITEM = ITEMS.register("vessel_placer",
             () -> new BlockItem(VESSEL_PLACER.get(), new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> VESSEL_PLACER_SKIN0_ITEM = ITEMS.register("vessel_placer_skin0",
+            () -> new BlockItem(VESSEL_PLACER_SKIN0.get(), new Item.Properties())
     );
 
     public static final RegistryObject<Item> POLISHED_SKYRIA_BRICK_ITEM = ITEMS.register("polished_skyria_brick",

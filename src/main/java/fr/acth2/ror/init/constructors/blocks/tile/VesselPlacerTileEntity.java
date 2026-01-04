@@ -2,8 +2,10 @@ package fr.acth2.ror.init.constructors.blocks.tile;
 
 import fr.acth2.ror.init.ModBlocks;
 import fr.acth2.ror.init.ModTileEntities;
+import fr.acth2.ror.init.constructors.blocks.VesselPlacerSkinBlock;
+import fr.acth2.ror.init.constructors.blocks.VesselPlacer;
 import net.minecraft.block.Block;
-import net.minecraft.particles.ParticleTypes;
+import net.minecraft.block.BlockState;
 import net.minecraft.particles.RedstoneParticleData;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -15,6 +17,7 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 public class VesselPlacerTileEntity extends TileEntity implements ITickableTileEntity {
+
     public VesselPlacerTileEntity() {
         super(ModTileEntities.VESSEL_PLACER_TILE_ENTITY.get());
     }
@@ -25,26 +28,39 @@ public class VesselPlacerTileEntity extends TileEntity implements ITickableTileE
             return;
         }
 
-        Block portalBlock = getActivePortalBlock(level, worldPosition);
-        if (portalBlock == null) {
+        BlockState blockState = getBlockState();
+        Block block = blockState.getBlock();
+        
+        float r = 0, g = 0, b = 0;
+        boolean shouldAnimate = false;
+
+        if (block instanceof VesselPlacer) {
+            Block portalBlock = getActivePortalBlock(level, worldPosition);
+            if (portalBlock != null) {
+                shouldAnimate = true;
+                if (portalBlock == ModBlocks.OVERWORLD_PORTAL.get()) {
+                    r = 0.1f; g = 0.8f; b = 0.1f;
+                } else {
+                    r = 0.1f; g = 0.1f; b = 0.9f;
+                }
+            }
+        } else if (block instanceof VesselPlacerSkinBlock) {
+            shouldAnimate = true;
+            r = 0.1f; g = 0.8f; b = 0.1f;
+        } else {
             return;
         }
 
+        if (!shouldAnimate) {
+            return;
+        }
+        
+        RedstoneParticleData colorOptions = new RedstoneParticleData(r, g, b, 1.0F);
         Random random = level.random;
         long time = level.getGameTime();
 
-        float r, g, b;
-        if (portalBlock == ModBlocks.OVERWORLD_PORTAL.get()) {
-            r = 0.1f; g = 0.8f; b = 0.1f;
-        } else { // Skyria
-            r = 0.1f; g = 0.1f; b = 0.9f;
-        }
-        RedstoneParticleData mainColorOptions = new RedstoneParticleData(r, g, b, 1.0F);
-        RedstoneParticleData secondaryBlueOptions = new RedstoneParticleData(0.3f, 0.5f, 1.0f, 1.0F);
-
-
         double centerX = worldPosition.getX() + 0.5D;
-        double centerY = worldPosition.getY() + 2.5D;
+        double centerY = worldPosition.getY() + 0.5D;
         double centerZ = worldPosition.getZ() + 0.5D;
 
         int numStreams = 16;
@@ -60,24 +76,11 @@ public class VesselPlacerTileEntity extends TileEntity implements ITickableTileE
             double motionX = (centerX - px) * 0.1D;
             double motionY = (centerY - py) * 0.1D;
             double motionZ = (centerZ - pz) * 0.1D;
-            level.addParticle(mainColorOptions, px, py, pz, motionX, motionY, motionZ);
-        }
-
-        for (int i = 0; i < 8; ++i) {
-            double px = centerX + (random.nextDouble() - 0.5D) * 6.0D;
-            double py = centerY + (random.nextDouble() - 0.5D) * 4.0D;
-            double pz = centerZ + (random.nextDouble() - 0.5D) * 6.0D;
-            double motionX = (centerX - px) * 0.08D;
-            double motionY = (centerY - py) * 0.08D;
-            double motionZ = (centerZ - pz) * 0.08D;
-            level.addParticle(secondaryBlueOptions, px, py, pz, motionX, motionY, motionZ);
+            level.addParticle(colorOptions, px, py + 2, pz, motionX, motionY + 2, motionZ);
         }
 
         if (time % 20 == 0) {
             level.playLocalSound(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), SoundEvents.BEACON_AMBIENT, SoundCategory.BLOCKS, 0.2F, 1.5F, false);
-        }
-        if (time % 35 == 0) {
-            level.playLocalSound(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), SoundEvents.CONDUIT_AMBIENT_SHORT, SoundCategory.BLOCKS, 0.3F, 1.2F, false);
         }
     }
 

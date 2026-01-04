@@ -39,8 +39,10 @@ public class PortalTravelHandler {
             if (vesselPos == null) return;
 
             PlayerStats.get(player).setLastOverworldPortalPos(vesselPos);
-
-            player.changeDimension(skyria, new SkyriaTeleporter(player.getX() + 1, 111, player.getZ()));
+            PortalBlueprint blueprint = PortalBlueprint.scan(world, vesselPos);
+            SkyriaTeleporter teleporter = new SkyriaTeleporter(vesselPos.getX(), 107, vesselPos.getZ());
+            teleporter.setBlueprint(blueprint);
+            player.changeDimension(skyria, teleporter);
 
         } else if (isPlayerInOurPortal(world, player, ModBlocks.OVERWORLD_PORTAL.get())) {
             event.setCanceled(true);
@@ -87,13 +89,6 @@ public class PortalTravelHandler {
 
     @SubscribeEvent
     public static void onPlayerChangedDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
-        if (!(event.getPlayer() instanceof ServerPlayerEntity)) {
-            return;
-        }
-
-        ServerPlayerEntity player = (ServerPlayerEntity) event.getPlayer();
-        if (event.getTo() == ModDimensions.SKYRIA) {
-            PortalBuilder.findOrCreatePortal(player.getLevel(), player.blockPosition());
-        }
+        // This logic is now handled by the teleporter itself.
     }
 }

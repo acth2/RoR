@@ -30,7 +30,7 @@ public class SkyriaTeleporter implements ITeleporter {
         Entity newEntity = repositionEntity.apply(false);
 
         if (blueprint != null) {
-            BlockPos portalCenter = findOrCreatePortal(destWorld, new BlockPos(pos.getX(), 110, pos.getZ()));
+            BlockPos portalCenter = findOrCreatePortal(destWorld, new BlockPos(pos.getX(), 107, pos.getZ()));
             BlockPos safeLandingPos = findSafeLandingSpot(destWorld, portalCenter);
 
             newEntity.teleportTo(safeLandingPos.getX() + 0.5, safeLandingPos.getY(), safeLandingPos.getZ() + 0.5);

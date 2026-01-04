@@ -55,7 +55,7 @@ public class SkyriaPortalBlock extends NetherPortalBlock {
     @OnlyIn(Dist.CLIENT)
     @Override
     public void animateTick(BlockState state, World world, BlockPos pos, Random random) {
-        if (random.nextInt(35) == 0) {
+        if (random.nextInt(100) == 0) {
             world.playLocalSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D,
                     ModSoundEvents.PORTAL_SOUND.get(), SoundCategory.BLOCKS, 0.5F, random.nextFloat() * 0.4F + 0.8F, false);
         }

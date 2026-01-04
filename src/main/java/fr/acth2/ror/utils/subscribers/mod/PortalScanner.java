@@ -42,14 +42,18 @@ public class PortalScanner {
             return ewResult;
         }
 
-        return ScanResult.failure(nsResult.error);
+        return ScanResult.failure(nsResult.error); // Return the N-S error by default
     }
 
     private static ScanResult scanNorthSouth(World world, BlockPos vesselPos) {
+        // A North-South aligned structure has its longest side along the Z-axis.
+        // This means the portal opening also runs along the Z-axis.
         return checkStructure(world, vesselPos, 2, 4, Direction.Axis.Z);
     }
 
     private static ScanResult scanEastWest(World world, BlockPos vesselPos) {
+        // An East-West aligned structure has its longest side along the X-axis.
+        // This means the portal opening also runs along the X-axis.
         return checkStructure(world, vesselPos, 4, 2, Direction.Axis.X);
     }
 
@@ -61,11 +65,12 @@ public class PortalScanner {
         // Base Ring
         for (int i = -2; i <= 2; i++) {
             BlockPos hPos = baseCenter.offset(i, 0, 0);
-            if (!world.getBlockState(hPos).is(remnant)) return ScanResult.failure("Missing an element at " + hPos.getX() + ", " + hPos.getY() + ", " + hPos.getZ());
+            if (!world.getBlockState(hPos).is(remnant)) return ScanResult.failure("Missing realm_remnant at " + hPos);
             BlockPos vPos = baseCenter.offset(0, 0, i);
-            if (!world.getBlockState(vPos).is(remnant)) return ScanResult.failure("Missing an element at " + vPos.getX() + ", " + vPos.getY() + ", " + vPos.getZ());
+            if (!world.getBlockState(vPos).is(remnant)) return ScanResult.failure("Missing realm_remnant at " + vPos);
         }
 
+        // Pillars
         BlockPos[] pillarBases = {
             vesselPos.offset(-xPillarOffset, -1, -zPillarOffset),
             vesselPos.offset(xPillarOffset, -1, -zPillarOffset),
@@ -76,10 +81,10 @@ public class PortalScanner {
         for (BlockPos pBase : pillarBases) {
             for (int y = 0; y < 3; y++) {
                 BlockPos pillarPos = pBase.above(y);
-                if (!world.getBlockState(pillarPos).is(remnant)) return ScanResult.failure("Missing an element at "  + pillarPos.getX() + ", " + pillarPos.getY() + ", " + pillarPos.getZ());
+                if (!world.getBlockState(pillarPos).is(remnant)) return ScanResult.failure("Missing realm_remnant for pillar at " + pillarPos);
             }
             BlockPos powerPos = pBase.above(3);
-            if (!world.getBlockState(powerPos).is(powerContainer)) return ScanResult.failure("Missing an element at " + powerPos.getX() + ", " + powerPos.getY() + ", " + powerPos.getZ());
+            if (!world.getBlockState(powerPos).is(powerContainer)) return ScanResult.failure("Missing power_container at " + powerPos);
         }
 
         return ScanResult.success(portalAxis);

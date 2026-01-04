@@ -48,11 +48,15 @@ public class VesselPlacer extends Block {
                 if (dimensionId != null) {
                     PortalScanner.ScanResult scanResult = PortalScanner.scan(world, pos);
                     if (scanResult.success) {
-                        createPortalBlocks(world, pos, dimensionId, scanResult.axis);
-                        
-                        player.sendMessage(new StringTextComponent("The realm vessel has been synced with " + getDimensionName(dimensionId)).withStyle(TextFormatting.GREEN), player.getUUID());
-                        world.playSound(null, pos, ModSoundEvents.PORTAL_SOUND.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);
-                        return ActionResultType.SUCCESS;
+                        if (isFrameBuilt(world, pos)) {
+                            createPortalBlocks(world, pos, dimensionId, scanResult.axis);
+                            player.sendMessage(new StringTextComponent("The realm vessel has been synced with " + getDimensionName(dimensionId)).withStyle(TextFormatting.GREEN), player.getUUID());
+                            world.playSound(null, pos, ModSoundEvents.PORTAL_SOUND.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);
+                            return ActionResultType.SUCCESS;
+                        } else {
+                            player.sendMessage(new StringTextComponent("The vessel ask for a frame").withStyle(TextFormatting.RED), player.getUUID());
+                            return ActionResultType.FAIL;
+                        }
                     } else {
                         player.sendMessage(new StringTextComponent(scanResult.error).withStyle(TextFormatting.RED), player.getUUID());
                         return ActionResultType.FAIL;
@@ -66,6 +70,129 @@ public class VesselPlacer extends Block {
         }
 
         return ActionResultType.PASS;
+    }
+
+    private boolean isFrameBuilt(World world, BlockPos centerPos) {
+        boolean isNorthSouth = checkNorthSouthOrientation(world, centerPos);
+        boolean isEastWest = checkEastWestOrientation(world, centerPos);
+
+        if (!isNorthSouth && !isEastWest) {
+            return false;
+        }
+
+        if (isNorthSouth) {
+            return checkNorthSouthPortal(world, centerPos);
+        } else {
+            return checkEastWestPortal(world, centerPos);
+        }
+    }
+
+    private boolean checkEastWestPortal(World world, BlockPos centerPos) {
+        for (int x = -2; x <= 2; x++) {
+            BlockPos checkPos = new BlockPos(centerPos.getX() + x, centerPos.getY(), centerPos.getZ());
+            if (x == 0) {
+                if (!world.getBlockState(checkPos).getBlock().equals(ModBlocks.VESSEL_PLACER.get())) {
+                    return false;
+                }
+            } else {
+                if (!world.getBlockState(checkPos).getBlock().equals(ModBlocks.REALM_REMNANT.get())) {
+                    return false;
+                }
+            }
+        }
+
+        for (int x = -2; x <= 2; x++) {
+            BlockPos checkPos = new BlockPos(centerPos.getX() + x, centerPos.getY() + 4, centerPos.getZ());
+            if (!world.getBlockState(checkPos).getBlock().equals(ModBlocks.REALM_REMNANT.get())) {
+                return false;
+            }
+        }
+
+        for (int y = 1; y <= 3; y++) {
+            BlockPos leftPos = new BlockPos(centerPos.getX() - 2, centerPos.getY() + y, centerPos.getZ());
+            if (!world.getBlockState(leftPos).getBlock().equals(ModBlocks.REALM_REMNANT.get())) {
+                return false;
+            }
+
+            BlockPos rightPos = new BlockPos(centerPos.getX() + 2, centerPos.getY() + y, centerPos.getZ());
+            if (!world.getBlockState(rightPos).getBlock().equals(ModBlocks.REALM_REMNANT.get())) {
+                return false;
+            }
+        }
+
+        for (int x = -1; x <= 1; x++) {
+            for (int y = 1; y <= 3; y++) {
+                BlockPos checkPos = new BlockPos(centerPos.getX() + x, centerPos.getY() + y, centerPos.getZ());
+                if (world.getBlockState(checkPos).getBlock().equals(ModBlocks.REALM_REMNANT.get()) ||
+                        world.getBlockState(checkPos).getBlock().equals(ModBlocks.VESSEL_PLACER.get())) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    private boolean checkNorthSouthOrientation(World world, BlockPos centerPos) {
+        BlockPos northPos = centerPos.north(2);
+        BlockPos southPos = centerPos.south(2);
+
+        return world.getBlockState(northPos).getBlock().equals(ModBlocks.REALM_REMNANT.get()) &&
+                world.getBlockState(southPos).getBlock().equals(ModBlocks.REALM_REMNANT.get());
+    }
+
+    private boolean checkEastWestOrientation(World world, BlockPos centerPos) {
+        BlockPos eastPos = centerPos.east(2);
+        BlockPos westPos = centerPos.west(2);
+
+        return world.getBlockState(eastPos).getBlock().equals(ModBlocks.REALM_REMNANT.get()) &&
+                world.getBlockState(westPos).getBlock().equals(ModBlocks.REALM_REMNANT.get());
+    }
+
+    private boolean checkNorthSouthPortal(World world, BlockPos centerPos) {
+        for (int z = -2; z <= 2; z++) {
+            BlockPos checkPos = new BlockPos(centerPos.getX(), centerPos.getY(), centerPos.getZ() + z);
+            if (z == 0) {
+                if (!world.getBlockState(checkPos).getBlock().equals(ModBlocks.VESSEL_PLACER.get())) {
+                    return false;
+                }
+            } else {
+                if (!world.getBlockState(checkPos).getBlock().equals(ModBlocks.REALM_REMNANT.get())) {
+                    return false;
+                }
+            }
+        }
+
+        for (int z = -2; z <= 2; z++) {
+            BlockPos checkPos = new BlockPos(centerPos.getX(), centerPos.getY() + 4, centerPos.getZ() + z);
+            if (!world.getBlockState(checkPos).getBlock().equals(ModBlocks.REALM_REMNANT.get())) {
+                return false;
+            }
+        }
+
+        for (int y = 1; y <= 3; y++) {
+            BlockPos leftPos = new BlockPos(centerPos.getX(), centerPos.getY() + y, centerPos.getZ() - 2);
+            if (!world.getBlockState(leftPos).getBlock().equals(ModBlocks.REALM_REMNANT.get())) {
+                return false;
+            }
+
+            BlockPos rightPos = new BlockPos(centerPos.getX(), centerPos.getY() + y, centerPos.getZ() + 2);
+            if (!world.getBlockState(rightPos).getBlock().equals(ModBlocks.REALM_REMNANT.get())) {
+                return false;
+            }
+        }
+
+        for (int z = -1; z <= 1; z++) {
+            for (int y = 1; y <= 3; y++) {
+                BlockPos checkPos = new BlockPos(centerPos.getX(), centerPos.getY() + y, centerPos.getZ() + z);
+                if (world.getBlockState(checkPos).getBlock().equals(ModBlocks.REALM_REMNANT.get()) ||
+                        world.getBlockState(checkPos).getBlock().equals(ModBlocks.VESSEL_PLACER.get())) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     private String getDimensionFromItemName(ItemStack itemStack) {

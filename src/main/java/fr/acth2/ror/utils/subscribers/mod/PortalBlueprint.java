@@ -59,6 +59,8 @@ public class PortalBlueprint {
                         stateToPlace = ModBlocks.SKYRIA_BRICK.get().defaultBlockState();
                     } else if (blockToPlace == ModBlocks.POWER_CONTAINER.get()) {
                         stateToPlace = ModBlocks.POLISHED_SKYRIA_BRICK.get().defaultBlockState();
+                    } else if (blockToPlace == ModBlocks.VESSEL_PLACER.get()) {
+                        stateToPlace = ModBlocks.VESSEL_PLACER_SKIN0.get().defaultBlockState();
                     }
                 }
                 world.setBlock(center.offset(data.relativePos), stateToPlace, 3);

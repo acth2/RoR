@@ -29,8 +29,7 @@ public class RealmsVessel extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
-        tooltip.add(new StringTextComponent(TextFormatting.LIGHT_PURPLE + "gotta wait for it to be finished :)"));
-        tooltip.add(new StringTextComponent(TextFormatting.RED + "NOT" + TextFormatting.GRAY + " Ready for interdimensional travel"));
+        tooltip.add(new StringTextComponent(TextFormatting.GRAY + "This vessel needs to be synced with another realm"));
         super.appendHoverText(stack, world, tooltip, flag);
     }
 
@@ -43,7 +42,7 @@ public class RealmsVessel extends Item {
         } else {
             if (checkSkyriaConditions(player) && !hasSkyriaAccess(player)) {
                 grantSkyriaAccess(player);
-                player.sendMessage(new StringTextComponent("Your essence synced with another realm!").withStyle(TextFormatting.AQUA), player.getUUID());
+                player.sendMessage(new StringTextComponent("Your essence synced with a bright realm!").withStyle(TextFormatting.AQUA), player.getUUID());
             }
         }
 

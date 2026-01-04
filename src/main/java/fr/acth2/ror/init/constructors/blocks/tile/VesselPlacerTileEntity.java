@@ -33,22 +33,20 @@ public class VesselPlacerTileEntity extends TileEntity implements ITickableTileE
         Random random = level.random;
         long time = level.getGameTime();
 
-        // --- Color Setup ---
         float r, g, b;
         if (portalBlock == ModBlocks.OVERWORLD_PORTAL.get()) {
-            r = 0.1f; g = 0.8f; b = 0.1f; // Vibrant Green
+            r = 0.1f; g = 0.8f; b = 0.1f;
         } else { // Skyria
-            r = 0.1f; g = 0.1f; b = 0.9f; // Vibrant Blue
+            r = 0.1f; g = 0.1f; b = 0.9f;
         }
         RedstoneParticleData mainColorOptions = new RedstoneParticleData(r, g, b, 1.0F);
         RedstoneParticleData secondaryBlueOptions = new RedstoneParticleData(0.3f, 0.5f, 1.0f, 1.0F);
 
 
         double centerX = worldPosition.getX() + 0.5D;
-        double centerY = worldPosition.getY() + 2.5D; // Portal Core Y-level
+        double centerY = worldPosition.getY() + 2.5D;
         double centerZ = worldPosition.getZ() + 0.5D;
 
-        // --- Effect 1: Continuous Vortex (The "Lines") ---
         int numStreams = 16;
         float radius = 4.5f;
         for (int i = 0; i < numStreams; i++) {
@@ -65,18 +63,16 @@ public class VesselPlacerTileEntity extends TileEntity implements ITickableTileE
             level.addParticle(mainColorOptions, px, py, pz, motionX, motionY, motionZ);
         }
 
-        // --- Effect 2: Smaller, Blue Atmospheric Siphon ---
         for (int i = 0; i < 8; ++i) {
-            double px = centerX + (random.nextDouble() - 0.5D) * 6.0D; // Reduced radius
-            double py = centerY + (random.nextDouble() - 0.5D) * 4.0D; // Reduced height
-            double pz = centerZ + (random.nextDouble() - 0.5D) * 6.0D; // Reduced radius
+            double px = centerX + (random.nextDouble() - 0.5D) * 6.0D;
+            double py = centerY + (random.nextDouble() - 0.5D) * 4.0D;
+            double pz = centerZ + (random.nextDouble() - 0.5D) * 6.0D;
             double motionX = (centerX - px) * 0.08D;
             double motionY = (centerY - py) * 0.08D;
             double motionZ = (centerZ - pz) * 0.08D;
             level.addParticle(secondaryBlueOptions, px, py, pz, motionX, motionY, motionZ);
         }
 
-        // --- Soundscape ---
         if (time % 20 == 0) {
             level.playLocalSound(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), SoundEvents.BEACON_AMBIENT, SoundCategory.BLOCKS, 0.2F, 1.5F, false);
         }

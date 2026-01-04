@@ -657,5 +657,12 @@
     "sounds": [
       "ror:logo_click_3"
     ]
+  },
+  "portal": {
+    "category": "hostile",
+    "subtitle": "ror.portal",
+    "sounds": [
+      "ror:portal"
+    ]
   }
 }

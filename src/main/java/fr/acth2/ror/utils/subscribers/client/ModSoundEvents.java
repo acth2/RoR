@@ -298,6 +298,9 @@ public class ModSoundEvents {
     public static final RegistryObject<SoundEvent> LOGO_CLICK_3 =
             registerSoundEvent("logo_click_3");
 
+    public static final RegistryObject<SoundEvent> PORTAL_SOUND =
+            registerSoundEvent("portal");
+
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         return SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(References.MODID, name)));
     }

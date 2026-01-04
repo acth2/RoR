@@ -11,9 +11,13 @@ import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.NBTUtil;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.network.PacketDistributor;
+
+import javax.annotation.Nullable;
 
 public class PlayerStats implements INBTSerializable<CompoundNBT> {
 
@@ -24,6 +28,8 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
     private boolean hasDoubleJumped;
     private double dexterityModifierValue;
     private double strengthModifierValue;
+    @Nullable
+    private BlockPos lastOverworldPortalPos;
 
     public PlayerStats(int level, int health, int dexterity, int strength) {
         this.level = level;
@@ -33,8 +39,17 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
         this.hasDoubleJumped = false;
         this.dexterityModifierValue = 0.0;
         this.strengthModifierValue = 0.0;
+        this.lastOverworldPortalPos = null;
     }
 
+    @Nullable
+    public BlockPos getLastOverworldPortalPos() {
+        return lastOverworldPortalPos;
+    }
+
+    public void setLastOverworldPortalPos(@Nullable BlockPos pos) {
+        this.lastOverworldPortalPos = pos;
+    }
 
     public boolean hasDoubleJumped() {
         return hasDoubleJumped;
@@ -164,6 +179,9 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
         nbt.putInt("dexterity", dexterity);
         nbt.putInt("strength", strength);
         nbt.putDouble("dexterityModifierValue", dexterityModifierValue);
+        if (lastOverworldPortalPos != null) {
+            nbt.put("lastPortalPos", NBTUtil.writeBlockPos(lastOverworldPortalPos));
+        }
         return nbt;
     }
 
@@ -175,6 +193,9 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
         strength = nbt.getInt("strength");
         dexterityModifierValue = nbt.getDouble("dexterityModifierValue");
         strengthModifierValue = nbt.getDouble("strengthModifierValue");
+        if (nbt.contains("lastPortalPos")) {
+            lastOverworldPortalPos = NBTUtil.readBlockPos(nbt.getCompound("lastPortalPos"));
+        }
     }
 
     public void setHealth(int health) {
@@ -200,5 +221,4 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
         }
         return stats.orElse(new PlayerStats(1, 20, 10, 1));
     }
-
 }

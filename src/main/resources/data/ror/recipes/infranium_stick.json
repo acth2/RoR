@@ -1,9 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "",
-    "S",
-    "S"
+    "   ",
+    " S ",
+    " S "
   ],
   "key": {
     "S": {
@@ -12,6 +12,6 @@
   },
   "result": {
     "item": "ror:infranium_stick",
-    "count": "4"
+    "count": 4
   }
 }

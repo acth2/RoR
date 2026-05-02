@@ -32,7 +32,7 @@ public class PortalTravelHandler {
 
         if (isPlayerInOurPortal(world, player, ModBlocks.SKYRIA_PORTAL.get())) {
             event.setCanceled(true);
-            ServerWorld skyria = world.getServer().getLevel(ModDimensions.SKYRIA);
+            ServerWorld skyria = world.getServer().getLevel(ModDimensions.ABYSSARIA);
             if (skyria == null) return;
 
             BlockPos vesselPos = findVesselPlacer(world, player.blockPosition());

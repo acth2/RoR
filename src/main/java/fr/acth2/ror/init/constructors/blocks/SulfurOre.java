@@ -11,10 +11,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
-public class RadiumOre extends Block {
-    public RadiumOre() {
+public class SulfurOre extends Block {
+    public SulfurOre() {
         super(Properties.of(Material.STONE, MaterialColor.STONE)
-                .strength(4.25F, 2.25F)
+                .strength(3.25F, 1.25F)
                 .harvestLevel(4)
                 .harvestTool(net.minecraftforge.common.ToolType.PICKAXE));
     }
@@ -23,7 +23,7 @@ public class RadiumOre extends Block {
     public void playerWillDestroy(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         if (!world.isClientSide) {
             world.explode(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 1.5f, Explosion.Mode.NONE);
-            player.addEffect(new EffectInstance(new EffectInstance(Effects.POISON, 100, 0)));
+            player.addEffect(new EffectInstance(new EffectInstance(Effects.BLINDNESS, 100, 0)));
         }
         super.playerWillDestroy(world, pos, state, player);
     }

@@ -1,5 +1,6 @@
 package fr.acth2.ror.init;
 
+import fr.acth2.ror.init.constructors.blocks.tile.AbyssalGlueTileEntity;
 import fr.acth2.ror.init.constructors.blocks.tile.PowerContainerTileEntity;
 import fr.acth2.ror.init.constructors.blocks.tile.VesselPlacerTileEntity;
 import fr.acth2.ror.utils.References;
@@ -20,6 +21,10 @@ public class ModTileEntities {
     public static final RegistryObject<TileEntityType<PowerContainerTileEntity>> POWER_CONTAINER_TILE_ENTITY =
             TILE_ENTITIES.register("power_container_tile_entity", () -> TileEntityType.Builder.of(
                     PowerContainerTileEntity::new, ModBlocks.POWER_CONTAINER.get()).build(null));
+
+    public static final RegistryObject<TileEntityType<AbyssalGlueTileEntity>> ABYSSAL_GLUE_TILE_ENTITY =
+            TILE_ENTITIES.register("abyssal_glue_tile_entity", () -> TileEntityType.Builder.of(
+                    AbyssalGlueTileEntity::new, ModBlocks.ABYSSAL_GLUE.get()).build(null));
 
     public static void register(IEventBus eventBus) {
         TILE_ENTITIES.register(eventBus);

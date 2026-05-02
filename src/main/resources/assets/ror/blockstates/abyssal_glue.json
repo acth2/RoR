@@ -1,0 +1,14 @@
+{
+  "variants": {
+    "frame=0": { "model": "ror:block/abyssal_glue_0" },
+    "frame=1": { "model": "ror:block/abyssal_glue_1" },
+    "frame=2": { "model": "ror:block/abyssal_glue_2" },
+    "frame=3": { "model": "ror:block/abyssal_glue_3" },
+    "frame=4": { "model": "ror:block/abyssal_glue_4" },
+    "frame=5": { "model": "ror:block/abyssal_glue_5" },
+    "frame=6": { "model": "ror:block/abyssal_glue_6" },
+    "frame=7": { "model": "ror:block/abyssal_glue_7" },
+    "frame=8": { "model": "ror:block/abyssal_glue_8" },
+    "frame=9": { "model": "ror:block/abyssal_glue_9" }
+  }
+}

@@ -2,10 +2,12 @@ package fr.acth2.ror.init;
 
 import fr.acth2.ror.init.constructors.blocks.*;
 import fr.acth2.ror.utils.References;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.ToolType;
@@ -16,7 +18,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, References.MODID);
-
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, References.MODID);
 
     public static final RegistryObject<Block> EXAMPLE_BLOCK = BLOCKS.register("example_block",
@@ -73,8 +74,27 @@ public class ModBlocks {
     public static final RegistryObject<Block> GEFRANIUM_ORE = BLOCKS.register("gefranium_ore", GefraniumOre::new);
     public static final RegistryObject<Block> ORONIUM_ORE = BLOCKS.register("oronium_ore", OroniumOre::new);
     public static final RegistryObject<Block> RADIUM_ORE = BLOCKS.register("radium_ore", RadiumOre::new);
+    public static final RegistryObject<Block> SULFUR_ORE = BLOCKS.register("sulfur_ore", SulfurOre::new);
+    public static final RegistryObject<Block> CLOUPIS_ORE = BLOCKS.register("cloupis_ore", CloupisOre::new);
+
+    public static final RegistryObject<Block> ABYSSAL_STONE = BLOCKS.register("abyssal_stone",
+            () -> new Block(AbstractBlock.Properties.of(Material.STONE).strength(1.5F, 5F))
+    );
+
+    public static final RegistryObject<Block> ABYSSAL_ANDESITE = BLOCKS.register("abyssal_andesite",
+            () -> new Block(AbstractBlock.Properties.of(Material.STONE).strength(1.5F, 5F))
+    );
+
+    public static final RegistryObject<Block> ABYSSAL_BRICK = BLOCKS.register("abyssal_brick",
+            () -> new Block(AbstractBlock.Properties.of(Material.STONE).strength(1.7F, 5.5F))
+    );
 
     public static final RegistryObject<Block> GEFRANIUM_BLOCK = BLOCKS.register("gefranium_block",
+            () -> new Block(Block.Properties.of(Material.METAL).strength(0.7f, 4.5f))
+
+    );
+
+    public static final RegistryObject<Block> CLOUPIS_BLOCK = BLOCKS.register("cloupis_block",
             () -> new Block(Block.Properties.of(Material.METAL).strength(0.7f, 4.5f))
 
     );
@@ -115,8 +135,30 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> CLOUD_PIECE = BLOCKS.register("cloud_piece", CloudPiece::new);
 
+    public static final RegistryObject<Block> ABYSSAL_GLUE = BLOCKS.register("abyssal_glue",
+            () -> new AbyssalGlue(Block.Properties.of(Material.PORTAL)
+                    .noCollission()
+                    .strength(-1.0F)
+                    .sound(SoundType.ROOTS)));
+
     public static final RegistryObject<Item> SKYRIA_PORTAL_ITEM = ITEMS.register("skyria_portal",
             () -> new BlockItem(SKYRIA_PORTAL.get(), new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> ABYSSAL_STONE_ITEM = ITEMS.register("abyssal_stone",
+            () -> new BlockItem(ABYSSAL_STONE.get(), new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> ABYSSAL_ANDESITE_ITEM = ITEMS.register("abyssal_andesite",
+            () -> new BlockItem(ABYSSAL_ANDESITE.get(), new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> ABYSSAL_BRICK_ITEM = ITEMS.register("abyssal_brick",
+            () -> new BlockItem(ABYSSAL_BRICK.get(), new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> ABYSSAL_GLUE_ITEM = ITEMS.register("abyssal_glue",
+            () -> new BlockItem(ABYSSAL_GLUE.get(), new Item.Properties())
     );
 
     public static final RegistryObject<Item> OVERWORLD_PORTAL_ITEM = ITEMS.register("overworld_portal",
@@ -137,6 +179,18 @@ public class ModBlocks {
 
         public static final RegistryObject<Item> POWER_CONTAINER_ITEM = ITEMS.register("power_container",
             () -> new BlockItem(POWER_CONTAINER.get(), new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> CLOUPIS_ORE_ITEM = ITEMS.register("cloupis_ore",
+            () -> new BlockItem(CLOUPIS_ORE.get(), new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> SULFUR_ORE_ITEM = ITEMS.register("sulfur_ore",
+            () -> new BlockItem(SULFUR_ORE.get(), new Item.Properties())
+    );
+
+    public static final RegistryObject<Item> CLOUPIS_BLOCK_ITEM = ITEMS.register("cloupis_block",
+            () -> new BlockItem(CLOUPIS_BLOCK.get(), new Item.Properties())
     );
 
     public static final RegistryObject<Item> VESSEL_PLACER_ITEM = ITEMS.register("vessel_placer",

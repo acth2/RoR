@@ -1,5 +1,7 @@
 package fr.acth2.ror;
 
+import com.google.common.collect.ImmutableList;
+import com.mojang.serialization.Lifecycle;
 import fr.acth2.ror.gui.diary.DiaryManager;
 import fr.acth2.ror.init.*;
 import fr.acth2.ror.proxy.ClientProxy;
@@ -10,6 +12,18 @@ import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
 import fr.acth2.ror.utils.subscribers.gen.skyria.SkyriaMonsterSpawnerSubscriber;
 import fr.acth2.ror.utils.subscribers.gen.utils.MobSpawnData;
 import net.minecraft.client.Minecraft;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.RegistryKey;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Util;
+import net.minecraft.util.registry.DynamicRegistries;
+import net.minecraft.util.registry.MutableRegistry;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.world.DimensionType;
+import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.storage.ServerWorldInfo;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -20,6 +34,7 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.spongepowered.asm.launch.MixinBootstrap;
@@ -64,6 +79,27 @@ public class Main implements IMixinConnector {
         ModNetworkHandler.registerPackets();
         ModDimensions.register(event);
         proxy.setup();
+    }
+
+    @SubscribeEvent
+    public static void onServerRegisteringDimensions(FMLServerStartingEvent event) {
+        try {
+            MutableRegistry<DimensionType> registry = (MutableRegistry<DimensionType>)
+                    ((DynamicRegistries.Impl) event.getServer().registryAccess())
+                            .registryOrThrow(Registry.DIMENSION_TYPE_REGISTRY);
+
+            registry.register(
+                    RegistryKey.create(Registry.DIMENSION_TYPE_REGISTRY,
+                            new ResourceLocation(References.MODID, "abyssaria")),
+                    ModDimensions.ABYSSARIA_DIMENSION_TYPE,
+                    Lifecycle.stable()
+            );
+
+            System.out.println("DEBUG - Abyssaria dimension type registered successfully");
+        } catch (Exception e) {
+            System.out.println("DEBUG - Failed to register dimension type: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     @SubscribeEvent

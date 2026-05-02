@@ -1,5 +1,7 @@
 package fr.acth2.ror.init;
 
+import fr.acth2.ror.init.constructors.armor.cloupis.CloupisArmor;
+import fr.acth2.ror.init.constructors.armor.cloupis.CloupisArmorMaterial;
 import fr.acth2.ror.init.constructors.armor.gefranium.GefraniumArmor;
 import fr.acth2.ror.init.constructors.armor.gefranium.GefraniumArmorMaterial;
 import fr.acth2.ror.init.constructors.armor.infranium.InfraniumArmor;
@@ -75,6 +77,9 @@ public class ModItems {
     public static final RegistryObject<Item> ORONIUM_INGOT = ITEMS.register("oronium_ingot",
             () -> new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> CLOUPIS_INGOT = ITEMS.register("cloupis_ingot",
+            () -> new Item(new Item.Properties()));
+
     public static final RegistryObject<Item> WICKED_STAFF = ITEMS.register("wicked_staff",
             () -> new WickedStaff(new Item.Properties())
     );
@@ -143,15 +148,33 @@ public class ModItems {
     public static final RegistryObject<Item> ORONIUM_BOOTS = ITEMS.register("oronium_boots",
             () -> new OroniumArmor(OroniumArmorMaterial.ORONIUM, EquipmentSlotType.FEET, new Item.Properties()));
 
+    public static final RegistryObject<Item> CLOUPIS_HELMET = ITEMS.register("cloupis_helmet",
+            () -> new CloupisArmor(CloupisArmorMaterial.CLOUPIS, EquipmentSlotType.HEAD, new Item.Properties()));
+    public static final RegistryObject<Item> CLOUPIS_CHESTPLATE = ITEMS.register("cloupis_chestplate",
+            () -> new CloupisArmor(CloupisArmorMaterial.CLOUPIS, EquipmentSlotType.CHEST, new Item.Properties()));
+    public static final RegistryObject<Item> CLOUPIS_LEGGINGS = ITEMS.register("cloupis_leggings",
+            () -> new CloupisArmor(CloupisArmorMaterial.CLOUPIS, EquipmentSlotType.LEGS, new Item.Properties()));
+    public static final RegistryObject<Item> CLOUPIS_BOOTS = ITEMS.register("cloupis_boots",
+            () -> new CloupisArmor(CloupisArmorMaterial.CLOUPIS, EquipmentSlotType.FEET, new Item.Properties()));
+
     public static final RegistryObject<Item> ORONIUM_SWORD = ITEMS.register("oronium_sword",
             () -> new SwordItem(OroniumItemTier.ORONIUM, 5, -2.0F, new Item.Properties()));
-
     public static final RegistryObject<Item> ORONIUM_PICKAXE = ITEMS.register("oronium_pickaxe",
             () -> new PickaxeItem(OroniumItemTier.ORONIUM, 3, -2.8F, new Item.Properties()));
     public static final RegistryObject<Item> ORONIUM_AXE = ITEMS.register("oronium_axe",
             () -> new AxeItem(OroniumItemTier.ORONIUM, 7.0F, -3.0F, new Item.Properties()));
     public static final RegistryObject<Item> ORONIUM_SHOVEL = ITEMS.register("oronium_shovel",
             () -> new ShovelItem(OroniumItemTier.ORONIUM, 2.5F, -3.0F, new Item.Properties()));
+
+    public static final RegistryObject<Item> CLOUPIS_SWORD = ITEMS.register("cloupis_sword",
+            () -> new SwordItem(CloupisItemTier.CLOUPIS, 5, -2.0F, new Item.Properties()));
+    public static final RegistryObject<Item> CLOUPIS_PICKAXE = ITEMS.register("cloupis_pickaxe",
+            () -> new PickaxeItem(CloupisItemTier.CLOUPIS, 3, -2.8F, new Item.Properties()));
+    public static final RegistryObject<Item> CLOUPIS_AXE = ITEMS.register("cloupis_axe",
+            () -> new AxeItem(CloupisItemTier.CLOUPIS, 7.0F, -3.0F, new Item.Properties()));
+    public static final RegistryObject<Item> CLOUPIS_SHOVEL = ITEMS.register("cloupis_shovel",
+            () -> new ShovelItem(CloupisItemTier.CLOUPIS, 2.5F, -3.0F, new Item.Properties()));
+
 
     public static final RegistryObject<Item> GEFRANIUM_SWORD = ITEMS.register("gefranium_sword",
             () -> new SwordItem(GefraniumItemTier.GEFRANIUM, 5, -2.0F, new Item.Properties()));

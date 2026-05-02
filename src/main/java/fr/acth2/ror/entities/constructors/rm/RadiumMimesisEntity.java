@@ -33,7 +33,7 @@ public class RadiumMimesisEntity extends MonsterEntity {
 
     @Override
     public void tick() {
-        super.tick();
+        //super.tick();
         if (!this.level.isClientSide) {
             LivingEntity target = this.getTarget();
             if (target instanceof MonsterEntity && !(target instanceof RadiumMimesisEntity)) {

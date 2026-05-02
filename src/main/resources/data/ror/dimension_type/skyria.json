@@ -1,6 +1,6 @@
 {
   "name": "ror:skyria",
-  "ultrawarm": false,
+  "ultrawarm": true,
   "natural": false,
   "coordinate_scale": 1,
   "has_skylight": true,
@@ -9,13 +9,13 @@
   "fixed_time": 6000,
   "piglin_safe": false,
   "bed_works": true,
-  "respawn_anchor_works": false,
+  "respawn_anchor_works": true,
   "has_raids": false,
   "logical_height": 256,
   "infiniburn": "minecraft:infiniburn_overworld",
   "effects": {
     "sky_type": "normal",
-    "clouds": "minecraft:vanilla",
+    "clouds": "",
     "sky_color": 16776960,
     "fog_color": 12638463,
     "water_color": 4159204,

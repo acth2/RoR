@@ -1,0 +1,70 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.coin_giver",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 2.5,
+				"visible_bounds_offset": [0, 0.75, 0]
+			},
+			"bones": [
+				{
+					"name": "entity",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "bone2",
+					"parent": "entity",
+					"pivot": [-5, 0, 0],
+					"cubes": [
+						{"origin": [-6, 0, -1], "size": [2, 4, 2], "uv": [38, 39]}
+					]
+				},
+				{
+					"name": "bone",
+					"parent": "entity",
+					"pivot": [5, 0, 0],
+					"cubes": [
+						{"origin": [4, 0, -1], "size": [2, 4, 2], "uv": [41, 0]}
+					]
+				},
+				{
+					"name": "bone3",
+					"parent": "entity",
+					"pivot": [5, 4, 3],
+					"cubes": [
+						{"origin": [-6, 4, -4], "size": [12, 16, 8], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "bone6",
+					"parent": "entity",
+					"pivot": [1, 20, 0],
+					"cubes": [
+						{"origin": [-3, 20, -4], "size": [6, 5, 8], "uv": [0, 37]},
+						{"origin": [-4, 25, -5], "size": [8, 1, 10], "uv": [0, 25]}
+					]
+				},
+				{
+					"name": "bone5",
+					"parent": "entity",
+					"pivot": [-7, 16, 0],
+					"cubes": [
+						{"origin": [-8, 7, -1], "size": [2, 11, 2], "uv": [37, 25]}
+					]
+				},
+				{
+					"name": "bone4",
+					"parent": "entity",
+					"pivot": [7, 16, 0],
+					"cubes": [
+						{"origin": [6, 7, -1], "size": [2, 11, 2], "uv": [29, 39]}
+					]
+				}
+			]
+		}
+	]
+}

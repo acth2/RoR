@@ -1,0 +1,123 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.copier.move": {
+			"loop": true,
+			"animation_length": 1.0417,
+			"bones": {
+				"bone": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.25": {
+							"vector": [40, 0, 0],
+							"easing": "step",
+							"easingArgs": [3]
+						},
+						"0.5": {
+							"vector": [0, 0, 0],
+							"easing": "step",
+							"easingArgs": [3]
+						},
+						"0.75": {
+							"vector": [-40, 0, 0],
+							"easing": "step",
+							"easingArgs": [3]
+						},
+						"1.0417": {
+							"vector": [0, 0, 0],
+							"easing": "step",
+							"easingArgs": [3]
+						}
+					}
+				},
+				"bone6": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.25": {
+							"vector": [-40, 0, 0],
+							"easing": "step",
+							"easingArgs": [3]
+						},
+						"0.5": {
+							"vector": [0, 0, 0],
+							"easing": "step",
+							"easingArgs": [3]
+						},
+						"0.75": {
+							"vector": [40, 0, 0],
+							"easing": "step",
+							"easingArgs": [3]
+						},
+						"1.0417": {
+							"vector": [0, 0, 0],
+							"easing": "step",
+							"easingArgs": [3]
+						}
+					}
+				},
+				"bone4": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.25": {
+							"vector": [52.5, 0, 0],
+							"easing": "step",
+							"easingArgs": [3]
+						},
+						"0.5": {
+							"vector": [0, 0, 0],
+							"easing": "step",
+							"easingArgs": [3]
+						},
+						"0.75": {
+							"vector": [-52.5, 0, 0],
+							"easing": "step",
+							"easingArgs": [3]
+						},
+						"1.0": {
+							"vector": [0, 0, 0],
+							"easing": "step",
+							"easingArgs": [3]
+						}
+					}
+				},
+				"bone3": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.25": {
+							"vector": [-52.5, 0, 0],
+							"easing": "step",
+							"easingArgs": [3]
+						},
+						"0.5": {
+							"vector": [0, 0, 0],
+							"easing": "step",
+							"easingArgs": [3]
+						},
+						"0.75": {
+							"vector": [52.5, 0, 0],
+							"easing": "step",
+							"easingArgs": [3]
+						},
+						"1.0": {
+							"vector": [0, 0, 0],
+							"easing": "step",
+							"easingArgs": [3]
+						}
+					}
+				}
+			}
+		},
+		"animation.copier.idle": {
+			"loop": true
+		}
+	},
+	"geckolib_format_version": 2
+}

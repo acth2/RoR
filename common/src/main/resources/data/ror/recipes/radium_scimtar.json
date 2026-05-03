@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  X",
+    " X ",
+    "S  "
+  ],
+  "key": {
+    "X": {
+      "item": "ror:radium_ingot"
+    },
+    "S": {
+      "item": "ror:infranium_stick"
+    }
+  },
+  "result": {
+    "item": "ror:radium_scimtar"
+  }
+}

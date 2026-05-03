@@ -1,0 +1,80 @@
+buildscript {
+    repositories {
+        maven { url = 'https://maven.minecraftforge.net' }
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:5.1.+', { changing = true }
+    }
+}
+
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+version = "1.0.0-1.19.2"
+archivesBaseName = 'ror-1.19.2'
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(17)
+}
+
+minecraft {
+    mappings channel: 'official', version: '1.19.2'
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            mods {
+                ror {
+                    source sourceSets.main
+                }
+            }
+        }
+        server {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            mods {
+                ror {
+                    source sourceSets.main
+                }
+            }
+        }
+        data {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            args '--mod', 'ror', '--all',
+                 '--output', file('src/generated/resources/'),
+                 '--existing', file('src/main/resources/')
+            mods {
+                ror {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs += project(':common').sourceSets.main.java.srcDirs
+        }
+        resources {
+            srcDirs += project(':common').sourceSets.main.resources.srcDirs
+            srcDir 'src/generated/resources'
+        }
+    }
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:1.19.2-${forge_1_19_2}"
+
+    implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.19:3.1.40')
+}
+
+jar.finalizedBy('reobfJar')

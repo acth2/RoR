@@ -1,0 +1,88 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.hopper",
+				"texture_width": 128,
+				"texture_height": 128,
+				"visible_bounds_width": 4,
+				"visible_bounds_height": 3.5,
+				"visible_bounds_offset": [0, 1.25, 0]
+			},
+			"bones": [
+				{
+					"name": "entity",
+					"pivot": [0, 0, 0],
+					"rotation": [0, 90, 0]
+				},
+				{
+					"name": "body",
+					"parent": "entity",
+					"pivot": [-15, 7, 0],
+					"cubes": [
+						{"origin": [-15, 5, -8], "size": [26, 9, 16], "uv": [0, 0]},
+						{"origin": [-17, 8, -1], "size": [3, 3, 2], "uv": [0, 20]}
+					]
+				},
+				{
+					"name": "f1",
+					"parent": "entity",
+					"pivot": [-13.5, 3.5, 6.5],
+					"cubes": [
+						{"origin": [-17, 0, 3], "size": [7, 7, 7], "uv": [39, 26]}
+					]
+				},
+				{
+					"name": "f2",
+					"parent": "entity",
+					"pivot": [9.5, 3.5, 6.5],
+					"cubes": [
+						{"origin": [6, 0, 3], "size": [7, 7, 7], "uv": [39, 41]}
+					]
+				},
+				{
+					"name": "f3",
+					"parent": "entity",
+					"pivot": [9.5, 3.5, -6.5],
+					"cubes": [
+						{"origin": [6, 0, -10], "size": [7, 7, 7], "uv": [0, 47]}
+					]
+				},
+				{
+					"name": "f4",
+					"parent": "entity",
+					"pivot": [-13.5, 3.5, -6.5],
+					"cubes": [
+						{"origin": [-17, 0, -10], "size": [7, 7, 7], "uv": [29, 56]}
+					]
+				},
+				{
+					"name": "head",
+					"parent": "entity",
+					"pivot": [13.25, 17, 0],
+					"cubes": [
+						{"origin": [6, 12, -5], "size": [9, 10, 10], "uv": [0, 26]},
+						{"origin": [16, 14, -3], "size": [0, 6, 6], "uv": [58, 56]}
+					]
+				},
+				{
+					"name": "e1",
+					"parent": "head",
+					"pivot": [11, 22.5, 5],
+					"cubes": [
+						{"origin": [11, 20, 2], "size": [0, 5, 6], "uv": [0, 62]}
+					]
+				},
+				{
+					"name": "e2",
+					"parent": "head",
+					"pivot": [11, 22.5, -5],
+					"cubes": [
+						{"origin": [11, 20, -8], "size": [0, 5, 6], "uv": [13, 62]}
+					]
+				}
+			]
+		}
+	]
+}

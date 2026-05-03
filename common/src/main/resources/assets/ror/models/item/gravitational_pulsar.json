@@ -1,0 +1,54 @@
+{
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"0": "ror:item/gravitational_pulsar",
+		"particle": "ror:item/gravitational_pulsar"
+	},
+	"elements": [
+		{
+			"from": [3, 4, 3],
+			"to": [13, 14, 13],
+			"rotation": {"angle": -45, "axis": "y", "origin": [8, 9, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 5, 5], "texture": "#0"},
+				"east": {"uv": [0, 5.5, 5, 10.5], "texture": "#0"},
+				"south": {"uv": [5.5, 0, 10.5, 5], "texture": "#0"},
+				"west": {"uv": [5.5, 5.5, 10.5, 10.5], "texture": "#0"},
+				"up": {"uv": [5, 16, 0, 11], "texture": "#0"},
+				"down": {"uv": [16, 0, 11, 5], "texture": "#0"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [-40, 97, 7],
+			"translation": [-4.75, 11, 6.75]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [120.75, 83, -173],
+			"translation": [-8.75, 22.75, 9],
+			"scale": [2, 2, 2]
+		},
+		"ground": {
+			"rotation": [-54, 0, 0],
+			"translation": [0, 6.25, 0]
+		},
+		"gui": {
+			"rotation": [50, 0, 1]
+		},
+		"head": {
+			"rotation": [63, 0, 0],
+			"translation": [0, 16.5, 0]
+		},
+		"fixed": {
+			"rotation": [0, 42, 0],
+			"translation": [0, 0, -7]
+		},
+		"on_shelf": {
+			"rotation": [48, 0, 0],
+			"translation": [0, 0, 6.5]
+		}
+	}
+}

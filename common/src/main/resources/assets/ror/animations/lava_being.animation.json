@@ -1,0 +1,54 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.model.idle": {
+			"loop": true
+		},
+		"animation.model.shoot": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"bone3": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.5417": {
+							"vector": [0, 0, -147.5],
+							"easing": "easeInQuint"
+						},
+						"1.0": {
+							"vector": [0, 0, 0],
+							"easing": "easeInOutBack"
+						}
+					}
+				}
+			}
+		},
+		"animation.lava_being.idle": {
+			"loop": true
+		},
+		"animation.lava_being.shoot": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"bone3": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.5417": {
+							"vector": [0, 0, -147.5],
+							"easing": "easeInQuint"
+						},
+						"1.0": {
+							"vector": [0, 0, 0],
+							"easing": "easeInOutBack"
+						}
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

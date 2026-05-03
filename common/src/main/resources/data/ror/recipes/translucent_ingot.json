@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " X ",
+    "XSX",
+    " X "
+  ],
+  "key": {
+    "X": {
+      "item": "ror:ghost_dust"
+    },
+    "S": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "item": "ror:translucent_ingot"
+  }
+}

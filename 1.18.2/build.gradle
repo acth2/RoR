@@ -48,8 +48,8 @@ minecraft {
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
             args '--mod', 'ror', '--all',
-                 '--output', file('src/generated/resources/'),
-                 '--existing', file('src/main/resources/')
+                    '--output', file('src/generated/resources/'),
+                    '--existing', file('src/main/resources/')
             mods {
                 ror {
                     source sourceSets.main
@@ -73,8 +73,11 @@ sourceSets {
 
 dependencies {
     minecraft "net.minecraftforge:forge:1.18.2-${forge_1_18_2}"
-
     implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.18:3.0.57')
+}
+
+tasks.withType(ProcessResources).configureEach {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 jar.finalizedBy('reobfJar')

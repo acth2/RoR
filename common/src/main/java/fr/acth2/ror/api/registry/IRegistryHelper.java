@@ -1,7 +1,7 @@
 package fr.acth2.ror.api.registry;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityType;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.registries.DeferredRegister;

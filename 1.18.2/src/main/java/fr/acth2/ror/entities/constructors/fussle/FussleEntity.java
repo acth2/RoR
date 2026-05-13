@@ -34,10 +34,10 @@ public class FussleEntity extends CreatureEntity {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new RandomWalkingGoal(this, 0.2));
-        this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0F));
+        this.goalSelector.addGoal(2, new LookAtGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
 
-        this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, PlayerEntity.class, 10.0F, 1.5, 2.0));
+        this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Player.class, 10.0F, 1.5, 2.0));
     }
 
     @Override
@@ -76,8 +76,8 @@ public class FussleEntity extends CreatureEntity {
         super.setGlowing(p_184195_1_);
     }
 
-    public static AttributeModifierMap.MutableAttribute createAttributes() {
-        return MobEntity.createMobAttributes()
+    public static AttributeSupplier.MutableAttribute createAttributes() {
+        return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 20.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.0D)

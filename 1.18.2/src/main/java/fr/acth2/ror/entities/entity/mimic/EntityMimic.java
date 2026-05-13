@@ -74,7 +74,7 @@ public class EntityMimic extends MimicEntity implements IAnimatable {
     }
 
     @Override
-    public ActionResultType interactAt(PlayerEntity player, Vector3d vec, Hand hand) {
+    public InteractionResult interactAt(Player player, Vector3d vec, Hand hand) {
         if (!this.isAwake()) {
             this.wasRightClicked = true;
             this.activate();
@@ -82,7 +82,7 @@ public class EntityMimic extends MimicEntity implements IAnimatable {
             player.hurt(DamageSource.mobAttack(this), 10.0F);
             attackCooldown = 20;
 
-            return ActionResultType.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
         return super.interactAt(player, vec, hand);
     }
@@ -115,7 +115,7 @@ public class EntityMimic extends MimicEntity implements IAnimatable {
         }
 
         if (!isAwake() && wasRightClicked && attackCooldown <= 0) {
-            PlayerEntity player = this.level.getNearestPlayer(this, 2.0);
+            Player player = this.level.getNearestPlayer(this, 2.0);
             if (player != null) {
                 player.hurt(DamageSource.mobAttack(this), 10.0F);
                 attackCooldown = 20;

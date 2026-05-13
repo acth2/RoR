@@ -28,47 +28,47 @@ public class RealmsVessel extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
-        tooltip.add(new StringTextComponent(TextFormatting.GRAY + "This vessel needs to be synced with another realm"));
+    public void appendHoverText(ItemStack stack, @Nullable World world, List<Component> tooltip, TooltipFlag flag) {
+        tooltip.add(new TextComponent(ChatFormatting.GRAY + "This vessel needs to be synced with another realm"));
         super.appendHoverText(stack, world, tooltip, flag);
     }
 
     @Override
-    public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+    public ActionResult<ItemStack> use(World world, Player player, Hand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
 
-        if (world.isClientSide) {
+        if (level.isClientSide) {
             openGui(player, itemStack, hand);
         } else {
             if (checkSkyriaConditions(player) && !hasSkyriaAccess(player)) {
                 grantSkyriaAccess(player);
-                player.sendMessage(new StringTextComponent("Your essence synced with a bright realm!").withStyle(TextFormatting.AQUA), player.getUUID());
+                player.sendSystemMessage(new TextComponent("Your essence synced with a bright realm!").withStyle(ChatFormatting.AQUA), player.getUUID());
             }
         }
 
         return ActionResult.success(itemStack);
     }
 
-    private boolean hasSkyriaAccess(PlayerEntity player) {
+    private boolean hasSkyriaAccess(Player player) {
         return DimensionAccessManager.hasSkyriaAccess(player);
     }
 
-    private boolean checkSkyriaConditions(PlayerEntity player) {
+    private boolean checkSkyriaConditions(Player player) {
         return DimensionAccessManager.checkSkyriaConditions(player);
     }
 
-    private void grantSkyriaAccess(PlayerEntity player) {
+    private void grantSkyriaAccess(Player player) {
         DimensionAccessManager.grantSkyriaAccess(player);
     }
 
 
     @OnlyIn(Dist.CLIENT)
-    private void openGui(PlayerEntity player, ItemStack itemStack, Hand hand) {
+    private void openGui(Player player, ItemStack itemStack, Hand hand) {
         Minecraft.getInstance().setScreen(new RealmVesselGui(player, itemStack, hand));
     }
 
     @Override
-    public ActionResultType useOn(ItemUseContext context) {
-        return ActionResultType.PASS;
+    public InteractionResult useOn(ItemUseContext context) {
+        return InteractionResult.PASS;
     }
 }

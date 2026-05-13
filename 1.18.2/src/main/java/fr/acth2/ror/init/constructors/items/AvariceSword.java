@@ -40,12 +40,12 @@ public class AvariceSword extends Item {
 
             target.hurt(AVARICE_DAMAGE, damage);
 
-            if (attacker instanceof PlayerEntity) {
+            if (attacker instanceof Player) {
                 stack.getOrCreateTag().putUUID("Owner", attacker.getUUID());
             }
         }
 
-        if (attacker instanceof PlayerEntity && RANDOM.nextFloat() < 0.25f) {
+        if (attacker instanceof Player && RANDOM.nextFloat() < 0.25f) {
             attacker.hurt(AVARICE_DAMAGE, 1.0f);
         }
 
@@ -57,8 +57,8 @@ public class AvariceSword extends Item {
     }
 
     private float calculateScaledDamage(LivingEntity attacker) {
-        if (attacker instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) attacker;
+        if (attacker instanceof Player) {
+            Player player = (Player) attacker;
             float healthRatio = player.getHealth() / player.getMaxHealth();
             return MAX_DAMAGE - (healthRatio * (MAX_DAMAGE - MIN_DAMAGE));
         }
@@ -78,18 +78,18 @@ public class AvariceSword extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
-        tooltip.add(new StringTextComponent("This sword set enemies on fire").withStyle(TextFormatting.YELLOW));
-        tooltip.add(new StringTextComponent("The weaker you get. The stronger the sword get").withStyle(TextFormatting.GRAY));
-        tooltip.add(new StringTextComponent("It can remove a half a hearth").withStyle(TextFormatting.DARK_PURPLE));
+    public void appendHoverText(ItemStack stack, @Nullable World world, List<Component> tooltip, TooltipFlag flag) {
+        tooltip.add(new TextComponent("This sword set enemies on fire").withStyle(ChatFormatting.YELLOW));
+        tooltip.add(new TextComponent("The weaker you get. The stronger the sword get").withStyle(ChatFormatting.GRAY));
+        tooltip.add(new TextComponent("It can remove a half a hearth").withStyle(ChatFormatting.DARK_PURPLE));
 
         if (stack.hasTag() && stack.getTag().hasUUID("Owner") && world != null) {
-            PlayerEntity owner = world.getPlayerByUUID(stack.getTag().getUUID("Owner"));
+            Player owner = world.getPlayerByUUID(stack.getTag().getUUID("Owner"));
             if (owner != null) {
                 float currentDamage = calculateScaledDamage(owner);
-                tooltip.add(new StringTextComponent("Damage: ")
-                        .append(new StringTextComponent(String.format("%.1f", currentDamage)).withStyle(TextFormatting.GOLD))
-                        .withStyle(TextFormatting.GRAY));
+                tooltip.add(new TextComponent("Damage: ")
+                        .append(new TextComponent(String.format("%.1f", currentDamage)).withStyle(ChatFormatting.GOLD))
+                        .withStyle(ChatFormatting.GRAY));
             }
         }
 

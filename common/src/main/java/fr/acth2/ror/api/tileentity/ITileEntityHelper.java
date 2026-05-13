@@ -1,4 +1,4 @@
-package fr.acth2.ror.api.tileentity;
+package fr.acth2.ror.api.BlockEntity;
 
 
 import java.util.function.Supplier;

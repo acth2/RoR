@@ -62,7 +62,7 @@ public class ModCommands  {
                                             boolean active = BoolArgumentType.getBool(context, "active");
                                             ServerEventManager.forceEvent(event, active);
                                             context.getSource().sendSuccess(
-                                                    new StringTextComponent(
+                                                    new TextComponent(
                                                             "Event " + event + " set to " + active
                                                     ), true
                                             );
@@ -74,7 +74,7 @@ public class ModCommands  {
                                 .executes(context -> {
                                     String status = ServerEventManager.getEventStatus();
                                     context.getSource().sendSuccess(
-                                            new StringTextComponent("Event Status: " + status),
+                                            new TextComponent("Event Status: " + status),
                                             true
                                     );
                                     return 1;
@@ -85,7 +85,7 @@ public class ModCommands  {
 
     private static int listStructures(CommandSource source, String structureId) {
         if (!(source.getEntity() instanceof ServerPlayerEntity)) {
-            source.sendFailure(new StringTextComponent("This command can only be used by players"));
+            source.sendFailure(new TextComponent("This command can only be used by players"));
             return 0;
         }
 
@@ -96,17 +96,17 @@ public class ModCommands  {
         Set<BlockPos> structures = data.getStructures(structureId);
 
         if (structures.isEmpty()) {
-            source.sendSuccess(new StringTextComponent(TextFormatting.YELLOW + "No " + structureId + " structures have been generated yet."), false);
+            source.sendSuccess(new TextComponent(ChatFormatting.YELLOW + "No " + structureId + " structures have been generated yet."), false);
             return 1;
         }
 
-        source.sendSuccess(new StringTextComponent(TextFormatting.GREEN + "Found " + structures.size() + " " + structureId + " structures:"), false);
+        source.sendSuccess(new TextComponent(ChatFormatting.GREEN + "Found " + structures.size() + " " + structureId + " structures:"), false);
 
         for (BlockPos pos : structures) {
             String coords = String.format("X: %d, Y: %d, Z: %d", pos.getX(), pos.getY(), pos.getZ());
-            source.sendSuccess(new StringTextComponent(TextFormatting.WHITE + "- " + coords), false);
+            source.sendSuccess(new TextComponent(ChatFormatting.WHITE + "- " + coords), false);
 
-            StringTextComponent teleport = new StringTextComponent(TextFormatting.BLUE + "[Teleport]" + TextFormatting.GRAY + " (You wont be telported to the structure dimension)");
+            TextComponent teleport = new TextComponent(ChatFormatting.BLUE + "[Teleport]" + ChatFormatting.GRAY + " (You wont be telported to the structure dimension)");
             teleport.withStyle(style -> style.withClickEvent(new ClickEvent(
                     ClickEvent.Action.RUN_COMMAND,
                     "/tp " + pos.getX() + " " + pos.getY() + " " + pos.getZ()
@@ -118,21 +118,21 @@ public class ModCommands  {
     }
 
     private static int showStructuresUsage(CommandSource source) {
-        source.sendFailure(new StringTextComponent(TextFormatting.RED + "Usage: /rorstruc <structure_id>"));
-        source.sendFailure(new StringTextComponent(TextFormatting.RED + "Available structures: sealed_treasure_t1, sealed_treasure_t2, sealed_treasure_t3, skyria_house, skyria_tower"));
+        source.sendFailure(new TextComponent(ChatFormatting.RED + "Usage: /rorstruc <structure_id>"));
+        source.sendFailure(new TextComponent(ChatFormatting.RED + "Available structures: sealed_treasure_t1, sealed_treasure_t2, sealed_treasure_t3, skyria_house, skyria_tower"));
         return 1;
     }
 
     private static int modifyCoins(CommandSource source, ServerPlayerEntity player, int amount) {
         CoinsManager.setCoins(player, amount);
-        source.sendSuccess(new StringTextComponent("Changed " + player.getName().getString() + "'s coins to " + amount), true);
+        source.sendSuccess(new TextComponent("Changed " + player.getName().getString() + "'s coins to " + amount), true);
 
-        player.sendMessage(new StringTextComponent("Your coins have been put to " + amount + " by an administrator"), player.getUUID());
+        player.sendSystemMessage(new TextComponent("Your coins have been put to " + amount + " by an administrator"), player.getUUID());
         return 1;
     }
 
     private static int showUsage(CommandSource source) {
-        source.sendFailure(new StringTextComponent(TextFormatting.RED + "/coins <player> <coins>"));
+        source.sendFailure(new TextComponent(ChatFormatting.RED + "/coins <player> <coins>"));
         return 1;
     }
 }

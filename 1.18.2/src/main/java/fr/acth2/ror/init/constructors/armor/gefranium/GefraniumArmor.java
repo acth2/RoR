@@ -20,9 +20,9 @@ public class GefraniumArmor extends ArmorItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
-        tooltip.add(new StringTextComponent(TextFormatting.GREEN + "This armor have an incredible knockback resistance"));
-        tooltip.add(new StringTextComponent(TextFormatting.GRAY + "Despite offering a low defense"));
+    public void appendHoverText(ItemStack stack, @Nullable World world, List<Component> tooltip, TooltipFlag flag) {
+        tooltip.add(new TextComponent(ChatFormatting.GREEN + "This armor have an incredible knockback resistance"));
+        tooltip.add(new TextComponent(ChatFormatting.GRAY + "Despite offering a low defense"));
         super.appendHoverText(stack, world, tooltip, flag);
     }
 }

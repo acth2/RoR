@@ -22,9 +22,9 @@ import net.minecraft.world.level.Level;
 import javax.annotation.Nullable;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class HopperEntity extends MonsterEntity {
+public class HopperEntity extends Monster {
 
-    protected HopperEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
+    protected HopperEntity(EntityType<? extends Monster> type, World worldIn) {
         super(type, worldIn);
     }
 
@@ -34,7 +34,7 @@ public class HopperEntity extends MonsterEntity {
     }
 
     protected void registerGoals() {
-        this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 8.0F));
+        this.goalSelector.addGoal(8, new LookAtGoal(this, Player.class, 8.0F));
         this.addBehaviourGoals();
     }
 
@@ -50,7 +50,7 @@ public class HopperEntity extends MonsterEntity {
         this.goalSelector.addGoal(7, new WaterAvoidingRandomWalkingGoal(this, 1.0D) {
         });
 
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal(this, PlayerEntity.class, true) {
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal(this, Player.class, true) {
         });
 
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolemEntity.class, true));
@@ -95,8 +95,8 @@ public class HopperEntity extends MonsterEntity {
         super.setGlowing(p_184195_1_);
     }
 
-    public static AttributeModifierMap.MutableAttribute createAttributes() {
-        return MobEntity.createMobAttributes()
+    public static AttributeSupplier.MutableAttribute createAttributes() {
+        return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 20.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.0D)

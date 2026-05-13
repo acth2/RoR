@@ -26,15 +26,15 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CopierEntity extends MonsterEntity {
+public class CopierEntity extends Monster {
 
-    private PlayerEntity targetPlayer;
+    private Player targetPlayer;
     private Vector3d lastPlayerPosition;
     private boolean hasTeleported = false;
     private Vector3d positionOffset = Vector3d.ZERO;
     private int attackCooldown = 0;
 
-    protected CopierEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
+    protected CopierEntity(EntityType<? extends Monster> type, World worldIn) {
         super(type, worldIn);
     }
 
@@ -48,7 +48,7 @@ public class CopierEntity extends MonsterEntity {
         super.registerGoals();
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, false));
         this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
     @Override
@@ -88,7 +88,7 @@ public class CopierEntity extends MonsterEntity {
     }
 
     private void findAndTeleportToPlayer() {
-        List<PlayerEntity> players = this.level.players()
+        List<Player> players = this.level.players()
                 .stream()
                 .filter(player -> player != null && player.isAlive() && player.distanceTo(this) <= 10)
                 .sorted(Comparator.comparingDouble(player -> player.distanceToSqr(this)))
@@ -223,8 +223,8 @@ public class CopierEntity extends MonsterEntity {
         super.setGlowing(p_184195_1_);
     }
 
-    public static AttributeModifierMap.MutableAttribute createAttributes() {
-        return MobEntity.createMobAttributes()
+    public static AttributeSupplier.MutableAttribute createAttributes() {
+        return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 1.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.26D)
                 .add(Attributes.ATTACK_DAMAGE, 10.0D);

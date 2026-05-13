@@ -39,13 +39,13 @@ public class WorldParticleHandler {
     }
 
     private static void spawnRandomSurfaceParticles(ServerWorld world) {
-        List<? extends PlayerEntity> players = world.players();
+        List<? extends Player> players = world.players();
 
         if (players.isEmpty()) {
             return;
         }
 
-        PlayerEntity player = players.get(RANDOM.nextInt(players.size()));
+        Player player = players.get(RANDOM.nextInt(players.size()));
 
         int particleCount = 3 + RANDOM.nextInt(3);
 

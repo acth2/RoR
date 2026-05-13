@@ -18,9 +18,9 @@ import net.minecraft.server.level.ServerLevel;
 
 import javax.annotation.Nullable;
 
-public class SeekerEntity extends MonsterEntity {
+public class SeekerEntity extends Monster {
 
-    protected SeekerEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
+    protected SeekerEntity(EntityType<? extends Monster> type, World worldIn) {
         super(type, worldIn);
     }
 
@@ -36,7 +36,7 @@ public class SeekerEntity extends MonsterEntity {
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, false));
 
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
         this.addBehaviourGoals();
     }
@@ -87,8 +87,8 @@ public class SeekerEntity extends MonsterEntity {
         super.setGlowing(p_184195_1_);
     }
 
-    public static AttributeModifierMap.MutableAttribute createAttributes() {
-        return MobEntity.createMobAttributes()
+    public static AttributeSupplier.MutableAttribute createAttributes() {
+        return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 20.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.26D)
                 .add(Attributes.ATTACK_DAMAGE, 4.0D);

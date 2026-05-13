@@ -53,7 +53,7 @@ public class ModCoinsDistributor {
             CoinsManager.syncCoins(player);
 
             if (entityType.equals("CoinGiver")) {
-                player.sendMessage(ITextComponent.nullToEmpty("+1000 COINS"), player.getUUID());
+                player.sendSystemMessage(Component.nullToEmpty("+1000 COINS"), player.getUUID());
             }
         }
     }

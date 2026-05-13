@@ -21,9 +21,9 @@ import net.minecraft.world.level.Level;
 import javax.annotation.Nullable;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class CluckerEntity extends MonsterEntity {
+public class CluckerEntity extends Monster {
 
-    public CluckerEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
+    public CluckerEntity(EntityType<? extends Monster> type, World worldIn) {
         super(type, worldIn);
     }
 
@@ -34,7 +34,7 @@ public class CluckerEntity extends MonsterEntity {
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, false));
 
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
         this.addBehaviourGoals();
     }
@@ -93,13 +93,13 @@ public class CluckerEntity extends MonsterEntity {
     public boolean doHurtTarget(Entity target) {
         boolean flag = super.doHurtTarget(target);
         if (flag && target instanceof LivingEntity) {
-            ((LivingEntity) target).addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 75, 3));
+            ((LivingEntity) target).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 75, 3));
         }
         return flag;
     }
 
-    public static AttributeModifierMap.MutableAttribute createAttributes() {
-        return MobEntity.createMobAttributes()
+    public static AttributeSupplier.MutableAttribute createAttributes() {
+        return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 15.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.30D)
                 .add(Attributes.ATTACK_DAMAGE, 5.0D)

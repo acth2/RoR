@@ -33,7 +33,7 @@ public class SkyriaPortalBlock extends NetherPortalBlock {
     }
 
     @Override
-    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(AXIS, FRAME);
     }
 

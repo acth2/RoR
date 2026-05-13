@@ -50,10 +50,10 @@ public class BadOmenEntity extends CreeperEntity implements IChargeableMob {
         this.goalSelector.addGoal(1, new SwimGoal(this));
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.2D, false));
         this.goalSelector.addGoal(3, new FlyRandomlyGoal(this));
-        this.goalSelector.addGoal(4, new LookAtGoal(this, PlayerEntity.class, 8.0F));
+        this.goalSelector.addGoal(4, new LookAtGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(5, new LookRandomlyGoal(this));
 
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolemEntity.class, true));
     }
@@ -62,7 +62,7 @@ public class BadOmenEntity extends CreeperEntity implements IChargeableMob {
     public void tick() {
         super.tick();
 
-        PlayerEntity player = this.level.getNearestPlayer(this, 15.0D);
+        Player player = this.level.getNearestPlayer(this, 15.0D);
         if (player != null && this.canSee(player)) {
             noSeeTicks = 0;
             this.getNavigation().moveTo(player, 1.2D);
@@ -103,9 +103,9 @@ public class BadOmenEntity extends CreeperEntity implements IChargeableMob {
 
     @Override
     public boolean doHurtTarget(Entity entity) {
-        if (entity instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) entity;
-            player.addEffect(new EffectInstance(Effects.BLINDNESS, BLINDNESS_DURATION, BLINDNESS_AMPLIFIER));
+        if (entity instanceof Player) {
+            Player player = (Player) entity;
+            player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, BLINDNESS_DURATION, BLINDNESS_AMPLIFIER));
             this.playSound(ModSoundEvents.RUSTEDCORE_HIT.get(), 1.0F, 1.0F);
             return true;
         }
@@ -133,8 +133,8 @@ public class BadOmenEntity extends CreeperEntity implements IChargeableMob {
         }
     }
 
-    public static AttributeModifierMap.MutableAttribute createAttributes() {
-        return MobEntity.createMobAttributes()
+    public static AttributeSupplier.MutableAttribute createAttributes() {
+        return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 5.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D)
                 .add(Attributes.FLYING_SPEED, 0.5D)

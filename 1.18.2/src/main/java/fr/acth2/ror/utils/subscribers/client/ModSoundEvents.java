@@ -11,7 +11,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class ModSoundEvents {
 
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS =
-            DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, References.MODID);
+            DeferredRegister.create(ForgeRegistries.Keys.SOUND_EVENTS, References.MODID);
 
     public static final RegistryObject<SoundEvent> CURSER_HIT =
             registerSoundEvent("curser_hit");

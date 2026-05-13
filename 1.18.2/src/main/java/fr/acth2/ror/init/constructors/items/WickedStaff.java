@@ -26,16 +26,16 @@ public class WickedStaff extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
-        tooltip.add(new StringTextComponent(TextFormatting.DARK_PURPLE + "This Staff can shoot magic projectiles"));
-        tooltip.add(new StringTextComponent(TextFormatting.GRAY + "At the cost of 15 Coins each shots"));
-        tooltip.add(new StringTextComponent(""));
-        tooltip.add(new StringTextComponent(TextFormatting.GREEN + "12 Magic Damage"));
+    public void appendHoverText(ItemStack stack, @Nullable World world, List<Component> tooltip, TooltipFlag flag) {
+        tooltip.add(new TextComponent(ChatFormatting.DARK_PURPLE + "This Staff can shoot magic projectiles"));
+        tooltip.add(new TextComponent(ChatFormatting.GRAY + "At the cost of 15 Coins each shots"));
+        tooltip.add(new TextComponent(""));
+        tooltip.add(new TextComponent(ChatFormatting.GREEN + "12 Magic Damage"));
         super.appendHoverText(stack, world, tooltip, flag);
     }
 
     @Override
-    public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+    public ActionResult<ItemStack> use(World world, Player player, Hand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
 
         if (player.getCooldowns().isOnCooldown(this)) {
@@ -47,7 +47,7 @@ public class WickedStaff extends Item {
                 CoinsManager.getCoins((ServerPlayerEntity) player);
 
         if (currentCoins >= 15) {
-            if (!world.isClientSide) {
+            if (!level.isClientSide) {
                 WickedProjectile projectile = new WickedProjectile(world, player);
                 projectile.setDamage(12.0F);
                 projectile.shootFromRotation(player, player.xRot, player.yRot, 0.0F, 1.5F, 1.0F);

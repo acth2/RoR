@@ -9,13 +9,13 @@ import net.minecraft.network.chat.TextComponent;
 
 public class SkyriaTraderSpeech extends Screen {
 
-    private PlayerEntity player;
+    private Player player;
     private boolean showAfterShopDialogue = false;
     private String npcText;
     private String[] playerResponses;
 
-    public SkyriaTraderSpeech(PlayerEntity player) {
-        super(new StringTextComponent("Ruins of Realms - Skyria Trader"));
+    public SkyriaTraderSpeech(Player player) {
+        super(new TextComponent("Ruins of Realms - Skyria Trader"));
         this.player = player;
         this.npcText = "A new client! Here take a look!";
         this.playerResponses = new String[]{"Open shop", "No"};
@@ -33,7 +33,7 @@ public class SkyriaTraderSpeech extends Screen {
             int yPos = yStart + (i * (buttonHeight + buttonSpacing));
             int index = i;
             this.addButton(new Button(this.width / 2 - 75, yPos, 150, buttonHeight,
-                    new StringTextComponent(playerResponses[i]),
+                    new TextComponent(playerResponses[i]),
                     button -> selectResponse(index)
             ));
         }

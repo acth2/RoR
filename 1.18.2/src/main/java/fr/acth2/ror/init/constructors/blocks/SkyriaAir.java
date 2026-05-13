@@ -11,7 +11,7 @@ import net.minecraft.world.level.BlockGetter;
 
 public class SkyriaAir extends Block {
     public SkyriaAir() {
-        super((((AbstractBlock.Properties) Props.stone()))
+        super((((BlockBehaviour.Properties) Props.stone()))
                 .strength(-1F, -1F)
                 .harvestLevel(0)
                 .noOcclusion()

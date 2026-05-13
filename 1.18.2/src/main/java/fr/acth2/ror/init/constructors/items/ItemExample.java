@@ -29,8 +29,8 @@ public class ItemExample extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
-        if (!world.isClientSide()) {
+    public ActionResult<ItemStack> use(World world, Player player, Hand hand) {
+        if (!level.isClientSide()) {
             ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
             ResourceLocation dimensionRL = new ResourceLocation(References.MODID, "ed");
             ServerWorld targetWorld = serverPlayer.getServer().getLevel(RegistryKey.create(Registry.DIMENSION_REGISTRY, dimensionRL));
@@ -42,16 +42,16 @@ public class ItemExample extends Item {
                     }
                 });
             } else {
-                serverPlayer.sendMessage(new StringTextComponent("a mistake has been made in the code, send log to discord."), serverPlayer.getUUID());
+                serverPlayer.sendMessage(new TextComponent("a mistake has been made in the code, send log to discord."), serverPlayer.getUUID());
             }
         }
         return ActionResult.success(player.getItemInHand(hand));
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
-        tooltip.add(new StringTextComponent(TextFormatting.GRAY + "If you really want to use this item"));
-        tooltip.add(new StringTextComponent(TextFormatting.RED + "Then remove your equipment"));
+    public void appendHoverText(ItemStack stack, @Nullable World world, List<Component> tooltip, TooltipFlag flag) {
+        tooltip.add(new TextComponent(ChatFormatting.GRAY + "If you really want to use this item"));
+        tooltip.add(new TextComponent(ChatFormatting.RED + "Then remove your equipment"));
         super.appendHoverText(stack, world, tooltip, flag);
     }
 }

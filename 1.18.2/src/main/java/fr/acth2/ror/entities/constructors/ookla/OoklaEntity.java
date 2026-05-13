@@ -20,9 +20,9 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class OoklaEntity extends MonsterEntity {
+public class OoklaEntity extends Monster {
 
-    protected OoklaEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
+    protected OoklaEntity(EntityType<? extends Monster> type, World worldIn) {
         super(type, worldIn);
     }
 
@@ -35,10 +35,10 @@ public class OoklaEntity extends MonsterEntity {
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new SwimGoal(this));
 
-        this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 8.0F));
+        this.goalSelector.addGoal(6, new LookAtGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(6, new LookRandomlyGoal(this));
 
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
 
     }
@@ -108,8 +108,8 @@ public class OoklaEntity extends MonsterEntity {
         super.setGlowing(p_184195_1_);
     }
 
-    public static AttributeModifierMap.MutableAttribute createAttributes() {
-        return MobEntity.createMobAttributes()
+    public static AttributeSupplier.MutableAttribute createAttributes() {
+        return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 1.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.00D)
                 .add(Attributes.ATTACK_DAMAGE, 0.0D);
@@ -118,8 +118,8 @@ public class OoklaEntity extends MonsterEntity {
     private static final AtomicBoolean isHelpingOnce = new AtomicBoolean(true);
 
     public boolean isEntitiesWithin10Blocks() {
-        List<MonsterEntity> nearbyMonsters = this.level.getEntitiesOfClass(
-                MonsterEntity.class,
+        List<Monster> nearbyMonsters = this.level.getEntitiesOfClass(
+                Monster.class,
                 this.getBoundingBox().inflate(10.0D),
                 entity -> entity != this
         );
@@ -128,13 +128,13 @@ public class OoklaEntity extends MonsterEntity {
         if (foundEntity) {
             if (isHelpingOnce.getAndSet(false)) {
                 nearbyMonsters.forEach(entity ->
-                        entity.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 75, 1))
+                        entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 75, 1))
                 );
             }
         } else {
             isHelpingOnce.set(true);
             nearbyMonsters.forEach(entity ->
-                    entity.removeEffect(Effects.MOVEMENT_SPEED)
+                    entity.removeEffect(MobEffects.MOVEMENT_SPEED)
             );
         }
 

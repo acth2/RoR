@@ -40,7 +40,7 @@ public class AquamarinEntity extends WaterMonsterEntity {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new RandomSwimmingGoal(this, 1.5D, 10));
-        this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0F));
+        this.goalSelector.addGoal(2, new LookAtGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
 
         this.addBehaviourGoals();
@@ -48,7 +48,7 @@ public class AquamarinEntity extends WaterMonsterEntity {
 
     protected void addBehaviourGoals() {
         this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1.5D, true));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
     @Override
@@ -129,8 +129,8 @@ public class AquamarinEntity extends WaterMonsterEntity {
         super.setGlowing(p_184195_1_);
     }
 
-    public static AttributeModifierMap.MutableAttribute createAttributes() {
-        return MobEntity.createMobAttributes()
+    public static AttributeSupplier.MutableAttribute createAttributes() {
+        return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 20.0D)
                 .add(Attributes.MOVEMENT_SPEED, 1.5D)
                 .add(Attributes.ATTACK_DAMAGE, 6.0D);

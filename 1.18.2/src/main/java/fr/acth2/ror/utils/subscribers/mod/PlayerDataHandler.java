@@ -32,8 +32,8 @@ public class PlayerDataHandler {
 
     @SubscribeEvent
     public static void onPlayerDeath(LivingDeathEvent event) {
-        if (event.getEntity() instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) event.getEntity();
+        if (event.getEntity() instanceof Player) {
+            Player player = (Player) event.getEntity();
             PlayerStats playerStats = PlayerStats.get(player);
 
             coins = player.level.isClientSide ?
@@ -49,7 +49,7 @@ public class PlayerDataHandler {
 
     @SubscribeEvent
     public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
-        PlayerEntity player = event.getPlayer();
+        Player player = event.getPlayer();
         PlayerStats playerStats = PlayerStats.get(player);
 
         if (player.level.isClientSide) {
@@ -69,7 +69,7 @@ public class PlayerDataHandler {
         }
     }
 
-    private static void reapplyAttributes(PlayerEntity player, PlayerStats playerStats) {
+    private static void reapplyAttributes(Player player, PlayerStats playerStats) {
         ModifiableAttributeInstance maxHealthAttribute = player.getAttribute(Attributes.MAX_HEALTH);
         if (maxHealthAttribute != null) {
             maxHealthAttribute.removeModifier(References.HEALTH_MODIFIER_UUID);

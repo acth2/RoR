@@ -15,7 +15,7 @@ public class GithubButton extends Button {
     private static final String GITHUB_URL = "https://github.com/acth2";
 
     public GithubButton(int x, int y, int width, int height) {
-        super(x, y, width, height, new StringTextComponent(""), button -> {
+        super(x, y, width, height, new TextComponent(""), button -> {
             try {
                 Util.getPlatform().openUri(new URI(GITHUB_URL));
             } catch (Exception e) {

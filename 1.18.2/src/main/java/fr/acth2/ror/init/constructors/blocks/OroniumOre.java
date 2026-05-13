@@ -8,7 +8,7 @@ import net.minecraft.world.level.material.MaterialColor;
 
 public class OroniumOre extends Block {
     public OroniumOre() {
-        super((((AbstractBlock.Properties) Props.stone()))
+        super((((BlockBehaviour.Properties) Props.stone()))
                 .strength(3.25F, 1.25F)
                 .harvestLevel(4)
                 .harvestTool(net.minecraftforge.common.ToolAction.PICKAXE));

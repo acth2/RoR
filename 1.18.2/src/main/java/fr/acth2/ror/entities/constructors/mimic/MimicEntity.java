@@ -18,7 +18,7 @@ import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 
-public class MimicEntity extends MonsterEntity {
+public class MimicEntity extends Monster {
 
     protected int noTargetTicks = 0;
     private static final int MAX_NO_TARGET_TICKS = 100;
@@ -26,7 +26,7 @@ public class MimicEntity extends MonsterEntity {
     private boolean isAwake = false;
     private boolean firstHit = false;
 
-    protected MimicEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
+    protected MimicEntity(EntityType<? extends Monster> type, World worldIn) {
         super(type, worldIn);
     }
 
@@ -41,8 +41,8 @@ public class MimicEntity extends MonsterEntity {
 
             this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.0D, true));
             this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
-            this.goalSelector.addGoal(3, new LookAtGoal(this, PlayerEntity.class, 8.0F));
-            this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+            this.goalSelector.addGoal(3, new LookAtGoal(this, Player.class, 8.0F));
+            this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
 
             this.goalSelector.enableControlFlag(Goal.Flag.MOVE);
             this.goalSelector.enableControlFlag(Goal.Flag.LOOK);
@@ -130,8 +130,8 @@ public class MimicEntity extends MonsterEntity {
         super.setGlowing(p_184195_1_);
     }
 
-    public static AttributeModifierMap.MutableAttribute createAttributes() {
-        return MobEntity.createMobAttributes()
+    public static AttributeSupplier.MutableAttribute createAttributes() {
+        return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 50.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D)
                 .add(Attributes.ATTACK_DAMAGE, 15.0D);

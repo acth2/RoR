@@ -78,7 +78,7 @@ public class ModItems {
             () -> new Item(new Item.Properties().food(new Food.Builder()
                     .nutrition(4)
                     .saturationMod(0.3F)
-                    .effect(() -> new EffectInstance(Effects.DAMAGE_BOOST, 900, 0), 1.0F)
+                    .effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 900, 0), 1.0F)
                     .build()))
     );
 

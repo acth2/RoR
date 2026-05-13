@@ -48,14 +48,14 @@ public class SkyriaMonsterSpawnerSubscriber {
         }
         tickCounter = 0;
 
-        for (PlayerEntity player : serverWorld.players()) {
+        for (Player player : serverWorld.players()) {
             for (int i = 0; i < ATTEMPTS_PER_PLAYER; i++) {
                 trySpawnEntityNearPlayer(serverWorld, player);
             }
         }
     }
 
-    private static void trySpawnEntityNearPlayer(ServerWorld world, PlayerEntity player) {
+    private static void trySpawnEntityNearPlayer(ServerWorld world, Player player) {
         Random random = world.random;
 
         if (random.nextDouble() > SPAWN_CHANCE) {

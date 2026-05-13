@@ -15,7 +15,7 @@ public class DiscordButton extends Button {
     private static final String DISCORD_URL = "https://discord.gg/PrQUgcmT6B";
 
     public DiscordButton(int x, int y, int width, int height) {
-        super(x, y, width, height, new StringTextComponent(""), button -> {
+        super(x, y, width, height, new TextComponent(""), button -> {
             try {
                 Util.getPlatform().openUri(new URI(DISCORD_URL));
             } catch (Exception e) {

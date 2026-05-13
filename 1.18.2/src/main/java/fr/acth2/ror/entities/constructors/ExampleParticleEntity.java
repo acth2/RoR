@@ -19,9 +19,9 @@ import net.minecraft.server.level.ServerLevel;
 import javax.annotation.Nullable;
 import java.awt.Color;
 
-public class ExampleParticleEntity extends MonsterEntity {
+public class ExampleParticleEntity extends Monster {
 
-    protected ExampleParticleEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
+    protected ExampleParticleEntity(EntityType<? extends Monster> type, World worldIn) {
         super(type, worldIn);
     }
 
@@ -106,8 +106,8 @@ public class ExampleParticleEntity extends MonsterEntity {
         super.setGlowing(p_184195_1_);
     }
 
-    public static AttributeModifierMap.MutableAttribute createAttributes() {
-        return MobEntity.createMobAttributes()
+    public static AttributeSupplier.MutableAttribute createAttributes() {
+        return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 10.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.15D)
                 .add(Attributes.ATTACK_DAMAGE, 0.0D);

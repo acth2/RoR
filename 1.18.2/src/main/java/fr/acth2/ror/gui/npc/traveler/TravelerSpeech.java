@@ -15,13 +15,13 @@ import net.minecraft.world.level.Level;
 
 public class TravelerSpeech extends Screen {
 
-    private PlayerEntity player;
+    private Player player;
     private boolean showAfterShopDialogue = false;
     private String npcText;
     private String[] playerResponses;
 
-    public TravelerSpeech(PlayerEntity player) {
-        super(new StringTextComponent("Ruins of Realms - Traveler"));
+    public TravelerSpeech(Player player) {
+        super(new TextComponent("Ruins of Realms - Traveler"));
         this.player = player;
         this.npcText = "Hello, traveler. Searching for items?";
         this.playerResponses = new String[]{"Open shop", "No"};
@@ -39,7 +39,7 @@ public class TravelerSpeech extends Screen {
             int yPos = yStart + (i * (buttonHeight + buttonSpacing));
             int index = i;
             this.addButton(new Button(this.width / 2 - 75, yPos, 150, buttonHeight,
-                    new StringTextComponent(playerResponses[i]),
+                    new TextComponent(playerResponses[i]),
                     button -> selectResponse(index)
             ));
         }

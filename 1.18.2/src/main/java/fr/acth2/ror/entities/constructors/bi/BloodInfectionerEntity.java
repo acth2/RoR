@@ -21,9 +21,9 @@ import net.minecraft.world.level.Level;
 import javax.annotation.Nullable;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class BloodInfectionerEntity extends MonsterEntity {
+public class BloodInfectionerEntity extends Monster {
 
-    public BloodInfectionerEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
+    public BloodInfectionerEntity(EntityType<? extends Monster> type, World worldIn) {
         super(type, worldIn);
     }
 
@@ -34,7 +34,7 @@ public class BloodInfectionerEntity extends MonsterEntity {
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, false));
 
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
         this.addBehaviourGoals();
     }
@@ -92,13 +92,13 @@ public class BloodInfectionerEntity extends MonsterEntity {
     public boolean doHurtTarget(Entity target) {
         boolean flag = super.doHurtTarget(target);
         if (flag && target instanceof LivingEntity) {
-            ((LivingEntity) target).addEffect(new EffectInstance(Effects.WEAKNESS, 75, 3));
+            ((LivingEntity) target).addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 75, 3));
         }
         return flag;
     }
 
-    public static AttributeModifierMap.MutableAttribute createAttributes() {
-        return MobEntity.createMobAttributes()
+    public static AttributeSupplier.MutableAttribute createAttributes() {
+        return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 35.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.3)
                 .add(Attributes.ATTACK_DAMAGE, 7.0D)

@@ -42,13 +42,13 @@ public class CoinsManager {
         return clientCoins;
     }
 
-    public static void saveCoinsOnDeath(PlayerEntity player, int coins) {
+    public static void saveCoinsOnDeath(Player player, int coins) {
         CompoundNBT persistentData = player.getPersistentData();
         persistentData.putInt("PlayerCoins", coins);
         System.out.println("Saved coins on death: " + coins);
     }
 
-    public static int loadCoinsOnRespawn(PlayerEntity player) {
+    public static int loadCoinsOnRespawn(Player player) {
         CompoundNBT persistentData = player.getPersistentData();
         if (persistentData.contains("PlayerCoins")) {
             int coins = persistentData.getInt("PlayerCoins");

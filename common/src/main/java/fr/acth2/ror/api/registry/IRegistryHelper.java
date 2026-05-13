@@ -15,7 +15,7 @@ public interface IRegistryHelper {
 
     DeferredRegister<EntityType<?>> makeEntityRegistry(String modId);
 
-    DeferredRegister<TileEntityType<?>> makeBlockEntityRegistry(String modId);
+    DeferredRegister<BlockEntityType<?>> makeBlockEntityRegistry(String modId);
 
     <T extends IForgeRegistryEntry<T>> DeferredRegister<T> makeRegistry(String modId, Class<T> type);
     <T extends IForgeRegistryEntry<T>> DeferredRegister<T> makeRegistry(String modId, String registryName, Class<T> type);

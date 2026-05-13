@@ -33,7 +33,7 @@ public class EntityTraveler extends TravelerEntity implements IAnimatable {
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         if (isToTrack() != null) {
-            PlayerEntity player = isToTrack();
+            Player player = isToTrack();
 
             double entityX = this.getX();
             double playerX = player.getX();

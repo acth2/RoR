@@ -23,15 +23,15 @@ public class ModBlocks {
             Services.REGISTRY.makeItemRegistry(References.MODID);
 
     public static final RegistryObject<Block> EXAMPLE_BLOCK = BLOCKS.register("example_block",
-            () -> new Block((AbstractBlock.Properties) Props.wood())
+            () -> new Block((BlockBehaviour.Properties) Props.wood())
     );
 
     public static final RegistryObject<Block> SKYRIA_BRICK = BLOCKS.register("skyria_brick",
-            () -> new Block(((AbstractBlock.Properties) Props.stone()).strength(6, 4.5F))
+            () -> new Block(((BlockBehaviour.Properties) Props.stone()).strength(6, 4.5F))
     );
 
     public static final RegistryObject<Block> POLISHED_SKYRIA_BRICK = BLOCKS.register("polished_skyria_brick",
-            () -> new Block(((AbstractBlock.Properties) Props.stone()).strength(6, 4.5F))
+            () -> new Block(((BlockBehaviour.Properties) Props.stone()).strength(6, 4.5F))
     );
 
     public static final RegistryObject<Block> RESTORATION_STATION = BLOCKS.register("restoration_station",
@@ -42,7 +42,7 @@ public class ModBlocks {
             () -> new VesselPlacer());
 
     public static final RegistryObject<Block> VESSEL_PLACER_SKIN0 = BLOCKS.register("vessel_placer_skin0",
-            () -> new VesselPlacerSkinBlock((((AbstractBlock.Properties) Props.stone()))
+            () -> new VesselPlacerSkinBlock((((BlockBehaviour.Properties) Props.stone()))
                     .strength(1.5f, 6.0f)
                     .sound(SoundType.STONE)
                     .harvestLevel(1)
@@ -51,7 +51,7 @@ public class ModBlocks {
 
 
     public static final RegistryObject<Block> REALM_REMNANT = BLOCKS.register("realm_remnant",
-            () -> new Block((((AbstractBlock.Properties) Props.stone()))
+            () -> new Block((((BlockBehaviour.Properties) Props.stone()))
                     .strength(2.0f, 8.0f)
                     .sound(SoundType.STONE)
                     .harvestLevel(1)
@@ -69,45 +69,45 @@ public class ModBlocks {
     public static final RegistryObject<Block> CLOUPIS_ORE = BLOCKS.register("cloupis_ore", CloupisOre::new);
 
     public static final RegistryObject<Block> ABYSSAL_STONE = BLOCKS.register("abyssal_stone",
-            () -> new Block((((AbstractBlock.Properties) Props.stone()).strength(1.5F, 5F)))
+            () -> new Block((((BlockBehaviour.Properties) Props.stone()).strength(1.5F, 5F)))
     );
 
     public static final RegistryObject<Block> ABYSSAL_ANDESITE = BLOCKS.register("abyssal_andesite",
-            () -> new Block((((AbstractBlock.Properties) Props.stone()).strength(1.5F, 5F)))
+            () -> new Block((((BlockBehaviour.Properties) Props.stone()).strength(1.5F, 5F)))
     );
 
     public static final RegistryObject<Block> ABYSSAL_BRICK = BLOCKS.register("abyssal_brick",
-            () -> new Block((((AbstractBlock.Properties) Props.stone()).strength(1.7F, 5.5F)))
+            () -> new Block((((BlockBehaviour.Properties) Props.stone()).strength(1.7F, 5.5F)))
     );
 
     public static final RegistryObject<Block> GEFRANIUM_BLOCK = BLOCKS.register("gefranium_block",
-            () -> new Block((((AbstractBlock.Properties) Props.metal()).strength(0.7f, 4.5f)))
+            () -> new Block((((BlockBehaviour.Properties) Props.metal()).strength(0.7f, 4.5f)))
 
     );
 
     public static final RegistryObject<Block> CLOUPIS_BLOCK = BLOCKS.register("cloupis_block",
-            () -> new Block((((AbstractBlock.Properties) Props.metal()).strength(0.7f, 4.5f)))
+            () -> new Block((((BlockBehaviour.Properties) Props.metal()).strength(0.7f, 4.5f)))
 
     );
 
     public static final RegistryObject<Block> RADIUM_BLOCK = BLOCKS.register("radium_block",
-            () -> new Block((((AbstractBlock.Properties) Props.metal()).strength(0.7f, 4.5f))
+            () -> new Block((((BlockBehaviour.Properties) Props.metal()).strength(0.7f, 4.5f))
                     .lightLevel(state -> 5))
 
     );
 
     public static final RegistryObject<Block> ORONIUM_BLOCK = BLOCKS.register("oronium_block",
-            () -> new Block((((AbstractBlock.Properties) Props.metal()).strength(0.7f, 4.5f)))
+            () -> new Block((((BlockBehaviour.Properties) Props.metal()).strength(0.7f, 4.5f)))
 
     );
 
     public static final RegistryObject<Block> INFRANIUM_BLOCK = BLOCKS.register("infranium_block",
-            () -> new Block((((AbstractBlock.Properties) Props.metal()).strength(0.7f, 4.5f)))
+            () -> new Block((((BlockBehaviour.Properties) Props.metal()).strength(0.7f, 4.5f)))
 
     );
 
     public static final RegistryObject<Block> SKYRIA_PORTAL = BLOCKS.register("skyria_portal",
-            () -> new SkyriaPortalBlock((((AbstractBlock.Properties) Props.glass()))
+            () -> new SkyriaPortalBlock((((BlockBehaviour.Properties) Props.glass()))
                     .noCollission()
                     .randomTicks()
                     .strength(-1.0F)
@@ -115,7 +115,7 @@ public class ModBlocks {
                     .lightLevel(state -> 11)));
 
     public static final RegistryObject<Block> OVERWORLD_PORTAL = BLOCKS.register("overworld_portal",
-            () -> new OverworldPortalBlock((((AbstractBlock.Properties) Props.glass()))
+            () -> new OverworldPortalBlock((((BlockBehaviour.Properties) Props.glass()))
                     .noCollission()
                     .randomTicks()
                     .strength(-1.0F)

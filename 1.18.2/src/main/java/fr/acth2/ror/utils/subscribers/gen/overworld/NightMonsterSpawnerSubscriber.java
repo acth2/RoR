@@ -46,14 +46,14 @@ public class NightMonsterSpawnerSubscriber {
         }
         tickCounter = 0;
 
-        for (PlayerEntity player : serverWorld.players()) {
+        for (Player player : serverWorld.players()) {
             for (int i = 0; i < ATTEMPTS_PER_PLAYER; i++) {
                 trySpawnSurfaceMonsterNearPlayer(serverWorld, player);
             }
         }
     }
 
-    private static void trySpawnSurfaceMonsterNearPlayer(ServerWorld world, PlayerEntity player) {
+    private static void trySpawnSurfaceMonsterNearPlayer(ServerWorld world, Player player) {
         Random random = world.random;
         if (random.nextDouble() > SPAWN_CHANCE) {
             return;

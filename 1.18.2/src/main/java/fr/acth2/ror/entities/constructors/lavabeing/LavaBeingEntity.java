@@ -25,11 +25,11 @@ import net.minecraft.world.level.Level;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class LavaBeingEntity extends MonsterEntity {
+public class LavaBeingEntity extends Monster {
 
     private int fireballCooldown = 0;
 
-    protected LavaBeingEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
+    protected LavaBeingEntity(EntityType<? extends Monster> type, World worldIn) {
         super(type, worldIn);
         this.noPhysics = true;
     }
@@ -40,7 +40,7 @@ public class LavaBeingEntity extends MonsterEntity {
     }
 
     protected void registerGoals() {
-        this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 8.0F));
+        this.goalSelector.addGoal(8, new LookAtGoal(this, Player.class, 8.0F));
         this.addBehaviourGoals();
     }
 
@@ -54,8 +54,8 @@ public class LavaBeingEntity extends MonsterEntity {
     }
 
     protected void addBehaviourGoals() {
-        this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0F));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+        this.goalSelector.addGoal(2, new LookAtGoal(this, Player.class, 8.0F));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolemEntity.class, true));
     }
 
@@ -106,7 +106,7 @@ public class LavaBeingEntity extends MonsterEntity {
     @Override
     public void baseTick() {
         clearFire();
-        this.addEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 2, 0, false, false));
+        this.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 2, 0, false, false));
         super.baseTick();
     }
 
@@ -141,8 +141,8 @@ public class LavaBeingEntity extends MonsterEntity {
         this.level.addFreshEntity(fireball);
     }
 
-    public static AttributeModifierMap.MutableAttribute createAttributes() {
-        return MobEntity.createMobAttributes()
+    public static AttributeSupplier.MutableAttribute createAttributes() {
+        return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 10.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.00D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, Double.MAX_VALUE)

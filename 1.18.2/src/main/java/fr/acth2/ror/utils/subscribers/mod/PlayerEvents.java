@@ -67,7 +67,7 @@ public class PlayerEvents {
 
     @SubscribeEvent
     public static void onAttachCapabilities(AttachCapabilitiesEvent<Entity> event) {
-        if (event.getObject() instanceof PlayerEntity) {
+        if (event.getObject() instanceof Player) {
             System.out.println("Attaching PlayerStats capability to player");
             event.addCapability(
                     new ResourceLocation(References.MODID, "player_stats"),
@@ -110,8 +110,8 @@ public class PlayerEvents {
 
     @SubscribeEvent
     public static void radiumManager(LivingHurtEvent event) {
-        if (event.getSource().getEntity() instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) event.getSource().getEntity();
+        if (event.getSource().getEntity() instanceof Player) {
+            Player player = (Player) event.getSource().getEntity();
             ItemStack heldItem = player.getMainHandItem();
             if (heldItem.getItem() instanceof RadiumSword) {
                 PlayerStats stats = PlayerStats.get(player);
@@ -131,12 +131,12 @@ public class PlayerEvents {
 
             LivingEntity target = event.getEntityLiving();
             if (isWearingFullRadiumSet(player)) {
-                target.addEffect(new EffectInstance(Effects.WITHER, 100, 1));
+                target.addEffect(new MobEffectInstance(MobEffects.WITHER, 100, 1));
             }
         }
     }
 
-    private static boolean isWearingFullRadiumSet(PlayerEntity player) {
+    private static boolean isWearingFullRadiumSet(Player player) {
         for (EquipmentSlotType slot : new EquipmentSlotType[]{
                 EquipmentSlotType.HEAD,
                 EquipmentSlotType.CHEST,
@@ -153,8 +153,8 @@ public class PlayerEvents {
 
     @SubscribeEvent
     public static void playerDexterityConsequence(LivingHurtEvent event) {
-        if (event.getEntity() instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) event.getEntity();
+        if (event.getEntity() instanceof Player) {
+            Player player = (Player) event.getEntity();
             PlayerStats playerStats = PlayerStats.get(player);
 
             int randomGoal = (int) (Math.random() * 170);
@@ -167,7 +167,7 @@ public class PlayerEvents {
                         !player.isDeadOrDying()) {
 
                     event.setCanceled(true);
-                    player.sendMessage(ITextComponent.nullToEmpty("You dodged the attack thanks to your dexterity"), player.getUUID());
+                    player.sendSystemMessage(Component.nullToEmpty("You dodged the attack thanks to your dexterity"), player.getUUID());
 
                     if (player instanceof ServerPlayerEntity) {
                         ModNetworkHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) player), new DodgePacket());
@@ -180,7 +180,7 @@ public class PlayerEvents {
 
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        PlayerEntity player = event.player;
+        Player player = event.player;
         if (event.phase == TickEvent.Phase.END && event.player != null && !event.player.isDeadOrDying()) {
             PlayerStats playerStats = PlayerStats.get(player);
 
@@ -196,7 +196,7 @@ public class PlayerEvents {
         }
 
         if (References.brokenMoonWarning && References.brokenMoonPicked == 0 && atomicBrokenMoonWarning.getAndSet(false)) {
-            broadcastMessage(new StringTextComponent(TextFormatting.GOLD + "BROKEN MOON ENTRY MESSAGE"));
+            broadcastMessage(new TextComponent(ChatFormatting.GOLD + "BROKEN MOON ENTRY MESSAGE"));
         } else if (!References.brokenMoonWarning) {
             atomicBrokenMoonWarning.set(true);
         }
@@ -208,13 +208,13 @@ public class PlayerEvents {
         }
 
         if (References.event1Warning && References.event1Picked == 0 && atomicEvent1Warning.getAndSet(false)) {
-            broadcastMessage(new StringTextComponent(TextFormatting.DARK_RED + "EVENT1 ENTRY MESSAGE"));
+            broadcastMessage(new TextComponent(ChatFormatting.DARK_RED + "EVENT1 ENTRY MESSAGE"));
         } else if (!References.event1Warning) {
             atomicEvent1Warning.set(true);
         }
     }
 
-    private static void broadcastMessage(ITextComponent message) {
+    private static void broadcastMessage(Component message) {
         MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
         if (server != null) {
             server.getPlayerList().broadcastMessage(message, ChatType.SYSTEM, Util.NIL_UUID);
@@ -232,7 +232,7 @@ public class PlayerEvents {
     public static void onClientTick(TickEvent.ClientTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
             Minecraft minecraft = Minecraft.getInstance();
-            PlayerEntity player = minecraft.player;
+            Player player = minecraft.player;
 
             if (player != null) {
                 if (minecraft.screen instanceof MainMenuGui) {
@@ -250,7 +250,7 @@ public class PlayerEvents {
         }
     }
 
-    private static void saveDexterityModifier(PlayerEntity player) {
+    private static void saveDexterityModifier(Player player) {
         PlayerStats stats = PlayerStats.get(player);
         if (stats != null) {
             ModifiableAttributeInstance maxDexAttribute = player.getAttribute(Attributes.MOVEMENT_SPEED);
@@ -263,7 +263,7 @@ public class PlayerEvents {
         }
     }
 
-    private static void saveStrengthModifier(PlayerEntity player) {
+    private static void saveStrengthModifier(Player player) {
         PlayerStats stats = PlayerStats.get(player);
         if (stats != null) {
             ModifiableAttributeInstance maxStrAttribute = player.getAttribute(Attributes.ATTACK_DAMAGE);
@@ -276,7 +276,7 @@ public class PlayerEvents {
         }
     }
 
-    private static void loadDexterityModifier(PlayerEntity player) {
+    private static void loadDexterityModifier(Player player) {
         PlayerStats stats = PlayerStats.get(player);
         if (stats != null) {
             ModifiableAttributeInstance maxDexAttribute = player.getAttribute(Attributes.MOVEMENT_SPEED);
@@ -292,7 +292,7 @@ public class PlayerEvents {
         }
     }
 
-    private static void loadStrengthModifier(PlayerEntity player) {
+    private static void loadStrengthModifier(Player player) {
         PlayerStats stats = PlayerStats.get(player);
         if (stats != null) {
             ModifiableAttributeInstance maxStrAttribute = player.getAttribute(Attributes.ATTACK_DAMAGE);

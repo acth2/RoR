@@ -43,7 +43,7 @@ public class SyncPlayerStatsPacket {
     public static void handle(SyncPlayerStatsPacket packet, Supplier<NetworkEvent.Context> context) {
         context.get().enqueueWork(() -> {
             Minecraft minecraft = Minecraft.getInstance();
-            PlayerEntity player = minecraft.player;
+            Player player = minecraft.player;
             if (player != null) {
                 PlayerStats stats = PlayerStats.get(player);
                 stats.setLevel(packet.level);

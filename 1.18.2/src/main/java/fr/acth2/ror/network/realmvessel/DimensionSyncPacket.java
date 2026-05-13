@@ -40,8 +40,8 @@ public class DimensionSyncPacket {
                     stack.setTag(nbt);
 
                     String dimensionName = getDimensionName(msg.dimensionId);
-                    TextFormatting color = dimensionName.equals("Skyria") ? TextFormatting.AQUA : TextFormatting.GREEN;
-                    stack.setHoverName(new StringTextComponent("Realm Vessel: " + dimensionName).withStyle(color));
+                    ChatFormatting color = dimensionName.equals("Skyria") ? ChatFormatting.AQUA : ChatFormatting.GREEN;
+                    stack.setHoverName(new TextComponent("Realm Vessel: " + dimensionName).withStyle(color));
 
                     System.out.println("Server updated Realm Vessel to: " + dimensionName);
                 }

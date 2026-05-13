@@ -33,10 +33,10 @@ public class RustedCoreEntity extends CreeperEntity implements IChargeableMob {
         this.goalSelector.addGoal(1, new SwimGoal(this));
 
         this.goalSelector.addGoal(2, new CreeperSwellGoal(this));
-        this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 8.0F));
+        this.goalSelector.addGoal(6, new LookAtGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(6, new LookRandomlyGoal(this));
 
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolemEntity.class, true));
         this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
     }
@@ -81,8 +81,8 @@ public class RustedCoreEntity extends CreeperEntity implements IChargeableMob {
         super.setGlowing(p_184195_1_);
     }
 
-    public static AttributeModifierMap.MutableAttribute createAttributes() {
-        return MobEntity.createMobAttributes()
+    public static AttributeSupplier.MutableAttribute createAttributes() {
+        return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 5.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.00D)
                 .add(Attributes.ATTACK_DAMAGE, 6.0D);

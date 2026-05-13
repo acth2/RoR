@@ -110,7 +110,7 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
         }
     }
 
-    public void levelUp(String stat, PlayerEntity player) {
+    public void levelUp(String stat, Player player) {
         PlayerStats stats = PlayerStats.get(player);
         int coins = CoinsManager.getCoins((ServerPlayerEntity) player);
 
@@ -214,7 +214,7 @@ public class PlayerStats implements INBTSerializable<CompoundNBT> {
         this.strength = strength;
     }
 
-    public static PlayerStats get(PlayerEntity player) {
+    public static PlayerStats get(Player player) {
         LazyOptional<PlayerStats> stats = player.getCapability(PlayerStatsCapability.PLAYER_STATS_CAPABILITY);
         if (!stats.isPresent()) {
             System.err.println("PlayerStats capability not found for player: " + player.getName().getString());

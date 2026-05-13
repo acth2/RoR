@@ -18,7 +18,7 @@ public class LogoButton extends Button {
     private static int clickCount = 0;
 
     public LogoButton(int x, int y, int width, int height) {
-        super(x, y, width, height, new StringTextComponent(""), button -> {
+        super(x, y, width, height, new TextComponent(""), button -> {
             clickCount++;
 
             switch (clickCount) {

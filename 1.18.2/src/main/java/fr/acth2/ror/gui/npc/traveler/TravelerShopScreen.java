@@ -21,12 +21,12 @@ import java.util.List;
 
 public class TravelerShopScreen extends Screen {
 
-    private final PlayerEntity player;
+    private final Player player;
     private final List<ShopItem> shopItems = new ArrayList<>();
     private final int itemSize = 32;
 
-    public TravelerShopScreen(PlayerEntity player) {
-        super(new StringTextComponent("Shop"));
+    public TravelerShopScreen(Player player) {
+        super(new TextComponent("Shop"));
         this.player = player;
 
         shopItems.add(new ShopItem(new ItemStack(ModItems.REALMS_VESSEL.get()), 2500));

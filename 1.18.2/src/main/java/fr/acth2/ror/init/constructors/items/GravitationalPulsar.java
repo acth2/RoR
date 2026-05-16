@@ -41,8 +41,8 @@ public class GravitationalPulsar extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> use(World world, Player player, Hand hand) {
-        ItemStack itemStack = player.getItemInHand(hand);
+    public ActionResult<ItemStack> use(World world, Player player, InteractionHand InteractionHand) {
+        ItemStack itemStack = player.getItemInHand(InteractionHand);
 
         if (!level.isClientSide) {
             AxisAlignedBB area = new AxisAlignedBB(player.blockPosition()).inflate(32);

@@ -13,7 +13,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.Hand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
@@ -89,7 +89,7 @@ public class TravelerEntity extends MonsterEntity {
     }
 
     @Override
-    public ActionResultType interactAt(PlayerEntity player, Vector3d p_184199_2_, Hand hand) {
+    public ActionResultType interactAt(PlayerEntity player, Vector3d p_184199_2_, InteractionHand InteractionHand) {
         if (!this.level.isClientSide) {
             return ActionResultType.SUCCESS;
         }

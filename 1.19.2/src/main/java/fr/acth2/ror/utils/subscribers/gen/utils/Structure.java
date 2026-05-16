@@ -6,7 +6,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
-import net.minecraft.world.gen.feature.template.TemplateManager;
+import net.minecraft.data.structures.StructureUpdater;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;

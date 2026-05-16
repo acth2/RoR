@@ -4,7 +4,7 @@ import fr.acth2.ror.init.ModBlocks;
 import fr.acth2.ror.init.ModDimensions;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.block.NetherPortalBlock;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;

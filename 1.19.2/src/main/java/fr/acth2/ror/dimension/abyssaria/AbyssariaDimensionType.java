@@ -1,7 +1,7 @@
 package fr.acth2.ror.dimension.abyssaria;
 
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.DimensionType;
+import net.minecraft.world.level.dimension.DimensionType;
 
 import java.util.OptionalLong;
 

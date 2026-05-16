@@ -50,7 +50,7 @@ public class AvariceSword extends Item {
         }
 
         stack.hurtAndBreak(1, attacker, (entity) -> {
-            entity.broadcastBreakEvent(Hand.MAIN_HAND);
+            entity.broadcastBreakEvent(InteractionHand.MAIN_HAND);
         });
 
         return true;

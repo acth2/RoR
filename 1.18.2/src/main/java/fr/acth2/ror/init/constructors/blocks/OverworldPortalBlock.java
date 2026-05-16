@@ -25,7 +25,7 @@ public class OverworldPortalBlock extends NetherPortalBlock {
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter reader, BlockPos pos, ISelectionContext context) {
         return SHAPE;
     }
 

@@ -14,7 +14,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.IWorld;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.Level;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -74,7 +74,7 @@ public class EntityMimic extends MimicEntity implements IAnimatable {
     }
 
     @Override
-    public InteractionResult interactAt(Player player, Vector3d vec, Hand hand) {
+    public InteractionResult interactAt(Player player, Vector3d vec, InteractionHand InteractionHand) {
         if (!this.isAwake()) {
             this.wasRightClicked = true;
             this.activate();
@@ -84,7 +84,7 @@ public class EntityMimic extends MimicEntity implements IAnimatable {
 
             return InteractionResult.SUCCESS;
         }
-        return super.interactAt(player, vec, hand);
+        return super.interactAt(player, vec, InteractionHand);
     }
 
 

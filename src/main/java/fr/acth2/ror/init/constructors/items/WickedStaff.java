@@ -8,7 +8,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -35,8 +35,8 @@ public class WickedStaff extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
-        ItemStack itemStack = player.getItemInHand(hand);
+    public ActionResult<ItemStack> use(World world, PlayerEntity player, InteractionHand InteractionHand) {
+        ItemStack itemStack = player.getItemInHand(InteractionHand);
 
         if (player.getCooldowns().isOnCooldown(this)) {
             return ActionResult.fail(itemStack);

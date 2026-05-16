@@ -34,11 +34,11 @@ public class RealmsVessel extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> use(World world, Player player, Hand hand) {
-        ItemStack itemStack = player.getItemInHand(hand);
+    public ActionResult<ItemStack> use(World world, Player player, InteractionHand InteractionHand) {
+        ItemStack itemStack = player.getItemInHand(InteractionHand);
 
         if (level.isClientSide) {
-            openGui(player, itemStack, hand);
+            openGui(player, itemStack, InteractionHand);
         } else {
             if (checkSkyriaConditions(player) && !hasSkyriaAccess(player)) {
                 grantSkyriaAccess(player);
@@ -63,8 +63,8 @@ public class RealmsVessel extends Item {
 
 
     @OnlyIn(Dist.CLIENT)
-    private void openGui(Player player, ItemStack itemStack, Hand hand) {
-        Minecraft.getInstance().setScreen(new RealmVesselGui(player, itemStack, hand));
+    private void openGui(Player player, ItemStack itemStack, InteractionHand InteractionHand) {
+        Minecraft.getInstance().setScreen(new RealmVesselGui(player, itemStack, InteractionHand));
     }
 
     @Override

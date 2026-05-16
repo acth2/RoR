@@ -6,7 +6,7 @@ import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.util.DamageSource;
-import net.minecraft.world.IWorldReader;
+import net.minecraft.world.level.LevelAccessorReader;
 import net.minecraft.world.World;
 
 public abstract class WaterMonsterEntity extends MonsterEntity {

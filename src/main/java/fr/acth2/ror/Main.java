@@ -16,10 +16,10 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
-import net.minecraft.util.registry.DynamicRegistries;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.util.registry.MutableRegistry;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.DimensionType;
+import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.ServerWorldInfo;
@@ -85,7 +85,7 @@ public class Main implements IMixinConnector {
     public static void onServerRegisteringDimensions(FMLServerStartingEvent event) {
         try {
             MutableRegistry<DimensionType> registry = (MutableRegistry<DimensionType>)
-                    ((DynamicRegistries.Impl) event.getServer().registryAccess())
+                    ((RegistryAccess.Impl) event.getServer().registryAccess())
                             .registryOrThrow(Registry.DIMENSION_TYPE_REGISTRY);
 
             registry.register(

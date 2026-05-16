@@ -43,7 +43,7 @@ public class PowerContainerBlock extends Block {
     }
 
     @Override
-    public void appendHoverText(ItemStack p_190948_1_, @Nullable IBlockReader p_190948_2_, List<Component> tooltip, TooltipFlag p_190948_4_) {
+    public void appendHoverText(ItemStack p_190948_1_, @Nullable BlockGetter p_190948_2_, List<Component> tooltip, TooltipFlag p_190948_4_) {
         tooltip.add(new TextComponent("This block could help in a larger spectrum").withStyle(ChatFormatting.GRAY));
         super.appendHoverText(p_190948_1_, p_190948_2_, tooltip, p_190948_4_);
     }
@@ -54,7 +54,7 @@ public class PowerContainerBlock extends Block {
     }
     @Nullable
     @Override
-    public BlockEntity createTileEntity(BlockState state, IBlockReader world) {
+    public BlockEntity createTileEntity(BlockState state, BlockGetter world) {
         return new PowerContainerTileEntity();
     }
 }

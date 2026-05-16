@@ -10,13 +10,13 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.world.BlockGetter;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -30,9 +30,9 @@ public class RestorationStation  extends Block {
     }
 
     @Override
-    public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+    public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player, InteractionHand InteractionHand, BlockRayTraceResult hit) {
         if (!world.isClientSide) {
-            ItemStack heldStack = player.getItemInHand(hand);
+            ItemStack heldStack = player.getItemInHand(InteractionHand);
             if (!heldStack.isEmpty()) {
                 if (heldStack.getItem() instanceof RustedItem) {
                     if (player.experienceLevel >= 5) {
@@ -62,7 +62,7 @@ public class RestorationStation  extends Block {
     }
 
     @Override
-    public void appendHoverText(ItemStack p_190948_1_, @Nullable IBlockReader p_190948_2_, List<ITextComponent> p_190948_3_, ITooltipFlag p_190948_4_) {
+    public void appendHoverText(ItemStack p_190948_1_, @Nullable BlockGetter p_190948_2_, List<ITextComponent> p_190948_3_, ITooltipFlag p_190948_4_) {
         p_190948_3_.add(new StringTextComponent(TextFormatting.DARK_GREEN + "This station can restore rusted items at cost of XP"));
         super.appendHoverText(p_190948_1_, p_190948_2_, p_190948_3_, p_190948_4_);
     }

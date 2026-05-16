@@ -2,7 +2,7 @@ package fr.acth2.ror.utils.subscribers.gen.overworld.ore;
 
 import fr.acth2.ror.init.ModBlocks;
 import fr.acth2.ror.utils.References;
-import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.OreFeatureConfig;

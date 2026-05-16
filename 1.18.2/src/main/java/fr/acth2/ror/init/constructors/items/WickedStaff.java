@@ -35,8 +35,8 @@ public class WickedStaff extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> use(World world, Player player, Hand hand) {
-        ItemStack itemStack = player.getItemInHand(hand);
+    public ActionResult<ItemStack> use(World world, Player player, InteractionHand InteractionHand) {
+        ItemStack itemStack = player.getItemInHand(InteractionHand);
 
         if (player.getCooldowns().isOnCooldown(this)) {
             return ActionResult.fail(itemStack);

@@ -4,7 +4,7 @@ import fr.acth2.ror.init.constructors.blocks.tile.VesselPlacerTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.world.BlockGetter;
 
 import javax.annotation.Nullable;
 
@@ -21,7 +21,7 @@ public class VesselPlacerSkinBlock extends Block {
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+    public TileEntity createTileEntity(BlockState state, BlockGetter world) {
         return new VesselPlacerTileEntity();
     }
 }

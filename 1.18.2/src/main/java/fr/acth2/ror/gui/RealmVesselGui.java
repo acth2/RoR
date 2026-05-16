@@ -39,13 +39,13 @@ public class RealmVesselGui extends Screen {
     private long errorDisplayTime = 0;
     private static final long ERROR_DISPLAY_DURATION = 2000;
     private float currentImageFadeAlpha = 1.0f;
-    private Hand hand;
+    private InteractionHand InteractionHand;
 
-    public RealmVesselGui(Player player, ItemStack realmVesselItem, Hand hand) {
+    public RealmVesselGui(Player player, ItemStack realmVesselItem, InteractionHand InteractionHand) {
         super(new TextComponent("Realm Vessel"));
         RealmVesselGui.player = player;
         this.realmVesselItem = realmVesselItem;
-        this.hand = hand;
+        this.InteractionHand = InteractionHand;
     }
 
     @Override
@@ -334,7 +334,7 @@ public class RealmVesselGui extends Screen {
     }
 
     private void setSelectedDimension(ResourceLocation dimension) {
-        if (realmVesselItem != null && player != null && hand != null) {
+        if (realmVesselItem != null && player != null && InteractionHand != null) {
             String dimensionName = getDimensionName(dimension.toString());
             ChatFormatting color = dimensionName.equals("Skyria") ? ChatFormatting.AQUA : ChatFormatting.GREEN;
             realmVesselItem.setHoverName(new TextComponent("Realm Vessel: " + dimensionName).withStyle(color));
@@ -350,7 +350,7 @@ public class RealmVesselGui extends Screen {
             realmVesselItem.setTag(nbt);
 
             System.out.println("Client updated Realm Vessel to: " + dimensionName);
-            ModNetworkHandler.INSTANCE.sendToServer(new DimensionSyncPacket(dimension.toString(), hand));
+            ModNetworkHandler.INSTANCE.sendToServer(new DimensionSyncPacket(dimension.toString(), InteractionHand));
 
             this.minecraft.setScreen(null);
         }

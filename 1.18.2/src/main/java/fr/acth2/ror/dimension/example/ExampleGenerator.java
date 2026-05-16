@@ -2,46 +2,46 @@ package fr.acth2.ror.dimension.example;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.block.Blocks;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.registry.DynamicRegistries;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.biome.BiomeManager;
-import net.minecraft.world.biome.provider.BiomeProvider;
-import net.minecraft.world.chunk.IChunk;
-import net.minecraft.world.gen.*;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.biome.BiomeManager;
+import net.minecraft.world.level.biome.BiomeSource;
+import net.minecraft.world.level.chunk.ChunkAccess;
+import net.minecraft.world.level.levelgen.*;
 import fr.acth2.ror.init.ModBlocks;
-import net.minecraft.world.gen.feature.structure.StructureManager;
-import net.minecraft.world.gen.feature.template.TemplateManager;
+import net.minecraft.world.level.StructureManager;
+import net.minecraft.data.structures.StructureUpdater;
 
 public class ExampleGenerator extends ChunkGenerator {
 
-    private BiomeProvider biomeProvider;
+    private BiomeSource BiomeSource;
 
     public static final Codec<ExampleGenerator> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
-                    BiomeProvider.CODEC.fieldOf("biome_source").forGetter(ExampleGenerator::getBiomeProvider),
-                    DimensionSettings.CODEC.fieldOf("settings").forGetter(generator -> () -> generator.settings)
-            ).apply(instance, (biomeProvider, settingsSupplier) ->
-                    new ExampleGenerator(biomeProvider, settingsSupplier.get())
+                    BiomeSource.CODEC.fieldOf("biome_source").forGetter(ExampleGenerator::getBiomeProvider),
+                    NoiseGeneratorSettings.CODEC.fieldOf("settings").forGetter(generator -> () -> generator.settings)
+            ).apply(instance, (BiomeSource, settingsSupplier) ->
+                    new ExampleGenerator(BiomeSource, settingsSupplier.get())
             )
     );
 
-    private final DimensionSettings settings;
+    private final NoiseGeneratorSettings settings;
 
-    public ExampleGenerator(BiomeProvider biomeProvider, DimensionSettings settings) {
-        super(biomeProvider, settings.structureSettings());
-        this.biomeProvider = biomeProvider;
+    public ExampleGenerator(BiomeSource BiomeSource, NoiseGeneratorSettings settings) {
+        super(BiomeSource, settings.structureSettings());
+        this.BiomeSource = BiomeSource;
         this.settings = settings;
     }
 
-    public BiomeProvider getCustomBiomeProvider() {
-        return this.biomeProvider;
+    public BiomeSource getCustomBiomeProvider() {
+        return this.BiomeSource;
     }
 
-    public BiomeProvider getBiomeProvider() {
-        return this.biomeProvider;
+    public BiomeSource getBiomeProvider() {
+        return this.BiomeSource;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class ExampleGenerator extends ChunkGenerator {
     }
 
     @Override
-    public IBlockReader getBaseColumn(int p_230348_1_, int p_230348_2_) {
+    public BlockGetter getBaseColumn(int p_230348_1_, int p_230348_2_) {
         return null;
     }
 
@@ -66,11 +66,11 @@ public class ExampleGenerator extends ChunkGenerator {
 
     @Override
     public ChunkGenerator withSeed(long seed) {
-        return new ExampleGenerator(this.biomeProvider, this.settings);
+        return new ExampleGenerator(this.BiomeSource, this.settings);
     }
 
     @Override
-    public void buildSurfaceAndBedrock(WorldGenRegion p_225551_1_, IChunk p_225551_2_) {
+    public void buildSurface(WorldGenLevel p_225551_1_, IChunk p_225551_2_) {
 
     }
 
@@ -112,17 +112,17 @@ public class ExampleGenerator extends ChunkGenerator {
 
 
     @Override
-    public void applyCarvers(long p_230350_1_, BiomeManager p_230350_3_, IChunk p_230350_4_, GenerationStage.Carving p_230350_5_) {
+    public void applyCarvers(long p_230350_1_, BiomeManager p_230350_3_, IChunk p_230350_4_, GenerationStep.Carving p_230350_5_) {
 
     }
 
     @Override
-    public void applyBiomeDecoration(WorldGenRegion p_230351_1_, StructureManager p_230351_2_) {
+    public void applyBiomeDecoration(WorldGenLevel p_230351_1_, StructureManager p_230351_2_) {
 
     }
 
     @Override
-    public void createStructures(DynamicRegistries p_242707_1_, StructureManager p_242707_2_, IChunk p_242707_3_, TemplateManager p_242707_4_, long p_242707_5_) {
+    public void createStructures(RegistryAccess p_242707_1_, StructureManager p_242707_2_, IChunk p_242707_3_, TemplateManager p_242707_4_, long p_242707_5_) {
 
     }
 

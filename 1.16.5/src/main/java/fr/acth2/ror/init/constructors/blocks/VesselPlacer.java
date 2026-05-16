@@ -6,7 +6,7 @@ import fr.acth2.ror.init.ModItems;
 import fr.acth2.ror.init.constructors.blocks.tile.VesselPlacerTileEntity;
 import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
 import fr.acth2.ror.utils.subscribers.mod.PortalScanner;
-import net.minecraft.block.*;
+import net.minecraft.world.level.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -15,7 +15,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.world.BlockGetter;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 
@@ -44,13 +44,13 @@ public class VesselPlacer extends Block {
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+    public TileEntity createTileEntity(BlockState state, BlockGetter world) {
         return new VesselPlacerTileEntity();
     }
 
     @Override
-    public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-        ItemStack itemStack = player.getItemInHand(hand);
+    public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player, InteractionHand InteractionHand, BlockRayTraceResult hit) {
+        ItemStack itemStack = player.getItemInHand(InteractionHand);
 
         if (itemStack.getItem() == ModItems.REALMS_VESSEL.get()) {
             if (!world.isClientSide) {

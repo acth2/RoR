@@ -125,7 +125,7 @@ public class CopierEntity extends MonsterEntity {
 
     private double findCorrectYPosition(Vector3d position) {
         BlockPos pos = new BlockPos(position.x, position.y, position.z);
-        BlockPos groundPos = this.level.getHeightmapPos(net.minecraft.world.gen.Heightmap.Type.MOTION_BLOCKING, pos);
+        BlockPos groundPos = this.level.getHeightmapPos(net.minecraft.world.level.levelgen.Heightmap.Type.MOTION_BLOCKING, pos);
 
         return groundPos.getY() + 1;
     }

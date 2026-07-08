@@ -79,7 +79,7 @@
  - 36.1.53 Fix entities losing their scoreboard data when they are unloaded (#7826)
  - 36.1.52 [1.16] Allow blocks other than beds or respawn anchors to act as respawn points  (#7824)
  - 36.1.51 Regen patches
- - 36.1.50 Add AT entries for DimensionSettings to make them easier for mods to work with (#7817)
+ - 36.1.50 Add AT entries for NoiseGeneratorSettings to make them easier for mods to work with (#7817)
  - 36.1.49 New hook to allow Trapdoors be climbable for custom ladders (#7816)
  - 36.1.48 Convenience change for potion enumeration - does not change patch size in any meaningful way! (#7811)
  - 36.1.47 Adds knockback attribute to players and updated knockback calculation to PlayerEntity#attack (#7806)
@@ -874,7 +874,7 @@
  - 31.0.14 Fixed Attacks/Punches not Registering (#6481)
            Replaced incorrect magic number with constant
  - 31.0.13 Clean up a bunch of render events (#6444)
-           * Delete RenderHandEvent as RenderSpecificHandEvent can do everything it does and more. Rename RenderSpecificHandEvent to RenderHandEvent as it's now the only hand rendering event.
+           * Delete RenderHandEvent as RenderSpecificHandEvent can do everything it does and more. Rename RenderSpecificHandEvent to RenderHandEvent as it's now the only InteractionHand rendering event.
            * Pass MatrixStack and IRenderTypeBuffer into the event whenever they are available. If they're available, that means we're in a batching environment and the modder should not be using the tessellator or other buffers on their own, or they risk "Already building" crashes.
  - 31.0.12 Fix NullPointerException on java 8u242 in dev environment. (#6473)
            Java 8u242 no longer re-initializes internal sys_paths and usr_paths fields in loadLibrary when they are null, so the value can't be set to null.
@@ -1358,7 +1358,7 @@
            Fix client crashing when opting not to load a world when there's missing blocks Closes #5886
  - 27.0.57 Fix CheckSpawn event logic for natural spawns.
  - 27.0.56 Fixed item breaking particles not capturing current state of the ItemStack. Closes #5934
- - 27.0.55 Fix RenderSpecificHandEvent firing with wrong hand stack (#5927)
+ - 27.0.55 Fix RenderSpecificHandEvent firing with wrong InteractionHand stack (#5927)
  - 27.0.54 [1.14.x] Fix text positioning issues caused by scaling loading screen  (#5932)
  - 27.0.53 Fixed PlayerSleepInBedEvent pos is always null Closes #5936
            Fixed decompile error causing Endless Loop in ModelBackery if model errors exist.
@@ -1502,7 +1502,7 @@
  - 26.0.23 Fix AT for EntitySpawnPlacementRegistry.register (#5799)
  - 26.0.22 Implement getValue in ClearableRegistry fixing DimensionArgument. (#5809)
            Fix DimensionArgument
- - 26.0.21 Fix RenderSpecificHandEvent firing with wrong hand (#5789)
+ - 26.0.21 Fix RenderSpecificHandEvent firing with wrong InteractionHand (#5789)
  - 26.0.20 Use dragon_immune block tag instead of manually checking blocks (#5792)
  - 26.0.19 Fix #5806 sheep drop shears instead of wool
            lol
@@ -3283,7 +3283,7 @@ v8.99
  - v8.99.1201 Added events for crop growth (#3320)
  - v8.99.1200 Add support for custom entity selectors in commands (#3356)
  - v8.99.1199 Added PermissionAPI (#3155)
- - v8.99.1198 Add hand argument to BlockEvent.PlaceEvent (#3221) (#3270)
+ - v8.99.1198 Add InteractionHand argument to BlockEvent.PlaceEvent (#3221) (#3270)
  - v8.99.1197 Fixes #3237 and #2752. (#3347)
               * Fix #3237 by correctly utilising the keepLooking argument.
               * Explain within SimpleNetworkWrapper's javadoc that the execute of the handler isn't on the main Minecraft thread.
@@ -3445,7 +3445,7 @@ v8.99
  - v8.99.1074 Merge remote-tracking branch 'origin/pr/3055' into 1.10.x - closes #3055 and #3043 hopefully. Complex solution, but it seems legit. Needs testing.
  - v8.99.1073 Something that needs to happen: warn people about bad modids- if they're not lowercased, or if they're too long.
  - v8.99.1072 Add missing cancelable
- - v8.99.1071 Add hand-specific render event
+ - v8.99.1071 Add InteractionHand-specific render event
  - v8.99.1070 Fix hotkey with default modifier loading wrong when modifier set to NONE
  - v8.99.1069 Fix async race condition on new chunks (closes #3020) (#3090)
               This patch fixes a race condition that sometimes caused a just generated chunk
@@ -3578,7 +3578,7 @@ v8.99
                 "hashCode abuse"
  - v8.99.981  Make it easier to use FluidTanks that have input/output restrictions (#2945)
               These internal function should NOT be used by anything except the owner of the tank.
- - v8.99.980  Fixed BiomeProvider.getModdedBiomeGenerators method name. Closes #2937
+ - v8.99.980  Fixed BiomeSource.getModdedBiomeGenerators method name. Closes #2937
  - v8.99.979  Several bugfixes for PlayerInteractEvent (#2943)
               * Don't change Result if setCanceled(false) called
               * Fix RightClickEmpty firing even when targeting a block or entity
@@ -3680,7 +3680,7 @@ v8.99
  - v8.99.909  Fixed map extension recipie.
  - v8.99.908  Fix the rand given to PopulateChunkEvent (#2834)
  - v8.99.907  Fix areas where dimension types are used as dimension IDs.
- - v8.99.906  Add NPE protection to in-hand item rendering.
+ - v8.99.906  Add NPE protection to in-InteractionHand item rendering.
  - v8.99.905  Fix url regex (#2815)
               Fixed url detection in chat messages. Stops false positives such as `um.....no`
  - v8.99.904  Bump version for new RB.
@@ -3741,7 +3741,7 @@ v8.99
  - v8.99.877  Boss bar render event (#2701)
               Allow control over increment height
  - v8.99.876  Fix forge:default-block transformation. (#2760)
-              The first-person left-hand rotation was a little bit of.
+              The first-person left-InteractionHand rotation was a little bit of.
  - v8.99.875  Expose a central place to access all of Vanilla and Forge's registries using the new registry API.
  - v8.99.874  Fix log spam from invalid key modifiers (#2746)
  - v8.99.873  make WorldSavedData implement NBTSerializable (#2745)
@@ -3988,7 +3988,7 @@ v8.99
  - v8.99.743  Allow players sized smaller than 1 block to walk into small spaces
  - v8.99.742  Merge pull request #2612 from CovertJaguar/master
               Add missing Minecart/Track hook.
- - v8.99.741  Added default left hand transforms for forge transform strings. Closes #2615.
+ - v8.99.741  Added default left InteractionHand transforms for forge transform strings. Closes #2615.
  - v8.99.740  Made VertexBuffer.sortVertexData cleanup pointers after it's done. Closes #2528.
  - v8.99.739  Ignore blocks/items with null registry name during model loading. Fixes NPE during resource reloading in worlds with removed blocks/items.
  - v8.99.738  Removed blockCenterToCorner from TRSRTransformation constructor. Closes #2461.
@@ -4053,7 +4053,7 @@ v8.99
  - v8.99.693  Removed imports in patches.
  - v8.99.692  Fixed EffectRenderer patch, closes #2547.
  - v8.99.691  Fixed incorrect culling of mod TESRs.
- - v8.99.690  Fixed incorrect rotations for items in the left hand. Closes #2548.
+ - v8.99.690  Fixed incorrect rotations for items in the left InteractionHand. Closes #2548.
  - v8.99.689  Fixed model error reporting, fixed model errors in test mods that shouldn't happen, fixed custom texture loading, made more things private/final.
  - v8.99.688  Merge pull request #2544 from Vazkii/patch-1
               1.9: Fixed registering armor materials through EnumHelper exploding
@@ -4076,7 +4076,7 @@ v8.99
  - v8.99.674  Switch to srg patches
  - v8.99.673  Fixed armor rendering
  - v8.99.672  Fixed incorrect rendering state caused by transparent rendering pass for entities.
- - v8.99.671  Fixed emply hand not rendering in first person.
+ - v8.99.671  Fixed emply InteractionHand not rendering in first person.
  - v8.99.670  Capture Biome Registry within FML
  - v8.99.669  Fixed (hopefully) perspective transformations for custom models too.
  - v8.99.668  Fix items rendering too low in first person.
@@ -4161,7 +4161,7 @@ v8.99
  - v8.99.602  Updated various block model patches.
  - v8.99.601  Some import renames and compile error fixes, killed ~800.
  - v8.99.600  util, tileentity, stats, realms. Potions got an overhaul and out registry will need to be adapted.
- - v8.99.599  net.minecraft.block.* patches
+ - v8.99.599  net.minecraft.world.level.block.* patches
  - v8.99.598  First few patches applied
  - v8.99.597  Add rejects with mcp names for application to main codebase. Let's roll?
  - v8.99.596  Add in mcp named patches and use them. Initial 1.9 setup.
@@ -9273,7 +9273,7 @@ v99.99-pre
  - v99.99-pre-1873 Tweak packet56 to see if this resolves the apparent worldgen derpiness
  - v99.99-pre-1872 Server side only item callback: allow a held item to decide if it wants to pass sneak-clicks through
                    to a block, or not. Defaults false- the same as the new vanilla behaviour (sneak clicks with an item
-                   in hand don't activateBlock anymore).
+                   in InteractionHand don't activateBlock anymore).
  - v99.99-pre-1871 Move another patch up a bit - should actually close #329
  - v99.99-pre-1870 Add IPlantable to itemseedfood. Potato and carrot support!
  - v99.99-pre-1869 Fixed cpw's derp in the PlayerInteractEvent logic.
@@ -10128,7 +10128,7 @@ v99.99-pre
  - v99.99-pre-1347 Fix up reversed assignment for version fallback
  - v99.99-pre-1346 Readd reverted EntityLiving patch
  - v99.99-pre-1345 Merge remote-tracking branch 'origin/master'
- - v99.99-pre-1344 96537dc - Fixup Item in hand rendering of textures > 16x
+ - v99.99-pre-1344 96537dc - Fixup Item in InteractionHand rendering of textures > 16x
                    e88ddc5 - Make the exception print for headless servers if the Downloader cant initalize.
                    f24ff07 - Remove a bunch of warning about javadoc, not a real fix, but no more warning.
                    3420ea7 - Update MCP Mapings
@@ -10138,7 +10138,7 @@ v99.99-pre
                    6394ee8 - Clean up stale references to the Player stored in the NetworkRegistry, closes #100
                    7299e05 - Merge pull request #99 from CovertJaguar/patch-1
                    c4bd040 - More readable init logs
- - v99.99-pre-1343 Fixup Item in hand rendering of textures > 16x
+ - v99.99-pre-1343 Fixup Item in InteractionHand rendering of textures > 16x
  - v99.99-pre-1342 Make the exception print for headless servers if the Downloader cant initalize.
  - v99.99-pre-1341 Remove a bunch of warning about javadoc, not a real fix, but no more warning.
  - v99.99-pre-1340 Update MCP Mapings

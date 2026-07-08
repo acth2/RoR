@@ -1,0 +1,45 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.bad_omen",
+				"texture_width": 512,
+				"texture_height": 512,
+				"visible_bounds_width": 11,
+				"visible_bounds_height": 7,
+				"visible_bounds_offset": [0, 1.5, 0]
+			},
+			"bones": [
+				{
+					"name": "bone2",
+					"pivot": [-4, 11, 0],
+					"cubes": [
+						{"origin": [-39, -27, -29], "size": [80, 94, 83], "uv": [0, 140]}
+					]
+				},
+				{
+					"name": "bone3",
+					"pivot": [-4, 11, 0],
+					"cubes": [
+						{"origin": [-16, -3, -5], "size": [39, 44, 40], "uv": [0, 318]}
+					]
+				},
+				{
+					"name": "bone",
+					"pivot": [-4, 11, 0],
+					"cubes": [
+						{"origin": [-6, -7, 6], "size": [23, 44, 19], "uv": [159, 318]}
+					]
+				},
+				{
+					"name": "bone4",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-61, 0, -44], "size": [122, 21, 118], "uv": [0, 0]}
+					]
+				}
+			]
+		}
+	]
+}

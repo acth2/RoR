@@ -6,22 +6,22 @@ import fr.acth2.ror.init.ModBlocks;
 import fr.acth2.ror.utils.References;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.registry.DynamicRegistries;
-import net.minecraft.world.Blockreader;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeManager;
-import net.minecraft.world.biome.provider.BiomeProvider;
-import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.chunk.IChunk;
-import net.minecraft.world.gen.*;
-import net.minecraft.world.gen.feature.structure.StructureManager;
-import net.minecraft.world.gen.feature.template.TemplateManager;
+import net.minecraft.world.level.biome.BiomeManager;
+import net.minecraft.world.level.biome.BiomeSource;
+import net.minecraft.world.level.chunk.LevelChunk;
+import net.minecraft.world.level.chunk.ChunkAccess;
+import net.minecraft.world.level.levelgen.*;
+import net.minecraft.world.level.StructureManager;
+import net.minecraft.data.structures.StructureUpdater;
 import org.lwjgl.system.CallbackI;
 
 import java.util.HashMap;
@@ -29,34 +29,34 @@ import java.util.Random;
 
 public class AbyssariaGenerator extends ChunkGenerator {
 
-    private BiomeProvider biomeProvider;
+    private BiomeSource BiomeSource;
     private Random random;
-    private SimplexNoiseGenerator sNoise;
-    private SimplexNoiseGenerator sSulfurNoise;
+    private SimplexNoise sNoise;
+    private SimplexNoise sSulfurNoise;
 
     public static final Codec<AbyssariaGenerator> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
-                    BiomeProvider.CODEC.fieldOf("biome_source").forGetter(AbyssariaGenerator::getBiomeProvider),
-                    DimensionSettings.CODEC.fieldOf("settings").forGetter(generator -> () -> generator.settings)
-            ).apply(instance, (biomeProvider, settingsSupplier) ->
-                    new AbyssariaGenerator(biomeProvider, settingsSupplier.get())
+                    BiomeSource.CODEC.fieldOf("biome_source").forGetter(AbyssariaGenerator::getBiomeProvider),
+                    NoiseGeneratorSettings.CODEC.fieldOf("settings").forGetter(generator -> () -> generator.settings)
+            ).apply(instance, (BiomeSource, settingsSupplier) ->
+                    new AbyssariaGenerator(BiomeSource, settingsSupplier.get())
             )
     );
 
-    private final DimensionSettings settings;
+    private final NoiseGeneratorSettings settings;
 
-    public AbyssariaGenerator(BiomeProvider biomeProvider, DimensionSettings settings) {
-        super(biomeProvider, settings.structureSettings());
-        this.biomeProvider = biomeProvider;
+    public AbyssariaGenerator(BiomeSource BiomeSource, NoiseGeneratorSettings settings) {
+        super(BiomeSource, settings.structureSettings());
+        this.BiomeSource = BiomeSource;
         this.settings = settings;
     }
 
-    public BiomeProvider getCustomBiomeProvider() {
-        return this.biomeProvider;
+    public BiomeSource getCustomBiomeProvider() {
+        return this.BiomeSource;
     }
 
-    public BiomeProvider getBiomeProvider() {
-        return this.biomeProvider;
+    public BiomeSource getBiomeProvider() {
+        return this.BiomeSource;
     }
 
     @Override
@@ -70,7 +70,7 @@ public class AbyssariaGenerator extends ChunkGenerator {
     }
 
     @Override
-    public IBlockReader getBaseColumn(int p_230348_1_, int p_230348_2_) {
+    public BlockGetter getBaseColumn(int p_230348_1_, int p_230348_2_) {
         return new Blockreader(new BlockState[0]);
     }
 
@@ -81,19 +81,19 @@ public class AbyssariaGenerator extends ChunkGenerator {
 
     @Override
     public ChunkGenerator withSeed(long seed) {
-        return new AbyssariaGenerator(this.biomeProvider, this.settings);
+        return new AbyssariaGenerator(this.BiomeSource, this.settings);
     }
 
     @Override
-    public void buildSurfaceAndBedrock(WorldGenRegion p_225551_1_, IChunk p_225551_2_) {
+    public void buildSurface(WorldGenLevel p_225551_1_, IChunk p_225551_2_) {
 
     }
 
     @Override
     public void fillFromNoise(IWorld world, StructureManager structures, IChunk chunk) {
-        if (random == null) random = new Random(((WorldGenRegion) world).getSeed());
-        if (sNoise == null) sNoise = new SimplexNoiseGenerator(random);
-        if (sSulfurNoise == null) sSulfurNoise = new SimplexNoiseGenerator(new Random(((WorldGenRegion) world).getSeed() + 2L));
+        if (random == null) random = new Random(((WorldGenLevel) world).getSeed());
+        if (sNoise == null) sNoise = new SimplexNoise(random);
+        if (sSulfurNoise == null) sSulfurNoise = new SimplexNoise(new Random(((WorldGenLevel) world).getSeed() + 2L));
 
         final double basic_threshold = 0.3D;
         final double basic_scale = 0.02;
@@ -257,11 +257,11 @@ public class AbyssariaGenerator extends ChunkGenerator {
 
 
     @Override
-    public void applyCarvers(long p_230350_1_, BiomeManager p_230350_3_, IChunk p_230350_4_, GenerationStage.Carving p_230350_5_) {}
+    public void applyCarvers(long p_230350_1_, BiomeManager p_230350_3_, IChunk p_230350_4_, GenerationStep.Carving p_230350_5_) {}
 
     @Override
-    public void applyBiomeDecoration(WorldGenRegion p_230351_1_, StructureManager p_230351_2_) {}
+    public void applyBiomeDecoration(WorldGenLevel p_230351_1_, StructureManager p_230351_2_) {}
 
     @Override
-    public void createStructures(DynamicRegistries p_242707_1_, StructureManager p_242707_2_, IChunk p_242707_3_, TemplateManager p_242707_4_, long p_242707_5_) {}
+    public void createStructures(RegistryAccess p_242707_1_, StructureManager p_242707_2_, IChunk p_242707_3_, TemplateManager p_242707_4_, long p_242707_5_) {}
 }

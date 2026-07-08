@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "frame=0": { "model": "ror:block/power_container_0" },
+    "frame=1": { "model": "ror:block/power_container_1" },
+    "frame=2": { "model": "ror:block/power_container_2" },
+    "frame=3": { "model": "ror:block/power_container_3" },
+    "frame=4": { "model": "ror:block/power_container_4" },
+    "frame=5": { "model": "ror:block/power_container_5" }
+  }
+}

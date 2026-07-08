@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "ror:radium_ore"
+  },
+  "result": "ror:radium_ingot",
+  "experience": 0.9,
+  "cookingtime": 135
+}

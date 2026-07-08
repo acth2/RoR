@@ -1,0 +1,51 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.wicked",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 3.5,
+				"visible_bounds_offset": [0, 1.25, 0]
+			},
+			"bones": [
+				{
+					"name": "rl",
+					"pivot": [6, 21, -2],
+					"cubes": [
+						{"origin": [4, 0, -1], "size": [3, 21, 2], "uv": [42, 32]},
+						{"origin": [3, 5, -3], "size": [5, 12, 5], "uv": [0, 37]},
+						{"origin": [4, 0, -4], "size": [3, 2, 3], "uv": [0, 55]}
+					]
+				},
+				{
+					"name": "ll",
+					"pivot": [-5, 21, -2],
+					"cubes": [
+						{"origin": [-7, 0, -1], "size": [3, 21, 2], "uv": [53, 32]},
+						{"origin": [-8, 5, -3], "size": [5, 12, 5], "uv": [21, 37]},
+						{"origin": [-7, 0, -4], "size": [3, 2, 3], "uv": [13, 55]}
+					]
+				},
+				{
+					"name": "head",
+					"pivot": [0.5, 22.75785, -3.69449],
+					"cubes": [
+						{"origin": [-8, 20, -12], "size": [17, 2, 13], "uv": [0, 0]},
+						{"origin": [-8, 22, -1], "size": [17, 2, 2], "uv": [0, 32]}
+					]
+				},
+				{
+					"name": "top_lid",
+					"parent": "head",
+					"pivot": [0, 24, 0],
+					"cubes": [
+						{"origin": [-8, 24, -12], "size": [17, 2, 13], "pivot": [0, 24, 0], "rotation": [7.5, 0, 0], "uv": [0, 16]}
+					]
+				}
+			]
+		}
+	]
+}

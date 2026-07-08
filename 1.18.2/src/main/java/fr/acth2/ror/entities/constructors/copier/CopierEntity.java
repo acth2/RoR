@@ -1,0 +1,232 @@
+package fr.acth2.ror.entities.constructors.copier;
+
+import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
+import net.minecraft.entity.CreatureAttribute;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.goal.*;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.entity.passive.IronGolemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.particles.IParticleData;
+import net.minecraft.particles.RedstoneParticleData;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
+
+import javax.annotation.Nullable;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class CopierEntity extends Monster {
+
+    private Player targetPlayer;
+    private Vector3d lastPlayerPosition;
+    private boolean hasTeleported = false;
+    private Vector3d positionOffset = Vector3d.ZERO;
+    private int attackCooldown = 0;
+
+    protected CopierEntity(EntityType<? extends Monster> type, World worldIn) {
+        super(type, worldIn);
+    }
+
+    @Override
+    public CreatureAttribute getMobType() {
+        return CreatureAttribute.UNDEFINED;
+    }
+
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, false));
+        this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+
+        if (attackCooldown > 0) {
+            attackCooldown--;
+        }
+
+        if (targetPlayer != null && targetPlayer.getHealth() <= 5 && hasTeleported) {
+            sendColoredParticle((ServerWorld) this.level, 0, 0, 0, 0, 0, 0, 10);
+            sendColoredParticle((ServerWorld) this.level, 0, 1, 0, 0, 0, 0, 10);
+            sendColoredParticle((ServerWorld) this.level, 0, -1, 0, 0, 0, 0, 10);
+
+            this.playSound(SoundEvents.AMBIENT_CAVE, 1.0F, 1.0F);
+
+            this.setHealth(0.0F);
+            this.kill();
+        }
+
+        if (!this.level.isClientSide) {
+            if (!hasTeleported) {
+                findAndTeleportToPlayer();
+            } else if (targetPlayer != null && targetPlayer.isAlive()) {
+                mimicPlayerMovement();
+                checkCollision();
+
+                double distance = this.distanceTo(targetPlayer);
+                this.setGlowing(distance < 0.25);
+            } else {
+                hasTeleported = false;
+                targetPlayer = null;
+                this.setGlowing(false);
+            }
+        }
+    }
+
+    private void findAndTeleportToPlayer() {
+        List<Player> players = this.level.players()
+                .stream()
+                .filter(player -> player != null && player.isAlive() && player.distanceTo(this) <= 10)
+                .sorted(Comparator.comparingDouble(player -> player.distanceToSqr(this)))
+                .collect(Collectors.toList());
+
+        if (!players.isEmpty()) {
+            targetPlayer = players.get(0);
+            teleportBehindPlayer();
+        }
+    }
+
+    private void teleportBehindPlayer() {
+        if (targetPlayer == null) return;
+
+        if (!targetPlayer.isCrouching() && !targetPlayer.isCreative() && !targetPlayer.isSpectator()) {
+            Vector3d playerLook = targetPlayer.getLookAngle();
+            Vector3d horizontalLook = new Vector3d(playerLook.x, 0, playerLook.z).normalize();
+
+            Vector3d behindPlayer = targetPlayer.position()
+                    .subtract(horizontalLook.x * 2, 0, horizontalLook.z * 2);
+
+            double correctY = findCorrectYPosition(behindPlayer);
+
+            positionOffset = new Vector3d(behindPlayer.x - targetPlayer.position().x,
+                    correctY - targetPlayer.position().y,
+                    behindPlayer.z - targetPlayer.position().z);
+
+            this.teleportTo(behindPlayer.x, correctY, behindPlayer.z);
+            lastPlayerPosition = targetPlayer.position();
+
+            hasTeleported = true;
+        }
+    }
+
+    private double findCorrectYPosition(Vector3d position) {
+        BlockPos pos = new BlockPos(position.x, position.y, position.z);
+        BlockPos groundPos = this.level.getHeightmapPos(net.minecraft.world.level.levelgen.Heightmap.Type.MOTION_BLOCKING, pos);
+
+        return groundPos.getY() + 1;
+    }
+
+    private void mimicPlayerMovement() {
+        if (targetPlayer == null || lastPlayerPosition == null) return;
+
+        Vector3d currentPlayerPos = targetPlayer.position();
+        Vector3d playerMovement = currentPlayerPos.subtract(lastPlayerPosition);
+        Vector3d newPosition = this.position().add(playerMovement);
+        Vector3d desiredPosition = currentPlayerPos.add(positionOffset);
+
+        this.setPos(desiredPosition.x, desiredPosition.y - 1, desiredPosition.z);
+
+        lastPlayerPosition = currentPlayerPos;
+
+        this.yRot = targetPlayer.yRot;
+        this.xRot = targetPlayer.xRot;
+        this.yBodyRot = targetPlayer.yBodyRot;
+        this.yHeadRot = targetPlayer.yHeadRot;
+
+        this.setDeltaMovement(targetPlayer.getDeltaMovement());
+        if (targetPlayer.isOnGround()) {
+            this.setOnGround(true);
+        }
+    }
+
+    private void checkCollision() {
+        if (targetPlayer != null && targetPlayer.isAlive() && attackCooldown == 0) {
+            double distance = this.distanceTo(targetPlayer);
+
+            if (distance <= 0.0) {
+                boolean attacked = targetPlayer.hurt(DamageSource.mobAttack(this),
+                        (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
+
+                if (attacked) {
+                    this.playSound(SoundEvents.PLAYER_ATTACK_STRONG, 1.0F, 1.0F);
+
+                    Vector3d knockbackDir = targetPlayer.position().subtract(this.position()).normalize();
+                    targetPlayer.setDeltaMovement(knockbackDir.x * 3, 0.3, knockbackDir.z * 3);
+
+                    attackCooldown = 20;
+                }
+            } else {
+                teleportBehindPlayer();
+            }
+        }
+    }
+
+    public void sendColoredParticle(ServerWorld world, int offsetX, int offsetY, int offsetZ,
+                                    float red, float green, float blue, int count) {
+        IParticleData particleData = new RedstoneParticleData(red, green, blue, 10.0f);
+
+        world.sendParticles(
+                particleData,
+                this.getX() + offsetX, this.getY() + offsetY, this.getZ() + offsetZ,
+                count,
+                0.1, 0.1, 0.1,
+                0.05
+        );
+    }
+
+    @Override
+    public boolean causeFallDamage(float p_225503_1_, float p_225503_2_) {
+        return false;
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return SoundEvents.PLAYER_BREATH;
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
+        return SoundEvents.AMBIENT_CAVE;
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.AMBIENT_CAVE;
+    }
+
+    public int getAmbientSoundInterval() {
+        return 120;
+    }
+
+    @Override
+    protected boolean isSunBurnTick() {
+        return false;
+    }
+
+    @Override
+    public void setGlowing(boolean p_184195_1_) {
+        super.setGlowing(p_184195_1_);
+    }
+
+    public static AttributeSupplier.MutableAttribute createAttributes() {
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 1.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.26D)
+                .add(Attributes.ATTACK_DAMAGE, 10.0D);
+    }
+}

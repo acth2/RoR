@@ -1,0 +1,80 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.miraj",
+				"texture_width": 128,
+				"texture_height": 128,
+				"visible_bounds_width": 3,
+				"visible_bounds_height": 5.5,
+				"visible_bounds_offset": [0, 2.25, 0]
+			},
+			"bones": [
+				{
+					"name": "entity",
+					"pivot": [0, 0, 0],
+					"rotation": [0, 180, 0]
+				},
+				{
+					"name": "legs",
+					"parent": "entity",
+					"pivot": [-2, 0, 4]
+				},
+				{
+					"name": "lr",
+					"parent": "legs",
+					"pivot": [-6, 17, -1],
+					"cubes": [
+						{"origin": [-10, 0, -4], "size": [7, 18, 7], "uv": [55, 0]}
+					]
+				},
+				{
+					"name": "ll",
+					"parent": "legs",
+					"pivot": [6, 18, -1],
+					"cubes": [
+						{"origin": [3, 0, -4], "size": [7, 18, 7], "uv": [50, 38]}
+					]
+				},
+				{
+					"name": "chest",
+					"parent": "entity",
+					"pivot": [-9, 18, 0],
+					"cubes": [
+						{"origin": [-10, 18, -4], "size": [20, 30, 7], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "arms",
+					"parent": "entity",
+					"pivot": [-14, 46, 2]
+				},
+				{
+					"name": "la",
+					"parent": "arms",
+					"pivot": [11, 46, 2],
+					"cubes": [
+						{"origin": [10, 18, -4], "size": [5, 30, 7], "uv": [0, 38]}
+					]
+				},
+				{
+					"name": "ra",
+					"parent": "arms",
+					"pivot": [-14, 46, 2],
+					"cubes": [
+						{"origin": [-15, 18, -4], "size": [5, 30, 7], "uv": [25, 38]}
+					]
+				},
+				{
+					"name": "head",
+					"parent": "entity",
+					"pivot": [0, 53, -0.5],
+					"cubes": [
+						{"origin": [-6, 48, -3], "size": [12, 10, 5], "uv": [50, 64]}
+					]
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,20 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "ror:item/realms_vessel"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "ror:is_activated": 1
+      },
+      "model": "ror:item/realms_vessel_activated"
+    },
+    {
+      "predicate": {
+        "ror:is_skyria": 1
+      },
+      "model": "ror:item/realms_vessel_skyria"
+    }
+  ]
+}

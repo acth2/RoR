@@ -1,0 +1,24 @@
+{
+  "name": "ror:ed",
+  "ultrawarm": false,
+  "natural": false,
+  "coordinate_scale": 1,
+  "has_skylight": true,
+  "has_ceiling": false,
+  "ambient_light": 15,
+  "fixed_time": 6000,
+  "piglin_safe": false,
+  "bed_works": true,
+  "respawn_anchor_works": false,
+  "has_raids": false,
+  "logical_height": 256,
+  "infiniburn": "minecraft:infiniburn_overworld",
+  "effects": {
+    "sky_type": "normal",
+    "clouds": "minecraft:vanilla",
+    "sky_color": 16776960,
+    "fog_color": 12638463,
+    "water_color": 4159204,
+    "water_fog_color": 329011
+  }
+}

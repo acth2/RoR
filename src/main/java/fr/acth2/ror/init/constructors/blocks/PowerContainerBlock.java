@@ -11,7 +11,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.world.BlockGetter;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -31,7 +31,7 @@ public class PowerContainerBlock extends Block {
     }
 
     @Override
-    public void appendHoverText(ItemStack p_190948_1_, @Nullable IBlockReader p_190948_2_, List<ITextComponent> tooltip, ITooltipFlag p_190948_4_) {
+    public void appendHoverText(ItemStack p_190948_1_, @Nullable BlockGetter p_190948_2_, List<ITextComponent> tooltip, ITooltipFlag p_190948_4_) {
         tooltip.add(new StringTextComponent("This block could help in a larger spectrum").withStyle(TextFormatting.GRAY));
         super.appendHoverText(p_190948_1_, p_190948_2_, tooltip, p_190948_4_);
     }
@@ -42,7 +42,7 @@ public class PowerContainerBlock extends Block {
     }
     @Nullable
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+    public TileEntity createTileEntity(BlockState state, BlockGetter world) {
         return new PowerContainerTileEntity();
     }
 }

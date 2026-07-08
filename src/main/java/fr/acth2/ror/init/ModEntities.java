@@ -50,7 +50,7 @@ import fr.acth2.ror.utils.References;
 import fr.acth2.ror.utils.subscribers.gen.overworld.*;
 import fr.acth2.ror.utils.subscribers.gen.skyria.SkyriaMonsterSpawnerSubscriber;
 import fr.acth2.ror.utils.subscribers.gen.utils.MobSpawnData;
-import net.minecraft.block.Blocks;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraftforge.eventbus.api.IEventBus;

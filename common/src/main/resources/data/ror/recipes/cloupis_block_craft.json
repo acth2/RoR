@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    "XXX",
+    "XXX"
+  ],
+  "key": {
+    "X": {
+      "item": "ror:cloupis_ingot"
+    }
+  },
+  "result": {
+    "item": "ror:cloupis_block"
+  }
+}

@@ -1,0 +1,53 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.wicked.idle": {
+			"loop": true
+		},
+		"animation.wicked.walk": {
+			"loop": true,
+			"animation_length": 0.995,
+			"bones": {
+				"rl": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.2488": {
+							"vector": [77.5, 0, 0]
+						},
+						"0.4975": {
+							"vector": [0, 0, 0]
+						},
+						"0.7463": {
+							"vector": [-77.5, 0, 0]
+						},
+						"0.995": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"ll": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.2488": {
+							"vector": [-77.5, 0, 0]
+						},
+						"0.4975": {
+							"vector": [0, 0, 0]
+						},
+						"0.7463": {
+							"vector": [77.5, 0, 0]
+						},
+						"0.995": {
+							"vector": [0, 0, 0]
+						}
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

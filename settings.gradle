@@ -1,0 +1,14 @@
+pluginManagement {
+    repositories {
+        maven { url = 'https://maven.minecraftforge.net' }
+        gradlePluginPortal()
+    }
+}
+
+rootProject.name = 'RealmOfRealms'
+
+include 'common'
+include '1.12.2'
+include '1.16.5'
+include '1.18.2'
+include '1.19.2'

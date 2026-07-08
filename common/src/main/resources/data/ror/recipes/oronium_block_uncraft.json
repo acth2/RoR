@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "ror:oronium_block"
+    }
+  ],
+  "result": {
+    "item": "ror:oronium_ingot",
+    "count": 9
+  }
+}

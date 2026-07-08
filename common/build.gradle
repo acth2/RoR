@@ -1,7 +1,0 @@
-apply plugin: 'java'
-
-dependencies {
-    compileOnly "net.minecraftforge:forge:1.16.5-${forge_1_16_5}:userdev"
-}
-
-jar.enabled = false

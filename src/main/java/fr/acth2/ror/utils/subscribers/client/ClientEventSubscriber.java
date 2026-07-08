@@ -12,6 +12,7 @@ import fr.acth2.ror.entities.renderer.cg.CoinGiverRenderer;
 import fr.acth2.ror.entities.renderer.clucker.CluckerRenderer;
 import fr.acth2.ror.entities.renderer.copier.CopierRenderer;
 import fr.acth2.ror.entities.renderer.corrupted.CorruptedRenderer;
+import fr.acth2.ror.entities.renderer.creckon.CreckonRenderer;
 import fr.acth2.ror.entities.renderer.curser.CurserRenderer;
 import fr.acth2.ror.entities.renderer.bo.BadOmenRenderer;
 import fr.acth2.ror.entities.renderer.despiter.DespiterRenderer;
@@ -113,6 +114,7 @@ public class ClientEventSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.SPYING.get(), SpyingRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.CATAPLEER.get(), CatapleerRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.RADIUM_MIMESIS.get(), RadiumMimesisRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.CRECKON.get(), CreckonRenderer::new);
 
         event.enqueueWork(() -> {
             ItemModelsProperties.register(

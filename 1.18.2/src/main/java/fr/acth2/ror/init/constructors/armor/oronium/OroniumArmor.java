@@ -20,9 +20,9 @@ public class OroniumArmor extends ArmorItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable World world, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(new TextComponent(ChatFormatting.BLUE + "This armor works perfectly in floating realms!"));
-        tooltip.add(new TextComponent(ChatFormatting.GRAY + "Despite offering a low defense the more you explore down"));
+    public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
+        tooltip.add(new StringTextComponent(TextFormatting.BLUE + "This armor works perfectly in floating realms!"));
+        tooltip.add(new StringTextComponent(TextFormatting.GRAY + "Despite offering a low defense the more you explore down"));
         super.appendHoverText(stack, world, tooltip, flag);
     }
 }

@@ -22,13 +22,13 @@ public class RadiumSword extends SwordItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-        Player player = Minecraft.getInstance().player;
+    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        PlayerEntity player = Minecraft.getInstance().player;
         if (player != null) {
             PlayerStats stats = PlayerStats.get(player);
             float damage = (stats.getStrength() / 4.0f);
-            tooltip.add(new TextComponent("Your damage scale with your strength!").withStyle(ChatFormatting.LIGHT_PURPLE));
-            tooltip.add(new TextComponent("Bonus damage is: " + String.format("%.2f", damage)).withStyle(ChatFormatting.BOLD));
+            tooltip.add(new StringTextComponent("Your damage scale with your strength!").withStyle(TextFormatting.LIGHT_PURPLE));
+            tooltip.add(new StringTextComponent("Bonus damage is: " + String.format("%.2f", damage)).withStyle(TextFormatting.BOLD));
         }
     }
 }

@@ -57,8 +57,8 @@ public class CoinGiverEntity extends CreatureEntity {
         super.setGlowing(p_184195_1_);
     }
 
-    public static AttributeSupplier.MutableAttribute createAttributes() {
-        return Mob.createMobAttributes()
+    public static AttributeModifierMap.MutableAttribute createAttributes() {
+        return MobEntity.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 1.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.00D)
                 .add(Attributes.ATTACK_DAMAGE, 0.0D);

@@ -1,6 +1,6 @@
 package fr.acth2.ror.impl;
 
-import fr.acth2.ror.api.BlockEntity.ITileEntityHelper;
+import fr.acth2.ror.api.tileentity.ITileEntityHelper;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 

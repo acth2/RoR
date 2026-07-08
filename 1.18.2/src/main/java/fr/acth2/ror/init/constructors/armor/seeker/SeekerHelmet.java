@@ -25,21 +25,21 @@ public class SeekerHelmet extends ArmorItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable World world, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(new TextComponent(ChatFormatting.GRAY + "Despite offering a terrible vision"));
-        tooltip.add(new TextComponent(ChatFormatting.RED + "You can now see every living entities through walls"));
+    public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
+        tooltip.add(new StringTextComponent(TextFormatting.GRAY + "Despite offering a terrible vision"));
+        tooltip.add(new StringTextComponent(TextFormatting.RED + "You can now see every living entities through walls"));
         super.appendHoverText(stack, world, tooltip, flag);
     }
 
     @Override
-    public void onArmorTick(ItemStack stack, World world, Player player) {
-        if (!level.isClientSide) {
+    public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
+        if (!world.isClientSide) {
             for (Entity entity : world.getEntities(player, player.getBoundingBox().inflate(50))) {
                 if (entity instanceof LivingEntity && entity != player) {
-                    ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.GLOWING, 40, 0, false, false));
+                    ((LivingEntity) entity).addEffect(new EffectInstance(Effects.GLOWING, 40, 0, false, false));
                 }
             }
-            player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 40, 0, false, false));
+            player.addEffect(new EffectInstance(Effects.BLINDNESS, 40, 0, false, false));
         }
     }
 }

@@ -27,7 +27,7 @@ public class AbyssariaHandler {
                 BlockPos pos = new BlockPos(chunk.getPos().getMinBlockX() + x, 1, chunk.getPos().getMinBlockZ() + z);
                 BlockState state = world.getBlockState(pos);
                 if (state.getBlock() instanceof AbyssalGlue && world.getBlockEntity(pos) == null) {
-                    BlockEntity te = ModBlocks.ABYSSAL_GLUE.get().createTileEntity(state, world);
+                    TileEntity te = ModBlocks.ABYSSAL_GLUE.get().createTileEntity(state, world);
                     if (te != null) {
                         world.setBlockEntity(pos, te);
                     }

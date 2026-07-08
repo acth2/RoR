@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.EnumSet;
 import java.util.Random;
 
-public class FlyerEntity extends Monster implements IFlyingAnimal {
+public class FlyerEntity extends MonsterEntity implements IFlyingAnimal {
     private static final int BLINDNESS_DURATION = 100;
     private static final int BLINDNESS_AMPLIFIER = 0;
     private static final double AGGRO_RANGE = 20.0D;
@@ -37,7 +37,7 @@ public class FlyerEntity extends Monster implements IFlyingAnimal {
     private int circlingCooldown = 0;
     private Vector3d circlingCenter = null;
 
-    public FlyerEntity(EntityType<? extends Monster> type, World worldIn) {
+    public FlyerEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
         this.moveControl = new FlyingMovementController(this, 20, true);
         this.setNoGravity(true);
@@ -62,11 +62,11 @@ public class FlyerEntity extends Monster implements IFlyingAnimal {
         this.goalSelector.addGoal(0, new SwimGoal(this));
         this.goalSelector.addGoal(1, new FlyerAttackGoal(this, 1.5D, true));
         this.goalSelector.addGoal(2, new MaintainAltitudeGoal(this));
-        this.goalSelector.addGoal(3, new LookAtGoal(this, Player.class, 12.0F));
+        this.goalSelector.addGoal(3, new LookAtGoal(this, PlayerEntity.class, 12.0F));
         this.goalSelector.addGoal(4, new LookRandomlyGoal(this));
         this.goalSelector.addGoal(5, new FlyerCircleGoal(this));
 
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolemEntity.class, true));
     }
@@ -117,9 +117,9 @@ public class FlyerEntity extends Monster implements IFlyingAnimal {
 
     @Override
     public boolean doHurtTarget(Entity entity) {
-        if (entity instanceof Player) {
-            Player player = (Player) entity;
-            player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, BLINDNESS_DURATION, BLINDNESS_AMPLIFIER));
+        if (entity instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) entity;
+            player.addEffect(new EffectInstance(Effects.NIGHT_VISION, BLINDNESS_DURATION, BLINDNESS_AMPLIFIER));
             this.playSound(ModSoundEvents.RUSTEDCORE_HIT.get(), 1.0F, 1.0F);
         }
         return super.doHurtTarget(entity);
@@ -142,8 +142,8 @@ public class FlyerEntity extends Monster implements IFlyingAnimal {
         }
     }
 
-    public static AttributeSupplier.MutableAttribute createAttributes() {
-        return Monster.createMonsterAttributes()
+    public static AttributeModifierMap.MutableAttribute createAttributes() {
+        return MonsterEntity.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 20.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.1D)
                 .add(Attributes.FLYING_SPEED, 0.1D)
@@ -156,7 +156,7 @@ public class FlyerEntity extends Monster implements IFlyingAnimal {
         return true;
     }
 
-    private int countAttackers(Player player) {
+    private int countAttackers(PlayerEntity player) {
         int count = 0;
         List<FlyerEntity> flyers = this.level.getEntitiesOfClass(FlyerEntity.class,
                 this.getBoundingBox().inflate(AGGRO_RANGE));
@@ -236,7 +236,7 @@ public class FlyerEntity extends Monster implements IFlyingAnimal {
         public void tick() {
             if (this.target == null) return;
 
-            int attackers = flyer.countAttackers((Player) target);
+            int attackers = flyer.countAttackers((PlayerEntity) target);
             boolean shouldCircle = attackers >= 3;
 
             this.flyer.getLookControl().setLookAt(this.target, 30.0F, 30.0F);

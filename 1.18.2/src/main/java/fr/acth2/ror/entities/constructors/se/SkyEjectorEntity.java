@@ -21,9 +21,9 @@ import net.minecraft.world.level.Level;
 import javax.annotation.Nullable;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class SkyEjectorEntity extends Monster {
+public class SkyEjectorEntity extends MonsterEntity {
 
-    public SkyEjectorEntity(EntityType<? extends Monster> type, World worldIn) {
+    public SkyEjectorEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
@@ -34,7 +34,7 @@ public class SkyEjectorEntity extends Monster {
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, false));
 
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
         this.addBehaviourGoals();
     }
@@ -88,8 +88,8 @@ public class SkyEjectorEntity extends Monster {
         super.setGlowing(p_184195_1_);
     }
 
-    public static AttributeSupplier.MutableAttribute createAttributes() {
-        return Mob.createMobAttributes()
+    public static AttributeModifierMap.MutableAttribute createAttributes() {
+        return MobEntity.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 5.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.30D)
                 .add(Attributes.ATTACK_DAMAGE, 2.0D)

@@ -8,7 +8,7 @@ import net.minecraft.world.level.material.MaterialColor;
 
 public class InfraniumOre extends Block {
     public InfraniumOre() {
-        super((((BlockBehaviour.Properties) Props.stone()))
+        super((((AbstractBlock.Properties) Props.stone()))
                 .strength(3.0F, 1.F)
                 .harvestLevel(2)
                 .harvestTool(net.minecraftforge.common.ToolAction.PICKAXE));

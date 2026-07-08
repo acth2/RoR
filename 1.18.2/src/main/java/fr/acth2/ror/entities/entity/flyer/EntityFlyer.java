@@ -50,8 +50,8 @@ public class EntityFlyer extends FlyerEntity implements IAnimatable {
         return factory;
     }
 
-    public static AttributeSupplier.MutableAttribute createAttributes() {
-        return Mob.createMobAttributes()
+    public static AttributeModifierMap.MutableAttribute createAttributes() {
+        return MobEntity.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 20.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D)
                 .add(Attributes.ATTACK_DAMAGE, 3.0D);

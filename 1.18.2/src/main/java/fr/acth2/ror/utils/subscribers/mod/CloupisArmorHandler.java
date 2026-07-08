@@ -43,13 +43,13 @@ public class CloupisArmorHandler {
         for (net.minecraft.server.level.ServerLevel world :
                 net.minecraftforge.fml.server.ServerLifecycleHooks.getCurrentServer().getAllLevels()) {
 
-            for (Player player : world.players()) {
+            for (PlayerEntity player : world.players()) {
                 if (!CloupisArmor.shouldStealth(player)) continue;
                 if (!player.isCrouching()) continue;
                 if (System.currentTimeMillis() < stealthBreakUntil) continue;
 
                 world.getEntitiesOfClass(
-                        Mob.class,
+                        MobEntity.class,
                         player.getBoundingBox().inflate(64),
                         mob -> mob.getTarget() == player
                 ).forEach(mob -> {
@@ -62,8 +62,8 @@ public class CloupisArmorHandler {
 
     @SubscribeEvent
     public static void onPlayerHurt(LivingHurtEvent event) {
-        if (!(event.getEntityLiving() instanceof Player)) return;
-        Player player = (Player) event.getEntityLiving();
+        if (!(event.getEntityLiving() instanceof PlayerEntity)) return;
+        PlayerEntity player = (PlayerEntity) event.getEntityLiving();
         if (!CloupisArmor.shouldStealth(player)) return;
         if (!player.isCrouching()) return;
 
@@ -71,7 +71,7 @@ public class CloupisArmorHandler {
         stealthImmuneEntities.clear();
 
         player.level.getEntitiesOfClass(
-                Mob.class,
+                MobEntity.class,
                 player.getBoundingBox().inflate(32),
                 mob -> true
         ).forEach(mob -> mob.setTarget(player));
@@ -86,7 +86,7 @@ public class CloupisArmorHandler {
     public static void onPlayerRenderPre(RenderPlayerEvent.Pre event) {
         if (isRendering) return;
 
-        Player player = event.getPlayer();
+        PlayerEntity player = event.getPlayer();
         if (!CloupisArmor.shouldStealth(player)) return;
         if (!(player instanceof AbstractClientPlayerEntity)) return;
         AbstractClientPlayerEntity clientPlayer = (AbstractClientPlayerEntity) player;

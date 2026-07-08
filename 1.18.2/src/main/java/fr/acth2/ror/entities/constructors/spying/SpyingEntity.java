@@ -23,21 +23,21 @@ import net.minecraft.world.level.Level;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class SpyingEntity extends Monster {
+public class SpyingEntity extends MonsterEntity {
 
     private int teleportCooldown = 0;
     private int teleportCount = 0;
     private int fireballCooldown = 0;
 
-    protected SpyingEntity(EntityType<? extends Monster> type, World worldIn) {
+    protected SpyingEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new LookAtGoal(this, Player.class, 12.0F));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.goalSelector.addGoal(0, new LookAtGoal(this, PlayerEntity.class, 12.0F));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
     }
 
 
@@ -79,8 +79,8 @@ public class SpyingEntity extends Monster {
             fireballCooldown--;
         }
 
-        if (this.getTarget() != null && this.getTarget() instanceof Player) {
-            Player player = (Player) this.getTarget();
+        if (this.getTarget() != null && this.getTarget() instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) this.getTarget();
             double distance = this.distanceTo(player);
 
             if (distance < 4) {
@@ -210,8 +210,8 @@ public class SpyingEntity extends Monster {
         super.setGlowing(p_184195_1_);
     }
 
-    public static AttributeSupplier.MutableAttribute createAttributes() {
-        return Mob.createMobAttributes()
+    public static AttributeModifierMap.MutableAttribute createAttributes() {
+        return MobEntity.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 1.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.0D)
                 .add(Attributes.ATTACK_DAMAGE, 10.0D);

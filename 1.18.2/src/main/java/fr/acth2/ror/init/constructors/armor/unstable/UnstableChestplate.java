@@ -35,14 +35,14 @@ public class UnstableChestplate extends ArmorItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack p_77624_1_, @Nullable World p_77624_2_, List<Component> txt, TooltipFlag p_77624_4_) {
-        txt.add(new TextComponent(ChatFormatting.RED + "The unstability of the armor make it release fireball charge in every directions when damaged"));
+    public void appendHoverText(ItemStack p_77624_1_, @Nullable World p_77624_2_, List<ITextComponent> txt, ITooltipFlag p_77624_4_) {
+        txt.add(new StringTextComponent(TextFormatting.RED + "The unstability of the armor make it release fireball charge in every directions when damaged"));
         super.appendHoverText(p_77624_1_, p_77624_2_, txt, p_77624_4_);
     }
 
     @Override
-    public void onArmorTick(ItemStack stack, World world, Player player) {
-        if (!level.isClientSide && player.getItemBySlot(EquipmentSlotType.CHEST).getItem() == this) {
+    public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
+        if (!world.isClientSide && player.getItemBySlot(EquipmentSlotType.CHEST).getItem() == this) {
             if (cooldown > 0) {
                 cooldown--;
                 previousHealth = player.getHealth();
@@ -57,7 +57,7 @@ public class UnstableChestplate extends ArmorItem {
         }
     }
 
-    private void shootFireballs(ItemStack stack, World world, Player player) {
+    private void shootFireballs(ItemStack stack, World world, PlayerEntity player) {
         Vector3d[] directions = {
                 new Vector3d(0, 0, -1),
                 new Vector3d(1, 0, -1).normalize(),

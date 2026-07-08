@@ -24,8 +24,8 @@ import javax.annotation.Nullable;
 public class VesselPlacer extends Block {
 
 
-    public static BlockBehaviour.Properties defaultProperties() {
-        return ((BlockBehaviour.Properties) Props.stone())
+    public static AbstractBlock.Properties defaultProperties() {
+        return ((AbstractBlock.Properties) Props.stone())
                 .strength(1.5f, 6.0f)
                 .sound(SoundType.STONE)
                 .harvestLevel(1)
@@ -44,16 +44,16 @@ public class VesselPlacer extends Block {
 
     @Nullable
     @Override
-    public BlockEntity createTileEntity(BlockState state, IBlockReader world) {
+    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
         return new VesselPlacerTileEntity();
     }
 
     @Override
-    public InteractionResult use(BlockState state, World world, BlockPos pos, Player player, Hand hand, BlockHitResult hit) {
+    public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
         ItemStack itemStack = player.getItemInHand(hand);
 
         if (itemStack.getItem() == ModItems.REALMS_VESSEL.get()) {
-            if (!level.isClientSide) {
+            if (!world.isClientSide) {
                 String dimensionId = getDimensionFromItemName(itemStack);
 
                 if (dimensionId != null) {
@@ -61,26 +61,26 @@ public class VesselPlacer extends Block {
                     if (scanResult.success) {
                         if (isFrameBuilt(world, pos)) {
                             createPortalBlocks(world, pos, dimensionId, scanResult.axis);
-                            player.sendSystemMessage(new TextComponent("The realm vessel has been synced with " + getDimensionName(dimensionId)).withStyle(ChatFormatting.GREEN), player.getUUID());
+                            player.sendMessage(new StringTextComponent("The realm vessel has been synced with " + getDimensionName(dimensionId)).withStyle(TextFormatting.GREEN), player.getUUID());
                             world.playSound(null, pos, ModSoundEvents.PORTAL_SOUND.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);
-                            return InteractionResult.SUCCESS;
+                            return ActionResultType.SUCCESS;
                         } else {
-                            player.sendSystemMessage(new TextComponent("The vessel ask for a frame").withStyle(ChatFormatting.RED), player.getUUID());
-                            return InteractionResult.FAIL;
+                            player.sendMessage(new StringTextComponent("The vessel ask for a frame").withStyle(TextFormatting.RED), player.getUUID());
+                            return ActionResultType.FAIL;
                         }
                     } else {
-                        player.sendSystemMessage(new TextComponent(scanResult.error).withStyle(ChatFormatting.RED), player.getUUID());
-                        return InteractionResult.FAIL;
+                        player.sendMessage(new StringTextComponent(scanResult.error).withStyle(TextFormatting.RED), player.getUUID());
+                        return ActionResultType.FAIL;
                     }
                 } else {
-                    player.sendSystemMessage(new TextComponent("The realm vessel dont have any instruction..").withStyle(ChatFormatting.YELLOW), player.getUUID());
-                    return InteractionResult.FAIL;
+                    player.sendMessage(new StringTextComponent("The realm vessel dont have any instruction..").withStyle(TextFormatting.YELLOW), player.getUUID());
+                    return ActionResultType.FAIL;
                 }
             }
-            return InteractionResult.SUCCESS;
+            return ActionResultType.SUCCESS;
         }
 
-        return InteractionResult.PASS;
+        return ActionResultType.PASS;
     }
 
     private boolean isFrameBuilt(World world, BlockPos centerPos) {

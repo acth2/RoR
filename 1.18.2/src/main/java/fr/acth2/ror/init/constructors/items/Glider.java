@@ -24,13 +24,13 @@ public class Glider extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable World world, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(new TextComponent(ChatFormatting.GRAY + "Holding this item while falling"));
-        tooltip.add(new TextComponent(ChatFormatting.BLUE + "Make you glide and cancel your fall damages!"));
+    public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
+        tooltip.add(new StringTextComponent(TextFormatting.GRAY + "Holding this item while falling"));
+        tooltip.add(new StringTextComponent(TextFormatting.BLUE + "Make you glide and cancel your fall damages!"));
         super.appendHoverText(stack, world, tooltip, flag);
     }
 
-    public static void handleGliding(Player player) {
+    public static void handleGliding(PlayerEntity player) {
         if (player == null || !player.isAlive() || player.isOnGround() || player.isInWater() || player.isSpectator()) {
             return;
         }
@@ -70,14 +70,14 @@ public class Glider extends Item {
         }
     }
 
-    public static boolean isHoldingGlider(Player player) {
+    public static boolean isHoldingGlider(PlayerEntity player) {
         ItemStack mainHand = player.getMainHandItem();
         return mainHand.getItem() instanceof Glider;
     }
 
-    private static void spawnGlideParticles(Player player) {
+    private static void spawnGlideParticles(PlayerEntity player) {
         World world = player.level;
-        if (level.isClientSide) {
+        if (world.isClientSide) {
             for (int i = 0; i < 3; i++) {
                 world.addParticle(
                         net.minecraft.particles.ParticleTypes.CLOUD,
@@ -94,8 +94,8 @@ public class Glider extends Item {
     public static class GliderEvents {
         @SubscribeEvent
         public static void onLivingFall(LivingFallEvent event) {
-            if (event.getEntity() instanceof Player) {
-                Player player = (Player) event.getEntity();
+            if (event.getEntity() instanceof PlayerEntity) {
+                PlayerEntity player = (PlayerEntity) event.getEntity();
                 if (isHoldingGlider(player)) {
                     event.setCanceled(true);
                 }

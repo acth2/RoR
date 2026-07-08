@@ -42,7 +42,7 @@ public class PurchaseItemPacket {
                     player.drop(msg.item.copy(), false);
                 }
 
-                player.sendSystemMessage(new TextComponent("Purchased " +
+                player.sendMessage(new StringTextComponent("Purchased " +
                         msg.item.getHoverName().getString() +
                         " for " + msg.cost + " coins!"), player.getUUID());
 
@@ -52,7 +52,7 @@ public class PurchaseItemPacket {
                         NetworkDirection.PLAY_TO_CLIENT
                 );
             } else {
-                player.sendSystemMessage(new TextComponent("Not enough coins!"), player.getUUID());
+                player.sendMessage(new StringTextComponent("Not enough coins!"), player.getUUID());
             }
         });
         ctx.get().setPacketHandled(true);

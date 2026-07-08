@@ -24,13 +24,13 @@ public class RadiumScimtar extends SwordItem {
         super(Radium1ItemTier.RADIUM1, 3, -0.8F, builder);
     }
 
-    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-        Player player = Minecraft.getInstance().player;
+    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        PlayerEntity player = Minecraft.getInstance().player;
         if (player != null) {
             PlayerStats stats = PlayerStats.get(player);
             float damage = (stats.getDexterity() / 5.0f);
-            tooltip.add(new TextComponent("Your damage scale with your dexterity!").withStyle(ChatFormatting.LIGHT_PURPLE));
-            tooltip.add(new TextComponent("Bonus damage is: " + String.format("%.2f", damage)).withStyle(ChatFormatting.BOLD));
+            tooltip.add(new StringTextComponent("Your damage scale with your dexterity!").withStyle(TextFormatting.LIGHT_PURPLE));
+            tooltip.add(new StringTextComponent("Bonus damage is: " + String.format("%.2f", damage)).withStyle(TextFormatting.BOLD));
         }
     }
 

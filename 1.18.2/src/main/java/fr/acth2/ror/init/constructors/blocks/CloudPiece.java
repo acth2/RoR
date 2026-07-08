@@ -12,7 +12,7 @@ import net.minecraftforge.common.ToolAction;
 
 public class CloudPiece extends Block {
     public CloudPiece() {
-        super((((BlockBehaviour.Properties) Props.wool()))
+        super((((AbstractBlock.Properties) Props.wool()))
                 .strength(1.25F, 1.25F)
                 .harvestLevel(0)
                 .noOcclusion()

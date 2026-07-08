@@ -6,7 +6,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.entity.TickingBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-public class PowerContainerTileEntity extends BlockEntity implements TickingBlockEntity {
+public class PowerContainerTileEntity extends TileEntity implements ITickableTileEntity {
 
     private static final int ANIMATION_TICK_SPEED = 4;
     private static final int TOTAL_FRAMES = 6;
@@ -24,7 +24,7 @@ public class PowerContainerTileEntity extends BlockEntity implements TickingBloc
     }
 
     public static void doTick(Object teObj) {
-        BlockEntity te = (BlockEntity) teObj;
+        TileEntity te = (TileEntity) teObj;
         if (te.getLevel() == null || te.getLevel().isClientSide()) return;
 
         long gameTime = te.getLevel().getGameTime();

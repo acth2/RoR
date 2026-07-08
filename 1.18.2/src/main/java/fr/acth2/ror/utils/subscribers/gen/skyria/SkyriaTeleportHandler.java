@@ -16,12 +16,12 @@ public class SkyriaTeleportHandler {
 
     @SubscribeEvent
     public static void onPlayerTick(PlayerTickEvent event) {
-        Player player = event.player;
+        PlayerEntity player = event.player;
         World world = player.level;
 
         if (world.dimension().location().toString().equals(References.MODID + ":skyria")) {
             if (player.getY() <= 32) {
-                if (!level.isClientSide) {
+                if (!world.isClientSide) {
                     ServerWorld overworld = world.getServer().getLevel(World.OVERWORLD);
                     if (overworld == null) return;
 
@@ -32,7 +32,7 @@ public class SkyriaTeleportHandler {
                     );
 
                     player.changeDimension(overworld, new SkyriaTeleporter(teleportPos.getX(), teleportPos.getY(), teleportPos.getZ()));
-                    player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 800, 0, false, false));
+                    player.addEffect(new EffectInstance(Effects.SLOW_FALLING, 800, 0, false, false));
                 }
             }
         }

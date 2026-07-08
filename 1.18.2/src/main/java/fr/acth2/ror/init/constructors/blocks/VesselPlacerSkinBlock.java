@@ -21,7 +21,7 @@ public class VesselPlacerSkinBlock extends Block {
 
     @Nullable
     @Override
-    public BlockEntity createTileEntity(BlockState state, IBlockReader world) {
+    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
         return new VesselPlacerTileEntity();
     }
 }

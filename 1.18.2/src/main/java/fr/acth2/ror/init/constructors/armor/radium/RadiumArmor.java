@@ -27,7 +27,7 @@ public class RadiumArmor extends ArmorItem {
     }
 
     @Override
-    public void onArmorTick(ItemStack stack, World world, Player player) {
+    public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
         if (!player.isCreative() && !player.isSpectator()) {
             poisonTick++;
             if (poisonTick >= 650) {
@@ -40,9 +40,9 @@ public class RadiumArmor extends ArmorItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable World world, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(new TextComponent(ChatFormatting.RED + "When you hit someone they get poisoned"));
-        tooltip.add(new TextComponent(ChatFormatting.GRAY + "Despite you being no exception"));
+    public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
+        tooltip.add(new StringTextComponent(TextFormatting.RED + "When you hit someone they get poisoned"));
+        tooltip.add(new StringTextComponent(TextFormatting.GRAY + "Despite you being no exception"));
         super.appendHoverText(stack, world, tooltip, flag);
     }
 }

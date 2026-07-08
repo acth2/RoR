@@ -31,7 +31,7 @@ public class CloupisArmor extends ArmorItem {
     }
 
     private static boolean checkArmor(LivingEntity player) {
-        if (!(player instanceof Player)) return true;
+        if (!(player instanceof PlayerEntity)) return true;
 
         for (EquipmentSlotType slot : new EquipmentSlotType[]{
                 EquipmentSlotType.HEAD,
@@ -46,9 +46,9 @@ public class CloupisArmor extends ArmorItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable World world, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(new TextComponent(ChatFormatting.DARK_PURPLE + "This armor give you a steath advantage when you are sneaking"));
-        tooltip.add(new TextComponent(ChatFormatting.GRAY + "But if you get hurt every enemies at a 32 block radius see you"));
+    public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
+        tooltip.add(new StringTextComponent(TextFormatting.DARK_PURPLE + "This armor give you a steath advantage when you are sneaking"));
+        tooltip.add(new StringTextComponent(TextFormatting.GRAY + "But if you get hurt every enemies at a 32 block radius see you"));
         super.appendHoverText(stack, world, tooltip, flag);
     }
 }

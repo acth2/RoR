@@ -15,7 +15,7 @@ import net.minecraft.world.level.Level;
 
 public class CloupisOre extends Block {
     public CloupisOre() {
-        super((((BlockBehaviour.Properties) Props.stone()))
+        super((((AbstractBlock.Properties) Props.stone()))
                 .strength(3.25F, 1.25F)
                 .harvestLevel(3)
                 .harvestTool(net.minecraftforge.common.ToolAction.PICKAXE));

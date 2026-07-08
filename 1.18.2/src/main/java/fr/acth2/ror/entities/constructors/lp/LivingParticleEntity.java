@@ -41,7 +41,7 @@ public class LivingParticleEntity extends CreatureEntity {
         this.goalSelector.addGoal(0, new SwimGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.4D));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
-        this.goalSelector.addGoal(6, new LookAtGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 6.0F));
         this.goalSelector.addGoal(7, new LookRandomlyGoal(this));
     }
 
@@ -63,20 +63,20 @@ public class LivingParticleEntity extends CreatureEntity {
 
         if (!this.level.isClientSide) {
             if (this.tickCount % 20 == 0) {
-                List<Player> players = this.level.getEntitiesOfClass(
-                        Player.class,
+                List<PlayerEntity> players = this.level.getEntitiesOfClass(
+                        PlayerEntity.class,
                         this.getBoundingBox().inflate(10.0D),
                         player -> true
                 );
 
-                for (Player player : players) {
-                    player.addEffect(new MobEffectInstance(
-                            MobEffects.REGENERATION,
+                for (PlayerEntity player : players) {
+                    player.addEffect(new EffectInstance(
+                            Effects.REGENERATION,
                             100,
                             0
                     ));
-                    player.addEffect(new MobEffectInstance(
-                            MobEffects.DAMAGE_BOOST,
+                    player.addEffect(new EffectInstance(
+                            Effects.DAMAGE_BOOST,
                             100,
                             0
                     ));
@@ -162,8 +162,8 @@ public class LivingParticleEntity extends CreatureEntity {
         super.setGlowing(p_184195_1_);
     }
 
-    public static AttributeSupplier.MutableAttribute createAttributes() {
-        return Mob.createMobAttributes()
+    public static AttributeModifierMap.MutableAttribute createAttributes() {
+        return MobEntity.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 1.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.15D)
                 .add(Attributes.ATTACK_DAMAGE, 0.0D);

@@ -5,7 +5,7 @@ import fr.acth2.ror.api.particle.IParticleHelper;
 import fr.acth2.ror.api.platform.IPlatformHelper;
 import fr.acth2.ror.api.registry.IRegistryHelper;
 import fr.acth2.ror.api.sound.ISoundHelper;
-import fr.acth2.ror.api.BlockEntity.ITileEntityHelper;
+import fr.acth2.ror.api.tileentity.ITileEntityHelper;
 
 import java.util.ServiceLoader;
 

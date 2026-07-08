@@ -24,14 +24,14 @@ import java.util.List;
 
 public class RestorationStation  extends Block {
     public RestorationStation() {
-        super(((BlockBehaviour.Properties) Props.wood())
+        super(((AbstractBlock.Properties) Props.wood())
                 .strength(0.5F, 0.25F)
                 .harvestLevel(0));
     }
 
     @Override
-    public InteractionResult use(BlockState state, World world, BlockPos pos, Player player, Hand hand, BlockHitResult hit) {
-        if (!level.isClientSide) {
+    public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+        if (!world.isClientSide) {
             ItemStack heldStack = player.getItemInHand(hand);
             if (!heldStack.isEmpty()) {
                 if (heldStack.getItem() instanceof RustedItem) {
@@ -43,27 +43,27 @@ public class RestorationStation  extends Block {
                         }
 
                         heldStack.shrink(1);
-                        player.sendSystemMessage(new TextComponent("Item restored! (-5 XP Levels)")
-                                .withStyle(ChatFormatting.GREEN), player.getUUID());
+                        player.sendMessage(new StringTextComponent("Item restored! (-5 XP Levels)")
+                                .withStyle(TextFormatting.GREEN), player.getUUID());
                     } else {
-                        player.sendSystemMessage(new TextComponent("You need at least 5 XP levels!")
-                                .withStyle(ChatFormatting.RED), player.getUUID());
+                        player.sendMessage(new StringTextComponent("You need at least 5 XP levels!")
+                                .withStyle(TextFormatting.RED), player.getUUID());
                     }
                 } else {
-                    player.sendSystemMessage(new TextComponent("This item isn't rusted!")
-                            .withStyle(ChatFormatting.YELLOW), player.getUUID());
+                    player.sendMessage(new StringTextComponent("This item isn't rusted!")
+                            .withStyle(TextFormatting.YELLOW), player.getUUID());
                 }
             } else {
-                player.sendSystemMessage(new TextComponent("You need to hold an rusted item!")
-                        .withStyle(ChatFormatting.RED), player.getUUID());
+                player.sendMessage(new StringTextComponent("You need to hold an rusted item!")
+                        .withStyle(TextFormatting.RED), player.getUUID());
             }
         }
-        return InteractionResult.sidedSuccess(level.isClientSide);
+        return ActionResultType.sidedSuccess(world.isClientSide);
     }
 
     @Override
-    public void appendHoverText(ItemStack p_190948_1_, @Nullable IBlockReader p_190948_2_, List<Component> p_190948_3_, TooltipFlag p_190948_4_) {
-        p_190948_3_.add(new TextComponent(ChatFormatting.DARK_GREEN + "This station can restore rusted items at cost of XP"));
+    public void appendHoverText(ItemStack p_190948_1_, @Nullable IBlockReader p_190948_2_, List<ITextComponent> p_190948_3_, ITooltipFlag p_190948_4_) {
+        p_190948_3_.add(new StringTextComponent(TextFormatting.DARK_GREEN + "This station can restore rusted items at cost of XP"));
         super.appendHoverText(p_190948_1_, p_190948_2_, p_190948_3_, p_190948_4_);
     }
 }

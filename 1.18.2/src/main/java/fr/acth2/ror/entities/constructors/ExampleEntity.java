@@ -17,9 +17,9 @@ import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 
-public class ExampleEntity extends Monster {
+public class ExampleEntity extends MonsterEntity {
 
-    protected ExampleEntity(EntityType<? extends Monster> type, World worldIn) {
+    protected ExampleEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
@@ -29,7 +29,7 @@ public class ExampleEntity extends Monster {
     }
 
     protected void registerGoals() {
-        this.goalSelector.addGoal(8, new LookAtGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 8.0F));
         this.addBehaviourGoals();
     }
 
@@ -40,7 +40,7 @@ public class ExampleEntity extends Monster {
         this.goalSelector.addGoal(7, new WaterAvoidingRandomWalkingGoal(this, 1.0D) {
         });
 
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal(this, Player.class, true) {
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal(this, PlayerEntity.class, true) {
         });
     }
 
@@ -83,8 +83,8 @@ public class ExampleEntity extends Monster {
         super.setGlowing(p_184195_1_);
     }
 
-    public static AttributeSupplier.MutableAttribute createAttributes() {
-        return Mob.createMobAttributes()
+    public static AttributeModifierMap.MutableAttribute createAttributes() {
+        return MobEntity.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 1.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.15D)
                 .add(Attributes.ATTACK_DAMAGE, 0.0D);

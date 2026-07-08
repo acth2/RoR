@@ -41,8 +41,8 @@ public class AbyssalGlue extends Block {
         return (int) ((gameTime / ANIMATION_SPEED) % TOTAL_FRAMES);
     }
 
-    public static BlockBehaviour.Properties defaultProperties() {
-        return ((BlockBehaviour.Properties) Props.stone())
+    public static AbstractBlock.Properties defaultProperties() {
+        return ((AbstractBlock.Properties) Props.stone())
                 .noCollission()
                 .strength(-1.0F)
                 .sound(SoundType.ROOTS);
@@ -54,7 +54,7 @@ public class AbyssalGlue extends Block {
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(FRAME);
     }
 
@@ -65,17 +65,17 @@ public class AbyssalGlue extends Block {
 
     @Nullable
     @Override
-    public BlockEntity createTileEntity(BlockState state, IBlockReader world) {
+    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
         return new AbyssalGlueTileEntity();
     }
 
     @Override
     public void entityInside(BlockState state, World world, BlockPos pos, Entity entity) {
-        if (entity instanceof Player) {
-            Player player = (Player) entity;
-            player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 75, 0));
-            player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 75, 2));
-            player.addEffect(new MobEffectInstance(MobEffects.POISON, 75, 2));
+        if (entity instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) entity;
+            player.addEffect(new EffectInstance(Effects.BLINDNESS, 75, 0));
+            player.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 75, 2));
+            player.addEffect(new EffectInstance(Effects.POISON, 75, 2));
             player.hurt(DamageSource.MAGIC, 3.5F);
         }
     }

@@ -29,8 +29,8 @@ public class DoubleJumpHandler {
 
     @SubscribeEvent
     public static void onPlayerJump(LivingEvent.LivingJumpEvent event) {
-        if (event.getEntityLiving() instanceof Player) {
-            Player player = (Player) event.getEntityLiving();
+        if (event.getEntityLiving() instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) event.getEntityLiving();
 
             if (player.isOnGround()) {
                 player.getPersistentData().putInt(JUMPS_KEY, 0);
@@ -41,8 +41,8 @@ public class DoubleJumpHandler {
 
     @SubscribeEvent
     public static void onPlayerInput(InputUpdateEvent event) {
-        if (event.getEntityLiving() instanceof Player) {
-            Player player = (Player) event.getEntityLiving();
+        if (event.getEntityLiving() instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) event.getEntityLiving();
             PlayerStats playerStats = PlayerStats.get(player);
             UUID playerId = player.getUUID();
 

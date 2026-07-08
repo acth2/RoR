@@ -26,8 +26,8 @@ public class GravitationalPulsar extends Item {
 
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
-        if (entity instanceof Player) {
-            Player player = (Player) entity;
+        if (entity instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) entity;
             if (player.inventory.contains(stack)) {
                 AxisAlignedBB area = new AxisAlignedBB(player.blockPosition()).inflate(16);
                 List<Entity> nearbyEntities = world.getEntities(player, area, e -> e instanceof LivingEntity && e != player);
@@ -41,10 +41,10 @@ public class GravitationalPulsar extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> use(World world, Player player, Hand hand) {
+    public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
 
-        if (!level.isClientSide) {
+        if (!world.isClientSide) {
             AxisAlignedBB area = new AxisAlignedBB(player.blockPosition()).inflate(32);
             List<Entity> nearbyEntities = world.getEntities(player, area, e -> e instanceof LivingEntity && e != player);
 
@@ -62,9 +62,9 @@ public class GravitationalPulsar extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable World world, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(new TextComponent(ChatFormatting.RED + "This instable item change gravity around you"));
-        tooltip.add(new TextComponent(ChatFormatting.GRAY + "Right-click to push every entity around you very far"));
+    public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
+        tooltip.add(new StringTextComponent(TextFormatting.RED + "This instable item change gravity around you"));
+        tooltip.add(new StringTextComponent(TextFormatting.GRAY + "Right-click to push every entity around you very far"));
         super.appendHoverText(stack, world, tooltip, flag);
     }
 }

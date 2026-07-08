@@ -11,9 +11,9 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
-public class RadiumMimesisEntity extends Monster {
+public class RadiumMimesisEntity extends MonsterEntity {
 
-    public RadiumMimesisEntity(EntityType<? extends Monster> type, World worldIn) {
+    public RadiumMimesisEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
@@ -23,11 +23,11 @@ public class RadiumMimesisEntity extends Monster {
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.2D, false));
 
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers());
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Monster.class, true, false));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, MonsterEntity.class, true, false));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
 
         this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
-        this.goalSelector.addGoal(6, new LookAtGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.addGoal(7, new LookRandomlyGoal(this));
     }
 
@@ -36,8 +36,8 @@ public class RadiumMimesisEntity extends Monster {
         //super.tick();
         if (!this.level.isClientSide) {
             LivingEntity target = this.getTarget();
-            if (target instanceof Monster && !(target instanceof RadiumMimesisEntity)) {
-                ((Monster) target).setTarget(this);
+            if (target instanceof MonsterEntity && !(target instanceof RadiumMimesisEntity)) {
+                ((MonsterEntity) target).setTarget(this);
             }
         }
     }
@@ -47,8 +47,8 @@ public class RadiumMimesisEntity extends Monster {
         return CreatureAttribute.UNDEFINED;
     }
 
-    public static AttributeSupplier.MutableAttribute createAttributes() {
-        return Mob.createMobAttributes()
+    public static AttributeModifierMap.MutableAttribute createAttributes() {
+        return MobEntity.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 25.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.19D)
                 .add(Attributes.ATTACK_DAMAGE, 10.0D)

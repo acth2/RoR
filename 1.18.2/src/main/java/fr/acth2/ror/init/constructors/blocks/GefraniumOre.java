@@ -8,7 +8,7 @@ import net.minecraft.world.level.material.MaterialColor;
 
 public class GefraniumOre extends Block {
     public GefraniumOre() {
-        super((((BlockBehaviour.Properties) Props.stone()))
+        super((((AbstractBlock.Properties) Props.stone()))
                 .strength(3.25F, 1.25F)
                 .harvestLevel(3)
                 .harvestTool(net.minecraftforge.common.ToolAction.PICKAXE));

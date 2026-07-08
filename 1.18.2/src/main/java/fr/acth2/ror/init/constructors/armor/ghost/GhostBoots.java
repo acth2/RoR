@@ -23,16 +23,16 @@ public class GhostBoots extends ArmorItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack p_77624_1_, @Nullable World p_77624_2_, List<Component> txt, TooltipFlag p_77624_4_) {
-        txt.add(new TextComponent(ChatFormatting.GRAY + "Despite not defending the player"));
-        txt.add(new TextComponent(ChatFormatting.BLUE + "Theses boots negate falls damage and make the carrier walk faster"));
+    public void appendHoverText(ItemStack p_77624_1_, @Nullable World p_77624_2_, List<ITextComponent> txt, ITooltipFlag p_77624_4_) {
+        txt.add(new StringTextComponent(TextFormatting.GRAY + "Despite not defending the player"));
+        txt.add(new StringTextComponent(TextFormatting.BLUE + "Theses boots negate falls damage and make the carrier walk faster"));
         super.appendHoverText(p_77624_1_, p_77624_2_, txt, p_77624_4_);
     }
 
     @Override
-    public void onArmorTick(ItemStack stack, World world, Player player) {
-        if (!level.isClientSide && player.getItemBySlot(EquipmentSlotType.FEET).getItem() == this) {
-            player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200, 0, false, false, true));
+    public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
+        if (!world.isClientSide && player.getItemBySlot(EquipmentSlotType.FEET).getItem() == this) {
+            player.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 200, 0, false, false, true));
             player.fallDistance = 0.0F;
         }
     }

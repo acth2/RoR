@@ -35,7 +35,7 @@ import java.util.List;
 
 public class MainMenuGui extends Screen {
 
-    private static Player player;
+    private static PlayerEntity player;
     private int currentTab = 0;
     private final String[] tabLabels = { "SKILLS", "DIARY", "OTHER" };
     private PlayerStats playerStats;
@@ -56,8 +56,8 @@ public class MainMenuGui extends Screen {
     private Button strengthButton;
     private Button particleToggleButton;
 
-    public MainMenuGui(Player player) {
-        super(new TextComponent("Ruins of Realms"));
+    public MainMenuGui(PlayerEntity player) {
+        super(new StringTextComponent("Ruins of Realms"));
         this.player = player;
         DiaryManager.loadDiary();
     }
@@ -80,7 +80,7 @@ public class MainMenuGui extends Screen {
         for (int i = 0; i < tabLabels.length; i++) {
             int x = startX + i * (tabButtonWidth + tabSpacing);
             final int tabIndex = i;
-            this.addButton(new Button(x, y, tabButtonWidth, tabButtonHeight, new TextComponent(tabLabels[i]), button -> {
+            this.addButton(new Button(x, y, tabButtonWidth, tabButtonHeight, new StringTextComponent(tabLabels[i]), button -> {
                 currentTab = tabIndex;
                 updateTabVisibility();
             }));
@@ -100,10 +100,10 @@ public class MainMenuGui extends Screen {
                 this.height - pbuttonHeight - 10,
                 pbuttonWidth,
                 pbuttonHeight,
-                new TextComponent(getParticleButtonText()),
+                new StringTextComponent(getParticleButtonText()),
                 button -> {
                     WorldParticleHandler.toggleParticles();
-                    particleToggleButton.setMessage(new TextComponent(getParticleButtonText()));
+                    particleToggleButton.setMessage(new StringTextComponent(getParticleButtonText()));
                 }
         );
 
@@ -124,17 +124,17 @@ public class MainMenuGui extends Screen {
             int buttonHeight = 20;
             int spacing = 10;
 
-            healthButton = new Button(startX2 + buttonWidth + spacing, startY, buttonWidth, buttonHeight, new TextComponent("Level Health"), btn -> {
+            healthButton = new Button(startX2 + buttonWidth + spacing, startY, buttonWidth, buttonHeight, new StringTextComponent("Level Health"), btn -> {
                 updateButtonCosts();
                 ModNetworkHandler.INSTANCE.sendToServer(new RequestLevelUpPacket("health"));
             });
 
-            dexterityButton = new Button(startX2 + buttonWidth + spacing, startY + (buttonHeight + spacing), buttonWidth, buttonHeight, new TextComponent("Level Dexterity"), btn -> {
+            dexterityButton = new Button(startX2 + buttonWidth + spacing, startY + (buttonHeight + spacing), buttonWidth, buttonHeight, new StringTextComponent("Level Dexterity"), btn -> {
                 updateButtonCosts();
                 ModNetworkHandler.INSTANCE.sendToServer(new RequestLevelUpPacket("dexterity"));
             });
 
-            strengthButton = new Button(startX2 + buttonWidth + spacing, startY + 2 * (buttonHeight + spacing), buttonWidth, buttonHeight, new TextComponent("Level Strength"), btn -> {
+            strengthButton = new Button(startX2 + buttonWidth + spacing, startY + 2 * (buttonHeight + spacing), buttonWidth, buttonHeight, new StringTextComponent("Level Strength"), btn -> {
                 ModNetworkHandler.INSTANCE.sendToServer(new RequestLevelUpPacket("strength"));
             });
 
@@ -149,7 +149,7 @@ public class MainMenuGui extends Screen {
         }
     }
 
-    public static int calculateDexterityFromModifiers(Player player) {
+    public static int calculateDexterityFromModifiers(PlayerEntity player) {
         ModifiableAttributeInstance maxDexAttribute = player.getAttribute(Attributes.MOVEMENT_SPEED);
         if (maxDexAttribute != null) {
             AttributeModifier dexModifier = maxDexAttribute.getModifier(References.DEXTERITY_MODIFIER_UUID);
@@ -161,7 +161,7 @@ public class MainMenuGui extends Screen {
         return 0;
     }
 
-    public static int calculateStrengthFromModifiers(Player player) {
+    public static int calculateStrengthFromModifiers(PlayerEntity player) {
         ModifiableAttributeInstance maxStrAttribute = player.getAttribute(Attributes.ATTACK_DAMAGE);
         if (maxStrAttribute != null) {
             AttributeModifier strModifier = maxStrAttribute.getModifier(References.STRENGTH_MODIFIER_UUID);
@@ -180,9 +180,9 @@ public class MainMenuGui extends Screen {
 
     private void updateButtonCosts() {
         if (playerStats != null) {
-            healthButton.setMessage(new TextComponent(playerStats.getHealth() >= 100 ? "MAX" : "Health: " + playerStats.getHealth()  + " (Cost: " + playerStats.getLevelUpCost("health") + ")"));
-            dexterityButton.setMessage(new TextComponent(playerStats.getDexterity() >= 25 ? "MAX" : "Dexterity: " + playerStats.getDexterity() + " (Cost: " + playerStats.getLevelUpCost("dexterity") + ")"));
-            strengthButton.setMessage(new TextComponent(playerStats.getStrength() >= 30 ? "MAX" : "Strength: " + playerStats.getStrength() + " (Cost: " + playerStats.getLevelUpCost("strength") + ")"));
+            healthButton.setMessage(new StringTextComponent(playerStats.getHealth() >= 100 ? "MAX" : "Health: " + playerStats.getHealth()  + " (Cost: " + playerStats.getLevelUpCost("health") + ")"));
+            dexterityButton.setMessage(new StringTextComponent(playerStats.getDexterity() >= 25 ? "MAX" : "Dexterity: " + playerStats.getDexterity() + " (Cost: " + playerStats.getLevelUpCost("dexterity") + ")"));
+            strengthButton.setMessage(new StringTextComponent(playerStats.getStrength() >= 30 ? "MAX" : "Strength: " + playerStats.getStrength() + " (Cost: " + playerStats.getLevelUpCost("strength") + ")"));
 
 
             if (playerStats.getHealth() >= 100) {
@@ -240,7 +240,7 @@ public class MainMenuGui extends Screen {
         for (int i = startIndex; i < endIndex; i++) {
             DiaryEntry entry = entries.get(i);
             int y = startY + index * (buttonHeight + spacing);
-            Button diaryButton = new Button(startX, y, buttonWidth, buttonHeight, new TextComponent(entry.getMonsterName()), btn -> {
+            Button diaryButton = new Button(startX, y, buttonWidth, buttonHeight, new StringTextComponent(entry.getMonsterName()), btn -> {
                 currentDiaryEntry = entry;
             });
             this.addButton(diaryButton);
@@ -249,11 +249,11 @@ public class MainMenuGui extends Screen {
         }
         if (totalPages > 1) {
             int navY = startY + entriesPerPage * (buttonHeight + spacing) + 5;
-            prevPageButton = new Button(startX, navY, 40, 20, new TextComponent("<"), btn -> {
+            prevPageButton = new Button(startX, navY, 40, 20, new StringTextComponent("<"), btn -> {
                 diaryPage--;
                 initDiaryEntries();
             });
-            nextPageButton = new Button(startX + buttonWidth - 40, navY, 40, 20, new TextComponent(">"), btn -> {
+            nextPageButton = new Button(startX + buttonWidth - 40, navY, 40, 20, new StringTextComponent(">"), btn -> {
                 diaryPage++;
                 initDiaryEntries();
             });
@@ -305,7 +305,7 @@ public class MainMenuGui extends Screen {
         }
 
         if (currentTab == 2) {
-            particleToggleButton.setMessage(new TextComponent(getParticleButtonText()));
+            particleToggleButton.setMessage(new StringTextComponent(getParticleButtonText()));
         }
     }
 
@@ -359,7 +359,7 @@ public class MainMenuGui extends Screen {
                     fill(matrixStack, popupX, popupY, popupX + popupWidth, popupY + popupHeight, 0xAA000000);
                     drawString(matrixStack, this.font, currentDiaryEntry.getMonsterName(), popupX + 10, popupY + 10, 0xFFFFFF);
 
-                    List<IReorderingProcessor> lines = this.font.split(new TextComponent(currentDiaryEntry.getDescription()), popupWidth - 20);
+                    List<IReorderingProcessor> lines = this.font.split(new StringTextComponent(currentDiaryEntry.getDescription()), popupWidth - 20);
                     int lineY = popupY + 30;
                     for (IReorderingProcessor line : lines) {
                         this.font.draw(matrixStack, line, popupX + 10, lineY, 0xCCCCCC);

@@ -19,7 +19,7 @@ import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 
-public class AxisEntity extends Monster {
+public class AxisEntity extends MonsterEntity {
     private static final double ATTRACTION_STRENGTH = 0.15D;
     private static final int PULL_DURATION = 500;
     private static final int COOLDOWN_DURATION = 5000;
@@ -28,7 +28,7 @@ public class AxisEntity extends Monster {
     private boolean isPulling = false;
     private boolean isVulnerable = false;
 
-    public AxisEntity(EntityType<? extends Monster> type, World worldIn) {
+    public AxisEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
@@ -38,7 +38,7 @@ public class AxisEntity extends Monster {
 
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, false));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
         this.addBehaviourGoals();
     }
@@ -157,13 +157,13 @@ public class AxisEntity extends Monster {
     public boolean doHurtTarget(Entity target) {
         boolean flag = super.doHurtTarget(target);
         if (flag && target instanceof LivingEntity) {
-            ((LivingEntity) target).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 75, 2));
+            ((LivingEntity) target).addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 75, 2));
         }
         return flag;
     }
 
-    public static AttributeSupplier.MutableAttribute createAttributes() {
-        return Mob.createMobAttributes()
+    public static AttributeModifierMap.MutableAttribute createAttributes() {
+        return MobEntity.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 15.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.30D)
                 .add(Attributes.ATTACK_DAMAGE, 8.0D)

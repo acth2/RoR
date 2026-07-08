@@ -17,7 +17,7 @@ import net.minecraftforge.network.PacketDistributor;
 public class DeathHandler {
     @SubscribeEvent
     public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
-        Player player = event.getPlayer();
+        PlayerEntity player = event.getPlayer();
         if (player instanceof ServerPlayerEntity) {
             ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
             PlayerStats stats = PlayerStats.get(serverPlayer);

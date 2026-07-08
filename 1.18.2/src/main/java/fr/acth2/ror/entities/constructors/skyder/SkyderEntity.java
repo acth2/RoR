@@ -16,9 +16,9 @@ import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 
-public class SkyderEntity extends Monster {
+public class SkyderEntity extends MonsterEntity {
 
-    protected SkyderEntity(EntityType<? extends Monster> type, World worldIn) {
+    protected SkyderEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
@@ -34,7 +34,7 @@ public class SkyderEntity extends Monster {
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, false));
 
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
         this.addBehaviourGoals();
     }
@@ -79,7 +79,7 @@ public class SkyderEntity extends Monster {
     public boolean doHurtTarget(Entity target) {
         boolean flag = super.doHurtTarget(target);
         if (flag && target instanceof LivingEntity) {
-            ((LivingEntity) target).addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 75, 0));
+            ((LivingEntity) target).addEffect(new EffectInstance(Effects.BLINDNESS, 75, 0));
         }
         return flag;
     }
@@ -94,8 +94,8 @@ public class SkyderEntity extends Monster {
         super.setGlowing(p_184195_1_);
     }
 
-    public static AttributeSupplier.MutableAttribute createAttributes() {
-        return Mob.createMobAttributes()
+    public static AttributeModifierMap.MutableAttribute createAttributes() {
+        return MobEntity.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 25)
                 .add(Attributes.MOVEMENT_SPEED, 0.26D)
                 .add(Attributes.ATTACK_DAMAGE, 8.0D);

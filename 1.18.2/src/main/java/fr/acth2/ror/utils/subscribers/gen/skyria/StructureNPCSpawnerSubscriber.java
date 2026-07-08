@@ -42,7 +42,7 @@ public class StructureNPCSpawnerSubscriber {
         });
     }
 
-    private static void checkAndSpawnNPCAroundPlayer(ServerWorld world, Player player) {
+    private static void checkAndSpawnNPCAroundPlayer(ServerWorld world, PlayerEntity player) {
         BlockPos playerPos = player.blockPosition();
         int searchRadius = 32;
 

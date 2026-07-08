@@ -21,7 +21,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class TravelerEntity extends Monster {
+public class TravelerEntity extends MonsterEntity {
 
     private static int hurtCounter = 0;
     private static final AtomicBoolean atomicFirstPayload = new AtomicBoolean(true);
@@ -29,7 +29,7 @@ public class TravelerEntity extends Monster {
     private static final AtomicBoolean atomicThirdPayload = new AtomicBoolean(true);
     private static final AtomicBoolean atomicFinalPayload = new AtomicBoolean(true);
 
-    protected TravelerEntity(EntityType<? extends Monster> type, World worldIn) {
+    protected TravelerEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
@@ -52,19 +52,19 @@ public class TravelerEntity extends Monster {
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
-        if (source.getEntity() instanceof Player) {
+        if (source.getEntity() instanceof PlayerEntity) {
             hurtCounter++;
 
             if (hurtCounter == 2 && atomicFirstPayload.getAndSet(false)) {
-                source.getEntity().sendMessage(Component.nullToEmpty("[TRAVELER]: Mh?"), source.getEntity().getUUID());
+                source.getEntity().sendMessage(ITextComponent.nullToEmpty("[TRAVELER]: Mh?"), source.getEntity().getUUID());
             }
 
             if (hurtCounter == 4 && atomicSecondPayload.getAndSet(false)) {
-                source.getEntity().sendMessage(Component.nullToEmpty("[TRAVELER]: Stop that!"), source.getEntity().getUUID());
+                source.getEntity().sendMessage(ITextComponent.nullToEmpty("[TRAVELER]: Stop that!"), source.getEntity().getUUID());
             }
 
             if (hurtCounter == 6 && atomicThirdPayload.getAndSet(false)) {
-                source.getEntity().sendMessage(Component.nullToEmpty("[TRAVELER]: What is wrong with you? Stop!"), source.getEntity().getUUID());
+                source.getEntity().sendMessage(ITextComponent.nullToEmpty("[TRAVELER]: What is wrong with you? Stop!"), source.getEntity().getUUID());
             }
 
             if (hurtCounter > 8 && atomicFinalPayload.getAndSet(false)) {
@@ -89,13 +89,13 @@ public class TravelerEntity extends Monster {
     }
 
     @Override
-    public InteractionResult interactAt(Player player, Vector3d p_184199_2_, Hand hand) {
+    public ActionResultType interactAt(PlayerEntity player, Vector3d p_184199_2_, Hand hand) {
         if (!this.level.isClientSide) {
-            return InteractionResult.SUCCESS;
+            return ActionResultType.SUCCESS;
         }
 
         Minecraft.getInstance().setScreen(new TravelerSpeech(player));
-        return InteractionResult.SUCCESS;
+        return ActionResultType.SUCCESS;
     }
 
     @Override
@@ -113,8 +113,8 @@ public class TravelerEntity extends Monster {
         return false;
     }
 
-    public Player isToTrack() {
-        for (Player player : this.level.players()) {
+    public PlayerEntity isToTrack() {
+        for (PlayerEntity player : this.level.players()) {
             if (distanceTo(player) <= 10.0D) {
                 return player;
             }
@@ -122,8 +122,8 @@ public class TravelerEntity extends Monster {
         return null;
     }
 
-    public static AttributeSupplier.MutableAttribute createAttributes() {
-        return Mob.createMobAttributes()
+    public static AttributeModifierMap.MutableAttribute createAttributes() {
+        return MobEntity.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, Integer.MAX_VALUE)
                 .add(Attributes.MOVEMENT_SPEED, 0.00D)
                 .add(Attributes.ATTACK_DAMAGE, 0.0D)

@@ -19,12 +19,12 @@ import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 
-public class BrokenInsurrectionistEntity extends Monster {
+public class BrokenInsurrectionistEntity extends MonsterEntity {
 
     private int fireballCooldown = 0;
     private boolean isShooting = false;
 
-    public BrokenInsurrectionistEntity(EntityType<? extends Monster> type, World worldIn) {
+    public BrokenInsurrectionistEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
         this.moveControl = new BrokenInsurrectionistMovementController(this);
     }
@@ -34,11 +34,11 @@ public class BrokenInsurrectionistEntity extends Monster {
         this.goalSelector.addGoal(1, new SwimGoal(this));
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, false));
         this.goalSelector.addGoal(3, new MoveTowardsTargetGoal(this, 0.9D, 32.0F));
-        this.goalSelector.addGoal(4, new LookAtGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(4, new LookAtGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.addGoal(5, new LookRandomlyGoal(this));
 
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolemEntity.class, true));
     }
 
@@ -92,7 +92,7 @@ public class BrokenInsurrectionistEntity extends Monster {
     @Override
     public void baseTick() {
         clearFire();
-        this.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 2, 0, false, false));
+        this.addEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 2, 0, false, false));
         super.baseTick();
     }
 
@@ -150,8 +150,8 @@ public class BrokenInsurrectionistEntity extends Monster {
         isShooting = true;
     }
 
-    public static AttributeSupplier.MutableAttribute createAttributes() {
-        return Mob.createMobAttributes()
+    public static AttributeModifierMap.MutableAttribute createAttributes() {
+        return MobEntity.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 55.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D)
                 .add(Attributes.FOLLOW_RANGE, 40.0D)

@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 import java.util.Random;
 
-public class AbyssalGlueTileEntity extends BlockEntity implements TickingBlockEntity {
+public class AbyssalGlueTileEntity extends TileEntity implements ITickableTileEntity {
 
     private static final int ANIMATION_TICK_SPEED = 10;
     private static final int TOTAL_FRAMES = 9;

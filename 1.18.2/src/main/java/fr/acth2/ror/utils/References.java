@@ -26,7 +26,7 @@ public class References {
     public static boolean event1Warning = false;
 
     public static boolean isBrokenMoonActive(World world) {
-        if (level.isClientSide()) {
+        if (world.isClientSide()) {
             return ClientEventData.isBrokenMoonActive();
         } else if (world instanceof ServerWorld) {
             return ServerEventManager.isBrokenMoonActive((ServerWorld) world);
@@ -35,7 +35,7 @@ public class References {
     }
 
     public static boolean isBloodSunActive(World world) {
-        if (level.isClientSide()) {
+        if (world.isClientSide()) {
             return ClientEventData.isBloodSunActive();
         } else if (world instanceof ServerWorld) {
             return ServerEventManager.isBloodSunActive((ServerWorld) world);

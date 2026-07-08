@@ -19,8 +19,8 @@ public class PlayerModelMixin {
             at = @At("TAIL"))
     private void onSetupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks,
                              float netHeadYaw, float headPitch, CallbackInfo ci) {
-        if (entity instanceof Player) {
-            Player player = (Player) entity;
+        if (entity instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) entity;
             PlayerModel<?> model = (PlayerModel<?>) (Object) this;
 
             if (Glider.isHoldingGlider(player) && !player.isOnGround() && player.getDeltaMovement().y < 0) {

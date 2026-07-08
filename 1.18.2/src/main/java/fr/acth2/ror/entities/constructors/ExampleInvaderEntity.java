@@ -22,7 +22,7 @@ import net.minecraft.world.server.ServerBossInfo;
 
 import javax.annotation.Nullable;
 
-public class ExampleInvaderEntity extends Monster {
+public class ExampleInvaderEntity extends MonsterEntity {
     public boolean stopEveryAnimations = false;
     public boolean triggerQuitAnim = false;
     public int spawnCooldown = 84;
@@ -32,7 +32,7 @@ public class ExampleInvaderEntity extends Monster {
             BossInfo.Overlay.PROGRESS
     ).setDarkenScreen(true);
 
-    protected ExampleInvaderEntity(EntityType<? extends Monster> type, World worldIn) {
+    protected ExampleInvaderEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
         this.bossInfo.setVisible(false);
     }
@@ -56,7 +56,7 @@ public class ExampleInvaderEntity extends Monster {
                 return spawnCooldown <= 0 && super.canContinueToUse();
             }
         });
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
 
         this.goalSelector.addGoal(3, new WaterAvoidingRandomWalkingGoal(this, 1.0D) {
             @Override
@@ -65,7 +65,7 @@ public class ExampleInvaderEntity extends Monster {
             }
         });
 
-        this.goalSelector.addGoal(4, new LookAtGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(4, new LookAtGoal(this, PlayerEntity.class, 8.0F));
     }
 
     @Override
@@ -85,10 +85,10 @@ public class ExampleInvaderEntity extends Monster {
         }
 
         if (!this.level.isClientSide && this.tickCount % 20 == 0) {
-            this.level.getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(30))
+            this.level.getEntitiesOfClass(PlayerEntity.class, this.getBoundingBox().inflate(30))
                     .forEach(player -> {
-                        player.addEffect(new MobEffectInstance(
-                                MobEffects.GLOWING,
+                        player.addEffect(new EffectInstance(
+                                Effects.GLOWING,
                                 30,
                                 0,
                                 false,
@@ -110,7 +110,7 @@ public class ExampleInvaderEntity extends Monster {
             }
         }
         boolean playerNearby = !this.level.getEntitiesOfClass(
-                Player.class,
+                PlayerEntity.class,
                 this.getBoundingBox().inflate(10)
         ).isEmpty();
 
@@ -150,7 +150,7 @@ public class ExampleInvaderEntity extends Monster {
     }
 
     @Override
-    public void setCustomName(@Nullable Component name) {
+    public void setCustomName(@Nullable ITextComponent name) {
         super.setCustomName(name);
         this.bossInfo.setName(this.getDisplayName());
     }
@@ -207,8 +207,8 @@ public class ExampleInvaderEntity extends Monster {
         super.setGlowing(p_184195_1_);
     }
 
-    public static AttributeSupplier.MutableAttribute createAttributes() {
-        return Mob.createMobAttributes()
+    public static AttributeModifierMap.MutableAttribute createAttributes() {
+        return MobEntity.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 85.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.20D)
                 .add(Attributes.ATTACK_DAMAGE, 15.0D)

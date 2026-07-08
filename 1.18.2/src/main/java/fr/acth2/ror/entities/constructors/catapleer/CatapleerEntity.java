@@ -21,9 +21,9 @@ import net.minecraft.server.level.ServerLevel;
 
 import java.util.List;
 
-public class CatapleerEntity extends Monster {
+public class CatapleerEntity extends MonsterEntity {
 
-    public CatapleerEntity(EntityType<? extends Monster> type, World worldIn) {
+    public CatapleerEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
@@ -35,7 +35,7 @@ public class CatapleerEntity extends Monster {
         this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
 
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolemEntity.class, true));
     }
 
@@ -43,8 +43,8 @@ public class CatapleerEntity extends Monster {
     public void tick() {
         super.tick();
         if (!this.level.isClientSide) {
-            List<Player> players = this.level.getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(3.0D));
-            for (Player player : players) {
+            List<PlayerEntity> players = this.level.getEntitiesOfClass(PlayerEntity.class, this.getBoundingBox().inflate(3.0D));
+            for (PlayerEntity player : players) {
                 if (player.swinging && this.distanceToSqr(player) < 4.0D) {
                     ((ServerWorld) this.level).sendParticles(ParticleTypes.POOF, this.getX(), this.getY(), this.getZ(), 15, 0.5, 0.5, 0.5, 0.0);
                     this.remove();
@@ -64,7 +64,7 @@ public class CatapleerEntity extends Monster {
         boolean flag = super.doHurtTarget(target);
         if (flag) {
             if (target instanceof LivingEntity) {
-                ((LivingEntity) target).addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 75, 3));
+                ((LivingEntity) target).addEffect(new EffectInstance(Effects.WEAKNESS, 75, 3));
             }
             if (!this.level.isClientSide) {
                 handleDuplication();
@@ -108,8 +108,8 @@ public class CatapleerEntity extends Monster {
         super.setGlowing(p_184195_1_);
     }
 
-    public static AttributeSupplier.MutableAttribute createAttributes() {
-        return Mob.createMobAttributes()
+    public static AttributeModifierMap.MutableAttribute createAttributes() {
+        return MobEntity.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 3.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D)
                 .add(Attributes.ATTACK_DAMAGE, 2.0D)

@@ -47,14 +47,14 @@ public class CaveMonsterSpawnerSubscriber {
         }
         tickCounter = 0;
 
-        for (Player player : serverWorld.players()) {
+        for (PlayerEntity player : serverWorld.players()) {
             for (int i = 0; i < ATTEMPTS_PER_PLAYER; i++) {
                 trySpawnCaveMonsterNearPlayer(serverWorld, player);
             }
         }
     }
 
-    private static void trySpawnCaveMonsterNearPlayer(ServerWorld world, Player player) {
+    private static void trySpawnCaveMonsterNearPlayer(ServerWorld world, PlayerEntity player) {
         Random random = world.random;
         if (random.nextDouble() > SPAWN_CHANCE) {
             return;

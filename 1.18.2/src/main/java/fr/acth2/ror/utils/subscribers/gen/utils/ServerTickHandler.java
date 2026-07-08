@@ -12,7 +12,7 @@ public class ServerTickHandler {
 
     @SubscribeEvent
     public static void onWorldTick(TickEvent.WorldTickEvent event) {
-        if (event.phase == TickEvent.Phase.END && !event.level.isClientSide) {
+        if (event.phase == TickEvent.Phase.END && !event.world.isClientSide) {
             if (event.world instanceof ISeedReader) {
                 lastWorld = (ISeedReader) event.world;
             }

@@ -20,9 +20,9 @@ import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 
-public class WoodFallSolidierEntity extends Monster {
+public class WoodFallSolidierEntity extends MonsterEntity {
 
-    protected WoodFallSolidierEntity(EntityType<? extends Monster> type, World worldIn) {
+    protected WoodFallSolidierEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
@@ -32,7 +32,7 @@ public class WoodFallSolidierEntity extends Monster {
     }
 
     protected void registerGoals() {
-        this.goalSelector.addGoal(8, new LookAtGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 8.0F));
         this.addBehaviourGoals();
     }
 
@@ -43,7 +43,7 @@ public class WoodFallSolidierEntity extends Monster {
         this.goalSelector.addGoal(7, new WaterAvoidingRandomWalkingGoal(this, 1.0D) {
         });
 
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal(this, Player.class, true) {
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal(this, PlayerEntity.class, true) {
         });
 
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolemEntity.class, true));
@@ -94,8 +94,8 @@ public class WoodFallSolidierEntity extends Monster {
         super.setGlowing(p_184195_1_);
     }
 
-    public static AttributeSupplier.MutableAttribute createAttributes() {
-        return Mob.createMobAttributes()
+    public static AttributeModifierMap.MutableAttribute createAttributes() {
+        return MobEntity.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 35.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.40D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.25D)
@@ -106,7 +106,7 @@ public class WoodFallSolidierEntity extends Monster {
     public boolean doHurtTarget(Entity target) {
         boolean flag = super.doHurtTarget(target);
         if (flag && target instanceof LivingEntity) {
-            ((LivingEntity) target).addEffect(new MobEffectInstance(MobEffects.POISON, 75, 0));
+            ((LivingEntity) target).addEffect(new EffectInstance(Effects.POISON, 75, 0));
         }
         return flag;
     }

@@ -9,7 +9,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
 
-public abstract class WaterMonsterEntity extends Monster {
+public abstract class WaterMonsterEntity extends MonsterEntity {
     protected WaterMonsterEntity(EntityType<? extends WaterMonsterEntity> p_i48565_1_, World p_i48565_2_) {
         super(p_i48565_1_, p_i48565_2_);
         this.setPathfindingMalus(PathNodeType.WATER, 0.0F);
@@ -31,7 +31,7 @@ public abstract class WaterMonsterEntity extends Monster {
         return 120;
     }
 
-    protected int getExperienceReward(Player p_70693_1_) {
+    protected int getExperienceReward(PlayerEntity p_70693_1_) {
         return 1 + this.level.random.nextInt(3);
     }
 
@@ -58,7 +58,7 @@ public abstract class WaterMonsterEntity extends Monster {
         return false;
     }
 
-    public boolean canBeLeashed(Player p_184652_1_) {
+    public boolean canBeLeashed(PlayerEntity p_184652_1_) {
         return false;
     }
 }

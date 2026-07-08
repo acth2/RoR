@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.entity.TickingBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.core.BlockPos;
 
-public class VesselPlacerTileEntity extends BlockEntity implements TickingBlockEntity {
+public class VesselPlacerTileEntity extends TileEntity implements ITickableTileEntity {
 
     public VesselPlacerTileEntity() {
         super(ModTileEntities.VESSEL_PLACER_TILE_ENTITY.get());

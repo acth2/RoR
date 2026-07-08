@@ -26,8 +26,8 @@ public class InfraniumArmor extends ArmorItem {
     }
 
     @Override
-    public void onArmorTick(ItemStack stack, World world, Player player) {
-        if (!level.isClientSide) {
+    public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
+        if (!world.isClientSide) {
             boolean isInOverworld = world.dimension().location().getPath().equals("overworld");
             boolean isModifierApplied = stack.getOrCreateTag().getBoolean(MODIFIER_APPLIED_KEY);
 
@@ -48,9 +48,9 @@ public class InfraniumArmor extends ArmorItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable World world, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(new TextComponent(ChatFormatting.AQUA + "Powerful against Overworld creatures"));
-        tooltip.add(new TextComponent(ChatFormatting.GRAY + "Despite being pretty weak against other realms creatures"));
+    public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
+        tooltip.add(new StringTextComponent(TextFormatting.AQUA + "Powerful against Overworld creatures"));
+        tooltip.add(new StringTextComponent(TextFormatting.GRAY + "Despite being pretty weak against other realms creatures"));
         super.appendHoverText(stack, world, tooltip, flag);
     }
 }

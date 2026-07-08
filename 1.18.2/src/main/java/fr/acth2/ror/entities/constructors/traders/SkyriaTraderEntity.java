@@ -32,7 +32,7 @@ public class SkyriaTraderEntity extends CreatureEntity {
         this.goalSelector.addGoal(0, new SwimGoal(this));
         this.goalSelector.addGoal(8, new PanicGoal(this, 1.75D));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
-        this.goalSelector.addGoal(6, new LookAtGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 6.0F));
         this.goalSelector.addGoal(7, new LookRandomlyGoal(this));
         this.goalSelector.addGoal(9, new RandomWalkingGoal(this, 2.0D));
     }
@@ -61,13 +61,13 @@ public class SkyriaTraderEntity extends CreatureEntity {
     }
 
     @Override
-    public InteractionResult interactAt(Player player, Vector3d p_184199_2_, Hand hand) {
+    public ActionResultType interactAt(PlayerEntity player, Vector3d p_184199_2_, Hand hand) {
         if (!this.level.isClientSide) {
-            return InteractionResult.SUCCESS;
+            return ActionResultType.SUCCESS;
         }
 
         Minecraft.getInstance().setScreen(new SkyriaTraderSpeech(player));
-        return InteractionResult.SUCCESS;
+        return ActionResultType.SUCCESS;
     }
 
     @Override
@@ -80,8 +80,8 @@ public class SkyriaTraderEntity extends CreatureEntity {
         super.setGlowing(p_184195_1_);
     }
 
-    public static AttributeSupplier.MutableAttribute createAttributes() {
-        return Mob.createMobAttributes()
+    public static AttributeModifierMap.MutableAttribute createAttributes() {
+        return MobEntity.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 20.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.15D)
                 .add(Attributes.ATTACK_DAMAGE, 0.0D);

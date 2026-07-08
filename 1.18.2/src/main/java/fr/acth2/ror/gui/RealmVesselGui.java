@@ -14,7 +14,7 @@ import net.minecraft.util.text.*;
 
 public class RealmVesselGui extends Screen {
 
-    private static Player player;
+    private static PlayerEntity player;
     private ItemStack realmVesselItem;
     private float zoomLevel = 1.0f;
     private final float minZoom = 0.5f;
@@ -41,8 +41,8 @@ public class RealmVesselGui extends Screen {
     private float currentImageFadeAlpha = 1.0f;
     private Hand hand;
 
-    public RealmVesselGui(Player player, ItemStack realmVesselItem, Hand hand) {
-        super(new TextComponent("Realm Vessel"));
+    public RealmVesselGui(PlayerEntity player, ItemStack realmVesselItem, Hand hand) {
+        super(new StringTextComponent("Realm Vessel"));
         RealmVesselGui.player = player;
         this.realmVesselItem = realmVesselItem;
         this.hand = hand;
@@ -223,16 +223,16 @@ public class RealmVesselGui extends Screen {
     }
 
     private void drawImageTooltip(MatrixStack matrixStack, int mouseX, int mouseY, String realmName, String realmDescription, ResourceLocation dimension, boolean hasAccess) {
-        java.util.List<Component> tooltip = new java.util.ArrayList<>();
+        java.util.List<ITextComponent> tooltip = new java.util.ArrayList<>();
 
         String readableDescription;
 
         if (hasAccess) {
             readableDescription = obfuscateText("Click to select " + realmName + " for the Realm Vessel", currentImageFadeAlpha);
-            tooltip.add(new TextComponent(readableDescription).withStyle(ChatFormatting.GRAY));
+            tooltip.add(new StringTextComponent(readableDescription).withStyle(TextFormatting.GRAY));
         } else {
             readableDescription = obfuscateText("To select " + realmName + ", " + realmDescription, currentImageFadeAlpha);
-            tooltip.add(new TextComponent(readableDescription).withStyle(ChatFormatting.GRAY));
+            tooltip.add(new StringTextComponent(readableDescription).withStyle(TextFormatting.GRAY));
         }
 
         if (realmVesselItem != null && realmVesselItem.hasTag()) {
@@ -240,9 +240,9 @@ public class RealmVesselGui extends Screen {
             if (nbt.contains("SelectedDimension")) {
                 String selectedDim = nbt.getString("SelectedDimension");
                 if (selectedDim.equals(dimension.toString())) {
-                    tooltip.add(new TextComponent(""));
+                    tooltip.add(new StringTextComponent(""));
                     String currentRealmText = obfuscateText("Currently selected for this Realm Vessel", currentImageFadeAlpha);
-                    tooltip.add(new TextComponent(currentRealmText).withStyle(ChatFormatting.AQUA));
+                    tooltip.add(new StringTextComponent(currentRealmText).withStyle(TextFormatting.AQUA));
                 }
             }
         }
@@ -302,7 +302,7 @@ public class RealmVesselGui extends Screen {
                 if (overworldClicked) {
                     if (player != null) {
                         setSelectedDimension(OVERWORLD);
-                        player.sendSystemMessage(new TextComponent("Selected Overworld for the Realm Vessel"), player.getUUID());
+                        player.sendMessage(new StringTextComponent("Selected Overworld for the Realm Vessel"), player.getUUID());
                     }
                     this.minecraft.setScreen(null);
                     return true;
@@ -315,7 +315,7 @@ public class RealmVesselGui extends Screen {
                             grantSkyriaAccess();
                         }
                         setSelectedDimension(SKYRIA);
-                        player.sendSystemMessage(new TextComponent("Selected Skyria for the Realm Vessel"), player.getUUID());
+                        player.sendMessage(new StringTextComponent("Selected Skyria for the Realm Vessel"), player.getUUID());
                         this.minecraft.setScreen(null);
                         return true;
                     } else {
@@ -336,8 +336,8 @@ public class RealmVesselGui extends Screen {
     private void setSelectedDimension(ResourceLocation dimension) {
         if (realmVesselItem != null && player != null && hand != null) {
             String dimensionName = getDimensionName(dimension.toString());
-            ChatFormatting color = dimensionName.equals("Skyria") ? ChatFormatting.AQUA : ChatFormatting.GREEN;
-            realmVesselItem.setHoverName(new TextComponent("Realm Vessel: " + dimensionName).withStyle(color));
+            TextFormatting color = dimensionName.equals("Skyria") ? TextFormatting.AQUA : TextFormatting.GREEN;
+            realmVesselItem.setHoverName(new StringTextComponent("Realm Vessel: " + dimensionName).withStyle(color));
 
             CompoundNBT nbt = realmVesselItem.getOrCreateTag();
             nbt.putString("SelectedDimension", dimension.toString());
@@ -373,7 +373,7 @@ public class RealmVesselGui extends Screen {
         return nbt.getBoolean("HasSkyriaAccess");
     }
 
-    private boolean checkSkyriaConditions(Player player) {
+    private boolean checkSkyriaConditions(PlayerEntity player) {
         return player != null && player.getY() >= 100.0;
     }
 

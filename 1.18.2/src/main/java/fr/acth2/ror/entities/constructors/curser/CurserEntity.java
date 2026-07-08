@@ -19,9 +19,9 @@ import net.minecraft.world.level.Level;
 import javax.annotation.Nullable;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class CurserEntity extends Monster {
+public class CurserEntity extends MonsterEntity {
 
-    protected CurserEntity(EntityType<? extends Monster> type, World worldIn) {
+    protected CurserEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
@@ -34,10 +34,10 @@ public class CurserEntity extends Monster {
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new SwimGoal(this));
 
-        this.goalSelector.addGoal(6, new LookAtGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.addGoal(6, new LookRandomlyGoal(this));
 
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
 
     }
@@ -108,8 +108,8 @@ public class CurserEntity extends Monster {
         super.setGlowing(p_184195_1_);
     }
 
-    public static AttributeSupplier.MutableAttribute createAttributes() {
-        return Mob.createMobAttributes()
+    public static AttributeModifierMap.MutableAttribute createAttributes() {
+        return MobEntity.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 1.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.00D)
                 .add(Attributes.ATTACK_DAMAGE, 0.0D);
@@ -120,7 +120,7 @@ public class CurserEntity extends Monster {
     public boolean isPlayerWithin10Blocks() {
         boolean playerInRange = false;
 
-        for (Player player : this.level.players()) {
+        for (PlayerEntity player : this.level.players()) {
             double distance = this.distanceTo(player);
 
             if (distance <= 10.0D) {
@@ -128,12 +128,12 @@ public class CurserEntity extends Monster {
                 this.setGlowing(true);
 
                 if (isCursingOnce.getAndSet(false)) {
-                    player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 75, 1, false, true));
-                    player.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 75, 1, false, true));
+                    player.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 75, 1, false, true));
+                    player.addEffect(new EffectInstance(Effects.WEAKNESS, 75, 1, false, true));
                 }
             } else {
-                player.removeEffect(MobEffects.WEAKNESS);
-                player.removeEffect(MobEffects.MOVEMENT_SLOWDOWN);
+                player.removeEffect(Effects.WEAKNESS);
+                player.removeEffect(Effects.MOVEMENT_SLOWDOWN);
                 this.setGlowing(false);
                 isCursingOnce.set(true);
             }

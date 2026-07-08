@@ -664,5 +664,26 @@
     "sounds": [
       "ror:portal"
     ]
+  },
+  "creckon_ambient": {
+    "category": "hostile",
+    "subtitle": "ror.creckon_ambient",
+    "sounds": [
+      "ror:creckon_ambient"
+    ]
+  },
+  "creckon_hit": {
+    "category": "hostile",
+    "subtitle": "ror.creckon_hit",
+    "sounds": [
+      "ror:creckon_hit"
+    ]
+  },
+  "creckon_die": {
+    "category": "hostile",
+    "subtitle": "ror.creckon_die",
+    "sounds": [
+      "ror:creckon_die"
+    ]
   }
 }

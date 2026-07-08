@@ -342,7 +342,6 @@ public class RealmVesselGui extends Screen {
             CompoundNBT nbt = realmVesselItem.getOrCreateTag();
             nbt.putString("SelectedDimension", dimension.toString());
 
-            // If selecting Skyria, also grant permanent access
             if (dimension.equals(SKYRIA)) {
                 nbt.putBoolean("HasSkyriaAccess", true);
             }

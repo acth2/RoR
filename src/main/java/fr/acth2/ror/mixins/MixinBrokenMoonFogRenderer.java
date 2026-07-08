@@ -38,7 +38,6 @@ public abstract class MixinBrokenMoonFogRenderer {
         ClientWorld world = Minecraft.getInstance().level;
 
         if (world != null) {
-            // Check server-side event status instead of client-side random
             if (References.isBrokenMoonActive(world)) {
                 args.set(0, 1.0F);
                 args.set(1, 0.5F);

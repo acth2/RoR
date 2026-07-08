@@ -13,6 +13,7 @@ import fr.acth2.ror.entities.entity.cg.EntityCoinGiver;
 import fr.acth2.ror.entities.entity.clucker.EntityClucker;
 import fr.acth2.ror.entities.entity.copier.EntityCopier;
 import fr.acth2.ror.entities.entity.corrupted.EntityCorrupted;
+import fr.acth2.ror.entities.entity.creckon.EntityCreckon;
 import fr.acth2.ror.entities.entity.curser.EntityCurser;
 import fr.acth2.ror.entities.entity.despiter.EntityDespiter;
 import fr.acth2.ror.entities.entity.echo.EntityEcho;
@@ -329,6 +330,12 @@ public class ModEntities {
             EntityType.Builder.<EntityRadiumMimesis>of(EntityRadiumMimesis::new, EntityClassification.CREATURE)
                     .sized(1.0F, 1.2F)
                     .build("radium_mimesis")
+    );
+
+    public static final RegistryObject<EntityType<EntityCreckon>> CRECKON = ENTITY_TYPES.register("creckon", () ->
+            EntityType.Builder.<EntityCreckon>of(EntityCreckon::new, EntityClassification.CREATURE)
+                    .sized(1.0F, 1.4F)
+                    .build("grasser")
     );
 
     public static void register(IEventBus modEventBus) {

@@ -42,18 +42,14 @@ public class PortalScanner {
             return ewResult;
         }
 
-        return ScanResult.failure(nsResult.error); // Return the N-S error by default
+        return ScanResult.failure(nsResult.error);
     }
 
     private static ScanResult scanNorthSouth(World world, BlockPos vesselPos) {
-        // A North-South aligned structure has its longest side along the Z-axis.
-        // This means the portal opening also runs along the Z-axis.
         return checkStructure(world, vesselPos, 2, 4, Direction.Axis.Z);
     }
 
     private static ScanResult scanEastWest(World world, BlockPos vesselPos) {
-        // An East-West aligned structure has its longest side along the X-axis.
-        // This means the portal opening also runs along the X-axis.
         return checkStructure(world, vesselPos, 4, 2, Direction.Axis.X);
     }
 
@@ -62,7 +58,6 @@ public class PortalScanner {
         Block powerContainer = ModBlocks.POWER_CONTAINER.get();
         BlockPos baseCenter = vesselPos.below();
 
-        // Base Ring
         for (int i = -2; i <= 2; i++) {
             BlockPos hPos = baseCenter.offset(i, 0, 0);
             if (!world.getBlockState(hPos).is(remnant)) return ScanResult.failure("Missing realm_remnant at " + hPos);
@@ -70,7 +65,6 @@ public class PortalScanner {
             if (!world.getBlockState(vPos).is(remnant)) return ScanResult.failure("Missing realm_remnant at " + vPos);
         }
 
-        // Pillars
         BlockPos[] pillarBases = {
             vesselPos.offset(-xPillarOffset, -1, -zPillarOffset),
             vesselPos.offset(xPillarOffset, -1, -zPillarOffset),

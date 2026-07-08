@@ -160,13 +160,12 @@ public class AbyssariaGenerator extends ChunkGenerator {
                     }
 
                     if (bridge != Bridge.EMPTY) {
-                        //RANDOM ICI
                         for (int i = 0; i < 7; i++) {
                             int currentY = yp;
                             if (i >= 2) currentY--;
                             if (i >= 4) currentY--;
 
-                            BlockPos bridgePos = null;
+                            BlockPos bridgePos   = null;
 
                             switch (bridge) {
                                 case LEFT:

@@ -301,6 +301,15 @@ public class ModSoundEvents {
     public static final RegistryObject<SoundEvent> PORTAL_SOUND =
             registerSoundEvent("portal");
 
+    public static final RegistryObject<SoundEvent> CRECKON_DIE =
+            registerSoundEvent("creckon_die");
+
+    public static final RegistryObject<SoundEvent> CRECKON_HIT =
+            registerSoundEvent("creckon_hit");
+
+    public static final RegistryObject<SoundEvent> CRECKON_AMBIENT =
+            registerSoundEvent("creckon_ambient");
+
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         return SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(References.MODID, name)));
     }

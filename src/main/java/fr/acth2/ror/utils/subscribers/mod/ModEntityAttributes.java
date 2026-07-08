@@ -13,6 +13,7 @@ import fr.acth2.ror.entities.constructors.cg.CoinGiverEntity;
 import fr.acth2.ror.entities.constructors.clucker.CluckerEntity;
 import fr.acth2.ror.entities.constructors.copier.CopierEntity;
 import fr.acth2.ror.entities.constructors.corrupted.CorruptedEntity;
+import fr.acth2.ror.entities.constructors.creckon.CreckonEntity;
 import fr.acth2.ror.entities.constructors.curser.CurserEntity;
 import fr.acth2.ror.entities.constructors.despiter.DespiterEntity;
 import fr.acth2.ror.entities.constructors.echo.EchoEntity;
@@ -99,5 +100,6 @@ public class ModEntityAttributes {
         event.put(ModEntities.SPYING.get(), SpyingEntity.createAttributes().build());
         event.put(ModEntities.CATAPLEER.get(), CatapleerEntity.createAttributes().build());
         event.put(ModEntities.RADIUM_MIMESIS.get(), RadiumMimesisEntity.createAttributes().build());
+        event.put(ModEntities.CRECKON.get(), CreckonEntity.createAttributes().build());
     }
 }

@@ -86,9 +86,4 @@ public class PortalTravelHandler {
         }
         return null;
     }
-
-    @SubscribeEvent
-    public static void onPlayerChangedDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
-        // This logic is now handled by the teleporter itself.
-    }
 }

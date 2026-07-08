@@ -6,13 +6,18 @@
 				"identifier": "geometry.creckon",
 				"texture_width": 128,
 				"texture_height": 128,
-				"visible_bounds_width": 3,
+				"visible_bounds_width": 4,
 				"visible_bounds_height": 2.5,
 				"visible_bounds_offset": [0, 0.75, 0]
 			},
 			"bones": [
 				{
+					"name": "bone17",
+					"pivot": [-2.5625, 9.625, -1.4375]
+				},
+				{
 					"name": "bone3",
+					"parent": "bone17",
 					"pivot": [-7.5, 7.5, -8.5],
 					"rotation": [0, 25, 0]
 				},
@@ -34,6 +39,7 @@
 				},
 				{
 					"name": "bone4",
+					"parent": "bone17",
 					"pivot": [5.5, 7.5, -8.5],
 					"rotation": [0, -25, 0]
 				},
@@ -55,6 +61,7 @@
 				},
 				{
 					"name": "bone15",
+					"parent": "bone17",
 					"pivot": [-7.5, 7.5, 7.5],
 					"rotation": [0, 180, 0]
 				},
@@ -104,6 +111,7 @@
 				},
 				{
 					"name": "bone16",
+					"parent": "bone17",
 					"pivot": [-0.75, 16, 3.75]
 				},
 				{

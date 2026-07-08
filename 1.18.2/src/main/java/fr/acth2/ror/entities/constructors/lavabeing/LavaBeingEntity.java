@@ -19,7 +19,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;

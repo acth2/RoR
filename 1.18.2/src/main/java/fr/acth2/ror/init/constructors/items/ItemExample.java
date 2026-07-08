@@ -29,7 +29,7 @@ public class ItemExample extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> use(World world, Player player, InteractionHand InteractionHand) {
+    public ActionResult<ItemStack> use(World world, Player player, Hand hand) {
         if (!level.isClientSide()) {
             ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
             ResourceLocation dimensionRL = new ResourceLocation(References.MODID, "ed");
@@ -45,7 +45,7 @@ public class ItemExample extends Item {
                 serverPlayer.sendMessage(new TextComponent("a mistake has been made in the code, send log to discord."), serverPlayer.getUUID());
             }
         }
-        return ActionResult.success(player.getItemInHand(InteractionHand));
+        return ActionResult.success(player.getItemInHand(hand));
     }
 
     @Override

@@ -16,7 +16,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.BlockGetter;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -33,13 +33,13 @@ public class VesselPlacer extends Block {
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(BlockState state, BlockGetter world) {
+    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
         return new VesselPlacerTileEntity();
     }
 
     @Override
-    public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player, InteractionHand InteractionHand, BlockRayTraceResult hit) {
-        ItemStack itemStack = player.getItemInHand(InteractionHand);
+    public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+        ItemStack itemStack = player.getItemInHand(hand);
 
         if (itemStack.getItem() == ModItems.REALMS_VESSEL.get()) {
             if (!world.isClientSide) {

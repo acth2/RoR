@@ -54,7 +54,7 @@ public class WorldParticleHandler {
             double z = player.getZ() + (RANDOM.nextDouble() - 0.5) * 16;
 
             BlockPos surfacePos = world.getHeightmapPos(
-                    net.minecraft.world.level.levelgen.Heightmap.Type.MOTION_BLOCKING,
+                    net.minecraft.world.gen.Heightmap.Type.MOTION_BLOCKING,
                     new BlockPos(x, 0, z)
             );
 

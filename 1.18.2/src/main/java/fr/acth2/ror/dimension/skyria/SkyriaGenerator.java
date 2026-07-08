@@ -5,29 +5,29 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import fr.acth2.ror.init.ModBlocks;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.core.Direction;
-import net.minecraft.world.level.block.Mirror;
+import net.minecraft.util.Mirror;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Rotation;
+import net.minecraft.util.Rotation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.MutableBoundingBox;
-import net.minecraft.core.RegistryAccess;
+import net.minecraft.util.registry.DynamicRegistries;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.IServerWorld;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.biome.BiomeManager;
-import net.minecraft.world.level.biome.BiomeSource;
-import net.minecraft.world.level.chunk.ChunkAccess;
-import net.minecraft.world.level.levelgen.*;
+import net.minecraft.world.biome.BiomeManager;
+import net.minecraft.world.biome.provider.BiomeProvider;
+import net.minecraft.world.chunk.IChunk;
+import net.minecraft.world.gen.*;
 import net.minecraft.world.gen.feature.BlockStateFeatureConfig;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.DecoratedFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.level.StructureManager;
+import net.minecraft.world.gen.feature.structure.StructureManager;
 import net.minecraft.world.gen.feature.structure.StructurePiece;
 import net.minecraft.world.gen.feature.template.*;
 
@@ -38,39 +38,39 @@ import java.util.Random;
 
 public class SkyriaGenerator extends ChunkGenerator {
     private static final Random RANDOM = new Random();
-    private final BiomeSource BiomeSource;
-    private final NoiseGeneratorSettings settings;
+    private final BiomeProvider biomeProvider;
+    private final DimensionSettings settings;
     private final long seed;
-    private final SimplexNoise islandNoise;
-    private final SimplexNoise detailNoise;
+    private final SimplexNoiseGenerator islandNoise;
+    private final SimplexNoiseGenerator detailNoise;
 
     public static final Codec<SkyriaGenerator> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
-                    BiomeSource.CODEC.fieldOf("biome_source").forGetter(SkyriaGenerator::getBiomeProvider),
-                    NoiseGeneratorSettings.CODEC.fieldOf("settings").forGetter(generator -> () -> generator.settings),
+                    BiomeProvider.CODEC.fieldOf("biome_source").forGetter(SkyriaGenerator::getBiomeProvider),
+                    DimensionSettings.CODEC.fieldOf("settings").forGetter(generator -> () -> generator.settings),
                     Codec.LONG.fieldOf("seed").forGetter(generator -> generator.seed)
-            ).apply(instance, (BiomeSource, settingsSupplier, seed) ->
-                    new SkyriaGenerator(BiomeSource, settingsSupplier.get(), seed)
+            ).apply(instance, (biomeProvider, settingsSupplier, seed) ->
+                    new SkyriaGenerator(biomeProvider, settingsSupplier.get(), seed)
             )
     );
 
 
-    public SkyriaGenerator(BiomeSource BiomeSource, NoiseGeneratorSettings settings, long seed) {
-        super(BiomeSource, settings.structureSettings());
-        this.BiomeSource = BiomeSource;
+    public SkyriaGenerator(BiomeProvider biomeProvider, DimensionSettings settings, long seed) {
+        super(biomeProvider, settings.structureSettings());
+        this.biomeProvider = biomeProvider;
         this.settings = settings;
         this.seed = seed;
-        this.islandNoise = new SimplexNoise(new Random(seed));
-        this.detailNoise = new SimplexNoise(new Random(seed + 1));
+        this.islandNoise = new SimplexNoiseGenerator(new Random(seed));
+        this.detailNoise = new SimplexNoiseGenerator(new Random(seed + 1));
     }
 
 
-    public BiomeSource getCustomBiomeProvider() {
-        return this.BiomeSource;
+    public BiomeProvider getCustomBiomeProvider() {
+        return this.biomeProvider;
     }
 
-    public BiomeSource getBiomeProvider() {
-        return this.BiomeSource;
+    public BiomeProvider getBiomeProvider() {
+        return this.biomeProvider;
     }
 
     @Override
@@ -84,7 +84,7 @@ public class SkyriaGenerator extends ChunkGenerator {
     }
 
     @Override
-    public BlockGetter getBaseColumn(int x, int z) {
+    public IBlockReader getBaseColumn(int x, int z) {
         return null;
     }
 
@@ -95,11 +95,11 @@ public class SkyriaGenerator extends ChunkGenerator {
 
     @Override
     public ChunkGenerator withSeed(long seed) {
-        return new SkyriaGenerator(this.BiomeSource.withSeed(seed), this.settings, seed);
+        return new SkyriaGenerator(this.biomeProvider.withSeed(seed), this.settings, seed);
     }
 
     @Override
-    public void buildSurface(WorldGenLevel region, IChunk chunk) {
+    public void buildSurfaceAndBedrock(WorldGenRegion region, IChunk chunk) {
         BlockPos.Mutable pos = new BlockPos.Mutable();
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++) {
@@ -291,12 +291,12 @@ public class SkyriaGenerator extends ChunkGenerator {
     }
 
     @Override
-    public void applyCarvers(long seed, BiomeManager biomeManager, IChunk chunk, GenerationStep.Carving carving) {}
+    public void applyCarvers(long seed, BiomeManager biomeManager, IChunk chunk, GenerationStage.Carving carving) {}
     @Override
-    public void createStructures(RegistryAccess registries, StructureManager structures, IChunk chunk,
+    public void createStructures(DynamicRegistries registries, StructureManager structures, IChunk chunk,
                                  TemplateManager templates, long seed) {}
     @Override
-    public void applyBiomeDecoration(WorldGenLevel p_230351_1_, StructureManager p_230351_2_) {}
+    public void applyBiomeDecoration(WorldGenRegion p_230351_1_, StructureManager p_230351_2_) {}
 
     private float getVerticalMultiplier(int y, int baseY, float radius) {
         if (y >= baseY) return 1.0f;

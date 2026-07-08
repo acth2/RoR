@@ -2,7 +2,7 @@ package fr.acth2.ror.gui.npc.traveler;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import fr.acth2.ror.gui.coins.CoinsManager;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;

@@ -15,7 +15,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;

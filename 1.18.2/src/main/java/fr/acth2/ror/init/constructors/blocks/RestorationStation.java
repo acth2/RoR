@@ -30,9 +30,9 @@ public class RestorationStation  extends Block {
     }
 
     @Override
-    public InteractionResult use(BlockState state, World world, BlockPos pos, Player player, InteractionHand InteractionHand, BlockHitResult hit) {
+    public InteractionResult use(BlockState state, World world, BlockPos pos, Player player, Hand hand, BlockHitResult hit) {
         if (!level.isClientSide) {
-            ItemStack heldStack = player.getItemInHand(InteractionHand);
+            ItemStack heldStack = player.getItemInHand(hand);
             if (!heldStack.isEmpty()) {
                 if (heldStack.getItem() instanceof RustedItem) {
                     if (player.experienceLevel >= 5) {
@@ -62,7 +62,7 @@ public class RestorationStation  extends Block {
     }
 
     @Override
-    public void appendHoverText(ItemStack p_190948_1_, @Nullable BlockGetter p_190948_2_, List<Component> p_190948_3_, TooltipFlag p_190948_4_) {
+    public void appendHoverText(ItemStack p_190948_1_, @Nullable IBlockReader p_190948_2_, List<Component> p_190948_3_, TooltipFlag p_190948_4_) {
         p_190948_3_.add(new TextComponent(ChatFormatting.DARK_GREEN + "This station can restore rusted items at cost of XP"));
         super.appendHoverText(p_190948_1_, p_190948_2_, p_190948_3_, p_190948_4_);
     }

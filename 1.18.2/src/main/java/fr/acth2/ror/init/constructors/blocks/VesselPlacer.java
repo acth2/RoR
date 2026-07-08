@@ -6,7 +6,7 @@ import fr.acth2.ror.init.ModItems;
 import fr.acth2.ror.init.constructors.blocks.tile.VesselPlacerTileEntity;
 import fr.acth2.ror.utils.subscribers.client.ModSoundEvents;
 import fr.acth2.ror.utils.subscribers.mod.PortalScanner;
-import net.minecraft.world.level.block.*;
+import net.minecraft.block.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -44,13 +44,13 @@ public class VesselPlacer extends Block {
 
     @Nullable
     @Override
-    public BlockEntity createTileEntity(BlockState state, BlockGetter world) {
+    public BlockEntity createTileEntity(BlockState state, IBlockReader world) {
         return new VesselPlacerTileEntity();
     }
 
     @Override
-    public InteractionResult use(BlockState state, World world, BlockPos pos, Player player, InteractionHand InteractionHand, BlockHitResult hit) {
-        ItemStack itemStack = player.getItemInHand(InteractionHand);
+    public InteractionResult use(BlockState state, World world, BlockPos pos, Player player, Hand hand, BlockHitResult hit) {
+        ItemStack itemStack = player.getItemInHand(hand);
 
         if (itemStack.getItem() == ModItems.REALMS_VESSEL.get()) {
             if (!level.isClientSide) {

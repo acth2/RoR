@@ -16,7 +16,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockGetter;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
@@ -54,7 +54,7 @@ public class AbyssalGlue extends Block {
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(BlockState state, BlockGetter world) {
+    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
         return new AbyssalGlueTileEntity();
     }
 

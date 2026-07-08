@@ -65,7 +65,7 @@ public class AbyssalGlue extends Block {
 
     @Nullable
     @Override
-    public BlockEntity createTileEntity(BlockState state, BlockGetter world) {
+    public BlockEntity createTileEntity(BlockState state, IBlockReader world) {
         return new AbyssalGlueTileEntity();
     }
 

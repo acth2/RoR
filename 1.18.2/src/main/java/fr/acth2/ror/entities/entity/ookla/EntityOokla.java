@@ -4,7 +4,7 @@ import fr.acth2.ror.entities.constructors.curser.CurserEntity;
 import fr.acth2.ror.entities.constructors.ookla.OoklaEntity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.level.Level;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;

@@ -8,7 +8,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.InteractionHand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.*;
 
@@ -39,13 +39,13 @@ public class RealmVesselGui extends Screen {
     private long errorDisplayTime = 0;
     private static final long ERROR_DISPLAY_DURATION = 2000;
     private float currentImageFadeAlpha = 1.0f;
-    private InteractionHand InteractionHand;
+    private Hand hand;
 
-    public RealmVesselGui(PlayerEntity player, ItemStack realmVesselItem, InteractionHand InteractionHand) {
+    public RealmVesselGui(PlayerEntity player, ItemStack realmVesselItem, Hand hand) {
         super(new StringTextComponent("Realm Vessel"));
         RealmVesselGui.player = player;
         this.realmVesselItem = realmVesselItem;
-        this.InteractionHand = InteractionHand;
+        this.hand = hand;
     }
 
     @Override
@@ -334,7 +334,7 @@ public class RealmVesselGui extends Screen {
     }
 
     private void setSelectedDimension(ResourceLocation dimension) {
-        if (realmVesselItem != null && player != null && InteractionHand != null) {
+        if (realmVesselItem != null && player != null && hand != null) {
             String dimensionName = getDimensionName(dimension.toString());
             TextFormatting color = dimensionName.equals("Skyria") ? TextFormatting.AQUA : TextFormatting.GREEN;
             realmVesselItem.setHoverName(new StringTextComponent("Realm Vessel: " + dimensionName).withStyle(color));
@@ -349,7 +349,7 @@ public class RealmVesselGui extends Screen {
             realmVesselItem.setTag(nbt);
 
             System.out.println("Client updated Realm Vessel to: " + dimensionName);
-            ModNetworkHandler.INSTANCE.sendToServer(new DimensionSyncPacket(dimension.toString(), InteractionHand));
+            ModNetworkHandler.INSTANCE.sendToServer(new DimensionSyncPacket(dimension.toString(), hand));
 
             this.minecraft.setScreen(null);
         }

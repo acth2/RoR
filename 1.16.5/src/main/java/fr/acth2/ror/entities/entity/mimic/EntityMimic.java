@@ -9,12 +9,12 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.InteractionHand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.Explosion;
-import net.minecraft.world.BlockGetter;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -74,7 +74,7 @@ public class EntityMimic extends MimicEntity implements IAnimatable {
     }
 
     @Override
-    public ActionResultType interactAt(PlayerEntity player, Vector3d vec, InteractionHand InteractionHand) {
+    public ActionResultType interactAt(PlayerEntity player, Vector3d vec, Hand hand) {
         if (!this.isAwake()) {
             this.wasRightClicked = true;
             this.activate();
@@ -84,7 +84,7 @@ public class EntityMimic extends MimicEntity implements IAnimatable {
 
             return ActionResultType.SUCCESS;
         }
-        return super.interactAt(player, vec, InteractionHand);
+        return super.interactAt(player, vec, hand);
     }
 
 

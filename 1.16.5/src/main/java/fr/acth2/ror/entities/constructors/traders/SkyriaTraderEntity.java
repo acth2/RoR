@@ -61,7 +61,7 @@ public class SkyriaTraderEntity extends CreatureEntity {
     }
 
     @Override
-    public ActionResultType interactAt(PlayerEntity player, Vector3d p_184199_2_, InteractionHand InteractionHand) {
+    public ActionResultType interactAt(PlayerEntity player, Vector3d p_184199_2_, Hand hand) {
         if (!this.level.isClientSide) {
             return ActionResultType.SUCCESS;
         }

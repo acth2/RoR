@@ -7,7 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.InteractionHand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.*;
 import net.minecraft.world.World;
@@ -50,7 +50,7 @@ public class AvariceSword extends Item {
         }
 
         stack.hurtAndBreak(1, attacker, (entity) -> {
-            entity.broadcastBreakEvent(InteractionHand.MAIN_HAND);
+            entity.broadcastBreakEvent(Hand.MAIN_HAND);
         });
 
         return true;

@@ -7,7 +7,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.InteractionHand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
@@ -29,7 +29,7 @@ public class ItemExample extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> use(World world, PlayerEntity player, InteractionHand InteractionHand) {
+    public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
         if (!world.isClientSide()) {
             ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
             ResourceLocation dimensionRL = new ResourceLocation(References.MODID, "ed");
@@ -45,7 +45,7 @@ public class ItemExample extends Item {
                 serverPlayer.sendMessage(new StringTextComponent("a mistake has been made in the code, send log to discord."), serverPlayer.getUUID());
             }
         }
-        return ActionResult.success(player.getItemInHand(InteractionHand));
+        return ActionResult.success(player.getItemInHand(hand));
     }
 
     @Override

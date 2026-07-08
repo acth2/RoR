@@ -370,9 +370,9 @@ public class ModEntities {
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CLUCKER, 100, Blocks.SAND));
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CURSER, 1, Blocks.RED_SAND));
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CURSER, 1, Blocks.TERRACOTTA));
-        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(GHOST, 45, null));
+        //NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(GHOST, 45, null));
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(AQUAMARIN, 100, Blocks.WATER));
-        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(SILKER, 50, null));
+        //NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(SILKER, 50, null));
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(MAJOR_WICKED, 25, Blocks.STONE));
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(RIFT, 24, null));
 

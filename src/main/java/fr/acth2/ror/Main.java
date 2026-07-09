@@ -109,6 +109,8 @@ public class Main implements IMixinConnector {
 
     private void onServerStarting(FMLServerStartingEvent event) {
         DiaryManager.initialize(event.getServer().getServerDirectory());
+
+        ModEntities.registerSpawnInstructions();
     }
 
     @Override

@@ -47,6 +47,7 @@ import fr.acth2.ror.entities.entity.woodfall.solider.EntityWoodFallSolider;
 import fr.acth2.ror.entities.entity.ws.EntityWoodSpirit;
 import fr.acth2.ror.init.constructors.throwable.entiity.WickedProjectile;
 import fr.acth2.ror.utils.References;
+import fr.acth2.ror.utils.subscribers.gen.abyssaria.AbyssariaMonsterSpawnerSubscriber;
 import fr.acth2.ror.utils.subscribers.gen.overworld.*;
 import fr.acth2.ror.utils.subscribers.gen.skyria.SkyriaMonsterSpawnerSubscriber;
 import fr.acth2.ror.utils.subscribers.gen.utils.MobSpawnData;
@@ -340,9 +341,9 @@ public class ModEntities {
 
     public static void register(IEventBus modEventBus) {
         ModEntities.ENTITY_TYPES.register(modEventBus);
+    }
 
-        // OVERWORLD
-
+    public static void registerSpawnInstructions() {
         // DAY MONSTER GENERATION
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(HOPPER, 85, null));
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(GRASSER, 65, Blocks.GRASS_BLOCK));
@@ -370,9 +371,9 @@ public class ModEntities {
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CLUCKER, 100, Blocks.SAND));
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CURSER, 1, Blocks.RED_SAND));
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CURSER, 1, Blocks.TERRACOTTA));
-        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(GHOST, 45, null));
+        //NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(GHOST, 45, null));
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(AQUAMARIN, 100, Blocks.WATER));
-        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(SILKER, 50, null));
+        //NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(SILKER, 50, null));
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(MAJOR_WICKED, 25, Blocks.STONE));
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(RIFT, 24, null));
 
@@ -381,7 +382,7 @@ public class ModEntities {
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL_SOLIDER, 100, Blocks.LILY_PAD));
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL_SOLIDER, 100, Blocks.VINE));
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(WOODFALL_SOLIDER, 100, Blocks.MOSSY_COBBLESTONE));
-        NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(OOKLA, 25, null));
+        //NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(OOKLA, 25, null));
         NightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(BAD_OMEN, 1, Blocks.AIR));
 
         // CAVE MONSTER GENERATION
@@ -411,6 +412,9 @@ public class ModEntities {
         SkyriaMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(FLYER, 50, null));
         SkyriaMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(AXIS, 25, null));
         SkyriaMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(SKYDER, 50, null));
+
+        //ABYSSARIA
+        AbyssariaMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(CRECKON, 50, ModBlocks.ABYSSAL_STONE.get()));
 
         // BLOOD SUN
         DaylightMonsterSpawnerSubscriber.mobListLV1.add(new MobSpawnData(BLOOD_INFECTIONER, 100, null, 1));

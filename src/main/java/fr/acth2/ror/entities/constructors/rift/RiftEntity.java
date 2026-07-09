@@ -64,7 +64,7 @@ public class RiftEntity extends CreatureEntity {
     public void tick() {
         super.tick();
         if (!this.level.isClientSide) {
-            if (this.lifeTime++ >= 1200) {
+            if (this.lifeTime++ >= 1200 || this.level.isDay()) {
                 this.remove();
                 return;
             }
@@ -97,7 +97,7 @@ public class RiftEntity extends CreatureEntity {
     }
 
     public int getAmbientSoundInterval() {
-        return 240;
+        return 512;
     }
 
     @Override
